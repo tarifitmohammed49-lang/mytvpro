@@ -1,0 +1,33 @@
+name: Simo Sniper - beIN Arabic Auto Update
+
+on:
+  schedule:
+    # سيقوم الأكشن بالعمل تلقائياً كل ساعة (00:00, 01:00, إلخ) [cite: 2026-03-01]
+    - cron: '0 * * * *'
+  workflow_dispatch: # يتيح لك تشغيله يدوياً وقتما تشاء
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python_version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Sniper Script
+        run: python sniper_script.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add links.json
+          git commit -m "Update beIN Token Links [Scheduled]" || exit 0
+          git push
