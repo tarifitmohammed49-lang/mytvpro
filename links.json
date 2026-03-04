@@ -1,22 +1,17 @@
 [
     {
         "name": "beIN Sports 1",
-        "url": "https://example.com/live1.m3u8",
+        "url": "https://example.com/bein1.m3u8",
         "lang": "AR"
     },
     {
-        "name": "beIN Sports 2",
-        "url": "https://example.com/live2.m3u8",
-        "lang": "AR"
-    },
-    {
-        "name": "NOS Sport",
-        "url": "https://example.com/nl1.m3u8",
+        "name": "NOS Sport (NL)",
+        "url": "https://example.com/nos_nl.m3u8",
         "lang": "NL"
     },
     {
-        "name": "TF1 France",
-        "url": "https://example.com/fr1.m3u8",
+        "name": "TF1 France (FR)",
+        "url": "https://example.com/tf1_fr.m3u8",
         "lang": "FR"
     }
 ]
