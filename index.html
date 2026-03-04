@@ -66,7 +66,7 @@
     <div id="videoPlayerContainer">
         <button class="tab" style="margin-bottom:10px;" id="backBtn" onclick="closePlayer()">BACK / عودة</button>
         <iframe id="mainPlayer" src="" allowfullscreen style="display:none; border:none;"></iframe>
-        <video id="liveVideoPlayer" controls playsinline crossorigin="anonymous" style="display:none;"></video>
+        <video id="liveVideoPlayer" controls style="display:none;"></video>
     </div>
 
     <div class="header">
@@ -103,17 +103,19 @@
         let currentType = 'movie', currentLang = 'ar', hlsPlayer = null;
 
         const translations = {
-            ar: { movies: "أفلام", series: "مسلسلات", live: "اختر القناة المباشرة", search: "ابحث هنا...", back: "عودة", sport: "رياضة", news: "أخبار" },
-            en: { movies: "Movies", series: "Series", live: "Select Live Channel", search: "Search here...", back: "Back", sport: "Sports", news: "News" },
-            fr: { movies: "Films", series: "Séries", live: "Choisir la chaîne", search: "Chercher ici...", back: "Retour", sport: "Sports", news: "Infos" },
-            de: { movies: "Filme", series: "Serien", live: "Kanal wählen", search: "Hier suchen...", back: "Zurück", sport: "Sport", news: "News" },
-            nl: { movies: "Films", series: "Series", live: "Kies Kanaal", search: "Zoek hier...", back: "Terug", sport: "Sport", news: "Nieuws" }
+            ar: { movies: "أفلام", series: "مسلسلات", live: "اختر القناة المباشرة", search: "ابحث هنا...", back: "عودة", sports: "رياضة", news: "أخبار" },
+            en: { movies: "Movies", series: "Series", live: "Select Live Channel", search: "Search here...", back: "Back", sports: "Sports", news: "News" },
+            fr: { movies: "Films", series: "Séries", live: "Choisir la chaîne", search: "Chercher ici...", back: "Retour", sports: "Sports", news: "Infos" },
+            de: { movies: "Filme", series: "Serien", live: "Kanal wählen", search: "Hier suchen...", back: "Zurück", sports: "Sport", news: "News" },
+            nl: { movies: "Films", series: "Series", live: "Kies Kanaal", search: "Zoek hier...", back: "Terug", sports: "Sport", news: "Nieuws" }
         };
 
         function changeLanguage(lang) {
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('lang-' + lang).classList.add('active');
+            const btn = document.getElementById('lang-' + lang);
+            if(btn) btn.classList.add('active');
+            
             const t = translations[lang] || translations.en;
             document.getElementById('btnMovies').innerText = t.movies;
             document.getElementById('btnSeries').innerText = t.series;
@@ -132,29 +134,30 @@
 
         function updateModalTabs() {
             const tabs = document.getElementById('dynamicTabs');
-            const t = translations[currentLang];
+            const t = translations[currentLang] || translations.en;
+            // يتم إنشاء أزرار الرياضة والأخبار بناءً على الكود الموحد (AR, FR, NL...)
             tabs.innerHTML = `
-                <button class="cat-btn active" id="btn-sport" onclick="loadCategory('${currentLang}_sport', 'btn-sport')">${t.sport}</button>
-                <button class="cat-btn" id="btn-news" onclick="loadCategory('${currentLang}_news', 'btn-news')">${t.news}</button>
+                <button class="cat-btn active" id="btn-sports" onclick="loadCategory('sports')">${t.sports}</button>
+                <button class="cat-btn" id="btn-news" onclick="loadCategory('news')">${t.news}</button>
             `;
-            loadCategory(`${currentLang}_sport`, 'btn-sport');
+            loadCategory('sports');
         }
 
-        function closeChannelsModal() {
-            document.getElementById('modalOverlay').style.display = 'none';
-            document.getElementById('channelsModal').style.display = 'none';
-        }
-
-        async function loadCategory(catKey, btnId) {
+        async function loadCategory(catType) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active');
+            const activeBtn = document.getElementById('btn-' + catType);
+            if(activeBtn) activeBtn.classList.add('active');
 
             const grid = document.getElementById('channelsGrid');
             grid.innerHTML = `<div style='color:#ff3b5c; grid-column:1/-1;'>Loading...</div>`;
+            
             try {
                 const res = await fetch(`${JSON_FILE}?t=${new Date().getTime()}`);
                 const data = await res.json();
-                const channels = data[catKey] || [];
+                
+                // البحث عن القنوات بناءً على اللغة المختارة (مثلاً: FR -> sports)
+                const langKey = currentLang.toUpperCase();
+                const channels = (data[langKey] && data[langKey][catType]) ? data[langKey][catType] : [];
                 
                 if(channels.length === 0) {
                     grid.innerHTML = `<div style='color:gray; grid-column:1/-1;'>قريباً / Coming Soon</div>`;
@@ -163,15 +166,19 @@
 
                 grid.innerHTML = channels.map(ch => `
                     <div class="channel-card" onclick="startStream('${ch.url}')">
-                        <img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/60/0b0e11/ff3b5c?text=TV'">
+                        <img src="${ch.logo || ''}" onerror="this.src='https://via.placeholder.com/60/0b0e11/ff3b5c?text=TV'">
                         <div style="font-size:10px; margin-top:5px; color:#fff;">${ch.name}</div>
                     </div>
                 `).join('');
             } catch (e) { grid.innerHTML = "Error loading channels!"; }
         }
 
+        function closeChannelsModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.getElementById('channelsModal').style.display = 'none';
+        }
+
         function startStream(url) {
-            if (!url) return;
             closeChannelsModal();
             document.getElementById('mainPlayer').style.display = 'none';
             const video = document.getElementById('liveVideoPlayer');
@@ -181,35 +188,11 @@
             if (hlsPlayer) { hlsPlayer.destroy(); }
 
             if (Hls.isSupported()) {
-                // إعدادات متطورة لكسر حماية CORS وتجنب الحظر
-                hlsPlayer = new Hls({
-                    capLevelToPlayerSize: true,
-                    xhrSetup: function(xhr, url) {
-                        xhr.withCredentials = false;
-                    }
-                });
+                hlsPlayer = new Hls();
                 hlsPlayer.loadSource(url);
                 hlsPlayer.attachMedia(video);
-                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
-                    // كتم الصوت ضروري للسماح للمتصفح بالتشغيل التلقائي
-                    video.muted = true;
-                    video.play().catch(() => {
-                        console.log("الرجاء الضغط على الفيديو للتشغيل بصوت");
-                    });
-                });
-                hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
-                    if (data.fatal) {
-                        switch (data.type) {
-                            case Hls.ErrorTypes.NETWORK_ERROR: hlsPlayer.startLoad(); break;
-                            case Hls.ErrorTypes.MEDIA_ERROR: hlsPlayer.recoverMediaError(); break;
-                            default: hlsPlayer.destroy(); break;
-                        }
-                    }
-                });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = url;
-                video.play();
-            }
+                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            } else { video.src = url; video.play(); }
         }
 
         async function loadContent(type) {
@@ -241,8 +224,7 @@
             document.getElementById('videoPlayerContainer').style.display = 'none';
             document.getElementById('mainPlayer').src = '';
             const video = document.getElementById('liveVideoPlayer');
-            video.pause(); 
-            video.src = "";
+            video.pause(); video.src = "";
             if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
         }
 

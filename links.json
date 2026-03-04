@@ -1,18 +1,42 @@
 {
-  "ar_sport": [
-    {
-      "name": "beIN NEWS",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/5b/BeIN_Sports_News_logo.svg",
-      "url": "https://all-sports.onrender.com/beinn.m3u8"
-    }
-  ],
-  "ar_news": [],
-  "en_sport": [
-    {
-      "name": "RED BULL TV",
-      "logo": "https://via.placeholder.com/60",
-      "url": "https://rbmn-live.akamaized.net/hls/live/590964/relentless/master.m3u8"
-    }
-  ],
-  "en_news": []
+  "AR": {
+    "sports": [
+      {"name": "الرياضية المغربية", "url": "https://snrtlive-hls-ibt-med.mediametrie.fr/index.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Arryadia_logo.png"}
+    ],
+    "news": [
+      {"name": "الجزيرة", "url": "https://live-hls-web-aje.akamaized.net/hls/live/2036571/aje/index.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Al_Jazeera_English_logo.svg"}
+    ]
+  },
+  "FR": {
+    "sports": [
+      {"name": "L'Equipe TV", "url": "https://lequipe-hls.akamaized.net/hls/live/2032546/lequipe/master.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/3/33/L%27%C3%89quipe_logo_2015.svg"}
+    ],
+    "news": [
+      {"name": "France 24 FR", "url": "https://static.france24.com/live/F24_FR_HI_HLS/live_tv.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/8/82/France_24_logo.svg"}
+    ]
+  },
+  "EN": {
+    "sports": [
+      {"name": "Sky Sports News", "url": "رابط_قناة_سكاي_سبورت", "logo": "https://upload.wikimedia.org/wikipedia/en/b/b7/Sky_Sports_logo_2017.svg"}
+    ],
+    "news": [
+      {"name": "BBC News", "url": "https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/6/62/BBC_News_2019.svg"}
+    ]
+  },
+  "DE": {
+    "sports": [
+      {"name": "Sky Sport DE", "url": "رابط_قناة_ألمانية", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Sky_Sport_logo.svg/512px-Sky_Sport_logo.svg.png"}
+    ],
+    "news": [
+      {"name": "DW Deutsch", "url": "https://dwstream72-lh.akamaihd.net/i/dwstream72_live@123556/master.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Deutsche_Welle_logo_2012.svg"}
+    ]
+  },
+  "NL": {
+    "sports": [
+      {"name": "NOS Sport", "url": "https://edge.poms.omroep.nl/v1/playlist/npo/nos-sport/master.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NOS_Sport_logo.svg/1200px-NOS_Sport_logo.svg.png"}
+    ],
+    "news": [
+      {"name": "NOS Journaal", "url": "https://edge.poms.omroep.nl/v1/playlist/npo/nos-journaal/master.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/NOS_logo_2005.svg/1200px-NOS_logo_2005.svg.png"}
+    ]
+  }
 }
