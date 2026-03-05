@@ -6,9 +6,19 @@
             "logo": "https://upload.wikimedia.org/wikipedia/commons/2/23/Arryadia_logo.png"
         },
         {
-            "name": "ياس سبورت (Yas Sport)",
+            "name": "أبوظبي الرياضية 1",
+            "url": "https://adshtv.akamaized.net/hls/live/2042745/adsport1/master.m3u8",
+            "logo": "https://upload.wikimedia.org/wikipedia/en/3/36/Abu_Dhabi_Sports_logo.png"
+        },
+        {
+            "name": "ياس سبورت",
             "url": "https://adshtv.akamaized.net/hls/live/2042747/yas/master.m3u8",
             "logo": "https://upload.wikimedia.org/wikipedia/en/2/2b/Yas_Sports_logo.png"
+        },
+        {
+            "name": "قناة دبي الرياضية",
+            "url": "https://dmitv.cdn.mangomolo.com/dubaidryadia/dubaidryadia.smil/master.m3u8",
+            "logo": "https://upload.wikimedia.org/wikipedia/en/1/1d/Dubai_Sports_logo.png"
         }
     ],
     "ar_news": [
@@ -21,6 +31,16 @@
             "name": "سكاي نيوز عربية",
             "url": "https://live.skynewsarabia.com/hls/sna.m3u8",
             "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Sky_News_Arabia_logo.svg"
+        },
+        {
+            "name": "العربية",
+            "url": "https://alarabiya.akamaized.net/hls/live/2020295/alarabiya/master.m3u8",
+            "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Al_Arabiya_Logo.svg"
+        },
+        {
+            "name": "فرانس 24 بالعربية",
+            "url": "https://static.france24.com/live/f24_ar.m3u8",
+            "logo": "https://upload.wikimedia.org/wikipedia/commons/e/e0/France_24_Logo.svg"
         }
     ]
 }
