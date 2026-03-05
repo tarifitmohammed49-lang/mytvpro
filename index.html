@@ -4,83 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MYTVPRO - Simo Global Edition</title>
-    
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
     <style>
-        body { background-color: #0b0e11; color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; transition: 0.3s; }
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 2%; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .logo { color: #ff3b5c; font-size: 24px; font-weight: bold; text-decoration: none; cursor: pointer; }
-        
-        .lang-container { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        .lang-btn { color: #ff3b5c; font-weight: bold; cursor: pointer; font-size: 13px; transition: 0.3s; padding: 5px; text-transform: uppercase; }
-        .lang-btn.active { color: #ffffff; border-bottom: 2px solid #ff3b5c; }
-
-        .nav-tabs { display: flex; gap: 15px; }
-        .tab { background: #1a1d21; color: white; padding: 8px 25px; border-radius: 20px; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
-        .tab.active { background: #ff3b5c; }
-        
-        .live-section { text-align: center; margin: 20px 0; padding: 15px; background: #1a1d21; border-radius: 15px; border: 1px solid #333; }
-        .main-live-selector { background: #0b0e11; border: 2px solid #ff3b5c; border-radius: 50px; display: inline-flex; align-items: center; padding: 10px 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 59, 92, 0.2); }
+        body { background-color: #0b0e11; color: #ffffff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+        .logo { color: #ff3b5c; font-size: 26px; font-weight: bold; cursor: pointer; }
+        .lang-container { display: flex; gap: 8px; }
+        .lang-btn { color: #ff3b5c; font-weight: bold; cursor: pointer; font-size: 14px; padding: 5px; border: 1px solid transparent; }
+        .lang-btn.active { border-bottom: 2px solid #ff3b5c; color: white; }
+        .live-section { text-align: center; margin: 20px 0; }
+        .main-live-selector { background: #1a1d21; border: 2px solid #ff3b5c; border-radius: 50px; display: inline-flex; align-items: center; padding: 12px 35px; cursor: pointer; box-shadow: 0 0 15px rgba(255, 59, 92, 0.3); }
         .live-dot { height: 10px; width: 10px; background-color: #ff0000; border-radius: 50%; margin-left: 10px; animation: blink 1s infinite; }
-
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; backdrop-filter: blur(5px); }
-        .channels-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 500px; max-height: 80vh; background: #1a1d21; border: 2px solid #ff3b5c; border-radius: 20px; z-index: 3001; padding: 25px; overflow-y: auto; }
-        
-        .cat-tabs { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
-        .cat-btn { background: #0b0e11; color: white; border: 1px solid #333; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.3s; flex: 1; text-align: center; }
-        .cat-btn.active { border-color: #ff3b5c; color: #ff3b5c; background: rgba(255, 59, 92, 0.1); }
-        
-        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
-        .channel-card { background: #000; border-radius: 12px; padding: 10px; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
-        .channel-card img { width: 50px; height: 40px; object-fit: contain; margin-bottom: 8px; }
-
-        .search-bar { width: 100%; max-width: 600px; margin: 0 auto 20px; }
-        .search-bar input { width: 100%; padding: 12px 25px; border-radius: 25px; border: 1px solid #333; background: #1a1d21; color: white; outline: none; text-align: inherit; }
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; padding: 0 2%; }
-        .movie-card { background: #1a1d21; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; }
-        .movie-card img { width: 100%; height: 220px; object-fit: cover; }
-        .movie-title { padding: 12px; font-size: 13px; text-align: center; font-weight: bold; }
-        
+        .channels-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 500px; background: #1a1d21; border-radius: 20px; z-index: 3001; padding: 20px; border: 1px solid #ff3b5c; }
+        .cat-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .cat-btn { flex: 1; background: #0b0e11; color: white; border: 1px solid #333; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .cat-btn.active { border-color: #ff3b5c; color: #ff3b5c; }
+        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 15px; max-height: 400px; overflow-y: auto; }
+        .channel-card { background: #000; border-radius: 10px; padding: 10px; cursor: pointer; text-align: center; border: 1px solid #222; }
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 4000; flex-direction: column; align-items: center; justify-content: center; }
-        #liveVideoPlayer { width: 95%; max-width: 800px; height: 50vh; border: 2px solid #ff3b5c; border-radius: 10px; background: #000; }
-        #mainPlayer { width: 95%; max-width: 800px; height: 50vh; border: 2px solid #ff3b5c; border-radius: 10px; background: #000; }
-        
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        video { width: 95%; max-width: 850px; border: 2px solid #ff3b5c; border-radius: 10px; }
+        .back-btn { background: #ff3b5c; color: white; border: none; padding: 10px 30px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
     <div id="modalOverlay" class="modal-overlay" onclick="closeChannelsModal()"></div>
     <div id="channelsModal" class="channels-modal">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <h3 style="color:#ff3b5c; margin:0;" id="modalTitle">MYTVPRO LIVE</h3>
-            <button onclick="closeChannelsModal()" style="background:#ff3b5c; color:white; border:none; padding:5px 12px; border-radius:5px; cursor:pointer; font-weight:bold;">X</button>
+        <div class="cat-tabs">
+            <button class="cat-btn active" id="btn-sport" onclick="loadCategory('ar_sport', 'btn-sport')">Sport / رياضة</button>
+            <button class="cat-btn" id="btn-news" onclick="loadCategory('ar_news', 'btn-news')">News / أخبار</button>
         </div>
-        
-        <div id="dynamicTabs" class="cat-tabs"></div>
         <div id="channelsGrid" class="channels-grid"></div>
     </div>
 
     <div id="videoPlayerContainer">
-        <button class="tab" style="margin-bottom:10px;" id="backBtn" onclick="closePlayer()">BACK / عودة</button>
-        <iframe id="mainPlayer" src="" allowfullscreen style="display:none; border:none;"></iframe>
-        <video id="liveVideoPlayer" controls autoplay playsinline style="display:none;"></video>
+        <button class="back-btn" onclick="closePlayer()">عودة / BACK</button>
+        <video id="liveVideoPlayer" controls autoplay playsinline></video>
     </div>
 
     <div class="header">
-        <div class="logo" onclick="location.reload()">MYTVPRO</div>
-        <div class="nav-tabs">
-            <button id="btnMovies" class="tab active" onclick="loadContent('movie')">أفلام</button>
-            <button id="btnSeries" class="tab" onclick="loadContent('tv')">مسلسلات</button>
-        </div>
+        <div class="logo">MYTVPRO</div>
         <div class="lang-container">
-            <span class="lang-btn active" id="lang-ar" onclick="changeLanguage('ar')">AR</span>
-            <span class="lang-btn" id="lang-en" onclick="changeLanguage('en')">EN</span>
-            <span class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</span>
-            <span class="lang-btn" id="lang-de" onclick="changeLanguage('de')">DE</span>
-            <span class="lang-btn" id="lang-nl" onclick="changeLanguage('nl')">NL</span>
+            <span class="lang-btn active" onclick="changeLanguage('ar')">AR</span>
+            <span class="lang-btn" onclick="changeLanguage('en')">EN</span>
+            <span class="lang-btn" onclick="changeLanguage('fr')">FR</span>
+            <span class="lang-btn" onclick="changeLanguage('de')">DE</span>
+            <span class="lang-btn" onclick="changeLanguage('nl')">NL</span>
         </div>
     </div>
 
@@ -91,124 +62,21 @@
         </div>
     </div>
 
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="ابحث هنا..." onkeyup="handleSearch(event)">
-    </div>
-
-    <div class="movie-grid" id="moviesGrid"></div>
-
     <script>
-        const API_KEY = '715fb05852af662217013d8380237f2a';
-        const JSON_FILE = "links.json"; 
-        let currentType = 'movie', currentLang = 'ar', hlsPlayer = null;
-
-        const translations = {
-            ar: { movies: "أفلام", series: "مسلسلات", live: "اختر القناة المباشرة", search: "ابحث هنا...", back: "عودة", sport: "رياضة", news: "أخبار" },
-            en: { movies: "Movies", series: "Series", live: "Select Live Channel", search: "Search here...", back: "Back", sport: "Sports", news: "News" },
-            fr: { movies: "Films", series: "Séries", live: "Choisir la chaîne", search: "Chercher ici...", back: "Retour", sport: "Sports", news: "Infos" },
-            de: { movies: "Filme", series: "Serien", live: "Kanal wählen", search: "Hier suchen...", back: "Zurück", sport: "Sport", news: "News" },
-            nl: { movies: "Films", series: "Series", live: "Kies Kanaal", search: "Zoek هنا...", back: "Terug", sport: "Sport", news: "Nieuws" }
-        };
+        let hlsPlayer = null;
+        const JSON_FILE = "links.json";
 
         function changeLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('lang-' + lang).classList.add('active');
-            const t = translations[lang] || translations.en;
-            document.getElementById('btnMovies').innerText = t.movies;
-            document.getElementById('btnSeries').innerText = t.series;
-            document.getElementById('liveTxt').innerText = t.live;
-            document.getElementById('searchInput').placeholder = t.search;
-            document.getElementById('backBtn').innerText = t.back;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
             document.getElementById('mainHtml').dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            loadContent(currentType);
+            document.getElementById('liveTxt').innerText = (lang === 'ar') ? "اختر القناة المباشرة" : "Select Live Channel";
         }
 
         function openChannelsModal() {
             document.getElementById('modalOverlay').style.display = 'block';
             document.getElementById('channelsModal').style.display = 'block';
-            updateModalTabs();
-        }
-
-        function updateModalTabs() {
-            const tabs = document.getElementById('dynamicTabs');
-            const t = translations[currentLang];
-            tabs.innerHTML = `
-                <button class="cat-btn active" id="btn-sport" onclick="loadCategory('ar_sport', 'btn-sport')">${t.sport}</button>
-                <button class="cat-btn" id="btn-news" onclick="loadCategory('ar_news', 'btn-news')">${t.news}</button>
-            `;
             loadCategory('ar_sport', 'btn-sport');
-        }
-
-        async function loadCategory(catKey, btnId) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active');
-
-            const grid = document.getElementById('channelsGrid');
-            grid.innerHTML = `<div style='color:#ff3b5c; grid-column:1/-1;'>Loading...</div>`;
-            try {
-                const res = await fetch(`${JSON_FILE}?t=${Date.now()}`);
-                const data = await res.json();
-                const channels = data[catKey] || [];
-                grid.innerHTML = channels.map(ch => `
-                    <div class="channel-card" onclick="startStream('${ch.url}')">
-                        <img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/60/0b0e11/ff3b5c?text=TV'">
-                        <div style="font-size:10px; margin-top:5px; color:#fff;">${ch.name}</div>
-                    </div>
-                `).join('');
-            } catch (e) { grid.innerHTML = "Error!"; }
-        }
-
-        function startStream(url) {
-            closeChannelsModal();
-            document.getElementById('mainPlayer').style.display = 'none';
-            const video = document.getElementById('liveVideoPlayer');
-            video.style.display = 'block';
-            document.getElementById('videoPlayerContainer').style.display = 'flex';
-
-            if (hlsPlayer) { hlsPlayer.destroy(); }
-
-            if (Hls.isSupported()) {
-                hlsPlayer = new Hls();
-                hlsPlayer.loadSource(url);
-                hlsPlayer.attachMedia(video);
-                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
-                    video.muted = true; // كتم الصوت ضروري للتشغيل التلقائي
-                    video.play().catch(e => console.log("Play error"));
-                });
-            } else { video.src = url; video.play(); }
-        }
-
-        function closePlayer() {
-            document.getElementById('videoPlayerContainer').style.display = 'none';
-            const video = document.getElementById('liveVideoPlayer');
-            video.pause(); video.src = "";
-            if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
-        }
-
-        // TMDB Logic
-        async function loadContent(type) {
-            currentType = type;
-            document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
-            document.getElementById('btnSeries').classList.toggle('active', type === 'tv');
-            try {
-                const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}&language=${currentLang}&page=1`);
-                const data = await res.json();
-                document.getElementById('moviesGrid').innerHTML = data.results.map(item => `
-                    <div class="movie-card" onclick="openPlayer('${item.id}')">
-                        <img src="https://image.tmdb.org/t/p/w500${item.poster_path}">
-                        <div class="movie-title">${item.title || item.name}</div>
-                    </div>
-                `).join('');
-            } catch(e) {}
-        }
-
-        function openPlayer(id) {
-            document.getElementById('liveVideoPlayer').style.display = 'none';
-            const player = document.getElementById('mainPlayer');
-            player.style.display = 'block';
-            player.src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
-            document.getElementById('videoPlayerContainer').style.display = 'flex';
         }
 
         function closeChannelsModal() {
@@ -216,14 +84,46 @@
             document.getElementById('channelsModal').style.display = 'none';
         }
 
-        function handleSearch(event) {
-            const query = event.target.value.toLowerCase();
-            document.querySelectorAll('.movie-card').forEach(card => {
-                card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
-            });
+        async function loadCategory(catKey, btnId) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(btnId).classList.add('active');
+            const grid = document.getElementById('channelsGrid');
+            grid.innerHTML = "جاري التحميل...";
+
+            try {
+                const res = await fetch(JSON_FILE + "?t=" + Date.now());
+                const data = await res.json();
+                const channels = data[catKey] || [];
+                grid.innerHTML = channels.map(ch => `
+                    <div class="channel-card" onclick="startStream('${ch.url}')">
+                        <img src="${ch.logo}" width="50" height="40" style="object-fit:contain">
+                        <div style="font-size:11px; margin-top:5px;">${ch.name}</div>
+                    </div>
+                `).join('');
+            } catch (e) { grid.innerHTML = "خطأ في الاتصال!"; }
         }
 
-        window.onload = () => loadContent('movie');
+        function startStream(url) {
+            closeChannelsModal();
+            const video = document.getElementById('liveVideoPlayer');
+            document.getElementById('videoPlayerContainer').style.display = 'flex';
+            
+            if (hlsPlayer) hlsPlayer.destroy();
+
+            if (Hls.isSupported()) {
+                hlsPlayer = new Hls({ xhrSetup: function(xhr) { xhr.withCredentials = false; } });
+                hlsPlayer.loadSource(url);
+                hlsPlayer.attachMedia(video);
+                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => { video.muted = true; video.play(); });
+            } else { video.src = url; video.play(); }
+        }
+
+        function closePlayer() {
+            document.getElementById('videoPlayerContainer').style.display = 'none';
+            const video = document.getElementById('liveVideoPlayer');
+            video.pause(); video.src = "";
+            if (hlsPlayer) hlsPlayer.destroy();
+        }
     </script>
 </body>
 </html>
