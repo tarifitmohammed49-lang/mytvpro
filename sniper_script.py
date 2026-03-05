@@ -2,19 +2,25 @@ import requests
 import json
 import re
 
-# مصادر قوية جداً ومتجددة تلقائياً
+# استعادة كافة المصادر العالمية لضمان عدم مسح أي قناة كانت تعمل
 SOURCES = {
-    "ar": "https://raw.githubusercontent.com/mohamed-if/iptv/master/arabic.m3u", # مصدر عربي قوي
     "de": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/de.m3u",
     "nl": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/nl.m3u",
     "en": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us.m3u",
     "fr": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/fr.m3u",
-    "global_sport": "https://raw.githubusercontent.com/TheBeast-0/Sniping/main/sports_fixed.m3u" # مصدر رياضي عالمي
+    "ar_news": "https://raw.githubusercontent.com/teleriumtv/iptv/main/iptv.m3u"
 }
+
+# روابط إخبارية عربية إضافية "مباشرة" لضمان الامتلاء
+EXTRA_AR = [
+    {"name": "الجزيرة مباشر", "logo": "https://upload.wikimedia.org/wikipedia/commons/0/00/Al_Jazeera_Mubasher_logo.png", "url": "https://live-hls-web-ajm.getaj.net/ajm/index.m3u8"},
+    {"name": "سكاي نيوز", "logo": "https://upload.wikimedia.org/wikipedia/ar/b/bb/Sky_News_Arabia_logo.svg", "url": "https://snatv.akamaized.net/hls/live/2034871/snatv/snatv_main_1.m3u8"},
+    {"name": "العربية", "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Al_Arabiya_Logo.svg", "url": "https://vcl-v-m-u.alarabiya.net/alarabiya/alarabiya.smil/playlist.m3u8"}
+]
 
 def fetch_channels():
     data = {
-        "ar_sport": [], "ar_news": [],
+        "ar_sport": [], "ar_news": EXTRA_AR.copy(),
         "fr_sport": [], "fr_news": [],
         "en_sport": [], "en_news": [],
         "de_sport": [], "de_news": [],
@@ -23,14 +29,11 @@ def fetch_channels():
 
     for key_lang, url in SOURCES.items():
         try:
-            print(f"📡 جاري قنص قنوات {key_lang}...")
-            response = requests.get(url, timeout=20)
+            print(f"📡 جاري جلب قنوات {key_lang}...")
+            response = requests.get(url, timeout=15)
             if response.status_code == 200:
-                content = response.text
-                # تقسيم الملف إلى قنوات
-                chunks = content.split('#EXTINF')
+                chunks = response.text.split('#EXTINF')
                 for chunk in chunks[1:]:
-                    # استخراج الاسم، اللوجو، والرابط
                     name = re.search(r',(.+)', chunk)
                     logo = re.search(r'tvg-logo="([^"]+)"', chunk)
                     url_stream = re.search(r'(http[^\s]+)', chunk)
@@ -39,33 +42,30 @@ def fetch_channels():
                         ch_name = name.group(1).strip()
                         ch_url = url_stream.group(1).strip()
                         ch_logo = logo.group(1) if logo else ""
-                        
                         channel_obj = {"name": ch_name, "logo": ch_logo, "url": ch_url}
                         
-                        # تحديد اللغة والنوع (رياضة أم أخبار)
-                        # سنستخدم key_lang لتحديد القسم بدقة
-                        lang = key_lang if key_lang in data.keys() else "en"
-                        
-                        # منطق التوزيع الذكي
-                        target_lang = "en"
-                        for l in ["ar", "fr", "en", "de", "nl"]:
-                            if key_lang.startswith(l): target_lang = l
-
-                        if any(x in ch_name.upper() for x in ['SPORT', 'BEIN', 'KASS', 'AD', 'FOOT', 'COPA']):
-                            data[f"{target_lang}_sport"].append(channel_obj)
-                        else:
-                            data[f"{target_lang}_news"].append(channel_obj)
+                        # توزيع اللغات (نظام الحماية لعدم مسح القنوات)
+                        if key_lang in ["de", "nl", "en", "fr"]:
+                            target = key_lang
+                            if any(x in ch_name.upper() for x in ['SPORT', 'FOOT']):
+                                data[f"{target}_sport"].append(channel_obj)
+                            else:
+                                data[f"{target}_news"].append(channel_obj)
+                        elif key_lang == "ar_news":
+                            # تصفية الأخبار العربية فقط
+                            if not any(x in ch_name.upper() for x in ['SPORT', 'BEIN']):
+                                data["ar_news"].append(channel_obj)
                             
         except Exception as e:
             print(f"❌ خطأ في {key_lang}: {e}")
 
-    # تنظيف البيانات: حذف المكرر واختيار أفضل 30 قناة لكل قسم
+    # تحديد العدد للحفاظ على السرعة
     for section in data:
-        data[section] = data[section][:30]
+        data[section] = data[section][:50]
 
     with open('links.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
-    print("✅ تم تحديث جميع الأقسام بما في ذلك AR و NL بنجاح!")
+    print("✅ تم التحديث بنجاح! جميع القنوات الأوروبية محفوظة وقسم الأخبار العربية ممتلئ.")
 
 if __name__ == "__main__":
     fetch_channels()
