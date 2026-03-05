@@ -1,21 +1,26 @@
 {
     "ar_sport": [
         {
-            "name": "beIN Sports 1",
-            "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/BeIN_Sports_logo.svg/2560px-BeIN_Sports_logo.svg.png"
+            "name": "الرياضية المغربية",
+            "url": "https://snrtlive-hls-ch3-apple-delivery.akamaized.net/adbe018f_1/index.m3u8",
+            "logo": "https://upload.wikimedia.org/wikipedia/commons/2/23/Arryadia_logo.png"
         },
         {
-            "name": "beIN Sports 2",
-            "url": "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
-            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/BeIN_Sports_logo.svg/2560px-BeIN_Sports_logo.svg.png"
+            "name": "ياس سبورت (Yas Sport)",
+            "url": "https://adshtv.akamaized.net/hls/live/2042747/yas/master.m3u8",
+            "logo": "https://upload.wikimedia.org/wikipedia/en/2/2b/Yas_Sports_logo.png"
         }
     ],
     "ar_news": [
         {
             "name": "الجزيرة مباشر",
-            "url": "https://live-hls-web-aje.getaj.net/AJE/index.m3u8",
+            "url": "https://live-hls-web-aje.akamaized.net/hls/live/2036303/aje/index.m3u8",
             "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Aljazeera_eng.svg/1200px-Aljazeera_eng.svg.png"
+        },
+        {
+            "name": "سكاي نيوز عربية",
+            "url": "https://live.skynewsarabia.com/hls/sna.m3u8",
+            "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Sky_News_Arabia_logo.svg"
         }
     ]
 }

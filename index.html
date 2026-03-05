@@ -7,7 +7,6 @@
     
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="https://pl28750321.effectivegatecpm.com/8a/20/6f/8a206fa738acfa1d089c372fb7a7aee8.js"></script>
 
     <style>
         body { background-color: #0b0e11; color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; transition: 0.3s; }
@@ -35,6 +34,7 @@
         
         .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
         .channel-card { background: #000; border-radius: 12px; padding: 10px; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
+        .channel-card:hover { border-color: #ff3b5c; transform: translateY(-3px); }
         .channel-card img { width: 50px; height: 40px; object-fit: contain; margin-bottom: 8px; }
 
         .search-bar { width: 100%; max-width: 600px; margin: 0 auto 20px; }
@@ -59,7 +59,10 @@
             <button onclick="closeChannelsModal()" style="background:#ff3b5c; color:white; border:none; padding:5px 12px; border-radius:5px; cursor:pointer; font-weight:bold;">X</button>
         </div>
         
-        <div id="dynamicTabs" class="cat-tabs"></div>
+        <div id="dynamicTabs" class="cat-tabs">
+            <button class="cat-btn active" id="btn-sport" onclick="loadCategory('ar_sport', 'btn-sport')">رياضة</button>
+            <button class="cat-btn" id="btn-news" onclick="loadCategory('ar_news', 'btn-news')">أخبار</button>
+        </div>
         <div id="channelsGrid" class="channels-grid"></div>
     </div>
 
@@ -78,9 +81,6 @@
         <div class="lang-container">
             <span class="lang-btn active" id="lang-ar" onclick="changeLanguage('ar')">AR</span>
             <span class="lang-btn" id="lang-en" onclick="changeLanguage('en')">EN</span>
-            <span class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</span>
-            <span class="lang-btn" id="lang-de" onclick="changeLanguage('de')">DE</span>
-            <span class="lang-btn" id="lang-nl" onclick="changeLanguage('nl')">NL</span>
         </div>
     </div>
 
@@ -102,42 +102,11 @@
         const JSON_FILE = "links.json"; 
         let currentType = 'movie', currentLang = 'ar', hlsPlayer = null;
 
-        const translations = {
-            ar: { movies: "أفلام", series: "مسلسلات", live: "اختر القناة المباشرة", search: "ابحث هنا...", back: "عودة", sport: "رياضة", news: "أخبار" },
-            en: { movies: "Movies", series: "Series", live: "Select Live Channel", search: "Search here...", back: "Back", sport: "Sports", news: "News" },
-            fr: { movies: "Films", series: "Séries", live: "Choisir la chaîne", search: "Chercher ici...", back: "Retour", sport: "Sports", news: "Infos" },
-            de: { movies: "Filme", series: "Serien", live: "Kanal wählen", search: "Hier suchen...", back: "Zurück", sport: "Sport", news: "News" },
-            nl: { movies: "Films", series: "Series", live: "Kies Kanaal", search: "Zoek hier...", back: "Terug", sport: "Sport", news: "Nieuws" }
-        };
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('lang-' + lang).classList.add('active');
-            const t = translations[lang] || translations.en;
-            document.getElementById('btnMovies').innerText = t.movies;
-            document.getElementById('btnSeries').innerText = t.series;
-            document.getElementById('liveTxt').innerText = t.live;
-            document.getElementById('searchInput').placeholder = t.search;
-            document.getElementById('backBtn').innerText = t.back;
-            document.getElementById('mainHtml').dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            loadContent(currentType);
-        }
-
+        // دالة فتح المودال وتحميل أول قسم
         function openChannelsModal() {
             document.getElementById('modalOverlay').style.display = 'block';
             document.getElementById('channelsModal').style.display = 'block';
-            updateModalTabs();
-        }
-
-        function updateModalTabs() {
-            const tabs = document.getElementById('dynamicTabs');
-            const t = translations[currentLang];
-            tabs.innerHTML = `
-                <button class="cat-btn active" id="btn-sport" onclick="loadCategory('${currentLang}_sport', 'btn-sport')">${t.sport}</button>
-                <button class="cat-btn" id="btn-news" onclick="loadCategory('${currentLang}_news', 'btn-news')">${t.news}</button>
-            `;
-            loadCategory(`${currentLang}_sport`, 'btn-sport');
+            loadCategory('ar_sport', 'btn-sport');
         }
 
         function closeChannelsModal() {
@@ -145,20 +114,21 @@
             document.getElementById('channelsModal').style.display = 'none';
         }
 
+        // دالة جلب القنوات المعدلة لتعمل مع ملف links.json الخاص بك
         async function loadCategory(catKey, btnId) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active');
 
             const grid = document.getElementById('channelsGrid');
             grid.innerHTML = `<div style='color:#ff3b5c; grid-column:1/-1;'>Loading...</div>`;
+            
             try {
-                // إضافة timestamp لمنع المتصفح من كاش الملف القديم
-                const res = await fetch(`${JSON_FILE}?t=${new Date().getTime()}`);
+                const res = await fetch(JSON_FILE + "?t=" + new Date().getTime());
                 const data = await res.json();
                 const channels = data[catKey] || [];
                 
                 if(channels.length === 0) {
-                    grid.innerHTML = `<div style='color:gray; grid-column:1/-1;'>قريباً / Coming Soon</div>`;
+                    grid.innerHTML = `<div style='color:gray; grid-column:1/-1;'>لا توجد قنوات حالياً</div>`;
                     return;
                 }
 
@@ -168,9 +138,12 @@
                         <div style="font-size:10px; margin-top:5px; color:#fff;">${ch.name}</div>
                     </div>
                 `).join('');
-            } catch (e) { grid.innerHTML = "Error loading channels!"; }
+            } catch (e) { 
+                grid.innerHTML = "<div style='color:red; grid-column:1/-1;'>خطأ في تحميل ملف links.json</div>"; 
+            }
         }
 
+        // المحرك الأساسي لتشغيل البث
         function startStream(url) {
             closeChannelsModal();
             document.getElementById('mainPlayer').style.display = 'none';
@@ -181,19 +154,20 @@
             if (hlsPlayer) { hlsPlayer.destroy(); }
 
             if (Hls.isSupported()) {
-                hlsPlayer = new Hls({ capLevelToPlayerSize: true });
+                hlsPlayer = new Hls();
                 hlsPlayer.loadSource(url);
                 hlsPlayer.attachMedia(video);
-                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-                hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
-                    if (data.fatal) {
-                        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hlsPlayer.startLoad();
-                        else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hlsPlayer.recoverMediaError();
-                    }
+                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.muted = true; // صامت للبدء التلقائي
+                    video.play();
                 });
-            } else { video.src = url; video.play(); }
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.play();
+            }
         }
 
+        // بقية دوال الأفلام والمسلسلات
         async function loadContent(type) {
             currentType = type;
             document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
@@ -223,7 +197,7 @@
             document.getElementById('videoPlayerContainer').style.display = 'none';
             document.getElementById('mainPlayer').src = '';
             const video = document.getElementById('liveVideoPlayer');
-            video.pause(); video.src = "";
+            video.pause();
             if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
         }
 
