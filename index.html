@@ -6,12 +6,13 @@
     <title>MYTVPRO - Simo Global Edition</title>
     
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="https://pl28750321.effectivegatecpm.com/8a/20/6f/8a206fa738acfa1d089c372fb7a7aee8.js"></script>
 
     <style>
         body { background-color: #0b0e11; color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; transition: 0.3s; }
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 2%; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        /* التعديل المطلب: اللغات يسار واللوجو يمين مع الحفاظ على التصميم */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 2%; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; flex-direction: row-reverse; }
         .logo { color: #ff3b5c; font-size: 24px; font-weight: bold; text-decoration: none; cursor: pointer; }
         
         .lang-container { display: flex; gap: 12px; align-items: center; }
@@ -46,9 +47,7 @@
         
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 4000; flex-direction: column; align-items: center; justify-content: center; }
         #mainPlayer, #liveVideoPlayer { width: 95%; max-width: 800px; height: 50vh; border: 2px solid #ff3b5c; border-radius: 10px; background: #000; }
-        /* حاوية مشغل Clappr */
-        #clapprPlayerWrapper { width: 95%; max-width: 800px; }
-
+        
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
 </head>
@@ -68,7 +67,7 @@
     <div id="videoPlayerContainer">
         <button class="tab" style="margin-bottom:10px;" id="backBtn" onclick="closePlayer()">BACK / عودة</button>
         <iframe id="mainPlayer" src="" allowfullscreen style="display:none; border:none;"></iframe>
-        <div id="clapprPlayerWrapper"></div>
+        <video id="liveVideoPlayer" controls style="display:none;"></video>
     </div>
 
     <div class="header">
@@ -102,7 +101,7 @@
     <script>
         const API_KEY = '715fb05852af662217013d8380237f2a';
         const JSON_FILE = "links.json"; 
-        let currentType = 'movie', currentLang = 'ar', clapprPlayer = null;
+        let currentType = 'movie', currentLang = 'ar', hlsPlayer = null;
 
         const translations = {
             ar: { movies: "أفلام", series: "مسلسلات", live: "اختر القناة المباشرة", search: "ابحث هنا...", back: "عودة", sport: "رياضة", news: "أخبار" },
@@ -165,38 +164,47 @@
 
                 grid.innerHTML = channels.map(ch => `
                     <div class="channel-card" onclick="startStream('${ch.url}')">
-                        <img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/60/0b0e11/ff3b5c?text=TV'">
+                        <img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/60/0b0e11/ff3b5c?text=${ch.name.substring(0,1)}'">
                         <div style="font-size:10px; margin-top:5px; color:#fff;">${ch.name}</div>
                     </div>
                 `).join('');
             } catch (e) { grid.innerHTML = "Error loading channels!"; }
         }
 
-        // --- تعديل المشغل لاستخدام Clappr و Proxy ---
         function startStream(url) {
             closeChannelsModal();
             document.getElementById('mainPlayer').style.display = 'none';
-            const wrapper = document.getElementById('clapprPlayerWrapper');
-            wrapper.innerHTML = ''; // تنظيف المشغل السابق
+            const video = document.getElementById('liveVideoPlayer');
+            video.style.display = 'block';
             document.getElementById('videoPlayerContainer').style.display = 'flex';
 
-            if (clapprPlayer) { clapprPlayer.destroy(); }
+            if (hlsPlayer) { hlsPlayer.destroy(); }
 
-            // استخدام البروكسي لفك حظر CORS للروابط الرسمية
-            const finalUrl = "https://corsproxy.io/?" + encodeURIComponent(url);
-
-            clapprPlayer = new Clappr.Player({
-                source: finalUrl,
-                parentId: "#clapprPlayerWrapper",
-                width: '100%',
-                height: '400px',
-                autoPlay: true,
-                mute: true, // مهم لتجاوز حظر المتصفح للتشغيل التلقائي
-                mimeType: "application/x-mpegURL",
-                hlsjsConfig: {
-                    enableWorker: true
-                }
-            });
+            if (Hls.isSupported()) {
+                // تعديل المشغل ليكون ذكياً ويحل مشكلة manifestLoadError
+                hlsPlayer = new Hls({
+                    enableWorker: true,
+                    manifestLoadingMaxRetry: 10,
+                    levelLoadingMaxRetry: 10,
+                    xhrSetup: function (xhr, url) { xhr.withCredentials = false; }
+                });
+                hlsPlayer.loadSource(url);
+                hlsPlayer.attachMedia(video);
+                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play().catch(e => console.log("Auto-play blocked"));
+                });
+                
+                hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
+                    if (data.fatal) {
+                        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                            console.log("Network error, retrying...");
+                            hlsPlayer.startLoad();
+                        } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                            hlsPlayer.recoverMediaError();
+                        }
+                    }
+                });
+            } else { video.src = url; video.play(); }
         }
 
         async function loadContent(type) {
@@ -216,8 +224,8 @@
         }
 
         function openPlayer(id) {
-            if (clapprPlayer) { clapprPlayer.destroy(); clapprPlayer = null; }
-            document.getElementById('clapprPlayerWrapper').innerHTML = '';
+            if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
+            document.getElementById('liveVideoPlayer').style.display = 'none';
             const player = document.getElementById('mainPlayer');
             player.style.display = 'block';
             player.src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
@@ -227,8 +235,9 @@
         function closePlayer() {
             document.getElementById('videoPlayerContainer').style.display = 'none';
             document.getElementById('mainPlayer').src = '';
-            document.getElementById('clapprPlayerWrapper').innerHTML = '';
-            if (clapprPlayer) { clapprPlayer.destroy(); clapprPlayer = null; }
+            const video = document.getElementById('liveVideoPlayer');
+            video.pause(); video.src = "";
+            if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
         }
 
         function handleSearch(event) {

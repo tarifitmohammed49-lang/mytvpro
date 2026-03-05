@@ -1,21 +1,1005 @@
 {
-    "ar_news": [
+    "ar_sport": [],
+    "ar_news": [],
+    "fr_sport": [
         {
-            "name": "الجزيرة مباشر",
-            "url": "https://live-hls-web-aje.akamaized.net/hls/live/2036303/aje/index.m3u8",
-            "logo": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Aljazeera_eng.svg"
+            "name": "ADN TV+",
+            "logo": "",
+            "url": "https://d3b73b34o7cvkq.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gz2sgqzp076kf/adn.m3u8"
         },
         {
-            "name": "سكاي نيوز عربية",
-            "url": "https://live.skynewsarabia.com/hls/sna.m3u8",
-            "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Sky_News_Arabia_logo.svg"
+            "name": "Africa 24 Sport (1080p)",
+            "logo": "",
+            "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8"
+        },
+        {
+            "name": "Fun Radio",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/funradiofr.m3u8"
+        },
+        {
+            "name": "Radio Frontieres",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/radiofrontieres.m3u8"
+        },
+        {
+            "name": "Radio Karaoke",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/radiokaraoke-2.m3u8"
+        },
+        {
+            "name": "Sud Radio",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/sudradio.m3u8"
         }
     ],
-    "ar_sport": [
+    "fr_news": [
         {
-            "name": "الرياضية المغربية",
-            "url": "https://snrtlive-hls-ch3-apple-delivery.akamaized.net/adbe018f_1/index.m3u8",
-            "logo": "https://www.snrt.ma/sites/default/files/styles/logo_chaine/public/2021-12/arryadia.png"
+            "name": "20 Minutes TV (1080p)",
+            "logo": "",
+            "url": "https://live-20minutestv.digiteka.com/1961167769/index.m3u8"
+        },
+        {
+            "name": "Africa 24 (1080p)",
+            "logo": "",
+            "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24/manifest.m3u8"
+        },
+        {
+            "name": "Africa 24 English (1080p)",
+            "logo": "",
+            "url": "https://edge20.vedge.infomaniak.com/livecast/ik:africa24english/manifest.m3u8"
+        },
+        {
+            "name": "Africanews French",
+            "logo": "",
+            "url": "https://cdn-euronews.akamaized.net/live/eds/africanews-fr/25050/index.m3u8"
+        },
+        {
+            "name": "Alpe d’Huez TV (720p) [Not 24/7]",
+            "logo": "",
+            "url": "https://edge13.vedge.infomaniak.com/livecast/ik:adhtv/manifest.m3u8"
+        },
+        {
+            "name": "Angers Tele",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/angerstele.m3u8"
+        },
+        {
+            "name": "Antenne Réunion (720p) [Not 24/7]",
+            "logo": "",
+            "url": "https://live-antenne-reunion.zeop.tv/live/c3eds/antreunihd/hls_fta/antreunihd.m3u8?location=ZEOP01"
+        },
+        {
+            "name": "AraBel",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/arabel.m3u8"
+        },
+        {
+            "name": "Arte (720p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://artesimulcast.akamaized.net/hls/live/2031003/artelive_fr/index.m3u8"
+        },
+        {
+            "name": "B Smart TV (320p)",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/bsmart.m3u8"
+        },
+        {
+            "name": "BFM2",
+            "logo": "",
+            "url": "https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8"
+        },
+        {
+            "name": "BFM Business (576p)",
+            "logo": "",
+            "url": "https://live-cdn-stream-euw1.bfmb.bct.nextradiotv.com/master.m3u8"
+        },
+        {
+            "name": "BFM Lyon (576p)",
+            "logo": "",
+            "url": "https://live-cdn-bfmtvlyo-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
+        },
+        {
+            "name": "BFM TV (576p)",
+            "logo": "",
+            "url": "https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
+        },
+        {
+            "name": "Brionnais TV (720p)",
+            "logo": "",
+            "url": "https://stream2.mandarine.media/brionnaistv/brionnaistv/playlist.m3u8"
+        },
+        {
+            "name": "Caillou",
+            "logo": "",
+            "url": "https://do7nccdsswstc.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-1aso0bc668saa/a5233c83-f772-4a81-959a-45ec7877ef61/5.m3u8"
+        },
+        {
+            "name": "Canal 32 (1080p)",
+            "logo": "",
+            "url": "https://event.vedge.infomaniak.com/livecast/ik:canal32_4/manifest.m3u8"
+        },
+        {
+            "name": "Cannes Lérins TV (1080p)",
+            "logo": "",
+            "url": "https://vdo2.pro-fhi.net:3628/live/uppodsfqlive.m3u8"
+        },
+        {
+            "name": "CNews (1080p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/LeBazarDeBryan/XTVZ_/main/Stream/Live/CNews.m3u8"
+        },
+        {
+            "name": "CNews",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/cnews.m3u8"
+        },
+        {
+            "name": "DBM TV (1080p)",
+            "logo": "",
+            "url": "https://dbmtv.vedge.infomaniak.com/livecast/dbmtv/playlist.m3u8"
+        },
+        {
+            "name": "Disney Jr.",
+            "logo": "",
+            "url": "http://151.80.18.177:86/Disney_Junior_HD/index.m3u8"
+        },
+        {
+            "name": "EMCI TV",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/emciafrique.m3u8"
+        },
+        {
+            "name": "EMCI TV Europe",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/emcieurope.m3u8"
+        },
+        {
+            "name": "Equidia (1080p)",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8"
+        },
+        {
+            "name": "Equidia Racing Mag (1080p)",
+            "logo": "",
+            "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/racingmag.m3u8"
+        },
+        {
+            "name": "Euronews French (720p)",
+            "logo": "",
+            "url": "https://2f6c5bf4.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmxheHhUVi1ldV9FdXJvbmV3c0ZyYW5jYWlzX0hMUw/playlist.m3u8"
+        },
+        {
+            "name": "Euronews German (720p)",
+            "logo": "",
+            "url": "https://575b7833.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmxheHhUVi1ldV9FdXJvbmV3c0RldXRzY2hfSExT/playlist.m3u8"
+        },
+        {
+            "name": "Euronews Italian (720p)",
+            "logo": "",
+            "url": "https://acb6ca89.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmxheHhUVi1ldV9FdXJvbmV3c0l0YWxpYW5vX0hMUw/playlist.m3u8"
+        },
+        {
+            "name": "Euronews Portuguese (720p)",
+            "logo": "",
+            "url": "https://6e52fb8b.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmxheHhUVi1ldV9FdXJvbmV3c1BvcnR1Z3Vlc19ITFM/playlist.m3u8"
+        }
+    ],
+    "en_sport": [
+        {
+            "name": "Al-Fady TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://5d658d7e9f562.streamlock.net/alfadytv.tv/alfadytv.smil/playlist.m3u8"
+        },
+        {
+            "name": "Alkarma TV North America & Canada (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://5aafcc5de91f1.streamlock.net/alkarmatv.com/alkarmana1.smil/playlist.m3u8"
+        },
+        {
+            "name": "BPX TV Radio",
+            "logo": "",
+            "url": "https://video1.getstreamhosting.com:1936/8212/8212/playlist.m3u8"
+        },
+        {
+            "name": "CBS Sports Golazo Network",
+            "logo": "",
+            "url": "https://dai.google.com/linear/hls/event/GxrCGmwST0ixsrc_QgB6qw/master.m3u8"
+        },
+        {
+            "name": "Decades",
+            "logo": "",
+            "url": "https://dvrfl03.bozztv.com/hdirect/hdirect-ovair1-decades/index.m3u8"
+        },
+        {
+            "name": "Fox News Radio (720p)",
+            "logo": "",
+            "url": "https://radiovid.foxnews.com/hls/live/661547/RADIOVID/index.m3u8"
+        },
+        {
+            "name": "Fun Roads (404p)",
+            "logo": "",
+            "url": "http://104.143.4.5:2080/funroads.m3u8"
+        },
+        {
+            "name": "Juventud Renovada en el Espiritu Santo (720p) [Not 24/7]",
+            "logo": "",
+            "url": "https://telered.live:1936/jrestv/jrestv/playlist.m3u8"
+        },
+        {
+            "name": "Mad Dog and Merrill (540p) [Not 24/7]",
+            "logo": "",
+            "url": "https://rpn.bozztv.com/gusa/gusa-mwg/index.m3u8"
+        },
+        {
+            "name": "Majestad Televisión (480p) [Not 24/7]",
+            "logo": "",
+            "url": "https://livetv.305streamhd.com:3667/live/majestadtvlive.m3u8"
+        },
+        {
+            "name": "NBC Sports NOW (1080p)",
+            "logo": "",
+            "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993008/hls/master.m3u8?ads.xumo_channelId=99993008"
+        },
+        {
+            "name": "NTD TV Canada",
+            "logo": "",
+            "url": "https://live.ntdtv.com/mllive860/playlist.m3u8"
+        },
+        {
+            "name": "NTD TV Canada West",
+            "logo": "",
+            "url": "https://live.ntdtv.com/cwlive220/playlist.m3u8"
+        },
+        {
+            "name": "Radio Javan TV (1080p)",
+            "logo": "",
+            "url": "https://rjtvhls.wns.live/hls/stream.m3u8"
+        },
+        {
+            "name": "Radio Ritmo (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://panel.tvstream.cl:1936/8046/8046/playlist.m3u8"
+        },
+        {
+            "name": "Radio Tele Puissance",
+            "logo": "",
+            "url": "https://video1.getstreamhosting.com:1936/8560/8560/playlist.m3u8"
+        },
+        {
+            "name": "Radio Tele Sentinel",
+            "logo": "",
+            "url": "https://59d39900ebfb8.streamlock.net/radiotelesentinel/radiotelesentinel/playlist.m3u8"
+        },
+        {
+            "name": "Radio U TV (720p) [Not 24/7]",
+            "logo": "",
+            "url": "https://1826200335.rsc.cdn77.org/1826200335/index.m3u8"
+        },
+        {
+            "name": "RadioMensaje TV (720p)",
+            "logo": "",
+            "url": "https://eu1.servers10.com:8081/8230/index.m3u8"
+        },
+        {
+            "name": "Sada-E-Haq TV (720p)",
+            "logo": "",
+            "url": "https://live.relentlessinnovations.net:1936/sadaehaq/sadaehaq/playlist.m3u8"
+        },
+        {
+            "name": "SKWAD (1080p)",
+            "logo": "",
+            "url": "https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=71"
+        },
+        {
+            "name": "Toonami Aftermath Radio (480p)",
+            "logo": "",
+            "url": "http://api.toonamiaftermath.com:3000/radio/playlist.m3u8"
+        },
+        {
+            "name": "TVS Classic Sports (360p)",
+            "logo": "",
+            "url": "https://rpn.bozztv.com/gusa/gusa-tvs/index.m3u8"
+        },
+        {
+            "name": "TVS Pet Parade Network (360p)",
+            "logo": "",
+            "url": "https://rpn.bozztv.com/gusa/gusa-petparadenetwork/index.m3u8"
+        },
+        {
+            "name": "TVS Sports (720p) [Not 24/7]",
+            "logo": "",
+            "url": "https://rpn.bozztv.com/gusa/gusa-tvssports/index.m3u8"
+        },
+        {
+            "name": "TVS Sports Bureau (720p)",
+            "logo": "",
+            "url": "https://rpn.bozztv.com/gusa/gusa-tvssportsbureau/index.m3u8"
+        },
+        {
+            "name": "TVS Women Sports (720p)",
+            "logo": "",
+            "url": "https://rpn.bozztv.com/gusa/gusa-tvswsn/index.m3u8"
+        },
+        {
+            "name": "W14DK-D 14.5 All Sports Television Network",
+            "logo": "",
+            "url": "https://2-fss-2.streamhoster.com/pl_118/204972-2205186-1/playlist.m3u8"
+        },
+        {
+            "name": "Willow Sports (1080p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://amg01269-amg01269c1-firetv-us-5377.playouts.now.amagi.tv/playlist.m3u8"
+        },
+        {
+            "name": "WVCU-LP Concord University Radio The Cure 97.7 (1080p)",
+            "logo": "",
+            "url": "https://video1.getstreamhosting.com:1936/8152/8152/playlist.m3u8"
+        }
+    ],
+    "en_news": [
+        {
+            "name": "6 Wise Tv (720p)",
+            "logo": "",
+            "url": "https://live.enhdtv.com:8081/8150/index.m3u8"
+        },
+        {
+            "name": "24Kitchen Serbia (720p)",
+            "logo": "",
+            "url": "http://91.132.74.5:8000/play/a00a"
+        },
+        {
+            "name": "ABC",
+            "logo": "",
+            "url": "http://41.205.93.154/ABC/index.m3u8"
+        },
+        {
+            "name": "ABN Afghanistan (540p)",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/abnafghanistan.m3u8"
+        },
+        {
+            "name": "ABN Africa (480p)",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/abnafrica.m3u8"
+        },
+        {
+            "name": "ABN Bible Movies (720p)",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/abnbiblemovies.m3u8"
+        },
+        {
+            "name": "ABN China (720p)",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/abnchina.m3u8"
+        },
+        {
+            "name": "ABN Freedom of Speech",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/freedom_of_speech.m3u8"
+        },
+        {
+            "name": "ABN I AM",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/i_am_.m3u8"
+        },
+        {
+            "name": "ABN Son of God",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/son_of_god_.m3u8"
+        },
+        {
+            "name": "ABN TV India (540p)",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/abntvindia.m3u8"
+        },
+        {
+            "name": "ABN Urdu (540p)",
+            "logo": "",
+            "url": "https://mediaserver.abnvideos.com/streams/abnurdu.m3u8"
+        },
+        {
+            "name": "Access Nashua",
+            "logo": "",
+            "url": "https://livestream.telvue.com/nashuanh1/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8"
+        },
+        {
+            "name": "AccessVision Channel 16",
+            "logo": "",
+            "url": "https://livestream.telvue.com/accvision1/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8"
+        },
+        {
+            "name": "AccessVision Channel 17",
+            "logo": "",
+            "url": "https://livestream.telvue.com/accvision2/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8"
+        },
+        {
+            "name": "ACL Cornhole TV (1080p)",
+            "logo": "",
+            "url": "https://1815337252.rsc.cdn77.org/HLS/CORNHOLETV.m3u8"
+        },
+        {
+            "name": "ACTV",
+            "logo": "",
+            "url": "https://castus-vod-dev.s3.amazonaws.com/vod_clients/athens/live/ch2/video.m3u8"
+        },
+        {
+            "name": "AfroLandTV (1080p)",
+            "logo": "",
+            "url": "https://alt-al.otteravision.com/alt/al/al.m3u8"
+        },
+        {
+            "name": "AFTV (1080p)",
+            "logo": "",
+            "url": "https://livestream.telvue.com/accframingham1/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8"
+        },
+        {
+            "name": "Aghapy Kids (1080p)",
+            "logo": "",
+            "url": "https://5b622f07944df.streamlock.net/aghapykids.tv/aghapykids2/playlist.m3u8"
+        },
+        {
+            "name": "Akaku 53 (Hawaii) (1080p)",
+            "logo": "",
+            "url": "https://castus-vod-dev.s3.amazonaws.com/vod_clients/akaku/live/ch1/video.m3u8"
+        },
+        {
+            "name": "Akaku 54 (Hawaii) (1080p)",
+            "logo": "",
+            "url": "https://castus-vod-dev.s3.amazonaws.com/vod_clients/akaku/live/ch2/video.m3u8"
+        },
+        {
+            "name": "Akaku 55 (Hawaii) (1080p)",
+            "logo": "",
+            "url": "https://castus-vod-dev.s3.amazonaws.com/vod_clients/akaku/live/ch3/video.m3u8"
+        },
+        {
+            "name": "AKC TV (1080p)",
+            "logo": "",
+            "url": "https://broadcast.blivenyc.com/speed/broadcast/22/desktop-playlist.m3u8"
+        },
+        {
+            "name": "AKC TV",
+            "logo": "",
+            "url": "https://install.akctvcontrol.com/speed/broadcast/138/desktop-playlist.m3u8"
+        },
+        {
+            "name": "AKC TV Meet The Breeds",
+            "logo": "",
+            "url": "https://install.akctvcontrol.com/speed/broadcast/139/desktop-playlist.m3u8"
+        },
+        {
+            "name": "AKC TV Puppies 24/7",
+            "logo": "",
+            "url": "https://install.akctvcontrol.com/speed/broadcast/140/desktop-playlist.m3u8"
+        },
+        {
+            "name": "Al Horreya TV (1080p)",
+            "logo": "",
+            "url": "http://media.smc-host.com:1935/alhorreya.tv/mp4:alhorreya3/playlist.m3u8"
+        },
+        {
+            "name": "Al Horreya TV (720p)",
+            "logo": "",
+            "url": "http://media.smc-host.com:1935/alhorreya.tv/alhorreya.smil/playlist.m3u8"
+        },
+        {
+            "name": "Al-MahdiTV (1080p)",
+            "logo": "",
+            "url": "https://iptv.almahditv.com/almahditv/playlist.m3u8"
+        }
+    ],
+    "de_sport": [
+        {
+            "name": "Adventure Earth (1080p)",
+            "logo": "",
+            "url": "https://a57e9c69976649b582a8d7604c00e69a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AdventureEarth/playlist.m3u8"
+        },
+        {
+            "name": "Adventure Earth (720p)",
+            "logo": "",
+            "url": "https://autentic-adventure-earth-1-eu.rakuten.wurl.tv/playlist.m3u8"
+        },
+        {
+            "name": "Baden TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "http://badentv-stream2.siebnich.info/rtplive/btv.stream/live.m3u8"
+        },
+        {
+            "name": "Baden TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "http://badentv-stream2.siebnich.info/rtplive/btv.stream/playlist.m3u8"
+        },
+        {
+            "name": "Baden TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://cdn.icu.de/rtplive/btv.stream/playlist.m3u8"
+        },
+        {
+            "name": "Baden TV Süd (480p)",
+            "logo": "",
+            "url": "https://cdn.icu.de/rtplive/smil:btvsued.smil/playlist.m3u8"
+        },
+        {
+            "name": "More Than Sports TV (1080p)",
+            "logo": "",
+            "url": "https://mts1.iptv-playoutcenter.de/mts/mts-web/playlist.m3u8"
+        },
+        {
+            "name": "OK Kassel (720p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://s.ok54.de/mok-ks/kassel/playlist.m3u8"
+        },
+        {
+            "name": "OK Weinstraße (Neustadt) (432p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://s.ok54.de/okweinstrasse/okweinstrasse/playlist.m3u8"
+        },
+        {
+            "name": "One Adria (1080p)",
+            "logo": "",
+            "url": "https://cdne.folxplay.tv/folx-trz/streams/ch-6/master.m3u8"
+        },
+        {
+            "name": "Radio 21 TV (720p)",
+            "logo": "",
+            "url": "https://live.creacast.com/radio21/smil:radio21.smil/playlist.m3u8"
+        },
+        {
+            "name": "Radio Bremen Fernsehen (1080p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://rbhlslive.akamaized.net/hls/live/2020435/rbfs/master.m3u8"
+        },
+        {
+            "name": "Radio Weser TV Bremen (576p)",
+            "logo": "",
+            "url": "https://5857499ee635b.streamlock.net/radiowesertv-live/_definst_/mp4:livestreamTV/playlist.m3u8"
+        },
+        {
+            "name": "Radio Weser TV Bremen (576p)",
+            "logo": "",
+            "url": "https://5857499ee635b.streamlock.net/radiowesertv-live/mp4:livestreamTV/playlist.m3u8"
+        },
+        {
+            "name": "Sportdigital FUSSBALL HD (1080p)",
+            "logo": "",
+            "url": "https://live20.bozztv.com/akamaissh101/ssh101/sportdigtal1/playlist.m3u8"
+        },
+        {
+            "name": "SWR 3 Visual Radio (720p)",
+            "logo": "",
+            "url": "https://swrswr3vr-hls.akamaized.net/hls/live/2018683/swr3vr/master.m3u8"
+        },
+        {
+            "name": "SWR Fernsehen Baden-Württemberg (720p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://swrbwd-hls.akamaized.net/hls/live/2018672/swrbwd/master.m3u8"
+        },
+        {
+            "name": "TV Ingolstadt (1080p)",
+            "logo": "",
+            "url": "https://stream01.welocal.stream/stream/fhd-tvingolstadt_44349/ngrp:stream_all/playlist.m3u8"
+        }
+    ],
+    "de_news": [
+        {
+            "name": "1-2-3 TV (270p)",
+            "logo": "",
+            "url": "https://123tv-mx1.flex-cdn.net/index.m3u8"
+        },
+        {
+            "name": "3sat (720p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://zdf-hls-18.akamaized.net/hls/live/2016501/dach/high/master.m3u8"
+        },
+        {
+            "name": "Alex Berlin (1080p)",
+            "logo": "",
+            "url": "https://alex-stream.rosebud-media.de/bounce/alexlivetv50.smil/index.m3u8"
+        },
+        {
+            "name": "Allgäu TV (1080p)",
+            "logo": "",
+            "url": "https://stream01.welocal.stream/stream/fhd-allgaeutv_25679/ngrp:stream_all/playlist.m3u8"
+        },
+        {
+            "name": "Altenburg TV (1080p)",
+            "logo": "",
+            "url": "https://58de7a369a9c4.streamlock.net/abgtv/abgtv_1080p/playlist.m3u8"
+        },
+        {
+            "name": "ANIMAL KINGDOM (720p)",
+            "logo": "",
+            "url": "https://cdn6.goprimetime.info/feed/202306140918/LC18/index.m3u8"
+        },
+        {
+            "name": "Anixe + (360p)",
+            "logo": "",
+            "url": "https://ma.anixa.tv/clips/stream/anixesd/index.m3u8"
+        },
+        {
+            "name": "Anixe HD Serie (360p)",
+            "logo": "",
+            "url": "https://ma.anixa.tv/clips/stream/anixehd/index.m3u8"
+        },
+        {
+            "name": "ARD-alpha (720p) [Not 24/7]",
+            "logo": "",
+            "url": "https://brlive-lh.akamaihd.net/i/bralpha_germany@119899/master.m3u8"
+        },
+        {
+            "name": "ARD-alpha (720p)",
+            "logo": "",
+            "url": "https://mcdn.br.de/br/fs/ard_alpha/hls/de/master.m3u8"
+        },
+        {
+            "name": "Aristo TV (360p)",
+            "logo": "",
+            "url": "https://ma.anixa.tv/clips/stream/aristo/index.m3u8"
+        },
+        {
+            "name": "arte (1080p)",
+            "logo": "",
+            "url": "http://c3921155.edmonst.net/iptv/65C7UBRRW8GHQVYPH2MQT3SA/15171/index.m3u8"
+        },
+        {
+            "name": "ARTE (720p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/index.m3u8"
+        },
+        {
+            "name": "Augsburg TV (1080p)",
+            "logo": "",
+            "url": "https://stream02.welocal.stream/stream/fhd-augsburgtv_104951/ngrp:stream_all/playlist.m3u8"
+        },
+        {
+            "name": "Augsburg TV (a.tv) (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://augsburgtv.iptv-playoutcenter.de/augsburgtv/augsburgtv.stream_1/playlist.m3u8"
+        },
+        {
+            "name": "Autentic History (1080p)",
+            "logo": "",
+            "url": "https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticHistory/playlist.m3u8"
+        },
+        {
+            "name": "Autentic Travel (1080p)",
+            "logo": "",
+            "url": "https://cb0c87cc605942ff9766a4e6744bbadc.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticTravel/playlist.m3u8"
+        },
+        {
+            "name": "Bibel TV (720p)",
+            "logo": "",
+            "url": "https://bibint01.iptv-playoutcenter.de/bibint01/bibint01.stream_all/playlist.m3u8"
+        },
+        {
+            "name": "Bibel TV Impuls (720p)",
+            "logo": "",
+            "url": "https://bibeltv02.iptv-playoutcenter.de/bibeltv02/bibeltv02.stream_1/playlist.m3u8"
+        },
+        {
+            "name": "Bibel TV Musik (720p)",
+            "logo": "",
+            "url": "https://bibeltv03.iptv-playoutcenter.de/bibeltv03/bibeltv03.stream_1/playlist.m3u8"
+        },
+        {
+            "name": "BLK Regional TV (1080p)",
+            "logo": "",
+            "url": "https://58bd5b7a98e04.streamlock.net/medienasa-live/_definst_/mp4:BLKonline_high/playlist.m3u8"
+        },
+        {
+            "name": "BLK TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://58bd5b7a98e04.streamlock.net/medienasa-live/_definst_/BLKonline_high/playlist.m3u8"
+        },
+        {
+            "name": "BLK TV Hohenmölsen (1080p)",
+            "logo": "",
+            "url": "https://58bd5b7a98e04.streamlock.net/medienasa-live/_definst_/mp4:BLKonline_high/playlist.m3u8?ref=medienportal-sachsen-"
+        },
+        {
+            "name": "BR Fernsehen Nord (720p)",
+            "logo": "",
+            "url": "https://mcdn.br.de/br/fs/bfs_nord/hls/de/master.m3u8"
+        },
+        {
+            "name": "Chemnitz Fernsehen (1080p)",
+            "logo": "",
+            "url": "https://chemnitz.iptv-playoutcenter.de/chemnitz/chemnitzfernsehen.stream_1/playlist.m3u8"
+        },
+        {
+            "name": "Cira TV",
+            "logo": "",
+            "url": "https://cira-tv.akamaized.net/hls/stream_0.m3u8"
+        },
+        {
+            "name": "Da Vinci Asia Vietnam",
+            "logo": "",
+            "url": "https://liveh12.vtvprime.vn/hls/DAVINVY/04.m3u8"
+        },
+        {
+            "name": "Das Erste HD (1080p)",
+            "logo": "",
+            "url": "https://daserste-live.ard-mcdn.de/daserste/live/hls/int/master.m3u8"
+        },
+        {
+            "name": "DASDING 90.8 (720p)",
+            "logo": "",
+            "url": "https://swrdasdingvr-hls.akamaized.net/hls/live/2018681/dasdingvr/master.m3u8"
+        },
+        {
+            "name": "Deluxe Dance (1080p)",
+            "logo": "",
+            "url": "https://sdn-global-live-streaming-packager-cache.3qsdn.com/64733/64733_264_live.m3u8"
+        }
+    ],
+    "nl_sport": [
+        {
+            "name": "BNR Nieuwsradio (720p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://bnr-cache-cdp.triple-it.nl/studio/index.m3u8"
+        },
+        {
+            "name": "Hype Visual Radio (1080p)",
+            "logo": "",
+            "url": "https://streammix.alsolnet.com/hyperadio/live/playlist.m3u8"
+        },
+        {
+            "name": "Magic PowerRadio (288p) [Not 24/7]",
+            "logo": "",
+            "url": "https://server-23.stream-server.nl:1936/Magic-PowerRadio/Magic-PowerRadio/playlist.m3u8"
+        },
+        {
+            "name": "Omroep Brabant Radio (1080p)",
+            "logo": "",
+            "url": "https://d3slqp9xhts6qb.cloudfront.net/live/omroepbrabant/visualradio/index.m3u8"
+        },
+        {
+            "name": "Omroep Meierijstad (480p)",
+            "logo": "",
+            "url": "https://ms2.mx-cd.net/dtv-09/186-793530/Omroep_Meierij_TV.smil/playlist.m3u8"
+        },
+        {
+            "name": "Radio 10 (720p)",
+            "logo": "",
+            "url": "https://radio10.prd1.talpatvcdn.nl/2b725bc7c93f477eaf0e43955ea8a6c1/index.m3u8"
+        },
+        {
+            "name": "Radio 350 (360p) [Not 24/7]",
+            "logo": "",
+            "url": "https://stream.radio350.nl/hls/radio350.m3u8"
+        },
+        {
+            "name": "Radio 538 (270p)",
+            "logo": "",
+            "url": "https://radio538.prd1.talpatvcdn.nl/22e9bbf9616547d7bc162c993009c533/index.m3u8"
+        },
+        {
+            "name": "Radio Aalsmeer TV (720p) [Not 24/7]",
+            "logo": "",
+            "url": "https://radioaalsmeer.nl:4443/live/tv.m3u8"
+        },
+        {
+            "name": "Radio JND (1080p)",
+            "logo": "",
+            "url": "https://radiojnd.cdn.hostin.cc/radiojnd/playlist.m3u8"
+        },
+        {
+            "name": "Radio Stad den Haag (720p)",
+            "logo": "",
+            "url": "https://rsdh.cloud-streams.com/rsdh/rsdh/playlist.m3u8"
+        },
+        {
+            "name": "RadioNL TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://stream.radionl.tv/radionltv/radionltv/playlist.m3u8"
+        },
+        {
+            "name": "RadioToppers (720p)",
+            "logo": "",
+            "url": "https://server-67.stream-server.nl:1936/RadioToppers/RadioToppers/playlist.m3u8"
+        },
+        {
+            "name": "Rararadio (720p)",
+            "logo": "",
+            "url": "https://58c04fb1d143f.streamlock.net/rararadio/rararadio/playlist.m3u8"
+        },
+        {
+            "name": "RTV NOF Achtkarspelen & Tytsjerksteradiel (720p)",
+            "logo": "",
+            "url": "https://5e6ab219de8f5.streamlock.net/rtvnof/rtvnof/playlist.m3u8"
+        },
+        {
+            "name": "RTV Noordoost Friesland (Achtkarspelen / Tytsjerksteradiel) [Not 24/7]",
+            "logo": "",
+            "url": "https://5ebd833552d56.streamlock.net/rtvnof3/rtvnof3/playlist.m3u8"
+        },
+        {
+            "name": "RTV Parkstad (1080p)",
+            "logo": "",
+            "url": "https://live.streamteam.eu:8443/parkstad/parkstad/tv/playlist.m3u8"
+        },
+        {
+            "name": "Salto ADE (720p)",
+            "logo": "",
+            "url": "https://live.salto.nl/hls/at5.m3u8"
+        },
+        {
+            "name": "Sleutelstad TV (720p)",
+            "logo": "",
+            "url": "https://samson.streamerr.co:8081/sleutelstad/index.m3u8"
+        },
+        {
+            "name": "Slotstad TV (720p)",
+            "logo": "",
+            "url": "https://d3eq9mufmyqgh4.cloudfront.net/nlpo/clr-nlpo/slotstadtv/index.m3u8"
+        },
+        {
+            "name": "Streekstad Alkmaar Centraal (1080p)",
+            "logo": "",
+            "url": "https://videostreams.streekstadcentraal.nl/hls/streekstad_alkmaar/streekstad_alkmaar.m3u8"
+        },
+        {
+            "name": "UStad (1080p)",
+            "logo": "",
+            "url": "http://media.rtvutrecht.nl/live/rtvutrecht/ustad/index.m3u8"
+        },
+        {
+            "name": "UStad (1080p)",
+            "logo": "",
+            "url": "https://d18rwjdhpr8dcw.cloudfront.net/live/rtvutrecht/ustad/index.m3u8"
+        }
+    ],
+    "nl_news": [
+        {
+            "name": "1Almere TV (720p)",
+            "logo": "",
+            "url": "https://d3472rjicrodic.cloudfront.net/nlpo/clr-nlpo/709d5260/index.m3u8"
+        },
+        {
+            "name": "1Twente TV (1080p)",
+            "logo": "",
+            "url": "https://ms7.mx-cd.net/dtv-11/198-989148/1Twente_TV.smil/chunklist_w954512639_b4292608_slNLD.m3u8"
+        },
+        {
+            "name": "A1 TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://stream.a1mediagroep.nl/hls/a1tv.m3u8"
+        },
+        {
+            "name": "A1 TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "https://www.a1mediagroep.nl/hls/a1tv.m3u8"
+        },
+        {
+            "name": "Altena TV (720p)",
+            "logo": "",
+            "url": "https://dnx1f4sl30ba2.cloudfront.net/nlpo/clr-nlpo/altenatv/index.m3u8"
+        },
+        {
+            "name": "Assen TV (720p)",
+            "logo": "",
+            "url": "https://takeoff.jetstre.am/?account=OmroepAssen&file=OmroepAssenTV/playlist.m3u8&output=playlist.m3u8&protocol=https&service=webdav&type=live"
+        },
+        {
+            "name": "AT5",
+            "logo": "",
+            "url": "https://takeoff.jetstre.am/?account=atvijf&file=live&output=playlist.m3u8&protocol=https&service=wowza&type=live"
+        },
+        {
+            "name": "BE@TTV (1080p)",
+            "logo": "",
+            "url": "https://tv.beatfm.nl/live.m3u8"
+        },
+        {
+            "name": "BR6 TV (720p)",
+            "logo": "",
+            "url": "https://58c04fb1d143f.streamlock.net/slob/slob/playlist.m3u8"
+        },
+        {
+            "name": "DeepHouse District (1080p)",
+            "logo": "",
+            "url": "https://eu-nl-012.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8"
+        },
+        {
+            "name": "Den Haag TV (1080p) [Not 24/7]",
+            "logo": "",
+            "url": "http://wowza5.video-streams.nl:1935/denhaag/denhaag/playlist.m3u8"
+        },
+        {
+            "name": "Dit is Helmond (480p)",
+            "logo": "",
+            "url": "http://ms2.mx-cd.net/tv/Omroep_Helmond.smil/chunklist.m3u8"
+        },
+        {
+            "name": "Dit is Helmond (480p)",
+            "logo": "",
+            "url": "https://ms2.mx-cd.net/tv/228-1864150/Omroep_Helmond.smil/playlist.m3u8"
+        },
+        {
+            "name": "DTV Den Bosch (1080p)",
+            "logo": "",
+            "url": "https://rrr.sz.xlcdn.com/?account=dtvmaasland&file=dtv2&output=playlist.m3u8&protocol=https&service=wowza&type=live"
+        },
+        {
+            "name": "DTV Maashorst (1080p)",
+            "logo": "",
+            "url": "https://rrr.sz.xlcdn.com/?account=dtvmaasland&file=dtv3&output=playlist.m3u8&protocol=https&service=wowza&type=live"
+        },
+        {
+            "name": "DTV Oss & Bernheze (1080p)",
+            "logo": "",
+            "url": "https://rrr.sz.xlcdn.com/?account=dtvmaasland&file=dtv1&output=playlist.m3u8&protocol=https&service=wowza&type=live"
+        },
+        {
+            "name": "Feel Good TV (720p) [Not 24/7]",
+            "logo": "",
+            "url": "https://58c04fb1d143f.streamlock.net/feel_good_radio_1/feel_good_radio_1/playlist.m3u8"
+        },
+        {
+            "name": "FomixTV (1080p)",
+            "logo": "",
+            "url": "http-referrer=https://www.fomix.nl"
+        },
+        {
+            "name": "Gigant FM (720p)",
+            "logo": "",
+            "url": "https://video.uitzending.tv:19360/gigantfm/gigantfm.m3u8"
+        },
+        {
+            "name": "Haarlem105 RTV (720p)",
+            "logo": "",
+            "url": "https://d2qm50imcbcfqx.cloudfront.net/nlpo/clr-nlpo/haarlem105/index.m3u8"
+        },
+        {
+            "name": "HTR TV (720p)",
+            "logo": "",
+            "url": "https://ms7.mx-cd.net/tv/286-3043214/HTR_Media_TV.smil/playlist.m3u8"
+        },
+        {
+            "name": "Ideaal TV (480p) [Not 24/7]",
+            "logo": "",
+            "url": "https://ms2.mx-cd.net/dtv-09/236-2051366/Ideaal_TV.smil/playlist.m3u8"
+        },
+        {
+            "name": "INFAST (1080p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://amg00861-amg00861c5-firetv-us-4727.playouts.now.amagi.tv/playlist.m3u8"
+        },
+        {
+            "name": "INFAST (1080p)",
+            "logo": "",
+            "url": "https://amg00861-amg00861c11-rlaxx-uk-3950.playouts.now.amagi.tv/playlist.m3u8"
+        },
+        {
+            "name": "INFAST (1080p)",
+            "logo": "",
+            "url": "https://insighttv-samsung-canada.amagi.tv/playlist.m3u8"
+        },
+        {
+            "name": "INFAST (1080p)",
+            "logo": "",
+            "url": "https://insighttv-samsung-us.amagi.tv/playlist.m3u8"
+        },
+        {
+            "name": "InTrouble (1080p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://amg00861-amg00861c6-rlaxx-uk-3951.playouts.now.amagi.tv/playlist.m3u8"
+        },
+        {
+            "name": "InWonder (1080p) [Geo-blocked]",
+            "logo": "",
+            "url": "https://amg00861-amg00861c14-rlaxx-uk-3954.playouts.now.amagi.tv/playlist.m3u8"
+        },
+        {
+            "name": "Jin TV",
+            "logo": "",
+            "url": "https://live.jintv.org/medialive/jintv.m3u8"
+        },
+        {
+            "name": "KempenTV (480p)",
+            "logo": "",
+            "url": "http://ms7.mx-cd.net/tv/Omroep_de_Kempen.smil/playlist.m3u8"
         }
     ]
 }
