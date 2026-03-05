@@ -133,11 +133,12 @@
         function updateModalTabs() {
             const tabs = document.getElementById('dynamicTabs');
             const t = translations[currentLang];
+            // التصحيح: الآن يجلب القنوات حسب اللغة المختارة (مثلاً en_sport)
             tabs.innerHTML = `
-                <button class="cat-btn active" id="btn-sport" onclick="loadCategory('ar_sport', 'btn-sport')">${t.sport}</button>
-                <button class="cat-btn" id="btn-news" onclick="loadCategory('ar_news', 'btn-news')">${t.news}</button>
+                <button class="cat-btn active" id="btn-sport" onclick="loadCategory('${currentLang}_sport', 'btn-sport')">${t.sport}</button>
+                <button class="cat-btn" id="btn-news" onclick="loadCategory('${currentLang}_news', 'btn-news')">${t.news}</button>
             `;
-            loadCategory(`ar_sport`, 'btn-sport');
+            loadCategory(`${currentLang}_sport`, 'btn-sport');
         }
 
         function closeChannelsModal() {
@@ -180,13 +181,22 @@
             if (hlsPlayer) { hlsPlayer.destroy(); }
 
             if (Hls.isSupported()) {
-                // مشغل HLS مع إعدادات تجاوز الحظر
-                hlsPlayer = new Hls({ xhrSetup: function(xhr) { xhr.withCredentials = false; } });
+                // إعدادات المشغل لتجاوز مشكلة الـ CORS والدوران المستمر
+                hlsPlayer = new Hls({ 
+                    capLevelToPlayerSize: true,
+                    xhrSetup: function(xhr) { xhr.withCredentials = false; } 
+                });
                 hlsPlayer.loadSource(url);
                 hlsPlayer.attachMedia(video);
                 hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
-                    video.muted = true; // كتم الصوت ضروري للتشغيل التلقائي
+                    video.muted = true; // كتم الصوت لضمان التشغيل التلقائي
                     video.play();
+                });
+                hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
+                    if (data.fatal) {
+                        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hlsPlayer.startLoad();
+                        else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hlsPlayer.recoverMediaError();
+                    }
                 });
             } else { video.src = url; video.play(); }
         }
