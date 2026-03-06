@@ -18,6 +18,36 @@
         .lang-btn { color: #ff3b5c; font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #ffffff; border-bottom: 2px solid #ff3b5c; }
 
+        /* الزر الجديد الجذاب بجانب اللغات */
+        .quick-live-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 59, 92, 0.1);
+            border: 1px solid #ff3b5c;
+            padding: 6px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-right: 5px;
+            animation: pulse-red 2s infinite;
+            color: #ff3b5c;
+        }
+        .quick-live-btn:hover {
+            background: #ff3b5c;
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 59, 92, 0.5);
+        }
+        .quick-live-btn span { font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .arrow-icon { font-size: 14px; transition: 0.3s; }
+        .quick-live-btn:hover .arrow-icon { transform: translateX(5px); }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 59, 92, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0); }
+        }
+
         .nav-tabs { display: flex; gap: 15px; }
         .tab { background: #1a1d21; color: white; padding: 8px 25px; border-radius: 20px; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
         .tab.active { background: #ff3b5c; }
@@ -44,7 +74,6 @@
         .movie-card img { width: 100%; height: 220px; object-fit: cover; }
         .movie-title { padding: 12px; font-size: 13px; text-align: center; font-weight: bold; }
         
-        /* التعديل الجديد للمشغل ليكون مثل الصورة */
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 4000; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
         #mainPlayer, #liveVideoPlayer { width: 90%; max-width: 800px; height: 50vh; border: 3px solid #ff3b5c; border-radius: 15px; background: #000; box-shadow: 0 0 30px rgba(255, 59, 92, 0.4); }
 
@@ -81,6 +110,11 @@
             <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
         </div>
         <div class="lang-container">
+            <div class="quick-live-btn" onclick="openChannelsModal()">
+                <span>LIVE TV</span>
+                <b class="arrow-icon">➔</b>
+            </div>
+            
             <span class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</span>
             <span class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</span>
             <span class="lang-btn" id="lang-de" onclick="changeLanguage('de')">DE</span>
@@ -121,6 +155,7 @@
         const API_KEY = '715fb05852af662217013d8380237f2a';
         const JSON_FILE = "links.json"; 
         let currentType = 'movie', currentLang = 'en', hlsPlayer = null;
+        let isLivePlayback = false; // المتغير الذكي للرجوع للمكان الصحيح
 
         const translations = {
             en: { movies: "Movies", series: "Series", live: "Select Live Channel", search: "Search here...", back: "Back", sport: "Sports", news: "News" },
@@ -179,6 +214,7 @@
         }
 
         function startStream(url) {
+            isLivePlayback = true;
             closeChannelsModal();
             document.getElementById('mainPlayer').style.display = 'none';
             const video = document.getElementById('liveVideoPlayer');
@@ -209,6 +245,7 @@
         }
 
         function openPlayer(id) {
+            isLivePlayback = false;
             if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
             document.getElementById('liveVideoPlayer').style.display = 'none';
             const player = document.getElementById('mainPlayer');
@@ -222,6 +259,11 @@
             document.getElementById('mainPlayer').src = '';
             const video = document.getElementById('liveVideoPlayer');
             video.pause(); video.src = "";
+            if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
+
+            if (isLivePlayback) {
+                openChannelsModal();
+            }
         }
 
         async function handleSearch(event) {
