@@ -1,4 +1,62 @@
-{"en_sport": [
-{"name": "Paramount+ HD", "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_Plus.svg"},
-{"name": "EuroSport 1", "url": "https://index.iptv.ovh/eurosport1.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Eurosport_logo.svg"}
-], "en_news": []}
+{
+    "en_sport": [
+        {
+            "name": "Eurosport 1 (UK)",
+            "url": "https://index.iptv.ovh/eurosport1.m3u8",
+            "logo": "https://flagcdn.com/w160/gb.png"
+        },
+        {
+            "name": "Paramount+ Sport",
+            "url": "https://pplus-ch-us.akamaized.net/hls/live/2097312/primary/index.m3u8",
+            "logo": "https://flagcdn.com/w160/us.png"
+        },
+        {
+            "name": "Sky Sports News",
+            "url": "https://skysports.com/live.m3u8",
+            "logo": "https://flagcdn.com/w160/gb.png"
+        }
+    ],
+    "en_news": [
+        {
+            "name": "BBC World News",
+            "url": "https://bbc-news.com/live.m3u8",
+            "logo": "https://flagcdn.com/w160/gb.png"
+        },
+        {
+            "name": "ABC News USA",
+            "url": "https://abc-us.com/live.m3u8",
+            "logo": "https://flagcdn.com/w160/us.png"
+        }
+    ],
+    "fr_sport": [
+        {
+            "name": "20 Minutes TV (FR)",
+            "url": "https://live-20minutestv.digiteka.com/1961167769/index.m3u8",
+            "logo": "https://flagcdn.com/w160/fr.png"
+        },
+        {
+            "name": "Africa 24 Sport (FR)",
+            "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8",
+            "logo": "https://flagcdn.com/w160/fr.png"
+        }
+    ],
+    "de_sport": [
+        {
+            "name": "Deutsche Welle Sport",
+            "url": "https://dw-amd-live.akamaized.net/hls/live/2014190/dwstreamae/index.m3u8",
+            "logo": "https://flagcdn.com/w160/de.png"
+        },
+        {
+            "name": "Welt TV News",
+            "url": "https://welt-live.akamaized.net/hls/live/2012345/welt/index.m3u8",
+            "logo": "https://flagcdn.com/w160/de.png"
+        }
+    ],
+    "nl_sport": [
+        {
+            "name": "NOS Sport (NL)",
+            "url": "https://nos-live.akamaized.net/hls/live/201234/nos/index.m3u8",
+            "logo": "https://flagcdn.com/w160/nl.png"
+        }
+    ]
+}
