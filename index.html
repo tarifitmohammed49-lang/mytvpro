@@ -26,11 +26,37 @@
         .live-dot { height: 10px; width: 10px; background-color: #ff0000; border-radius: 50%; margin-right: 10px; animation: blink 1s infinite; }
 
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; backdrop-filter: blur(5px); }
-        .channels-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 600px; max-height: 85vh; background: #1a1d21; border: 2px solid #ff3b5c; border-radius: 20px; z-index: 3001; padding: 25px; overflow-y: auto; }
+        .channels-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 650px; max-height: 85vh; background: #1a1d21; border: 2px solid #ff3b5c; border-radius: 20px; z-index: 3001; padding: 25px; overflow-y: auto; }
         
-        /* تصميم أزرار الـ 8 خانات الجديدة */
-        .cat-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
-        .cat-btn { background: #0b0e11; color: white; border: 1px solid #333; padding: 8px 2px; border-radius: 8px; cursor: pointer; font-size: 10px; font-weight: bold; transition: 0.3s; text-align: center; }
+        /* التعديل الجديد: 8 خانات في سطر واحد ممتد */
+        .cat-tabs { 
+            display: flex; 
+            flex-wrap: nowrap; 
+            gap: 8px; 
+            margin-bottom: 20px; 
+            overflow-x: auto; 
+            padding-bottom: 12px;
+            scrollbar-width: thin;
+            scrollbar-color: #ff3b5c #1a1d21;
+        }
+        /* تحسين مظهر شريط التمرير للكروم */
+        .cat-tabs::-webkit-scrollbar { height: 4px; }
+        .cat-tabs::-webkit-scrollbar-thumb { background: #ff3b5c; border-radius: 10px; }
+
+        .cat-btn { 
+            background: #0b0e11; 
+            color: white; 
+            border: 1px solid #333; 
+            padding: 10px 15px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 11px; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            text-align: center; 
+            white-space: nowrap;
+            flex: 0 0 auto; /* يمنع تقلص الأزرار ويحافظ على حجمها */
+        }
         .cat-btn.active { border-color: #ff3b5c; color: #ff3b5c; background: rgba(255, 59, 92, 0.1); }
         
         .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
@@ -76,12 +102,12 @@
         <div id="dynamicTabs" class="cat-tabs">
             <button class="cat-btn" id="btn-nf" onclick="loadCategory('news_fr', 'btn-nf')">NEWS FR</button>
             <button class="cat-btn" id="btn-sf" onclick="loadCategory('sport_fr', 'btn-sf')">SPORT FR</button>
-            <button class="cat-btn" id="btn-se" onclick="loadCategory('sport_en', 'btn-se')">SPORT EN</button>
             <button class="cat-btn" id="btn-ne" onclick="loadCategory('news_en', 'btn-ne')">NEWS EN</button>
-            <button class="cat-btn" id="btn-sd" onclick="loadCategory('sport_de', 'btn-sd')">SPORT DE</button>
+            <button class="cat-btn" id="btn-se" onclick="loadCategory('sport_en', 'btn-se')">SPORT EN</button>
             <button class="cat-btn" id="btn-nd" onclick="loadCategory('news_de', 'btn-nd')">NEWS DE</button>
-            <button class="cat-btn" id="btn-sn" onclick="loadCategory('sport_nl', 'btn-sn')">SPORT NL</button>
+            <button class="cat-btn" id="btn-sd" onclick="loadCategory('sport_de', 'btn-sd')">SPORT DE</button>
             <button class="cat-btn" id="btn-nn" onclick="loadCategory('news_nl', 'btn-nn')">NEWS NL</button>
+            <button class="cat-btn" id="btn-sn" onclick="loadCategory('sport_nl', 'btn-sn')">SPORT NL</button>
         </div>
         <div id="channelsGrid" class="channels-grid"></div>
     </div>
@@ -205,7 +231,7 @@
         function openChannelsModal() {
             document.getElementById('modalOverlay').style.display = 'block';
             document.getElementById('channelsModal').style.display = 'block';
-            // يفتح على أول قسم تلقائياً
+            // يفتح تلقائياً على القسم الأول المتاح
             loadCategory('news_fr', 'btn-nf');
         }
 
