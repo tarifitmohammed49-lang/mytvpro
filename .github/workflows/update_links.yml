@@ -1,27 +1,26 @@
 name: Simo Sniper - Global Sports
+
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 */6 * * *'
-  workflow_dispatch:
 
 jobs:
   update-links:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
       - name: Sniping Links
-        run: |
-          echo '{"en_sport": [' > links.json
-          echo '{"name": "Paramount+ HD", "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_Plus.svg"},' >> links.json
-          echo '{"name": "EuroSport 1", "url": "https://index.iptv.ovh/eurosport1.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Eurosport_logo.svg"}' >> links.json
-          echo '], "en_news": []}' >> links.json
-
-      - name: Commit and Push
+        run: python sniper_script.py
+      - name: Save to Repository
         run: |
           git config --global user.name "Simo-Sniper"
-          git config --global user.email "simo@mytvpro.com"
+          git config --global user.email "actions@github.com"
           git add links.json
-          git commit -m "Simo Sniper: Global Sports Updated" || exit 0
+          git commit -m "Update links with international channels" || exit 0
           git push
