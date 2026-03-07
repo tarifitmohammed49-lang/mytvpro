@@ -1,13 +1,14 @@
 import requests
 import json
+import os
 
 def get_simo_links():
-    # روابط m3u8 مباشرة بدون تعقيدات
+    # روابط مباشرة لـ Paramount و EuroSport والقنوات الإخبارية فقط
     data = {
         "en_sport": [
             {
                 "name": "Paramount+ HD",
-                "url": "https://pplus-ch-us.akamaized.net/hls/live/2097312/primary/index.m3u8", 
+                "url": "http://158.69.123.134:80/live/SimoGlobal/12345/10231.m3u8", 
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Paramount_Plus.svg"
             },
             {
@@ -19,7 +20,7 @@ def get_simo_links():
         "en_news": [
             {
                 "name": "BBC News",
-                "url": "http://103.199.161.254/Content/bbcworld/Live/Channel(BBCWorld)/index.m3u8",
+                "url": "https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/main.m3u8",
                 "logo": "https://upload.wikimedia.org/wikipedia/commons/6/62/BBC_News_2022.svg"
             }
         ]
@@ -31,7 +32,7 @@ def update_links_json():
         channels = get_simo_links()
         with open('links.json', 'w', encoding='utf-8') as f:
             json.dump(channels, f, ensure_ascii=False, indent=4)
-        print("✅ Links Updated!")
+        print("✅ Simo Sniper: Links Updated (beIN Removed)!")
     except Exception as e:
         print(f"❌ Error: {e}")
 
