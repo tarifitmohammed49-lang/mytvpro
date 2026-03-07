@@ -1,297 +1,144 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" id="mainHtml">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYTVPRO - Simo Global Edition</title>
+    <title>MYTVPRO - Simo Edition</title>
     
     <script src="https://millionairelucidlytransmitted.com/3a/8c/c1/3a8cc133791bde8e0230332b817de46a.js"></script>
 
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    
     <style>
-        /* سأحافظ على جميع تصاميمك الأصلية الرائعة */
-        body { background-color: #0b0e11; color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; transition: 0.3s; }
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 2%; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .logo { color: #ff3b5c; font-size: 24px; font-weight: bold; text-decoration: none; cursor: pointer; }
-        .lang-container { display: flex; gap: 12px; align-items: center; }
-        .lang-btn { color: #ff3b5c; font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.3s; text-transform: uppercase; }
-        .lang-btn.active { color: #ffffff; border-bottom: 2px solid #ff3b5c; }
-        .nav-tabs { display: flex; gap: 15px; }
-        .tab { background: #1a1d21; color: white; padding: 8px 25px; border-radius: 20px; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
-        .tab.active { background: #ff3b5c; }
-        .live-section { text-align: center; margin: 20px 0; padding: 15px; background: #1a1d21; border-radius: 15px; border: 1px solid #333; }
-        .main-live-selector { background: #0b0e11; border: 2px solid #ff3b5c; border-radius: 50px; display: inline-flex; align-items: center; padding: 10px 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 59, 92, 0.2); }
-        .live-dot { height: 10px; width: 10px; background-color: #ff0000; border-radius: 50%; margin-right: 10px; animation: blink 1s infinite; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; backdrop-filter: blur(5px); }
-        .channels-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 500px; max-height: 80vh; background: #1a1d21; border: 2px solid #ff3b5c; border-radius: 20px; z-index: 3001; padding: 25px; overflow-y: auto; }
-        .cat-tabs { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
-        .cat-btn { background: #0b0e11; color: white; border: 1px solid #333; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.3s; flex: 1; text-align: center; }
-        .cat-btn.active { border-color: #ff3b5c; color: #ff3b5c; background: rgba(255, 59, 92, 0.1); }
-        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
-        .channel-card { background: #000; border-radius: 12px; padding: 10px; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
-        .channel-card img { width: 50px; height: 40px; object-fit: contain; margin-bottom: 8px; }
-        .search-bar { width: 100%; max-width: 600px; margin: 0 auto 20px; }
-        .search-bar input { width: 100%; padding: 12px 25px; border-radius: 25px; border: 1px solid #333; background: #1a1d21; color: white; outline: none; }
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; padding: 0 2%; }
-        .movie-card { background: #1a1d21; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; }
-        .movie-card img { width: 100%; height: 220px; object-fit: cover; }
-        .movie-title { padding: 12px; font-size: 13px; text-align: center; font-weight: bold; }
-        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 4000; backdrop-filter: blur(10px); overflow-y: scroll; padding: 40px 0 100px 0; text-align: center; }
-        #mainPlayer, #liveVideoPlayer { width: 90%; max-width: 800px; height: 50vh; border: 3px solid #ff3b5c; border-radius: 15px; background: #000; box-shadow: 0 0 30px rgba(255, 59, 92, 0.4); margin: 0 auto; }
-        .ad-banner-box { width: 90%; max-width: 728px; min-height: 90px; margin: 25px auto; display: flex; align-items: center; justify-content: center; }
-        .disclaimer-section { background: #1a1d21; border-top: 2px solid #ff3b5c; padding: 30px 5%; margin-top: 50px; font-size: 12px; color: #888; line-height: 1.6; }
-        .disclaimer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left; }
-        @media (max-width: 768px) { .disclaimer-grid { grid-template-columns: 1fr; } .ad-banner-box { max-width: 320px; } }
-        .disclaimer-box h4 { color: #ff3b5c; margin-bottom: 10px; text-transform: uppercase; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        .visitor-counter { margin-top: 20px; text-align: center; }
+        body { background-color: #0b0e11; color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; text-align: center; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; margin-bottom: 20px; }
+        .logo { color: #ff3b5c; font-size: 24px; font-weight: bold; cursor: pointer; }
+        .tab { background: #1a1d21; color: white; padding: 10px 20px; border-radius: 20px; border: 1px solid #333; cursor: pointer; font-weight: bold; margin: 5px; }
+        .tab.active { background: #ff3b5c; border-color: #ff3b5c; }
+        .live-btn { background: #000; border: 2px solid #ff3b5c; color: white; padding: 12px 30px; border-radius: 50px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(255, 59, 92, 0.3); }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 20px; }
+        .movie-card { background: #1a1d21; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
+        .movie-card img { width: 100%; height: 200px; object-fit: cover; }
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 5000; padding-top: 50px; overflow-y: auto; }
+        iframe, video { width: 90%; max-width: 800px; aspect-ratio: 16/9; border: 2px solid #ff3b5c; border-radius: 15px; background: #000; }
+        .channels-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 500px; max-height: 80vh; background: #1a1d21; border: 2px solid #ff3b5c; border-radius: 20px; z-index: 6000; padding: 20px; overflow-y: auto; }
+        .channels-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .channel-item { background: #000; padding: 10px; border-radius: 10px; cursor: pointer; border: 1px solid #333; font-size: 11px; }
+        .channel-item img { width: 30px; height: 30px; object-fit: contain; display: block; margin: 0 auto 5px; }
     </style>
 </head>
-<body onclick="handleSmartAd()">
+<body>
 
-    <div id="modalOverlay" class="modal-overlay" onclick="closeChannelsModal()"></div>
-    <div id="channelsModal" class="channels-modal">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <h3 style="color:#ff3b5c; margin:0;" id="modalTitle">MYTVPRO LIVE</h3>
-            <button onclick="closeChannelsModal()" style="background:#ff3b5c; color:white; border:none; padding:5px 12px; border-radius:5px; cursor:pointer; font-weight:bold;">X</button>
+    <div class="header">
+        <div class="logo">MYTVPRO</div>
+        <div>
+            <button class="tab active" id="btnMovies" onclick="loadContent('movie')">أفلام</button>
+            <button class="tab" id="btnSeries" onclick="loadContent('tv')">مسلسلات</button>
         </div>
-        <div id="dynamicTabs" class="cat-tabs"></div>
-        <div id="channelsGrid" class="channels-grid"></div>
+    </div>
+
+    <div class="live-btn" onclick="openModal()">
+        <span style="height: 10px; width: 10px; background: red; border-radius: 50%; display: inline-block; animation: blink 1s infinite;"></span>
+        عرض القنوات المباشرة الشغالة
+    </div>
+
+    <div id="moviesGrid" class="movie-grid"></div>
+
+    <div id="channelsModal" class="channels-modal">
+        <button style="float:left; background:red; color:white; border:none; border-radius:5px; cursor:pointer;" onclick="closeModal()">X</button>
+        <h3 style="color:#ff3b5c">قنواتك الشغالة</h3>
+        <div id="dynamicChannelsGrid" class="channels-grid">
+            <p style="grid-column: 1/-1;">جاري جلب القنوات...</p>
+        </div>
     </div>
 
     <div id="videoPlayerContainer">
-        <button class="tab" style="margin-bottom:20px; background:#1a1d21; border:1px solid #ff3b5c; display:inline-block;" id="backBtn" onclick="closePlayer()">BACK</button>
-        
-        <div class="ad-banner-box">
+        <button class="tab" onclick="closePlayer()">رجوع للخلف</button>
+        <div style="margin: 15px auto; max-width: 728px;">
             <script>
                 atOptions = { 'key' : '3c7ca9cd02f9ed4fece203c54d5491cd', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
             </script>
             <script src="https://millionairelucidlytransmitted.com/3c7ca9cd02f9ed4fece203c54d5491cd/invoke.js"></script>
         </div>
-
-        <iframe id="mainPlayer" src="" allowfullscreen style="display:none; border:none; margin:0 auto;"></iframe>
-        <video id="liveVideoPlayer" controls style="display:none; margin:0 auto;"></video>
-
-        <div class="ad-banner-box">
-            <script>
-                atOptions = { 'key' : '3c7ca9cd02f9ed4fece203c54d5491cd', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
-            </script>
-            <script src="https://millionairelucidlytransmitted.com/3c7ca9cd02f9ed4fece203c54d5491cd/invoke.js"></script>
-        </div>
-
-        <div style="width:90%; max-width:800px; padding:15px; border-top:1px solid #333; margin:20px auto; padding-bottom: 40px;">
-            <div class="disclaimer-grid" style="font-size:10px; opacity:0.7;">
-                <div><b style="color:#ff3b5c;">EN:</b> Content is hosted by 3rd party servers. This site does not store any files.</div>
-                <div><b style="color:#ff3b5c;">FR:</b> Le contenu est hébergé par des serveurs tiers. Ce site ne stocke aucun fichier.</div>
-            </div>
-        </div>
+        <iframe id="mainPlayer" src="" allowfullscreen style="display:none;"></iframe>
+        <video id="livePlayer" controls style="display:none;"></video>
     </div>
-
-    <div class="header">
-        <div class="logo" onclick="location.reload()">MYTVPRO</div>
-        <div class="nav-tabs">
-            <button id="btnMovies" class="tab active" onclick="loadContent('movie')">Movies</button>
-            <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
-        </div>
-        <div class="lang-container">
-            <span class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</span>
-            <span class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</span>
-            <span class="lang-btn" id="lang-de" onclick="changeLanguage('de')">DE</span>
-            <span class="lang-btn" id="lang-nl" onclick="changeLanguage('nl')">NL</span>
-        </div>
-    </div>
-
-    <div class="live-section">
-        <div class="main-live-selector" onclick="openChannelsModal()">
-            <span class="live-dot"></span>
-            <span id="liveTxt">Select Live Channel / LIVE TV</span>
-        </div>
-    </div>
-
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search here..." onkeyup="handleSearch(event)">
-    </div>
-
-    <div class="movie-grid" id="moviesGrid"></div>
-
-    <div class="visitor-counter">
-        <a href="https://info.flagcounter.com/Simo"><img src="https://s11.flagcounter.com/count2/Simo/bg_0B0E11/txt_FFFFFF/border_333333/columns_4/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
-    </div>
-
-    <footer class="disclaimer-section">
-        <div class="disclaimer-grid">
-            <div class="disclaimer-box">
-                <h4>Disclaimer (EN)</h4>
-                <p>MYTVPRO does not host or upload any video files. All stream links are found freely available on the internet.</p>
-            </div>
-            <div class="disclaimer-box">
-                <h4>Avertissement (FR)</h4>
-                <p>MYTVPRO n'héberge ni ne télécharge aucun fichier vidéo. Tous les liens sont trouvés gratuitement sur Internet.</p>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
-            &copy; 2026 MYTVPRO - Simo Global Edition.
-        </div>
-    </footer>
 
     <script>
-        /* الجزء المشفر والمحمي من الكود */
-        var _0x512=["\x68\x61\x6E\x64\x6C\x65\x53\x6D\x61\x72\x74\x41\x64","\x6C\x61\x73\x74\x53\x69\x6D\x6F\x41\x64","\x6C\x69\x6E\x6B\x73\x2E\x6A\x73\x6F\x6E","\x6D\x79\x74\x76\x70\x72\x6F\x31\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F"];
-        const startTime = new Date().getTime(); 
-        let adActivated = false;
-
-        function handleSmartAd() {
-            const now = new Date().getTime();
-            const fiveMinutes = 300000; 
-            const lastAd = localStorage.getItem(_0x512[1]);
-            if ((now - startTime > fiveMinutes) && (!lastAd || (now - lastAd) > 3600000)) {
-                if (!adActivated) {
-                    var script = document.createElement('script');
-                    script.src = 'https://pl28750321.effectivegatecpm.com/8a/20/6f/8a206fa738acfa1d089c372fb7a7aee8.js';
-                    document.head.appendChild(script);
-                    localStorage.setItem(_0x512[1], now);
-                    adActivated = true;
-                }
-            }
-        }
-
         const API_KEY = '715fb05852af662217013d8380237f2a';
-        const JSON_FILE = _0x512[2]; 
-        let currentType = 'movie', currentLang = 'en', hlsPlayer = null;
+        let hlsPlayer = null;
 
-        const translations = {
-            en: { movies: "Movies", series: "Series", live: "Select Live Channel", search: "Search here...", back: "Back", sport: "Sports", news: "News" },
-            fr: { movies: "Films", series: "Séries", live: "Choisir la chaîne", search: "Chercher ici...", back: "Retour", sport: "Sports", news: "Infos" },
-            de: { movies: "Filme", series: "Serien", live: "Kanal wählen", search: "Hier suchen...", back: "Zurück", sport: "Sport", news: "News" },
-            nl: { movies: "Films", series: "Series", live: "Kies Kanaal", search: "Zoek hier...", back: "Terug", sport: "Sport", news: "Nieuws" }
-        };
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('lang-' + lang).classList.add('active');
-            const t = translations[lang] || translations.en;
-            document.getElementById('btnMovies').innerText = t.movies;
-            document.getElementById('btnSeries').innerText = t.series;
-            document.getElementById('liveTxt').innerText = t.live;
-            document.getElementById('searchInput').placeholder = t.search;
-            document.getElementById('backBtn').innerText = t.back;
-            loadContent(currentType);
+        // جلب الأفلام
+        async function loadContent(type) {
+            document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
+            document.getElementById('btnSeries').classList.toggle('active', type === 'tv');
+            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}&language=ar&page=1`);
+            const data = await res.json();
+            document.getElementById('moviesGrid').innerHTML = data.results.map(item => `
+                <div class="movie-card" onclick="openPlayer('${item.id}', '${type}')">
+                    <img src="https://image.tmdb.org/t/p/w500${item.poster_path}">
+                    <div style="padding:5px; font-size:11px;">${item.title || item.name}</div>
+                </div>`).join('');
         }
 
-        function openChannelsModal() {
-            document.getElementById('modalOverlay').style.display = 'block';
-            document.getElementById('channelsModal').style.display = 'block';
-            updateModalTabs();
-        }
-
-        function updateModalTabs() {
-            const tabs = document.getElementById('dynamicTabs');
-            const t = translations[currentLang];
-            tabs.innerHTML = `<button class="cat-btn active" id="btn-sport" onclick="loadCategory('beIN_Sports', 'btn-sport')">${t.sport}</button>
-                             <button class="cat-btn" id="btn-news" onclick="loadCategory('Sports', 'btn-news')">Global</button>`;
-            loadCategory('beIN_Sports', 'btn-sport');
-        }
-
-        function closeChannelsModal() {
-            document.getElementById('modalOverlay').style.display = 'none';
-            document.getElementById('channelsModal').style.display = 'none';
-        }
-
-        async function loadCategory(catKey, btnId) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active');
-            const grid = document.getElementById('channelsGrid');
-            grid.innerHTML = `<div style='color:#ff3b5c; grid-column:1/-1;'>Loading...</div>`;
-            
+        // جلب القنوات من ملف الروابط (ليتم الحفاظ على كل القنوات الشغالة)
+        async function fetchLiveChannels() {
             try {
-                const res = await fetch(`${JSON_FILE}?t=${new Date().getTime()}`);
+                const res = await fetch('links.json?v=' + Date.now());
                 const data = await res.json();
-                let channels = data[catKey] || [];
+                const grid = document.getElementById('dynamicChannelsGrid');
+                grid.innerHTML = '';
                 
-                if (channels.length === 0) {
-                   grid.innerHTML = `<div style='color:#888; grid-column:1/-1;'>No channels available yet. Sniper is working...</div>`;
-                   return;
-                }
+                // نجمع كل القنوات الموجودة في الملف (beIN، Sports، أو غيرها)
+                let all = [];
+                if (data.beIN_Sports) all = [...all, ...data.beIN_Sports];
+                if (data.Sports) all = [...all, ...data.Sports];
+                if (data.fr_sport) all = [...all, ...data.fr_sport];
 
-                grid.innerHTML = channels.map(ch => `
-                    <div class="channel-card" onclick="startStream('${ch.url}')">
-                        <img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/60/0b0e11/ff3b5c?text=${ch.name.substring(0,1)}'">
-                        <div style="font-size:10px; margin-top:5px; color:#fff;">${ch.name}</div>
-                    </div>`).join('');
-            } catch (e) { grid.innerHTML = `<div style='color:#888; grid-column:1/-1;'>Waiting for Sniper links...</div>`; }
+                all.forEach(ch => {
+                    const div = document.createElement('div');
+                    div.className = 'channel-item';
+                    div.onclick = () => startLive(ch.url);
+                    div.innerHTML = `<img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/30'"> ${ch.name}`;
+                    grid.appendChild(div);
+                });
+            } catch (e) { console.log("خطأ في جلب الروابط"); }
         }
 
-        function startStream(url) {
-            closeChannelsModal();
+        function openPlayer(id, type) {
+            const player = document.getElementById('mainPlayer');
+            player.style.display = 'block';
+            document.getElementById('livePlayer').style.display = 'none';
+            player.src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
+            document.getElementById('videoPlayerContainer').style.display = 'block';
+        }
+
+        function startLive(url) {
+            closeModal();
             document.getElementById('mainPlayer').style.display = 'none';
-            const video = document.getElementById('liveVideoPlayer');
+            const video = document.getElementById('livePlayer');
             video.style.display = 'block';
-            const container = document.getElementById('videoPlayerContainer');
-            container.style.display = 'block'; 
-            container.scrollTop = 0; 
             if (hlsPlayer) { hlsPlayer.destroy(); }
             if (Hls.isSupported()) {
                 hlsPlayer = new Hls();
                 hlsPlayer.loadSource(url);
                 hlsPlayer.attachMedia(video);
-                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(e => {}));
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = url;
-                video.play();
+                hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => video.play());
             }
-        }
-
-        async function loadContent(type) {
-            currentType = type;
-            document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
-            document.getElementById('btnSeries').classList.toggle('active', type === 'tv');
-            try {
-                const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}&language=${currentLang}&page=1`);
-                const data = await res.json();
-                document.getElementById('moviesGrid').innerHTML = data.results.map(item => `
-                    <div class="movie-card" onclick="openPlayer('${item.id}')">
-                        <img src="https://image.tmdb.org/t/p/w500${item.poster_path}">
-                        <div class="movie-title">${item.title || item.name}</div>
-                    </div>`).join('');
-            } catch(e) {}
-        }
-
-        function openPlayer(id) {
-            if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
-            document.getElementById('liveVideoPlayer').style.display = 'none';
-            const player = document.getElementById('mainPlayer');
-            player.style.display = 'block';
-            player.src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
-            const container = document.getElementById('videoPlayerContainer');
-            container.style.display = 'block'; 
-            container.scrollTop = 0; 
+            document.getElementById('videoPlayerContainer').style.display = 'block';
         }
 
         function closePlayer() {
             document.getElementById('videoPlayerContainer').style.display = 'none';
             document.getElementById('mainPlayer').src = '';
-            const video = document.getElementById('liveVideoPlayer');
-            video.pause(); video.src = "";
+            document.getElementById('livePlayer').pause();
         }
 
-        async function handleSearch(event) {
-            const query = event.target.value.toLowerCase();
-            if (query.length === 0) { loadContent(currentType); return; }
-            if (query.length > 2) {
-                try {
-                    const res = await fetch(`https://api.themoviedb.org/3/search/${currentType}?api_key=${API_KEY}&language=${currentLang}&query=${query}`);
-                    const data = await res.json();
-                    document.getElementById('moviesGrid').innerHTML = data.results.map(item => `
-                        <div class="movie-card" onclick="openPlayer('${item.id}')">
-                            <img src="${item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : 'https://via.placeholder.com/500x750?text=No+Image'}">
-                            <div class="movie-title">${item.title || item.name}</div>
-                        </div>`).join('');
-                } catch(e) {}
-            }
+        function openModal() { 
+            document.getElementById('channelsModal').style.display = 'block'; 
+            fetchLiveChannels(); 
         }
+        function closeModal() { document.getElementById('channelsModal').style.display = 'none'; }
+
         window.onload = () => loadContent('movie');
     </script>
 </body>
