@@ -1,45 +1,36 @@
 import json
-import requests
 import os
 
-# 1. قاعدة البيانات الضخمة التي أرسلتها (مختصرة هنا وستدمج بالكامل)
+# قاعدة البيانات التي سنعيد بناءها (Simo Final)
 SIMO_DATABASE = {
-    "fr_sport": [
-        {"name": "20 Minutes TV (1080p)", "logo": "https://flagcdn.com/w160/fr.png", "url": "https://live-20minutestv.digiteka.com/1961167769/index.m3u8"},
-        {"name": "Africa 24 Sport (1080p)", "logo": "https://flagcdn.com/w160/fr.png", "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8"},
-        # سيتم إضافة بقية القنوات من ملفك هنا تلقائياً
+    "Sports": [
+        {"name": "Paramount+ HD", "logo": "https://example.com/paramount.png", "url": "رابط_قناة_باراماونت"},
+        {"name": "EuroSport 1", "logo": "https://example.com/eurosport.png", "url": "رابط_يوروسبورت"},
+        # سنضيف روابط beIN Sports هنا عبر القناص
     ],
-    "beIN_Sports": [] # هذا القسم سيحدثه "القناص" تلقائياً
+    "beIN_Sports": [],
+    "News": []
 }
 
-def sniper_bein_tokens():
-    """وظيفة البحث عن توكنات beIN Sports وتحديثها"""
-    print("🎯 Sniping beIN Sports Tokenized Links...")
-    # هنا نضع روابط السكربتات التي تجلب التوكنات (مثل التي نجدها في GitHub)
-    token_url = "https://raw.githubusercontent.com/Black-Simo/tokens/main/bein.m3u8" 
-    try:
-        # محاكاة لجلب الرابط المتجدد
-        new_links = [
-            {"name": "beIN Sports 1 HD", "url": "URL_WITH_TOKEN_1", "logo": "https://example.com/bein1.png"},
-            {"name": "beIN Sports 2 HD", "url": "URL_WITH_TOKEN_2", "logo": "https://example.com/bein2.png"}
-        ]
-        return new_links
-    except:
-        return []
+def sniper_engine():
+    """محرك القناص للبحث عن روابط beIN والروابط الدولية"""
+    print("🎯 Sniping International & beIN Links...")
+    # هنا نضع المنطق الذي يجلب الروابط الحية
+    # حالياً سنضع روابط تجريبية لضمان عمل الملف
+    new_bein = [
+        {"name": "beIN Sports 1", "url": "https://server.com/live/bein1/index.m3u8", "logo": "https://bit.ly/bein_logo"},
+        {"name": "beIN Sports 2", "url": "https://server.com/live/bein2/index.m3u8", "logo": "https://bit.ly/bein_logo"}
+    ]
+    return new_bein
 
-def main():
-    # جلب روابط beIN الجديدة
-    bein_links = sniper_bein_tokens()
+def save_database():
+    bein_links = sniper_engine()
+    SIMO_DATABASE["beIN_Sports"] = bein_links
     
-    # دمج الروابط الجديدة مع قاعدة بيانات سيمو الضخمة
-    full_data = SIMO_DATABASE
-    full_data["beIN_Sports"] = bein_links
-    
-    # حفظ الملف النهائي الذي سيقرأه الموقع (Simo Final)
+    # حفظ الملف بصيغة JSON ليقرأه الموقع
     with open('links.json', 'w', encoding='utf-8') as f:
-        json.dump(full_data, f, ensure_ascii=False, indent=4)
-    
-    print("✅ Done! Simo Final Database is ready.")
+        json.dump(SIMO_DATABASE, f, ensure_ascii=False, indent=4)
+    print("✅ Simo Final Database updated successfully!")
 
 if __name__ == "__main__":
-    main()
+    save_database()
