@@ -3,45 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYTVPRO - Simo Global Edition</title>
+    <title>MYTVPRO - Movies & Series Edition</title>
     
+<<<<<<< HEAD
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+=======
+   <meta name="monetag" content="713269932f9e6998423e0592d22c4429">
+
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
     
     <style>
         body { background-color: #0b0e11; color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; transition: 0.3s; }
         .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 2%; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
         .logo { color: #ff3b5c; font-size: 24px; font-weight: bold; text-decoration: none; cursor: pointer; }
-        
         .lang-container { display: flex; gap: 12px; align-items: center; }
         .lang-btn { color: #ff3b5c; font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #ffffff; border-bottom: 2px solid #ff3b5c; }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
         .nav-tabs { display: flex; gap: 15px; }
         .tab { background: #1a1d21; color: white; padding: 8px 25px; border-radius: 20px; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
         .tab.active { background: #ff3b5c; }
-        
-        .live-section { text-align: center; margin: 20px 0; padding: 15px; background: #1a1d21; border-radius: 15px; border: 1px solid #333; }
-        .main-live-selector { background: #0b0e11; border: 2px solid #ff3b5c; border-radius: 50px; display: inline-flex; align-items: center; padding: 10px 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 59, 92, 0.2); }
-        .live-dot { height: 10px; width: 10px; background-color: #ff0000; border-radius: 50%; margin-right: 10px; animation: blink 1s infinite; }
-
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; backdrop-filter: blur(5px); }
-        .channels-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 500px; max-height: 80vh; background: #1a1d21; border: 2px solid #ff3b5c; border-radius: 20px; z-index: 3001; padding: 25px; overflow-y: auto; }
-        
-        .cat-tabs { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
-        .cat-btn { background: #0b0e11; color: white; border: 1px solid #333; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.3s; flex: 1; text-align: center; }
-        .cat-btn.active { border-color: #ff3b5c; color: #ff3b5c; background: rgba(255, 59, 92, 0.1); }
-        
-        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
-        .channel-card { background: #000; border-radius: 12px; padding: 10px; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
-        .channel-card img { width: 50px; height: 40px; object-fit: contain; margin-bottom: 8px; }
-
-        .search-bar { width: 100%; max-width: 600px; margin: 0 auto 20px; }
+        .search-bar { width: 100%; max-width: 600px; margin: 0 auto 30px; }
         .search-bar input { width: 100%; padding: 12px 25px; border-radius: 25px; border: 1px solid #333; background: #1a1d21; color: white; outline: none; }
         .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; padding: 0 2%; }
-        .movie-card { background: #1a1d21; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; }
+        .movie-card { background: #1a1d21; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
+        .movie-card:hover { transform: scale(1.03); border-color: #ff3b5c; }
         .movie-card img { width: 100%; height: 220px; object-fit: cover; }
         .movie-title { padding: 12px; font-size: 13px; text-align: center; font-weight: bold; }
+<<<<<<< HEAD
         
         #videoPlayerContainer { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
@@ -56,29 +50,23 @@
         
         .ad-banner-box { width: 90%; max-width: 728px; min-height: 90px; margin: 25px auto; display: flex; align-items: center; justify-content: center; }
 
+=======
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 4000; backdrop-filter: blur(10px); overflow-y: auto; padding: 40px 0; text-align: center; }
+        #mainPlayer { width: 90%; max-width: 800px; height: 50vh; border: 3px solid #ff3b5c; border-radius: 15px; background: #000; box-shadow: 0 0 30px rgba(255, 59, 92, 0.4); margin: 0 auto; }
+        .ad-banner-box { width: 90%; max-width: 728px; min-height: 90px; margin: 25px auto; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 8px; }
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
         .disclaimer-section { background: #1a1d21; border-top: 2px solid #ff3b5c; padding: 30px 5%; margin-top: 50px; font-size: 12px; color: #888; line-height: 1.6; }
         .disclaimer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left; }
         @media (max-width: 768px) { .disclaimer-grid { grid-template-columns: 1fr; } .ad-banner-box { max-width: 320px; } }
         .disclaimer-box h4 { color: #ff3b5c; margin-bottom: 10px; text-transform: uppercase; }
-        
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
 </head>
 <body onclick="handleSmartAd()">
 
-    <div id="modalOverlay" class="modal-overlay" onclick="closeChannelsModal()"></div>
-    <div id="channelsModal" class="channels-modal">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <h3 style="color:#ff3b5c; margin:0;" id="modalTitle">MYTVPRO LIVE</h3>
-            <button onclick="closeChannelsModal()" style="background:#ff3b5c; color:white; border:none; padding:5px 12px; border-radius:5px; cursor:pointer; font-weight:bold;">X</button>
-        </div>
-        <div id="dynamicTabs" class="cat-tabs"></div>
-        <div id="channelsGrid" class="channels-grid"></div>
-    </div>
-
     <div id="videoPlayerContainer">
         <button class="tab" style="margin-bottom:20px; background:#1a1d21; border:1px solid #ff3b5c; display:inline-block;" id="backBtn" onclick="closePlayer()">BACK</button>
         
+<<<<<<< HEAD
         <div class="ad-banner-box">
             <script type="text/javascript">
                 atOptions = { 'key' : 'fcadb7a0b59fe79d927910b67b40138d', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
@@ -101,6 +89,16 @@
                 <div><b style="color:#ff3b5c;">EN:</b> Content is hosted by 3rd party servers. This site does not store any files.</div>
                 <div><b style="color:#ff3b5c;">FR:</b> Le contenu est hébergé par des serveurs tiers. Ce site ne stocke aucun fichier.</div>
             </div>
+=======
+        <div class="ad-banner-box" id="ad-top">
+            <a href="https://omg10.com/4/10696583" target="_blank" style="color:#ff3b5c; text-decoration:none; font-weight:bold;">CLICK HERE TO UNLOCK SERVER</a>
+        </div>
+
+        <iframe id="mainPlayer" src="" allowfullscreen style="border:none; margin:0 auto;"></iframe>
+
+        <div class="ad-banner-box" id="ad-bottom">
+            <a href="https://omg10.com/4/10696583" target="_blank" style="color:#ff3b5c; text-decoration:none; font-weight:bold;">DOWNLOAD HD SPEED</a>
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
         </div>
     </div>
 
@@ -108,7 +106,7 @@
         <div class="logo" onclick="location.reload()">MYTVPRO</div>
         <div class="nav-tabs">
             <button id="btnMovies" class="tab active" onclick="loadContent('movie')">Movies</button>
-            <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
+            <button id="btnSeries" class="tab" onclick="onclick="loadContent('tv')">Series</button>
         </div>
         <div class="lang-container">
             <span class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</span>
@@ -118,6 +116,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     <div class="live-section">
         <div class="main-live-selector" onclick="openChannelsModal()">
             <span class="live-dot"></span>
@@ -125,6 +124,8 @@
         </div>
     </div>
 
+=======
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search here..." onkeyup="handleSearch(event)">
     </div>
@@ -133,17 +134,25 @@
 
     <footer class="disclaimer-section">
         <div class="disclaimer-grid">
-            <div class="disclaimer-box">
+            <div class="disclaimer-box" id="disc-en">
                 <h4>Disclaimer (EN)</h4>
+<<<<<<< HEAD
                 <p>MYTVPRO does not host or upload any video files. All stream links are found freely available on the internet.</p>
+=======
+                <p>MYTVPRO does not host any video files. All links are found freely on the internet.</p>
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
             </div>
-            <div class="disclaimer-box">
+            <div class="disclaimer-box" id="disc-fr">
                 <h4>Avertissement (FR)</h4>
+<<<<<<< HEAD
                 <p>MYTVPRO n'héberge ni ne télécharge aucun fichier vidéo. Tous les liens sont trouvés gratuitement sur Internet.</p>
+=======
+                <p>MYTVPRO n'héberge aucun fichier vidéo. Tous les liens sont trouvés gratuitement sur Internet.</p>
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
             </div>
         </div>
         <div style="text-align: center; margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
-            &copy; 2026 MYTVPRO - Simo Global Edition.
+            &copy; 2026 MYTVPRO - Movies & Series Edition.
         </div>
     </footer>
 
@@ -169,6 +178,7 @@
         }
 
         const API_KEY = '715fb05852af662217013d8380237f2a';
+<<<<<<< HEAD
         const JSON_FILE = "links.json"; 
         let currentType = 'movie', currentLang = 'en', hlsPlayer = null;
 
@@ -177,6 +187,16 @@
             fr: { movies: "Films", series: "Séries", live: "Choisir la chaîne", search: "Chercher ici...", back: "Retour", sport: "Sports", news: "Infos" },
             de: { movies: "Filme", series: "Serien", live: "Kanal wählen", search: "Hier suchen...", back: "Zurück", sport: "Sport", news: "News" },
             nl: { movies: "Films", series: "Series", live: "Kies Kanaal", search: "Zoek hier...", back: "Terug", sport: "Sport", news: "Nieuws" }
+=======
+        let currentType = 'movie', currentLang = 'en';
+        const MY_DIRECT_LINK = "https://omg10.com/4/10696583";
+
+        const translations = {
+            en: { movies: "Movies", series: "Series", search: "Search movies & series...", back: "BACK" },
+            fr: { movies: "Films", series: "Séries", search: "Chercher ici...", back: "RETOUR" },
+            de: { movies: "Filme", series: "Serien", search: "Suchen...", back: "ZURÜCK" },
+            nl: { movies: "Films", series: "Series", search: "Zoeken...", back: "TERUG" }
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
         };
 
         function changeLanguage(lang) {
@@ -186,12 +206,16 @@
             const t = translations[lang] || translations.en;
             document.getElementById('btnMovies').innerText = t.movies;
             document.getElementById('btnSeries').innerText = t.series;
+<<<<<<< HEAD
             document.getElementById('liveTxt').innerText = t.live;
+=======
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
             document.getElementById('searchInput').placeholder = t.search;
             document.getElementById('backBtn').innerText = t.back;
             loadContent(currentType);
         }
 
+<<<<<<< HEAD
         function openChannelsModal() {
             document.getElementById('modalOverlay').style.display = 'block';
             document.getElementById('channelsModal').style.display = 'block';
@@ -287,6 +311,8 @@
             }
         }
 
+=======
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
         async function loadContent(type) {
             currentType = type;
             document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
@@ -302,11 +328,14 @@
             } catch(e) {}
         }
 
+        // تم تعديل هذه الوظيفة لفتح الفيديو مباشرة
         function openPlayer(id) {
+<<<<<<< HEAD
             if (hlsPlayer) { hlsPlayer.destroy(); hlsPlayer = null; }
             document.getElementById('liveVideoPlayer').style.display = 'none';
+=======
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
             const player = document.getElementById('mainPlayer');
-            player.style.display = 'block';
             player.src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
             const container = document.getElementById('videoPlayerContainer');
             container.style.display = 'block'; 
@@ -317,20 +346,22 @@
             const container = document.getElementById('videoPlayerContainer');
             container.style.display = 'none';
             document.getElementById('mainPlayer').src = '';
+<<<<<<< HEAD
             const video = document.getElementById('liveVideoPlayer');
             video.pause(); video.src = "";
             container.scrollTop = 0; 
+=======
+>>>>>>> 79e328a98a0d0aaa4dec32dfd7054cf21bb71968
         }
 
         async function handleSearch(event) {
             const query = event.target.value.toLowerCase();
-            const grid = document.getElementById('moviesGrid');
             if (query.length === 0) { loadContent(currentType); return; }
             if (query.length > 2) {
                 try {
-                    const res = await fetch(`https://api.themoviedb.org/3/search/${currentType}?api_key=${API_KEY}&language=${currentLang}&query=${query}&include_adult=false`);
+                    const res = await fetch(`https://api.themoviedb.org/3/search/${currentType}?api_key=${API_KEY}&language=${currentLang}&query=${query}`);
                     const data = await res.json();
-                    grid.innerHTML = data.results.map(item => `
+                    document.getElementById('moviesGrid').innerHTML = data.results.map(item => `
                         <div class="movie-card" onclick="openPlayer('${item.id}')">
                             <img src="${item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : 'https://via.placeholder.com/500x750?text=No+Image'}">
                             <div class="movie-title">${item.title || item.name}</div>
