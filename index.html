@@ -7,67 +7,35 @@
     
    <meta name="monetag" content="713269932f9e6998423e0592d22c4429">
 
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-    
     <style>
         body { background-color: #0b0e11; color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; transition: 0.3s; }
         
-        /* إعلانات الجوانب (Banner Ads) */
-        @media (min-width: 1200px) {
-            body { padding-left: 170px; padding-right: 170px; }
-            .side-ad { position: fixed; top: 80px; width: 160px; height: 600px; background: rgba(255,255,255,0.05); border: 1px solid #333; display: flex; align-items: center; justify-content: center; color: #555; font-size: 12px; }
-            .ad-left { left: 5px; }
-            .ad-right { right: 5px; }
-        }
+        /* إخفاء إعلانات الجوانب القديمة بناءً على طلبك */
+        .side-ad { display: none; }
 
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 2%; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .logo { color: #ff3b5c; font-size: 24px; font-weight: bold; text-decoration: none; cursor: pointer; }
-        .lang-container { display: flex; gap: 12px; align-items: center; }
-        .lang-btn { color: #ff3b5c; font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.3s; text-transform: uppercase; }
-        .lang-btn.active { color: #ffffff; border-bottom: 2px solid #ff3b5c; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 2%; margin-bottom: 20px; }
+        .logo { color: #ff3b5c; font-size: 24px; font-weight: bold; cursor: pointer; }
         .nav-tabs { display: flex; gap: 15px; }
-        .tab { background: #1a1d21; color: white; padding: 8px 25px; border-radius: 20px; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
+        .tab { background: #1a1d21; color: white; padding: 8px 25px; border-radius: 20px; cursor: pointer; border: none; font-weight: bold; }
         .tab.active { background: #ff3b5c; }
 
-        /* شاشة العداد الإشهاري قبل الفيلم */
-        #adVideoOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; flex-direction: column; align-items: center; justify-content: center; }
-        .ad-timer-text { color: #ff3b5c; font-size: 22px; font-weight: bold; margin-bottom: 20px; }
-        .ad-frame-container { width: 90%; max-width: 700px; height: 400px; border: 2px solid #333; }
+        /* تنسيق الإعلانات في الأسفل */
+        .bottom-ad-container { width: 100%; max-width: 728px; margin: 30px auto 10px; background: rgba(255,255,255,0.05); border-radius: 8px; min-height: 90px; display: flex; align-items: center; justify-content: center; border: 1px dashed #333; }
 
-        .search-bar { width: 100%; max-width: 600px; margin: 0 auto 30px; }
-        .search-bar input { width: 100%; padding: 12px 25px; border-radius: 25px; border: 1px solid #333; background: #1a1d21; color: white; outline: none; }
+        /* تنسيق إخلاء المسؤولية */
+        .footer-disclaimer { width: 100%; max-width: 900px; margin: 0 auto 40px; padding: 20px; background: #16191d; border-radius: 10px; border-top: 3px solid #ff3b5c; font-size: 13px; color: #aaa; line-height: 1.6; }
+        .disclaimer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
+        .disclaimer-cols h5 { color: #ff3b5c; margin-bottom: 8px; text-transform: uppercase; }
+
         .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; padding: 0 2%; }
         .movie-card { background: #1a1d21; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
-        .movie-card:hover { transform: scale(1.03); border-color: #ff3b5c; }
         .movie-card img { width: 100%; height: 220px; object-fit: cover; }
-        .movie-title { padding: 12px; font-size: 13px; text-align: center; font-weight: bold; }
         
-        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 4000; backdrop-filter: blur(10px); overflow-y: auto; padding: 40px 0; text-align: center; }
-        #mainPlayer { width: 90%; max-width: 800px; height: 50vh; border: 3px solid #ff3b5c; border-radius: 15px; background: #000; margin: 0 auto; }
-        .ad-banner-box { width: 90%; max-width: 728px; min-height: 90px; margin: 25px auto; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 8px; }
-        .disclaimer-section { background: #1a1d21; border-top: 2px solid #ff3b5c; padding: 30px 5%; margin-top: 50px; font-size: 12px; color: #888; line-height: 1.6; }
-        .disclaimer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left; }
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 4000; overflow-y: auto; padding-top: 20px; }
+        #mainPlayer { width: 90%; max-width: 850px; height: 55vh; border: 2px solid #ff3b5c; border-radius: 15px; margin: 0 auto; }
     </style>
 </head>
 <body>
-
-    <div class="side-ad ad-left">AD SPACE 160x600</div>
-    <div class="side-ad ad-right">AD SPACE 160x600</div>
-
-    <div id="adVideoOverlay">
-        <div class="ad-timer-text" id="timerDisplay">ADVERTISEMENT: 15s</div>
-        <div class="ad-frame-container">
-            <iframe src="https://omg10.com/4/10696583" style="width:100%; height:100%; border:none;"></iframe>
-        </div>
-        <p style="color:#666; margin-top:15px;">Your content will start automatically...</p>
-    </div>
-
-    <div id="videoPlayerContainer">
-        <button class="tab" style="margin-bottom:20px; background:#1a1d21; border:1px solid #ff3b5c; display:inline-block;" id="backBtn" onclick="closePlayer()">BACK</button>
-        <div class="ad-banner-box"><a href="https://omg10.com/4/10696583" target="_blank" style="color:#ff3b5c; text-decoration:none; font-weight:bold;">CLICK HERE TO UNLOCK SERVER</a></div>
-        <iframe id="mainPlayer" src="" allowfullscreen style="border:none; margin:0 auto;"></iframe>
-        <div class="ad-banner-box"><a href="https://omg10.com/4/10696583" target="_blank" style="color:#ff3b5c; text-decoration:none; font-weight:bold;">DOWNLOAD HD SPEED</a></div>
-    </div>
 
     <div class="header">
         <div class="logo" onclick="location.reload()">MYTVPRO</div>
@@ -75,97 +43,63 @@
             <button id="btnMovies" class="tab active" onclick="loadContent('movie')">Movies</button>
             <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
         </div>
-        <div class="lang-container">
-            <span class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</span>
-            <span class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</span>
-            <span class="lang-btn" id="lang-de" onclick="changeLanguage('de')">DE</span>
-            <span class="lang-btn" id="lang-nl" onclick="changeLanguage('nl')">NL</span>
-        </div>
-    </div>
-
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search here..." onkeyup="handleSearch(event)">
     </div>
 
     <div class="movie-grid" id="moviesGrid"></div>
 
-    <footer class="disclaimer-section">
-        <div class="disclaimer-grid">
-            <div class="disclaimer-box" id="disc-en">
-                <h4>Disclaimer (EN)</h4>
-                <p>MYTVPRO does not host any video files. All links are found freely on the internet.</p>
+    <div class="bottom-ad-container">
+        <a href="https://omg10.com/4/10696583" target="_blank" style="color:#ff3b5c; text-decoration:none; font-weight:bold;">SPONSORED AD - CLICK TO SUPPORT</a>
+    </div>
+
+    <footer class="footer-disclaimer">
+        <div class="disclaimer-cols">
+            <div>
+                <h5>Disclaimer (EN)</h5>
+                <p>MYTVPRO does not host any files on its server. All contents are provided by non-affiliated third parties.</p>
             </div>
-            <div class="disclaimer-box" id="disc-fr">
-                <h4>Avertissement (FR)</h4>
-                <p>MYTVPRO n'héberge aucun fichier vidéo. Tous les liens sont trouvés gratuitement sur Internet.</p>
+            <div>
+                <h5>Avertissement (FR)</h5>
+                <p>MYTVPRO n'héberge aucun fichier sur son serveur. Tout le contenu est fourni par des tiers non affiliés.</p>
             </div>
-        </div>
-        <div style="text-align: center; margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
-            &copy; 2026 MYTVPRO - Movies & Series Edition.
         </div>
     </footer>
 
+    <div id="videoPlayerContainer">
+        <button class="tab" onclick="closePlayer()" style="margin-bottom:15px;">BACK</button>
+        <iframe id="mainPlayer" src="" allowfullscreen></iframe>
+        
+        <div class="bottom-ad-container">
+            <a href="https://omg10.com/4/10696583" target="_blank" style="color:#ff3b5c; text-decoration:none; font-weight:bold;">DOWNLOAD HD SERVER</a>
+        </div>
+
+        <div class="footer-disclaimer" style="max-width:850px; margin-top:10px;">
+            <div class="disclaimer-cols">
+                <p><strong>EN:</strong> This video is hosted on external servers. We are not responsible for its content.</p>
+                <p><strong>FR:</strong> Cette vidéo est hébergée sur des serveurs externes. Nous ne sommes pas responsables de son contenu.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         const API_KEY = '715fb05852af662217013d8380237f2a';
-        let currentType = 'movie', currentLang = 'en';
-
-        const translations = {
-            en: { movies: "Movies", series: "Series", search: "Search movies & series...", back: "BACK" },
-            fr: { movies: "Films", series: "Séries", search: "Chercher ici...", back: "RETOUR" },
-            de: { movies: "Filme", series: "Serien", search: "Suchen...", back: "ZURÜCK" },
-            nl: { movies: "Films", series: "Series", search: "Zoeken...", back: "TERUG" }
-        };
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('lang-' + lang).classList.add('active');
-            const t = translations[lang] || translations.en;
-            document.getElementById('btnMovies').innerText = t.movies;
-            document.getElementById('btnSeries').innerText = t.series;
-            document.getElementById('searchInput').placeholder = t.search;
-            document.getElementById('backBtn').innerText = t.back;
-            loadContent(currentType);
-        }
+        let currentType = 'movie';
 
         async function loadContent(type) {
             currentType = type;
             document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
             document.getElementById('btnSeries').classList.toggle('active', type === 'tv');
-            try {
-                const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}&language=${currentLang}&page=1`);
-                const data = await res.json();
-                document.getElementById('moviesGrid').innerHTML = data.results.map(item => `
-                    <div class="movie-card" onclick="startAdTimer('${item.id}')">
-                        <img src="https://image.tmdb.org/t/p/w500${item.poster_path}">
-                        <div class="movie-title">${item.title || item.name}</div>
-                    </div>`).join('');
-            } catch(e) {}
-        }
-
-        // الوظيفة الجديدة لطلب الإعلان قبل تشغيل الفيلم
-        function startAdTimer(id) {
-            const overlay = document.getElementById('adVideoOverlay');
-            const timerDisplay = document.getElementById('timerDisplay');
-            overlay.style.display = 'flex';
-            
-            let timeLeft = 15; // 15 ثانية عداد
-            const countdown = setInterval(() => {
-                timeLeft--;
-                timerDisplay.innerText = `ADVERTISEMENT: ${timeLeft}s`;
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    overlay.style.display = 'none';
-                    openPlayer(id); // فتح الفيلم بعد انتهاء الإعلان
-                }
-            }, 1000);
+            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}&language=en&page=1`);
+            const data = await res.json();
+            document.getElementById('moviesGrid').innerHTML = data.results.map(item => `
+                <div class="movie-card" onclick="openPlayer('${item.id}')">
+                    <img src="https://image.tmdb.org/t/p/w500${item.poster_path}">
+                    <div style="padding:10px; text-align:center; font-size:13px;">${item.title || item.name}</div>
+                </div>`).join('');
         }
 
         function openPlayer(id) {
-            const player = document.getElementById('mainPlayer');
-            player.src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
-            document.getElementById('videoPlayerContainer').style.display = 'block'; 
-            document.getElementById('videoPlayerContainer').scrollTop = 0; 
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
+            document.getElementById('videoPlayerContainer').style.display = 'block';
         }
 
         function closePlayer() {
@@ -173,21 +107,6 @@
             document.getElementById('mainPlayer').src = '';
         }
 
-        async function handleSearch(event) {
-            const query = event.target.value.toLowerCase();
-            if (query.length === 0) { loadContent(currentType); return; }
-            if (query.length > 2) {
-                try {
-                    const res = await fetch(`https://api.themoviedb.org/3/search/${currentType}?api_key=${API_KEY}&language=${currentLang}&query=${query}`);
-                    const data = await res.json();
-                    document.getElementById('moviesGrid').innerHTML = data.results.map(item => `
-                        <div class="movie-card" onclick="startAdTimer('${item.id}')">
-                            <img src="${item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : 'https://via.placeholder.com/500x750?text=No+Image'}">
-                            <div class="movie-title">${item.title || item.name}</div>
-                        </div>`).join('');
-                } catch(e) {}
-            }
-        }
         window.onload = () => loadContent('movie');
     </script>
 </body>
