@@ -976,17 +976,17 @@
         {
             "name": "Bloomberg Originals (1080p)",
             "logo": "https://flagcdn.com/w160/us.png",
+            "url": "https://bloomberg.com/media-manifest/streams/qt.m3u8"
+        },
+        {
+            "name": "Bloomberg Originals (1080p)",
+            "logo": "https://flagcdn.com/w160/us.png",
             "url": "https://dai.google.com/linear/hls/event/jKwfd4apQcuxQtyRI9Q6-Q/master.m3u8"
         },
         {
             "name": "Bloomberg Originals (1080p)",
             "logo": "https://flagcdn.com/w160/us.png",
             "url": "http-referrer=https://www.bloomberg.com/originals"
-        },
-        {
-            "name": "Bloomberg Originals (1080p)",
-            "logo": "https://flagcdn.com/w160/us.png",
-            "url": "https://bloomberg.com/media-manifest/streams/qt.m3u8"
         },
         {
             "name": "Bounce XL (1080p)",
