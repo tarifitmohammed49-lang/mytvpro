@@ -1483,6 +1483,11 @@
             "url": "https://liveh12.vtvprime.vn/hls/DAVINVY/04.m3u8"
         },
         {
+            "name": "Das Erste (720p)",
+            "logo": "https://flagcdn.com/w160/de.png",
+            "url": "https://s6.hopslan.com/ardX/tracks-v1a1/mono.m3u8"
+        },
+        {
             "name": "Das Erste HD (1080p)",
             "logo": "https://flagcdn.com/w160/de.png",
             "url": "https://daserste-live.ard-mcdn.de/daserste/live/hls/int/master.m3u8"
@@ -1696,11 +1701,6 @@
             "name": "NDR Hamburg (720p)",
             "logo": "https://flagcdn.com/w160/de.png",
             "url": "https://mcdn.ndr.de/ndr/hls/ndr_fs/ndr_hh/master.m3u8"
-        },
-        {
-            "name": "NDR Mecklenburg-Vorpommern (720p)",
-            "logo": "https://flagcdn.com/w160/de.png",
-            "url": "https://mcdn.ndr.de/ndr/hls/ndr_fs/ndr_mv/master.m3u8"
         }
     ],
     "nl_sport": [
