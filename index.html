@@ -26,6 +26,7 @@
 
         /* إعلانات البانر 720x90 */
         .ad-banner-720 { width: 100%; max-width: 720px; height: 90px; background: #16191d; border: 1px solid #333; border-radius: 8px; margin: 15px auto; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #555; overflow: hidden; }
+        .ad-banner-720 a { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: inherit; }
 
         .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; max-width: 1200px; margin: 20px auto; }
         .movie-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: 0.3s; text-align: center; }
@@ -51,8 +52,9 @@
 
     <div id="adVideoOverlay">
         <div class="ad-timer-text" id="timerDisplay">PREPARING: 15s</div>
-        <div style="width:90%; max-width:720px; height:90px; background:#111; border:1px solid #333;">
-            </div>
+        <div style="width:90%; max-width:720px; height:90px; background:#111; border:1px solid #333; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #444;">
+            AD SPACE (15s)
+        </div>
     </div>
 
     <div class="header">
@@ -70,7 +72,11 @@
         <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
     </div>
 
-    <div class="ad-banner-720">ADVERTISEMENT 720x90</div>
+    <div class="ad-banner-720">
+        <a href="رابط_موقعك_هنا">
+            <img src="رابط_الصورة_هنا" alt="PRO BANNER 1" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </a>
+    </div>
 
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search movies & series..." onkeyup="handleSearch(event)">
@@ -78,7 +84,11 @@
 
     <div class="movie-grid" id="moviesGrid"></div>
 
-    <div class="ad-banner-720">ADVERTISEMENT 720x90</div>
+    <div class="ad-banner-720">
+        <a href="رابط_موقعك_هنا">
+            <img src="رابط_الصورة_هنا" alt="PRO BANNER 2" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </a>
+    </div>
 
     <footer class="disclaimer-box">
         <div class="disclaimer-grid">
@@ -93,7 +103,11 @@
             
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
 
-            <div class="ad-banner-720">ADVERTISEMENT 720x90</div>
+            <div class="ad-banner-720">
+                <a href="رابط_موقعك_هنا">
+                    <img src="رابط_الصورة_هنا" alt="PRO BANNER 3" style="width:100%; height:100%; object-fit:cover; display:block;">
+                </a>
+            </div>
 
             <div class="disclaimer-box">
                 <div class="disclaimer-grid">
@@ -112,7 +126,7 @@
             en: { search: "Search movies & series...", back: "BACK", movies: "Movies", series: "Series" },
             fr: { search: "Chercher films et séries...", back: "RETOUR", movies: "Films", series: "Séries" },
             de: { search: "Filme und Serien suchen...", back: "ZURÜCK", movies: "Filme", series: "Serien" },
-            nl: { search: "Zoek films en series...", back: "TERUG", movies: "Films", series: "Series" }
+            nl: { search: "Zoek films et series...", back: "TERUG", movies: "Films", series: "Series" }
         };
 
         function changeLanguage(lang) {
