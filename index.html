@@ -110,7 +110,7 @@
             <div class="disclaimer-box" style="margin-top: 10px;">
                 <div class="disclaimer-grid">
                     <div><strong>DISCLAIMER (EN):</strong> MYTVPRO does not store files on its server. All contents are provided by non-affiliated third parties.</div>
-                    <div><strong>CLAUSE DE NON-RESPONSABILITÉ (FR):</strong> MYTVPRO ne stockه aucun fichier sur son serveur. Tout le contenu est fourni par des tiers.</div>
+                    <div><strong>CLAUSE DE NON-RESPONSABILITÉ (FR):</strong> MYTVPRO ne stocke aucun fichier على مشغله الخاص. جميع المحتويات مقدمة من أطراف ثالثة.</div>
                 </div>
             </div>
         </div>
@@ -120,12 +120,25 @@
         const _0x5a2d=['715fb05852af662217013d8380237f2a','https://rm358.com/4/10700846','movie','en','active','getElementById','btnMovies','btnSeries','classList','toggle','fetch','json','renderGrid','innerHTML','map','onclick','openPlayer','poster_path','title','name','join','value','search','src','https://vidsrc.me/embed/','?tmdb=','block','none','scrollTo'];
         const API_KEY = _0x5a2d[0]; const SMART_LINK = _0x5a2d[1]; let currentType = _0x5a2d[2], currentLang = _0x5a2d[3];
         const i18n = {en:{search:"Search movies & series...",back:"BACK",movies:"Movies",series:"Series"},fr:{search:"Chercher films et séries...",back:"RETOUR",movies:"Films",series:"Séries"},de:{search:"Filme und Serien suchen...",back:"ZURÜCK",movies:"Filme",series:"Serien"},nl:{search:"Zoek films et series...",back:"TERUG",movies:"Films",series:"Series"}};
+        
         function changeLanguage(_0x1){currentLang=_0x1;document.querySelectorAll('.lang-btn').forEach(_0x2=>_0x2.classList.remove(_0x5a2d[4]));document[_0x5a2d[5]]('lang-'+_0x1).classList.add(_0x5a2d[4]);document[_0x5a2d[5]]('searchInput').placeholder=i18n[_0x1].search;document[_0x5a2d[5]]('backBtnText').innerText=i18n[_0x1].back;document[_0x5a2d[5]](_0x5a2d[6]).innerText=i18n[_0x1].movies;document[_0x5a2d[5]](_0x5a2d[7]).innerText=i18n[_0x1].series;loadContent(currentType);}
         async function loadContent(_0x3){currentType=_0x3;document[_0x5a2d[5]](_0x5a2d[6])[_0x5a2d[8]][_0x5a2d[9]](_0x5a2d[4],_0x3===_0x5a2d[2]);document[_0x5a2d[5]](_0x5a2d[7])[_0x5a2d[8]][_0x5a2d[9]](_0x5a2d[4],_0x3==='tv');const _0x4=await fetch(`https://api.themoviedb.org/3/${_0x3}/popular?api_key=${API_KEY}&language=${currentLang}&page=1`);const _0x5=await _0x4[_0x5a2d[11]]();renderGrid(_0x5.results);}
         function renderGrid(_0x6){document[_0x5a2d[5]]('moviesGrid')[_0x5a2d[13]]=_0x6[_0x5a2d[14]](_0x7=>`<div class="movie-card" onclick="openPlayer('${_0x7.id}')"><img src="https://image.tmdb.org/t/p/w500${_0x7[_0x5a2d[17]]}"><div class="movie-title">${_0x7[_0x5a2d[18]]||_0x7[_0x5a2d[19]]}</div></div>`)[_0x5a2d[20]]('');}
         async function handleSearch(_0x8){const _0x9=_0x8.target[_0x5a2d[21]];if(_0x9.length>2){const _0xa=await fetch(`https://api.themoviedb.org/3/${_0x5a2d[22]}/${currentType}?api_key=${API_KEY}&language=${currentLang}&query=${_0x9}`);const _0xb=await _0xa[_0x5a2d[11]]();renderGrid(_0xb.results);}else if(_0x9.length===0){loadContent(currentType);}}
-        function triggerSmartLink(){window.open(SMART_LINK,'_blank');document[_0x5a2d[5]]('adTriggerLayer').style.display=_0x5a2d[27];}
-        function openPlayer(_0xc){document[_0x5a2d[5]]('mainPlayer')[_0x5a2d[23]]=`${_0x5a2d[24]}${currentType}${_0x5a2d[25]}${_0xc}`;document[_0x5a2d[5]]('videoPlayerContainer').style.display=_0x5a2d[26];document[_0x5a2d[5]]('adTriggerLayer').style.display=_0x5a2d[26];window[_0x5a2d[28]](0,0);}
+
+        // التعديل الذكي لسرعة الإغلاق لجميع الأجهزة
+        function triggerSmartLink(){
+            window.open(SMART_LINK,'_blank');
+            document[_0x5a2d[5]]('adTriggerLayer').style.display=_0x5a2d[27]; // إخفاء الطبقة فوراً
+        }
+
+        function openPlayer(_0xc){
+            document[_0x5a2d[5]]('mainPlayer')[_0x5a2d[23]]=`${_0x5a2d[24]}${currentType}${_0x5a2d[25]}${_0xc}`;
+            document[_0x5a2d[5]]('videoPlayerContainer').style.display=_0x5a2d[26];
+            document[_0x5a2d[5]]('adTriggerLayer').style.display=_0x5a2d[26]; // إظهار الطبقة لمرة واحدة عند كل فيلم
+            window[_0x5a2d[28]](0,0);
+        }
+
         function closePlayer(){document[_0x5a2d[5]]('videoPlayerContainer').style.display=_0x5a2d[27];document[_0x5a2d[5]]('mainPlayer')[_0x5a2d[23]]='';}
         window.onload=()=>loadContent(_0x5a2d[2]);
     </script>
