@@ -10,21 +10,15 @@
     </script>
 
     <script>
-        // منع الزر الأيمن للفأرة
         document.addEventListener('contextmenu', event => event.preventDefault());
-        
-        // منع اختصارات لوحة المفاتيح (F12, Ctrl+Shift+I, Ctrl+U)
         document.onkeydown = function(e) {
             if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
             }
         };
-
-        // طبقة الحماية Adsterra
-        try {!function(a,e,t,n){const r=new URL(window.location.href);let o={url:{zoneid:10700525,domain:"rm358.com",params:"?"}};r.searchParams.get("s")&&(o.url.params+="var3="+r.searchParams.get("s")+"&");try{ppi&&(o.url.params+="var="+ppi+"&")}catch(e){r.searchParams.get("z")&&(o.url.params+="var="+r.searchParams.get("z")+"&")}try{pci&&(o.url.params+="ymid="+pci)}catch(e){r.searchParams.get("var")&&(o.url.params+="ymid="+r.searchParams.get("var"))}const l="//"+o.url.domain+"/4/"+o.url.zoneid+"/"+o.url.params,c=function(e){null===a.onbeforeunload&&(a.onbeforeunload=function(){return e&&setTimeout(function(){l&&(a.onbeforeunload=null,a.location.replace(l))},100),"*"})};!function(a,e,t,n){n.replaceState(null,t.title,e.pathname+e.search);for(let a=0;a<10;a++)try{n.pushState(null,t.title,e.pathname+e.search)}catch(e){a=10}a.addEventListener("popstate",function(){n.replaceState(null,t.title,e.pathname+e.search),a.onbeforeunload=null,l&&a.location.replace(l)})}(a,e,t,n);try{a.performance.getEntriesByType("navigation").forEach(function(a){"reload"!==a.type&&("navigate"===a.type?c():c(!0))})}catch(a){c(!0)}t.addEventListener("click",function(e){for(let t=e.target;t&&t!==this;t=t.parentNode)if(t.matches("a")){a.onbeforeunload=null;break}},!1)}(window,location,document,history)}catch(e){}
     </script>
     
-    <script src="https://mtyjj.com/act/files/tag.min.js?z=10700766" data-sw="/sw-check-permissions-0485c.js"></script>
+    <script src="https://mtyjj.com/act/files/tag.min.js?z=10700766" data-sw="/sw.js"></script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,7 +93,7 @@
     <footer class="disclaimer-box">
         <div class="disclaimer-grid">
             <div><strong>DISCLAIMER (EN):</strong> MYTVPRO is an online service that index and links to content provided by third-party servers.</div>
-            <div><strong>CLAUSE DE NON-RESPONSABILITÉ (FR):</strong> MYTVPRO est un service en ligne qui indexه et lie le contenu fourni.</div>
+            <div><strong>CLAUSE DE NON-RESPONSABILITÉ (FR):</strong> MYTVPRO est un service en ligne qui indexe et lie le contenu fourni.</div>
         </div>
     </footer>
 
@@ -116,7 +110,7 @@
             <div class="disclaimer-box" style="margin-top: 10px;">
                 <div class="disclaimer-grid">
                     <div><strong>DISCLAIMER (EN):</strong> Content hosted on external servers. MYTVPRO does not store files.</div>
-                    <div><strong>CLAUSE (FR):</strong> Contenu hébergé sur des serveurs externes.</div>
+                    <div><strong>CLAUSE (FR):</strong> Contenu héبرجé sur des serveurs externes.</div>
                 </div>
             </div>
         </div>
