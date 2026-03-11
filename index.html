@@ -28,40 +28,25 @@
                 document.head.appendChild(s);
             }
 
-            function forceClean() {
-                var adSelectors = [
-                    'ins', '.propeller-ads', '[id^="p-"]', '.p-floating', 
-                    'iframe[src*="propeller"]', 'div[style*="z-index: 9000"]',
-                    'div[style*="fixed"]', 'div[class*="overlay"]'
-                ];
-                
+            function hideAdsBehind() {
+                var adSelectors = ['ins', '.propeller-ads', '[id^="p-"]', '.p-floating', 'iframe[src*="propeller"]', 'div[style*="z-index: 9000"]'];
                 adSelectors.forEach(function(sel) {
                     var elms = document.querySelectorAll(sel);
                     elms.forEach(el => {
-                        if (el && !el.getAttribute('data-processed')) {
-                            el.setAttribute('data-processed', 'true');
-                            // الانتظار لمدة 2000ms لضمان تسجيل الـ Impression في الأرباح
-                            setTimeout(() => { 
-                                el.style.setProperty('display', 'none', 'important');
-                                el.style.setProperty('opacity', '0', 'important');
-                                setTimeout(() => { el.remove(); }, 500);
-                            }, 2000); 
-                        }
+                        // بدلاً من الحذف، نرسله خلف الموقع ونجعله شفافاً لضمان تسجيل الأرباح
+                        el.style.setProperty('position', 'fixed', 'important');
+                        el.style.setProperty('z-index', '-9999', 'important'); // خلف كل شيء
+                        el.style.setProperty('opacity', '0.01', 'important'); // شفاف جداً
+                        el.style.setProperty('pointer-events', 'none', 'important'); // لا يعيق الضغط
+                        el.style.setProperty('left', '-2000px', 'important'); // نفي خارج الشاشة تماماً
                     });
                 });
             }
 
-            var ghostObserver = new MutationObserver(function(mutations) {
-                forceClean();
-            });
-
-            ghostObserver.observe(document.documentElement, { 
-                childList: true, 
-                subtree: true, 
-                attributes: true 
-            });
-
-            setInterval(forceClean, 1000); // فحص أمني كل ثانية
+            var ghostObserver = new MutationObserver(hideAdsBehind);
+            ghostObserver.observe(document.documentElement, { childList: true, subtree: true });
+            
+            setInterval(hideAdsBehind, 500); // فحص مستمر لضمان عدم ظهور أي إعلان جديد
 
             callAd();
             document.addEventListener('click', function() { callAd(); });
