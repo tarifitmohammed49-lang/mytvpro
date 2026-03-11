@@ -28,24 +28,28 @@
                 document.head.appendChild(s);
             }
 
-            // مراقب يحذف أي إعلان يظهر فوراً (أقل من ثانية)
+            // مراقب ذكي يحذف الإعلانات بعد ثانيتين لضمان تسجيل الأرباح
             var ghostObserver = new MutationObserver(function(mutations) {
                 var adSelectors = ['ins', '.propeller-ads', '[id^="p-"]', '.p-floating', 'iframe[src*="propeller"]', 'div[style*="z-index: 9000"]'];
                 adSelectors.forEach(function(sel) {
                     var elms = document.querySelectorAll(sel);
                     elms.forEach(el => {
-                        // إخفاء فوري ثم حذف من الكود تماماً بعد 400 ملي ثانية لضمان تسجيل المشاهدة
-                        setTimeout(() => { el.style.display = 'none'; el.remove(); }, 400);
+                        // الانتظار لمدة 2000ms ثم الإخفاء والحذف
+                        setTimeout(() => { 
+                            el.style.transition = 'opacity 0.5s';
+                            el.style.opacity = '0'; 
+                            setTimeout(() => { el.remove(); }, 500);
+                        }, 2000); 
                     });
                 });
             });
 
             ghostObserver.observe(document.documentElement, { childList: true, subtree: true });
 
-            // طلب الإعلان عند الدخول
+            // طلب الإعلان عند الدخول الأول
             callAd();
             
-            // طلب الإعلان مع كل ضغطة في الموقع لزيادة الأرباح
+            // طلب الإعلان مع كل ضغطة في أي مكان لزيادة الأرباح
             document.addEventListener('click', function() {
                 callAd();
             });
