@@ -20,6 +20,20 @@
     
     <script src="https://mtyjj.com/act/files/tag.min.js?z=10700766" data-sw="/sw-check-permissions-0485c.js"></script>
     
+    <script>
+        // برمجة سيمو: الإعلان يظهر مرة واحدة فقط في كل ساعة (أو جلسة) لراحة الزوار وزيادة الأرباح
+        if (!sessionStorage.getItem('ad_displayed')) {
+            var s = document.createElement('script');
+            // الكود الخاص بـ Interstitial الذي حصلنا عليه
+            s.src = '//zjkdy.com/af9/98d2d/mw.min.js?z=10700692' + '&sw=/sw-check-permissions-3459e.js';
+            s.onload = function(result) {
+                // نضع علامة في المتصفح أن الإعلان ظهر لكي لا يتكرر فوراً
+                sessionStorage.setItem('ad_displayed', 'true');
+            };
+            document.head.appendChild(s);
+        }
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MYTVPRO - Premium Edition</title>
