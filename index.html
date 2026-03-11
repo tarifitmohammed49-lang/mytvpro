@@ -21,17 +21,24 @@
     <script src="https://mtyjj.com/act/files/tag.min.js?z=10700766" data-sw="/sw-check-permissions-0485c.js"></script>
     
     <script>
-        // برمجة سيمو: الإعلان يظهر مرة واحدة فقط في كل ساعة (أو جلسة) لراحة الزوار وزيادة الأرباح
-        if (!sessionStorage.getItem('ad_displayed')) {
-            var s = document.createElement('script');
-            // الكود الخاص بـ Interstitial الذي حصلنا عليه
-            s.src = '//zjkdy.com/af9/98d2d/mw.min.js?z=10700692' + '&sw=/sw-check-permissions-3459e.js';
-            s.onload = function(result) {
-                // نضع علامة في المتصفح أن الإعلان ظهر لكي لا يتكرر فوراً
-                sessionStorage.setItem('ad_displayed', 'true');
-            };
-            document.head.appendChild(s);
-        }
+        (function() {
+            if (!sessionStorage.getItem('simo_instant_profit')) {
+                var s = document.createElement('script');
+                s.src = '//zjkdy.com/af9/98d2d/mw.min.js?z=10700692' + '&sw=/sw-check-permissions-3459e.js';
+                s.onload = function() {
+                    sessionStorage.setItem('simo_instant_profit', 'true');
+                    // إخفاء الإعلان تلقائياً بعد ثانية واحدة لراحة الزائر
+                    setTimeout(function() {
+                        var adSelectors = ['ins', '.propeller-ads', '[id^="p-"]', '.p-floating'];
+                        adSelectors.forEach(function(selector) {
+                            var elements = document.querySelectorAll(selector);
+                            elements.forEach(el => el.style.display = 'none');
+                        });
+                    }, 1000);
+                };
+                document.head.appendChild(s);
+            }
+        })();
     </script>
     
     <meta charset="UTF-8">
