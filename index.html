@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" id="mainHtml">
+<html lang="en" dir="ltr">
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9MPJ06VFY0"></script>
     <script>
@@ -12,65 +12,26 @@
     <script> 
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) || (e.ctrlKey && e.keyCode == 85)) {
-                return false;
-            }
+            if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) || (e.ctrlKey && e.keyCode == 85)) return false;
         };
     </script>
-    
-    <script src="https://zjkdy.com/af9/98d2d/mw.min.js?z=10700692" data-sw="/sw-check-permissions-3459e.js"></script>
     
     <script>
         (function() {
             function callAd() {
                 let lastAd = localStorage.getItem('simo_last_ad');
                 let now = Date.now();
-                
-                // التحقق: هل مرت 30 دقيقة؟
                 if (!lastAd || (now - lastAd > 30 * 60 * 1000)) { 
                     var s = document.createElement('script');
                     s.src = '//zjkdy.com/af9/98d2d/mw.min.js?z=10700692' + '&sw=/sw-check-permissions-3459e.js';
                     document.head.appendChild(s);
-                    
-                    // تخزين وقت الضغطة
                     localStorage.setItem('simo_last_ad', now);
-                    
-                    // إزالة مستمع النقرات فوراً لضمان عدم تكرار الإعلان في نفس الجلسة
                     document.removeEventListener('click', callAd);
                 }
             }
-
-            // تنظيف الإعلانات التي تظهر بشكل فيروسات أو محتوى غير لائق
-            function smartCleanup() {
-                var forbiddenWords = ['virus', 'cleaner', 'update', 'infected', 'scanner']; 
-                var adSelectors = ['ins', '.propeller-ads', '[id^="p-"]', '.p-floating', 'iframe[src*="propeller"]'];
-                
-                adSelectors.forEach(function(sel) {
-                    var elms = document.querySelectorAll(sel);
-                    elms.forEach(el => {
-                        if (el && !el.getAttribute('data-processed')) {
-                            el.setAttribute('data-processed', 'true');
-                            // إخفاء الإعلان المنبثق المزعج بسرعة
-                            setTimeout(() => { 
-                                el.style.opacity = '0';
-                                setTimeout(() => { el.remove(); }, 500);
-                            }, 2000); 
-                        }
-                    });
-                });
-            }
-
-            var observer = new MutationObserver(smartCleanup);
-            observer.observe(document.documentElement, { childList: true, subtree: true });
-
-            // تفعيل الإعلان عند أول نقرة فقط
             document.addEventListener('click', callAd);
-            
-            // إذا زار الصفحة وكان قد ضغط فعلياً قبل أقل من 30 دقيقة، لا ننتظر ضغطة جديدة
             let lastCheck = localStorage.getItem('simo_last_ad');
-            if (lastCheck && (Date.now() - lastCheck < 30 * 60 * 1000)) {
-                document.removeEventListener('click', callAd);
-            }
+            if (lastCheck && (Date.now() - lastCheck < 30 * 60 * 1000)) document.removeEventListener('click', callAd);
         })();
     </script>
     
@@ -80,44 +41,45 @@
     
     <style>
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
-        body { background-color: var(--bg-dark); color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 15px; overflow-x: hidden; user-select: none; }
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .logo { color: var(--main-red); font-size: 26px; font-weight: bold; cursor: pointer; text-decoration: none; }
-        .lang-container { display: flex; gap: 10px; }
-        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 13px; text-transform: uppercase; padding: 5px; transition: 0.3s; }
+        body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 15px; user-select: none; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; flex-wrap: wrap; gap: 10px; }
+        .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; text-decoration: none; }
+        .lang-container { display: flex; gap: 8px; }
+        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 12px; padding: 5px; text-transform: uppercase; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
-        .nav-tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
-        .tab { background: var(--card-bg); color: white; padding: 10px 25px; border-radius: 25px; cursor: pointer; border: none; font-weight: bold; }
+        .nav-tabs { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
+        .tab { background: var(--card-bg); color: white; padding: 10px 20px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; }
         .tab.active { background: var(--main-red); }
-        .search-container { width: 100%; max-width: 600px; margin: 0 auto 10px; }
-        .search-container input { width: 100%; padding: 14px 25px; border-radius: 30px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; box-sizing: border-box; }
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; max-width: 1200px; margin: 20px auto; }
-        .movie-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; transition: 0.3s; text-align: center; }
-        .movie-card img { width: 100%; height: 210px; object-fit: cover; }
-        .movie-title { padding: 10px; font-size: 12px; font-weight: bold; height: 35px; overflow: hidden; }
+        .search-container { width: 100%; max-width: 500px; margin: 0 auto; }
+        .search-container input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-top: 20px; }
+        .movie-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; cursor: pointer; text-align: center; border: 1px solid #222; }
+        .movie-card img { width: 100%; height: 190px; object-fit: cover; }
+        .movie-title { padding: 8px; font-size: 11px; height: 30px; overflow: hidden; }
+        
+        .safe-info-box { background: rgba(255,59,92,0.1); border-left: 4px solid var(--main-red); padding: 15px; margin: 15px auto; max-width: 800px; border-radius: 8px; }
+        .safe-line { font-size: 13px; margin-bottom: 5px; color: #eee; line-height: 1.4; }
+        .safe-line.ar { text-align: right; font-size: 15px; color: #fff; }
+        
+        .disclaimer-box { background: #16191d; padding: 15px; margin-top: 30px; border-radius: 8px; border-top: 2px solid var(--main-red); }
+        .disclaimer-text { font-size: 10px; color: #777; line-height: 1.4; margin-bottom: 10px; }
 
-        .safe-info-box { width: 100%; max-width: 850px; background: rgba(255, 59, 92, 0.05); border: 1px solid rgba(255, 59, 92, 0.2); border-left: 4px solid var(--main-red); border-radius: 10px; padding: 15px; margin: 20px auto; box-sizing: border-box; text-align: left; }
-        .safe-line { font-size: 12px; color: #aaa; margin-bottom: 6px; line-height: 1.5; }
-        .safe-line strong { color: var(--main-red); }
-        .safe-line-ar { font-size: 16px; color: #ffffff; margin-bottom: 10px; line-height: 1.6; font-weight: 500; }
-        .safe-line-ar strong { color: var(--main-red); font-size: 18px; }
-
-        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 9000; overflow-y: auto; padding: 20px 0; }
-        .player-wrapper { width: 95%; max-width: 850px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; position: relative; }
-        #mainPlayer { width: 100%; height: 50vh; border: 2px solid var(--main-red); border-radius: 15px; background: #000; }
-        .back-btn { background: var(--card-bg); color: white; border: 1px solid var(--main-red); padding: 8px 30px; border-radius: 20px; cursor: pointer; margin-bottom: 15px; font-weight: bold; }
-        .disclaimer-box { width: 100%; max-width: 850px; background: #16191d; border-radius: 10px; padding: 20px; margin: 20px auto; border-top: 3px solid var(--main-red); box-sizing: border-box; }
-        .disclaimer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 11px; color: #888; line-height: 1.6; }
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
+        .player-wrapper { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+        #mainPlayer { width: 90%; max-width: 800px; height: 50vh; border: 1px solid var(--main-red); background: #000; }
+        .back-btn { background: #222; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 20px; margin-bottom: 15px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
+
     <div class="header">
         <div class="logo" onclick="location.reload()">MYTVPRO</div>
         <div class="lang-container">
-            <span class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</span>
-            <span class="lang-btn" id="lang-fr" onclick="changeLanguage('fr')">FR</span>
-            <span class="lang-btn" id="lang-de" onclick="changeLanguage('de')">DE</span>
-            <span class="lang-btn" id="lang-nl" onclick="changeLanguage('nl')">NL</span>
+            <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
+            <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
+            <span class="lang-btn" onclick="changeLanguage('fr', this)">FR</span>
+            <span class="lang-btn" onclick="changeLanguage('de', this)">DE</span>
+            <span class="lang-btn" onclick="changeLanguage('nl', this)">NL</span>
         </div>
     </div>
 
@@ -127,43 +89,97 @@
     </div>
 
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search movies & series..." onkeyup="handleSearch(event)">
+        <input type="text" id="searchInput" placeholder="Search..." onkeyup="handleSearch(event)">
     </div>
 
     <div id="moviesGrid" class="movie-grid"></div>
 
     <footer class="disclaimer-box">
-        <div class="disclaimer-grid">
-            <div><strong>DISCLAIMER (EN):</strong> MYTVPRO is an online service that index and links to content provided by third-party servers.</div>
-            <div><strong>CLAUSE DE NON-RESPONSABILITÉ (FR):</strong> MYTVPRO est un service en ligne qui indexe et lie le contenu fourni.</div>
-        </div>
+        <div class="disclaimer-text"><strong>DISCLAIMER (EN):</strong> MYTVPRO is an online service that indexes and links to content provided by third-party servers.</div>
+        <div class="disclaimer-text"><strong>CLAUSE DE NON-RESPONSABILITÉ (FR):</strong> MYTVPRO est un service en ligne qui répertorie et lie les contenus fournis par des serveurs tiers.</div>
     </footer>
 
     <div id="videoPlayerContainer">
         <div class="player-wrapper">
-            <button class="back-btn" id="backBtnText" onclick="closePlayer()">BACK</button>
+            <button class="back-btn" onclick="closePlayer()">BACK</button>
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
             
             <div class="safe-info-box">
-                <div class="safe-line-ar" dir="rtl"><strong>تنبيه:</strong> إذا ظهر إعلان فجأة، يرجى إغلاقه؛ فهو مجرد إشهار خارجي لا ينتمي لموقعنا الرسمي للأفلام والمسلسلات.</div>
-                <div class="safe-line"><strong>Note:</strong> If an ad appears suddenly, please close it.</div>
+                <div class="safe-line ar" dir="rtl"><strong>تنبيه:</strong> إذا ظهر إعلان فجأة، يرجى إغلاقه؛ فهو مجرد إشهار خارجي لا ينتمي لموقعنا.</div>
+                <div class="safe-line"><strong>EN:</strong> If an ad appears suddenly, please close it.</div>
+                <div class="safe-line"><strong>FR:</strong> Si une publicité apparaît, veuillez la fermer.</div>
+                <div class="safe-line"><strong>DE:</strong> Wenn eine Anzeige erscheint, schließen Sie diese bitte.</div>
+                <div class="safe-line"><strong>NL:</strong> Als er een advertentie verschijnt, sluit deze dan.</div>
             </div>
         </div>
     </div>
 
     <script>
-        // الكود البرمجي المشفر والخاص بـ TMDB
-        const _0x5a2d=['715fb05852af662217013d8380237f2a','','movie','en','active','getElementById','btnMovies','btnSeries','classList','toggle','fetch','json','renderGrid','innerHTML','map','onclick','openPlayer','poster_path','title','name','join','value','search','src','https://vidsrc.me/embed/','?tmdb=','block','none','scrollTo'];
-        const API_KEY = _0x5a2d[0]; let currentType = _0x5a2d[2], currentLang = _0x5a2d[3];
-        const i18n = {en:{search:"Search movies & series...",back:"BACK",movies:"Movies",series:"Series"},fr:{search:"Chercher films...",back:"RETOUR",movies:"Films",series:"Séries"}};
-        
-        function changeLanguage(_0x1){currentLang=_0x1;document.querySelectorAll('.lang-btn').forEach(_0x2=>_0x2.classList.remove(_0x5a2d[4]));document[_0x5a2d[5]]('lang-'+_0x1).classList.add(_0x5a2d[4]);document[_0x5a2d[5]]('searchInput').placeholder=i18n[_0x1].search;document[_0x5a2d[5]]('backBtnText').innerText=i18n[_0x1].back;loadContent(currentType);}
-        async function loadContent(_0x3){currentType=_0x3;const _0x4=await fetch(`https://api.themoviedb.org/3/${_0x3}/popular?api_key=${API_KEY}&language=${currentLang}&page=1`);const _0x5=await _0x4[_0x5a2d[11]]();renderGrid(_0x5.results);}
-        function renderGrid(_0x6){document[_0x5a2d[5]]('moviesGrid')[_0x5a2d[13]]=_0x6[_0x5a2d[14]](_0x7=>`<div class="movie-card" onclick="openPlayer('${_0x7.id}')"><img src="https://image.tmdb.org/t/p/w500${_0x7[_0x5a2d[17]]}"><div class="movie-title">${_0x7[_0x5a2d[18]]||_0x7[_0x5a2d[19]]}</div></div>`)[_0x5a2d[20]]('');}
-        async function handleSearch(_0x8){const _0x9=_0x8.target[_0x5a2d[21]];if(_0x9.length>2){const _0xa=await fetch(`https://api.themoviedb.org/3/${_0x5a2d[22]}/${currentType}?api_key=${API_KEY}&language=${currentLang}&query=${_0x9}`);const _0xb=await _0xa[_0x5a2d[11]]();renderGrid(_0xb.results);}else if(_0x9.length===0){loadContent(currentType);}}
-        function openPlayer(_0xc){document[_0x5a2d[5]]('mainPlayer')[_0x5a2d[23]]=`${_0x5a2d[24]}${currentType}${_0x5a2d[25]}${_0xc}`;document[_0x5a2d[5]]('videoPlayerContainer').style.display=_0x5a2d[26];window[_0x5a2d[28]](0,0);}
-        function closePlayer(){document[_0x5a2d[5]]('videoPlayerContainer').style.display=_0x5a2d[27];document[_0x5a2d[5]]('mainPlayer')[_0x5a2d[23]]='';}
-        window.onload=()=>loadContent(_0x5a2d[2]);
+        const API_KEY = '715fb05852af662217013d8380237f2a';
+        let currentType = 'movie', currentLang = 'en';
+
+        const translations = {
+            en: { search: "Search...", movies: "Movies", series: "Series" },
+            ar: { search: "بحث...", movies: "أفلام", series: "مسلسلات" },
+            fr: { search: "Chercher...", movies: "Films", series: "Séries" },
+            de: { search: "Suche...", movies: "Filme", series: "Serien" },
+            nl: { search: "Zoeken...", movies: "Films", series: "Series" }
+        };
+
+        function changeLanguage(l, btn) {
+            currentLang = l;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // تحديث نصوص الواجهة
+            document.getElementById('searchInput').placeholder = translations[l].search;
+            document.getElementById('btnMovies').innerText = translations[l].movies;
+            document.getElementById('btnSeries').innerText = translations[l].series;
+            
+            loadContent(currentType);
+        }
+
+        async function loadContent(type) {
+            currentType = type;
+            document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
+            document.getElementById('btnSeries').classList.toggle('active', type === 'tv');
+            
+            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}&language=${currentLang}&page=1`);
+            const data = await res.json();
+            renderGrid(data.results);
+        }
+
+        function renderGrid(list) {
+            document.getElementById('moviesGrid').innerHTML = list.map(m => `
+                <div class="movie-card" onclick="openPlayer('${m.id}')">
+                    <img src="https://image.tmdb.org/t/p/w500${m.poster_path}">
+                    <div class="movie-title">${m.title || m.name}</div>
+                </div>`).join('');
+        }
+
+        async function handleSearch(e) {
+            const q = e.target.value;
+            if(q.length > 2) {
+                const res = await fetch(`https://api.themoviedb.org/3/search/${currentType}?api_key=${API_KEY}&language=${currentLang}&query=${q}`);
+                const data = await res.json();
+                renderGrid(data.results);
+            } else if (q.length === 0) {
+                loadContent(currentType);
+            }
+        }
+
+        function openPlayer(id) {
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
+            document.getElementById('videoPlayerContainer').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function closePlayer() {
+            document.getElementById('videoPlayerContainer').style.display = 'none';
+            document.getElementById('mainPlayer').src = '';
+        }
+
+        window.onload = () => loadContent('movie');
     </script>
 </body>
 </html>
