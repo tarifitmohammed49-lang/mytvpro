@@ -37,37 +37,46 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYTVPRO - Premium Edition</title>
+    <title>MYTVPRO - Premium</title>
     
     <style>
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
-        body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 15px; user-select: none; }
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; flex-wrap: wrap; gap: 10px; }
-        .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; text-decoration: none; }
-        .lang-container { display: flex; gap: 8px; }
-        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 12px; padding: 5px; text-transform: uppercase; }
+        body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
+        
+        /* الهيدر واللغات */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px; }
+        .logo { color: var(--main-red); font-size: 22px; font-weight: bold; cursor: pointer; }
+        .lang-container { display: flex; gap: 5px; }
+        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 11px; padding: 4px; border: 1px solid transparent; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
-        .nav-tabs { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
-        .tab { background: var(--card-bg); color: white; padding: 10px 20px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; }
-        .tab.active { background: var(--main-red); }
-        .search-container { width: 100%; max-width: 500px; margin: 0 auto; }
-        .search-container input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; }
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-top: 20px; }
-        .movie-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; cursor: pointer; text-align: center; border: 1px solid #222; }
-        .movie-card img { width: 100%; height: 190px; object-fit: cover; }
-        .movie-title { padding: 8px; font-size: 11px; height: 30px; overflow: hidden; }
-        
-        .safe-info-box { background: rgba(255,59,92,0.1); border-left: 4px solid var(--main-red); padding: 15px; margin: 15px auto; max-width: 800px; border-radius: 8px; }
-        .safe-line { font-size: 13px; margin-bottom: 5px; color: #eee; line-height: 1.4; }
-        .safe-line.ar { text-align: right; font-size: 15px; color: #fff; }
-        
-        .disclaimer-box { background: #16191d; padding: 15px; margin-top: 30px; border-radius: 8px; border-top: 2px solid var(--main-red); }
-        .disclaimer-text { font-size: 10px; color: #777; line-height: 1.4; margin-bottom: 10px; }
 
+        /* الأقسام والبحث */
+        .nav-tabs { display: flex; gap: 8px; justify-content: center; margin: 15px 0; }
+        .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-size: 14px; }
+        .tab.active { background: var(--main-red); }
+        .search-container { width: 95%; max-width: 500px; margin: 0 auto; }
+        .search-container input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; box-sizing: border-box; }
+
+        /* شبكة الأفلام */
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
+        .movie-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #222; text-align: center; }
+        .movie-card img { width: 100%; height: 180px; object-fit: cover; }
+        .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
+        
+        /* التنبيهات - العرض الكامل */
+        .safe-info-box { width: 100%; background: rgba(255,59,92,0.1); border-top: 2px solid var(--main-red); padding: 15px; margin-top: 15px; box-sizing: border-box; }
+        .safe-line { font-size: 13px; margin-bottom: 6px; color: #ddd; line-height: 1.4; width: 100%; }
+        .safe-line.ar { text-align: right; font-size: 15px; color: #fff; margin-bottom: 10px; }
+        
+        /* إخلاء المسؤولية أسفل الصفحة */
+        .disclaimer-box { background: #111; padding: 20px; margin-top: 40px; border-top: 1px solid #333; text-align: left; }
+        .disclaimer-text { font-size: 10px; color: #666; line-height: 1.5; margin-bottom: 8px; }
+
+        /* المشغل */
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
-        .player-wrapper { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
-        #mainPlayer { width: 90%; max-width: 800px; height: 50vh; border: 1px solid var(--main-red); background: #000; }
-        .back-btn { background: #222; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 20px; margin-bottom: 15px; cursor: pointer; font-weight: bold; }
+        .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
+        .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -95,8 +104,8 @@
     <div id="moviesGrid" class="movie-grid"></div>
 
     <footer class="disclaimer-box">
-        <div class="disclaimer-text"><strong>DISCLAIMER (EN):</strong> MYTVPRO is an online service that indexes and links to content provided by third-party servers.</div>
-        <div class="disclaimer-text"><strong>CLAUSE DE NON-RESPONSABILITÉ (FR):</strong> MYTVPRO est un service en ligne qui répertorie et lie les contenus fournis par des serveurs tiers.</div>
+        <div class="disclaimer-text"><strong>DISCLAIMER (EN):</strong> MYTVPRO is an online service that indexes and links to content provided by third-party servers. We do not host or upload any videos.</div>
+        <div class="disclaimer-text"><strong>CLAUSE DE NON-RESPONSABILITÉ (FR):</strong> MYTVPRO est un service en ligne qui indexe et fournit des liens vers du contenu tiers.</div>
     </footer>
 
     <div id="videoPlayerContainer">
@@ -118,24 +127,21 @@
         const API_KEY = '715fb05852af662217013d8380237f2a';
         let currentType = 'movie', currentLang = 'en';
 
-        const translations = {
-            en: { search: "Search...", movies: "Movies", series: "Series" },
-            ar: { search: "بحث...", movies: "أفلام", series: "مسلسلات" },
-            fr: { search: "Chercher...", movies: "Films", series: "Séries" },
-            de: { search: "Suche...", movies: "Filme", series: "Serien" },
-            nl: { search: "Zoeken...", movies: "Films", series: "Series" }
+        const i18n = {
+            en: { s: "Search...", m: "Movies", t: "Series" },
+            ar: { s: "بحث...", m: "أفلام", t: "مسلسلات" },
+            fr: { s: "Chercher...", m: "Films", t: "Séries" },
+            de: { s: "Suche...", m: "Filme", t: "Serien" },
+            nl: { s: "Zoeken...", m: "Films", t: "Series" }
         };
 
         function changeLanguage(l, btn) {
             currentLang = l;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            // تحديث نصوص الواجهة
-            document.getElementById('searchInput').placeholder = translations[l].search;
-            document.getElementById('btnMovies').innerText = translations[l].movies;
-            document.getElementById('btnSeries').innerText = translations[l].series;
-            
+            document.getElementById('searchInput').placeholder = i18n[l].s;
+            document.getElementById('btnMovies').innerText = i18n[l].m;
+            document.getElementById('btnSeries').innerText = i18n[l].t;
             loadContent(currentType);
         }
 
@@ -143,7 +149,6 @@
             currentType = type;
             document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
             document.getElementById('btnSeries').classList.toggle('active', type === 'tv');
-            
             const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}&language=${currentLang}&page=1`);
             const data = await res.json();
             renderGrid(data.results);
@@ -163,9 +168,7 @@
                 const res = await fetch(`https://api.themoviedb.org/3/search/${currentType}?api_key=${API_KEY}&language=${currentLang}&query=${q}`);
                 const data = await res.json();
                 renderGrid(data.results);
-            } else if (q.length === 0) {
-                loadContent(currentType);
-            }
+            } else if (q.length === 0) loadContent(currentType);
         }
 
         function openPlayer(id) {
