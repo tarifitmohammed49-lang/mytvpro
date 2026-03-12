@@ -1,76 +1,197 @@
 import requests
-import json
-import re
+import os
 
-# المصادر الأصلية التي تعبنا عليها (مضمونة 100%)
-SOURCES = {
-    "de": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/de.m3u",
-    "nl": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/nl.m3u",
-    "nl_ext": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/nl_ext.m3u",
-    "en": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us.m3u",
-    "fr": "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/fr.m3u",
-    "ar_news": "https://raw.githubusercontent.com/teleriumtv/iptv/main/iptv.m3u"
-}
+# الإعدادات الأساسية - ثابتة لا تتغير
+API_KEY = "715fb05852af662217013d8380237f2a"
+DIRECT_LINK = "https://rm358.com/4/10700525"
 
-# روابط الأعلام الثابتة (لا تتغير ولا تسبب اهتزاز)
-FLAGS = {
-    "nl": "https://flagcdn.com/w160/nl.png", # علم هولندا
-    "fr": "https://flagcdn.com/w160/fr.png", # علم فرنسا
-    "de": "https://flagcdn.com/w160/de.png", # علم ألمانيا
-    "en": "https://flagcdn.com/w160/us.png", # علم أمريكا (للقنوات الإنجليزية)
-    "ar": "https://flagcdn.com/w160/ma.png"  # علم المغرب (للقنوات العربية)
-}
+# قائمة اللغات التي يدعمها موقعك الآن
+LANGUAGES = ['en', 'ar', 'fr', 'de', 'nl', 'es', 'it', 'pt', 'tr', 'ru', 'zh']
 
-def fetch_channels():
-    # استعادة الهيكل الأصلي
-    data = {
-        "ar_sport": [], "ar_news": [],
-        "fr_sport": [], "fr_news": [],
-        "en_sport": [], "en_news": [],
-        "de_sport": [], "de_news": [],
-        "nl_sport": [], "nl_news": []
-    }
+def generate_html():
+    print("🚀 جاري تحديث الموقع العالمي MYTVPRO...")
+    
+    # الجزء العلوي من الموقع (Header & Styles)
+    # ملاحظة: تم دمج جميع اللغات في قسم الـ i18n والـ Buttons
+    html_template = f"""<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9MPJ06VFY0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      gtag('js', new Date());
+      gtag('config', 'G-9MPJ06VFY0');
+    </script>
 
-    for key_lang, url in SOURCES.items():
-        try:
-            print(f"📡 جاري استعادة قنوات {key_lang} مع وضع الأعلام...")
-            response = requests.get(url, timeout=15)
-            if response.status_code == 200:
-                chunks = response.text.split('#EXTINF')
-                for chunk in chunks[1:]:
-                    # حماية ضد beIN كما طلبت
-                    if "BEIN" in chunk.upper(): continue
-                    
-                    name_match = re.search(r',(.+)', chunk)
-                    url_match = re.search(r'(http[^\s]+)', chunk)
-                    
-                    if name_match and url_match:
-                        ch_name = name_match.group(1).strip()
-                        ch_url = url_match.group(1).strip()
-                        
-                        # تحديد كود اللغة (nl, fr, etc.)
-                        lang_code = key_lang.split('_')[0]
-                        # وضع العلم المناسب بدل اللوجو المكسور
-                        ch_logo = FLAGS.get(lang_code, "")
-                        
-                        channel_obj = {"name": ch_name, "logo": ch_logo, "url": ch_url}
-                        
-                        # التوزيع الرياضي/الإخباري الأصلي
-                        if any(x in ch_name.upper() for x in ['SPORT', 'ESPN', 'ZIGGO', 'FOOT', 'TV']):
-                            data[f"{lang_code}_sport"].append(channel_obj)
-                        else:
-                            data[f"{lang_code}_news"].append(channel_obj)
-                            
-        except Exception as e:
-            print(f"❌ خطأ في {key_lang}: {e}")
+    <script> 
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {{
+            if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) || (e.ctrlKey && e.keyCode == 85)) return false;
+        }};
+    </script>
+    
+    <script>
+        (function() {{
+            const myDirectLink = "{DIRECT_LINK}"; 
+            function openAdLink() {{
+                let lastAd = localStorage.getItem('simo_last_ad');
+                let now = Date.now();
+                if (!lastAd || (now - lastAd > 15 * 60 * 1000)) {{ 
+                    window.open(myDirectLink, '_blank');
+                    localStorage.setItem('simo_last_ad', now);
+                    document.removeEventListener('click', openAdLink);
+                }}
+            }}
+            document.addEventListener('click', openAdLink);
+        }})();
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYTVPRO - Global Premium</title>
+    
+    <style>
+        :root {{ --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }}
+        body {{ background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }}
+        .header {{ display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }}
+        .logo {{ color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; }}
+        .lang-container {{ display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }}
+        .lang-btn {{ color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; }}
+        .lang-btn.active {{ color: #fff; border-bottom: 2px solid var(--main-red); }}
+        .nav-tabs {{ display: flex; gap: 8px; justify-content: center; margin: 15px 0; }}
+        .tab {{ background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; }}
+        .tab.active {{ background: var(--main-red); }}
+        .search-container {{ width: 95%; max-width: 500px; margin: 0 auto; }}
+        .search-container input {{ width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; box-sizing: border-box; }}
+        .movie-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }}
+        .movie-card {{ background: var(--card-bg); border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #222; text-align: center; }}
+        .movie-card img {{ width: 100%; height: 180px; object-fit: cover; }}
+        .movie-title {{ padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }}
+        .disclaimer-box {{ background: #000; padding: 30px 20px; margin-top: 50px; border-top: 2px solid #222; }}
+        .disclaimer-header {{ color: #555; font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; border-left: 3px solid var(--main-red); padding-left: 10px; }}
+        .disclaimer-text {{ font-size: 10px; color: #444; line-height: 1.6; margin-bottom: 10px; text-align: justify; }}
+        #videoPlayerContainer {{ display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; }}
+        .player-wrapper {{ display: flex; flex-direction: column; align-items: center; width: 100%; }}
+        #mainPlayer {{ width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }}
+        .back-btn {{ background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; }}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo" onclick="location.reload()">MYTVPRO</div>
+        <div class="lang-container">
+            <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
+            <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
+            <span class="lang-btn" onclick="changeLanguage('fr', this)">FR</span>
+            <span class="lang-btn" onclick="changeLanguage('de', this)">DE</span>
+            <span class="lang-btn" onclick="changeLanguage('nl', this)">NL</span>
+            <span class="lang-btn" onclick="changeLanguage('es', this)">ES</span>
+            <span class="lang-btn" onclick="changeLanguage('it', this)">IT</span>
+            <span class="lang-btn" onclick="changeLanguage('pt', this)">PT</span>
+            <span class="lang-btn" onclick="changeLanguage('tr', this)">TR</span>
+            <span class="lang-btn" onclick="changeLanguage('ru', this)">RU</span>
+            <span class="lang-btn" onclick="changeLanguage('zh', this)">ZH</span>
+        </div>
+    </div>
 
-    # موازنة الأعداد لضمان السرعة
-    for section in data:
-        data[section] = data[section][:60]
+    <div class="nav-tabs">
+        <button id="btnMovies" class="tab active" onclick="loadContent('movie')">Movies</button>
+        <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
+    </div>
 
-    with open('links.json', 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
-    print("✅ تم الاسترجاع بنجاح! جميع القنوات عادت بنظام الأعلام المستقر.")
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search..." onkeyup="handleSearch(event)">
+    </div>
+
+    <div id="moviesGrid" class="movie-grid"></div>
+
+    <footer class="disclaimer-box">
+        <div class="disclaimer-header">Legal & Compliance Policy</div>
+        <div class="disclaimer-text"><strong>EN:</strong> MYTVPRO is a professional indexing engine. Content is indexed from non-affiliated third-party sources.</div>
+        <div class="disclaimer-text"><strong>RU:</strong> MYTVPRO — это профессиональная поисковая система. Весь контент индексируется из сторонних источников.</div>
+        <div class="disclaimer-text"><strong>ZH:</strong> MYTVPRO 是一个专业的索引引擎。内容索引自第三方来源。</div>
+        <div style="text-align: center; margin-top: 15px; font-size: 9px; color: #333;">© 2026 MYTVPRO Network.</div>
+    </footer>
+
+    <div id="videoPlayerContainer">
+        <div class="player-wrapper">
+            <button class="back-btn" onclick="closePlayer()">BACK</button>
+            <iframe id="mainPlayer" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = '{API_KEY}';
+        let currentType = 'movie', currentLang = 'en';
+        const i18n = {{
+            en: {{ s: "Search...", m: "Movies", t: "Series" }},
+            ar: {{ s: "بحث...", m: "أفلام", t: "مسلسلات" }},
+            fr: {{ s: "Chercher...", m: "Films", t: "Séries" }},
+            de: {{ s: "Suche...", m: "Filme", t: "Serien" }},
+            nl: {{ s: "Zoeken...", m: "Films", t: "Series" }},
+            es: {{ s: "Buscar...", m: "Películas", t: "Series" }},
+            it: {{ s: "Cerca...", m: "Film", t: "Serie" }},
+            pt: {{ s: "Buscar...", m: "Filmes", t: "Séries" }},
+            tr: {{ s: "Ara...", m: "Filmler", t: "Diziler" }},
+            ru: {{ s: "Поиск...", m: "Фильмы", t: "Сериалы" }},
+            zh: {{ s: "搜索...", m: "电影", t: "剧集" }}
+        }};
+
+        function changeLanguage(l, btn) {{
+            currentLang = l;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('searchInput').placeholder = i18n[l].s;
+            document.getElementById('btnMovies').innerText = i18n[l].m;
+            document.getElementById('btnSeries').innerText = i18n[l].t;
+            loadContent(currentType);
+        }}
+
+        async function loadContent(type) {{
+            currentType = type;
+            document.getElementById('btnMovies').classList.toggle('active', type === 'movie');
+            document.getElementById('btnSeries').classList.toggle('active', type === 'tv');
+            const res = await fetch(`https://api.themoviedb.org/3/${{type}}/popular?api_key=${{API_KEY}}&language=${{currentLang}}&page=1`);
+            const data = await res.json();
+            renderGrid(data.results);
+        }}
+
+        function renderGrid(list) {{
+            document.getElementById('moviesGrid').innerHTML = list.map(m => `
+                <div class="movie-card" onclick="openPlayer('${{m.id}}')">
+                    <img src="https://image.tmdb.org/t/p/w500${{m.poster_path}}">
+                    <div class="movie-title">${{m.title || m.name}}</div>
+                </div>`).join('');
+        }}
+
+        async function handleSearch(e) {{
+            const q = e.target.value;
+            if(q.length > 2) {{
+                const res = await fetch(`https://api.themoviedb.org/3/search/${{currentType}}?api_key=${{API_KEY}}&language=${{currentLang}}&query=${{q}}`);
+                const data = await res.json();
+                renderGrid(data.results);
+            }} else if (q.length === 0) loadContent(currentType);
+        }}
+
+        function openPlayer(id) {{
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${{currentType}}?tmdb=${{id}}`;
+            document.getElementById('videoPlayerContainer').style.display = 'block';
+        }}
+
+        function closePlayer() {{
+            document.getElementById('videoPlayerContainer').style.display = 'none';
+            document.getElementById('mainPlayer').src = '';
+        }}
+
+        window.onload = () => loadContent('movie');
+    </script>
+</body>
+</html>"""
+
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(html_template)
+    print("✅ تم تحديث index.html بالكامل بنجاح مع اللغات الـ 11!")
 
 if __name__ == "__main__":
-    fetch_channels()
+    generate_html()
