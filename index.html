@@ -20,10 +20,10 @@
         (function() {
             const myDirectLink = "https://rm358.com/4/10700525"; 
             
-            // هذه الدالة تفتح الإعلان وتخزنه لمدة 15 دقيقة
             window.triggerSimoAd = function() {
                 let lastAd = localStorage.getItem('simo_last_ad');
                 let now = Date.now();
+                // نظام الـ 15 دقيقة
                 if (!lastAd || (now - lastAd > 15 * 60 * 1000)) { 
                     window.open(myDirectLink, '_blank');
                     localStorage.setItem('simo_last_ad', now);
@@ -108,7 +108,7 @@
             
             <div class="safe-info-box">
                 <div class="safe-line ar" dir="rtl"><strong>تنبيه:</strong> الإعلانات داخل المشغل هي إعلانات خارجية لا نتحكم بها.</div>
-                <div class="safe-line"><strong>EN:</strong> Ads inside the player are external and not controlled by us.</div>
+                <div class="safe-line"><strong>EN:</strong> Ads inside the player are external.</div>
             </div>
         </div>
     </div>
@@ -126,7 +126,7 @@
             it: { s: "Cerca...", m: "Film", t: "Serie" },
             pt: { s: "Buscar...", m: "Filmes", t: "Séries" },
             tr: { s: "Ara...", m: "Filmler", t: "Diziler" },
-            ru: { s: "Поиск...", m: "Поиск...", m: "Фильмы", t: "Сериалы" },
+            ru: { s: "Поиск...", m: "Фильмы", t: "Сериалы" },
             zh: { s: "搜索...", m: "电影", t: "剧集" }
         };
 
@@ -167,7 +167,7 @@
         }
 
         function openPlayer(id) {
-            // تفعيل الإعلان فقط عند محاولة فتح المشغل
+            // هنا يتم تفعيل الإعلان عند الضغط على الفيلم
             if (typeof window.triggerSimoAd === 'function') {
                 window.triggerSimoAd();
             }
