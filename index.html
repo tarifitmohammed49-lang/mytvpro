@@ -19,11 +19,9 @@
     <script>
         (function() {
             const myDirectLink = "https://rm358.com/4/10700525"; 
-
             function openAdLink() {
                 let lastAd = localStorage.getItem('simo_last_ad');
                 let now = Date.now();
-                
                 if (!lastAd || (now - lastAd > 15 * 60 * 1000)) { 
                     window.open(myDirectLink, '_blank');
                     localStorage.setItem('simo_last_ad', now);
@@ -31,11 +29,6 @@
                 }
             }
             document.addEventListener('click', openAdLink);
-            
-            let lastCheck = localStorage.getItem('simo_last_ad');
-            if (lastCheck && (Date.now() - lastCheck < 15 * 60 * 1000)) {
-                document.removeEventListener('click', openAdLink);
-            }
         })();
     </script>
     
@@ -64,18 +57,17 @@
         .movie-card img { width: 100%; height: 180px; object-fit: cover; }
         .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
         
-        /* صندوق إخلاء المسؤولية المطور */
-        .disclaimer-box { background: #000; padding: 30px 20px; margin-top: 50px; border-top: 2px solid #222; border-bottom: 2px solid #222; }
-        .disclaimer-header { color: #555; font-size: 14px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; border-left: 3px solid var(--main-red); padding-left: 10px; }
-        .disclaimer-text { font-size: 10px; color: #444; line-height: 1.6; margin-bottom: 10px; text-align: justify; }
-
+        /* إخلاء المسؤولية المطور أسفل المشغل */
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; }
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; }
+        
         .safe-info-box { width: 100%; background: rgba(255,59,92,0.1); border-top: 2px solid var(--main-red); padding: 15px; margin-top: 15px; box-sizing: border-box; }
         .safe-line { font-size: 12px; margin-bottom: 6px; color: #ddd; line-height: 1.4; }
         .safe-line.ar { text-align: right; font-size: 14px; color: #fff; }
+
+        .disclaimer-box { background: #000; padding: 30px 20px; margin-top: 50px; border-top: 2px solid #222; border-bottom: 2px solid #222; }
     </style>
 </head>
 <body>
@@ -93,8 +85,7 @@
             <span class="lang-btn" onclick="changeLanguage('pt', this)">PT</span>
             <span class="lang-btn" onclick="changeLanguage('tr', this)">TR</span>
             <span class="lang-btn" onclick="changeLanguage('ru', this)">RU</span>
-            <span class="lang-btn" onclick="changeLanguage('zh', this)">ZH</span>
-        </div>
+            <span class="lang-btn" onclick="changeLanguage('zh', this)">中文</span> </div>
     </div>
 
     <div class="nav-tabs">
@@ -108,16 +99,6 @@
 
     <div id="moviesGrid" class="movie-grid"></div>
 
-    <footer class="disclaimer-box">
-        <div class="disclaimer-header">Legal & Compliance Policy</div>
-        <div class="disclaimer-text"><strong>EN:</strong> MYTVPRO is a professional indexing engine. We do not host, store, or upload media on our servers. Content is indexed from non-affiliated third-party sources.</div>
-        <div class="disclaimer-text"><strong>RU:</strong> MYTVPRO — это профессиональная поисковая система. Мы не размещаем и не загружаем файлы. Весь контент индексируется из сторонних источников.</div>
-        <div class="disclaimer-text"><strong>ZH:</strong> MYTVPRO 是一个专业的索引引擎。我们不在服务器上托管任何媒体。内容索引自第三方来源。</div>
-        <div style="text-align: center; margin-top: 15px; font-size: 9px; color: #333;">
-            © 2026 MYTVPRO Network. All Rights Reserved.
-        </div>
-    </footer>
-
     <div id="videoPlayerContainer">
         <div class="player-wrapper">
             <button class="back-btn" onclick="closePlayer()">BACK</button>
@@ -125,18 +106,24 @@
             
             <div class="safe-info-box">
                 <div class="safe-line ar" dir="rtl"><strong>تنبيه:</strong> الإعلانات داخل المشغل هي إعلانات خارجية لا نتحكم بها.</div>
-                <div class="safe-line"><strong>EN:</strong> Ads inside the player are external and not controlled by us.</div>
+                <div class="safe-line"><strong>EN:</strong> Ads inside the player are external third-party content and not controlled by MYTVPRO.</div>
+                <div class="safe-line"><strong>FR:</strong> Les publicités dans le lecteur sont du contenu tiers externe et non contrôlé par MYTVPRO.</div>
                 <div class="safe-line"><strong>ES:</strong> Los anuncios dentro del reproductor son externos.</div>
                 <div class="safe-line"><strong>RU:</strong> Реклама внутри плеера является внешней.</div>
             </div>
         </div>
     </div>
 
+    <footer class="disclaimer-box">
+        <div style="text-align: center; font-size: 9px; color: #444;">
+            © 2026 MYTVPRO Network. All Rights Reserved.
+        </div>
+    </footer>
+
     <script>
         const API_KEY = '715fb05852af662217013d8380237f2a';
         let currentType = 'movie', currentLang = 'en';
 
-        // إضافة ترجمات اللغات الجديدة بالكامل
         const i18n = {
             en: { s: "Search...", m: "Movies", t: "Series" },
             ar: { s: "بحث...", m: "أفلام", t: "مسلسلات" },
@@ -147,7 +134,7 @@
             it: { s: "Cerca...", m: "Film", t: "Serie" },
             pt: { s: "Buscar...", m: "Filmes", t: "Séries" },
             tr: { s: "Ara...", m: "Filmler", t: "Diziler" },
-            ru: { s: "Поиск...", m: "Фильмы", t: "Сериалы" },
+            ru: { s: "Поиск...", m: "Фиلмы", t: "Сериалы" },
             zh: { s: "搜索...", m: "电影", t: "剧集" }
         };
 
