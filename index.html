@@ -19,11 +19,9 @@
     <script>
         (function() {
             const myDirectLink = "https://rm358.com/4/10700525"; 
-            
             window.triggerSimoAd = function() {
                 let lastAd = localStorage.getItem('simo_last_ad');
                 let now = Date.now();
-                // نظام الـ 15 دقيقة
                 if (!lastAd || (now - lastAd > 15 * 60 * 1000)) { 
                     window.open(myDirectLink, '_blank');
                     localStorage.setItem('simo_last_ad', now);
@@ -59,9 +57,22 @@
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; }
         
-        .safe-info-box { width: 100%; background: rgba(255,59,92,0.1); border-top: 2px solid var(--main-red); padding: 15px; margin-top: 15px; box-sizing: border-box; }
-        .safe-line { font-size: 12px; margin-bottom: 6px; color: #ddd; line-height: 1.4; }
-        .safe-line.ar { text-align: right; font-size: 14px; color: #fff; }
+        /* تصميم صندوق التحذير وإخلاء المسؤولية */
+        .safe-info-box { 
+            width: 100%; 
+            background: rgba(255, 59, 92, 0.05); 
+            border-top: 2px solid var(--main-red); 
+            padding: 20px; 
+            margin-top: 20px; 
+            box-sizing: border-box; 
+        }
+        .warning-section { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .safe-line { font-size: 13px; margin-bottom: 8px; color: #ccc; line-height: 1.4; }
+        .safe-line.ar { text-align: right; font-size: 15px; color: #fff; font-weight: bold; }
+        
+        /* إخلاء المسؤولية الاحترافي */
+        .disclaimer-section { font-size: 11px; color: #888; text-align: justify; line-height: 1.6; }
+        .disclaimer-title { color: #aaa; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; font-size: 12px; }
         
         .disclaimer-box { background: #000; padding: 40px 20px; margin-top: 50px; border-top: 1px solid #222; }
         .copyright { text-align: center; margin-top: 25px; font-size: 10px; color: #333; border-top: 1px solid #111; padding-top: 20px; }
@@ -107,8 +118,16 @@
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
             
             <div class="safe-info-box">
-                <div class="safe-line ar" dir="rtl"><strong>تنبيه:</strong> الإعلانات داخل المشغل هي إعلانات خارجية لا نتحكم بها.</div>
-                <div class="safe-line"><strong>EN:</strong> Ads inside the player are external.</div>
+                <div class="warning-section">
+                    <div class="safe-line ar" dir="rtl">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا نملك أي سلطة للتحكم في محتواها.</div>
+                    <div class="safe-line"><strong>NOTICE:</strong> Advertisements appearing within the video player are provided by external sources. We have no control over their content.</div>
+                </div>
+
+                <div class="disclaimer-section">
+                    <div class="disclaimer-title">Legal Disclaimer & Compliance</div>
+                    <p><strong>ENGLISH:</strong> MYTVPRO operates as a professional indexing engine designed to link to media content available on the public internet. We do not host, store, or transmit any video files or copyrighted material on our servers. All indexed content originates from independent third-party providers. MYTVPRO is not liable for the legality or accuracy of content hosted on external domains.</p>
+                    <p><strong>FRANÇAIS:</strong> MYTVPRO est un moteur d'indexation professionnel conçu pour répertorier les contenus multimédias disponibles sur le web public. Nous n'hébergeons, ne stockons ni ne transmettons aucun fichier vidéo ou matériel protégé par le droit d'auteur sur nos serveurs. Tout le contenu provient de fournisseurs tiers indépendants. MYTVPRO n'est pas responsable de la légalité ou de l'exactitude des fichiers hébergés sur des domaines externes.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -126,7 +145,7 @@
             it: { s: "Cerca...", m: "Film", t: "Serie" },
             pt: { s: "Buscar...", m: "Filmes", t: "Séries" },
             tr: { s: "Ara...", m: "Filmler", t: "Diziler" },
-            ru: { s: "Поиск...", m: "Фильмы", t: "Сериалы" },
+            ru: { s: "Поиск...", m: "Фиلьмы", t: "Сериалы" },
             zh: { s: "搜索...", m: "电影", t: "剧集" }
         };
 
@@ -167,11 +186,9 @@
         }
 
         function openPlayer(id) {
-            // هنا يتم تفعيل الإعلان عند الضغط على الفيلم
             if (typeof window.triggerSimoAd === 'function') {
                 window.triggerSimoAd();
             }
-
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
