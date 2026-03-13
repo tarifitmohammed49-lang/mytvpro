@@ -3,10 +3,11 @@
 <head>
     <title>MYTVPRO - Watch Movies & Series Online Free | Global Indexing Platform</title>
     
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="MYTVPRO is a professional global indexing engine. Stream your favorite movies and series online for free in HD. High-quality metadata indexing for international content.">
     <meta name="keywords" content="watch movies free, stream series online, HD movies, global content index, MYTVPRO, free streaming UK, movie metadata">
     <meta name="robots" content="index, follow">
-    <meta property="og:locale" content="en_US">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9MPJ06VFY0"></script>
     <script>
@@ -37,16 +38,13 @@
         })();
     </script>
     
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <style>
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
         .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
         .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
         .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
-        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; }
+        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
         .nav-tabs { display: flex; gap: 8px; justify-content: center; margin: 15px 0; }
         .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; }
@@ -63,7 +61,7 @@
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; }
         
-        /* إخلاء المسؤولية المطور */
+        /* تنظيم إخلاء المسؤولية في الأسفل */
         .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 40px; border-top: 1px solid #1a1d21; }
         .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
         .legal-item { font-size: 11px; color: #777; line-height: 1.6; text-align: justify; }
@@ -75,9 +73,6 @@
         .safe-line { font-size: 13px; margin-bottom: 8px; color: #ccc; }
         .safe-line.ar { text-align: right; font-size: 15px; color: #fff; font-weight: bold; direction: rtl; }
         
-        .detailed-legal { font-size: 10px; color: #666; line-height: 1.5; }
-        .detailed-legal p { margin: 5px 0; }
-
         @media (max-width: 600px) { .legal-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -90,7 +85,13 @@
             <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
             <span class="lang-btn" onclick="changeLanguage('fr', this)">FR</span>
             <span class="lang-btn" onclick="changeLanguage('de', this)">DE</span>
+            <span class="lang-btn" onclick="changeLanguage('nl', this)">NL</span>
             <span class="lang-btn" onclick="changeLanguage('es', this)">ES</span>
+            <span class="lang-btn" onclick="changeLanguage('it', this)">IT</span>
+            <span class="lang-btn" onclick="changeLanguage('pt', this)">PT</span>
+            <span class="lang-btn" onclick="changeLanguage('tr', this)">TR</span>
+            <span class="lang-btn" onclick="changeLanguage('ru', this)">RU</span>
+            <span class="lang-btn" onclick="changeLanguage('zh', this)">中文</span>
         </div>
     </div>
 
@@ -109,15 +110,15 @@
         <div class="legal-grid">
             <div class="legal-item">
                 <span class="legal-tag">Legal Disclaimer</span>
-                MYTVPRO is a specialized web indexing engine. We do not host, store, or upload any media files or videos on our own servers. Our system automatically indexes links from external, third-party providers. We are not responsible for the content, copyright compliance, or legality of any indexed external materials.
+                MYTVPRO is a specialized web indexing engine. We do not host, store, or upload any media files or videos on our own servers. Our system automatically indexes links from external, third-party providers.
             </div>
             <div class="legal-item">
                 <span class="legal-tag">Clause de Non-Responsabilité</span>
-                MYTVPRO fonctionne comme un moteur de recherche et d'indexation. Nous n'hébergeons ni ne diffusons aucun fichier vidéo sur nos serveurs. Tous les contenus sont indexés à partir de plateformes tierces indépendantes. MYTVPRO décline toute responsabilité quant à la légalité ou au contenu des liens externes.
+                MYTVPRO fonctionne comme un moteur de recherche et d'indexation. Nous n'hébergeons ni ne diffusons aucun fichier vidéo sur nos serveurs. Tous les contenus sont indexés à partir de plateformes tierces indépendantes.
             </div>
             <div class="legal-item" style="grid-column: span 2; direction: rtl;">
-                <span class="legal-tag">إخلاء مسؤولية قانوني</span>
-                يعمل موقع MYTVPRO كمحرك فهرسة وبحث متقدم فقط. نحن لا نقوم باستضافة أو تخزين أو رفع أي ملفات فيديو على خوادمنا الخاصة. جميع المحتويات التي يتم عرضها هي روابط مفهرسة تلقائيًا من مزودين خارجيين وأطراف ثالثة مستقلة. الموقع غير مسؤول عن دقة أو قانونية أو حقوق الطبع والنشر للمواد الخارجية.
+                <span class="legal-tag">إشعار قانوني</span>
+                يعمل موقع MYTVPRO كمحرك فهرسة وبحث متقدم فقط. نحن لا نقوم باستضافة أو تخزين أو رفع أي ملفات فيديو على خوادمنا الخاصة. جميع المحتويات التي يتم عرضها هي روابط مفهرسة تلقائيًا من مزودين خارجيين.
             </div>
         </div>
         <div class="footer-copyright-pro">© 2026 MYTVPRO GLOBAL INDEX • ALL RIGHTS RESERVED</div>
@@ -125,20 +126,14 @@
 
     <div id="videoPlayerContainer">
         <div class="player-wrapper">
-            <button class="back-btn" onclick="closePlayer()">BACK</button>
+            <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
             
             <div class="safe-info-box">
                 <div class="warning-section">
                     <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
-                    <div class="safe-line"><strong>NOTICE:</strong> Any advertisements appearing within the video player are served by external third-party sources.</div>
-                    <div class="safe-line"><strong>AVIS:</strong> Les publicités affichées dans le lecteur vidéo proviennent de sources externes indépendantes.</div>
-                </div>
-                
-                <div class="detailed-legal">
-                    <p><strong>EN:</strong> This content is indexed from non-affiliated servers. MYTVPRO does not control the ads or content provided by these external sources.</p>
-                    <p><strong>FR:</strong> Ce contenu est indexé depuis des serveurs non affiliés. MYTVPRO ne contrôle pas les publicités ou le contenu de ces sources externes.</p>
-                    <p dir="rtl"><strong>AR:</strong> هذا المحتوى تمت فهرسته من سيرفرات خارجية. موقع MYTVPRO لا يتحكم في الإعلانات أو المحتوى المقدم من هذه الأطراف.</p>
+                    <div class="safe-line"><strong>NOTICE:</strong> Any advertisements appearing within the video player are from external third-party sources.</div>
+                    <div class="safe-line"><strong>AVIS:</strong> Les publicités affichées dans le lecteur vidéo proviennent de sources externes.</div>
                 </div>
             </div>
         </div>
@@ -148,10 +143,33 @@
         const API_KEY = '715fb05852af662217013d8380237f2a';
         let currentType = 'movie', currentLang = 'en';
 
+        // كائن الترجمة لترجمة الواجهة بالكامل
+        const translations = {
+            en: { movie: "Movies", tv: "Series", search: "Search...", back: "BACK" },
+            ar: { movie: "أفلام", tv: "مسلسلات", search: "بحث...", back: "رجوع" },
+            fr: { movie: "Films", tv: "Séries", search: "Recherche...", back: "RETOUR" },
+            de: { movie: "Filme", tv: "Serien", search: "Suche...", back: "ZURÜCK" },
+            nl: { movie: "Films", tv: "Series", search: "Zoeken...", back: "TERUG" },
+            es: { movie: "Películas", tv: "Series", search: "Buscar...", back: "VOLVER" },
+            it: { movie: "Film", tv: "Serie TV", search: "Cerca...", back: "INDIETRO" },
+            pt: { movie: "Filmes", tv: "Séries", search: "Buscar...", back: "VOLTAR" },
+            tr: { movie: "Filmler", tv: "Diziler", search: "Ara...", back: "GERİ" },
+            ru: { movie: "Фильмы", tv: "Сериалы", search: "Поиск...", back: "НАЗАД" },
+            zh: { movie: "电影", tv: "剧集", search: "搜索...", back: "返回" }
+        };
+
         function changeLanguage(l, btn) {
             currentLang = l;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            
+            // تحديث نصوص الواجهة
+            const t = translations[l] || translations.en;
+            document.getElementById('btnMovies').innerText = t.movie;
+            document.getElementById('btnSeries').innerText = t.tv;
+            document.getElementById('searchInput').placeholder = t.search;
+            document.getElementById('playerBackBtn').innerText = t.back;
+            
             loadContent(currentType);
         }
 
@@ -182,7 +200,7 @@
         }
 
         function openPlayer(id) {
-            triggerSimoAd(); // إعلان الرابط المباشر (15 دقيقة)
+            triggerSimoAd();
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
