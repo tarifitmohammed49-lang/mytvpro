@@ -72,7 +72,6 @@
         .safe-line { font-size: 13px; margin-bottom: 8px; color: #ccc; }
         .safe-line.ar { text-align: right; font-size: 15px; color: #fff; font-weight: bold; direction: rtl; }
         
-        /* تنسيق نصوص إخلاء المسؤولية تحت المشغل */
         .player-detailed-legal { font-size: 11px; color: #666; line-height: 1.5; text-align: justify; }
         .player-detailed-legal p { margin: 10px 0; }
 
@@ -176,6 +175,7 @@
             document.getElementById('searchInput').placeholder = t.search;
             document.getElementById('playerBackBtn').innerText = t.back;
             
+            // هنا تم استدعاء تحميل المحتوى فقط بدون إعلانات
             loadContent(currentType);
         }
 
@@ -206,7 +206,9 @@
         }
 
         function openPlayer(id) {
+            // الإعلان يظهر حصرياً هنا عند الضغط لمشاهدة الفيلم/المسلسل
             triggerSimoAd();
+            
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
