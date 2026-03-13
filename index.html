@@ -11,7 +11,8 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                // تم تغيير المسار هنا ليتطابق مع اسم الملف المطلوب في حسابك
+                navigator.serviceWorker.register('/sw-check-permissions-a58c8.js').then(function(registration) {
                     console.log('ProPush SW registered with scope:', registration.scope);
                 }, function(err) {
                     console.log('ProPush SW registration failed:', err);
