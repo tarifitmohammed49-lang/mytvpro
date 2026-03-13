@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /search?*
+
+# أرشد جوجل إلى خريطة موقعك
+Sitemap: https://mytvpro1.github.io/sitemap.xml
+
+# حماية الموقع من النسخ السريع لبعض العناكب المزعجة
+Crawl-delay: 1
