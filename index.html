@@ -25,13 +25,10 @@
     
     <script>
         (function() {
-            // رابط الربح المباشر الخاص بك
             const myDirectLink = "https://rm358.com/4/10700525"; 
-            
             window.triggerSimoAd = function() {
                 let lastAd = localStorage.getItem('simo_last_ad');
                 let now = Date.now();
-                // الإعلان يظهر فقط كل 15 دقيقة لعدم الإزعاج
                 if (!lastAd || (now - lastAd > 15 * 60 * 1000)) { 
                     window.open(myDirectLink, '_blank');
                     localStorage.setItem('simo_last_ad', now);
@@ -66,14 +63,22 @@
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; }
         
-        .main-footer-disclaimer { background-color: #000; padding: 30px 20px; margin-top: 40px; border-top: 1px solid #1a1d21; text-align: center; }
-        .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1000px; margin: 0 auto 20px auto; text-align: justify; font-size: 10px; color: #555; line-height: 1.6; }
-        .legal-tag { color: var(--main-red); font-weight: bold; display: block; margin-bottom: 5px; text-transform: uppercase; font-size: 11px; }
-        .footer-copyright-pro { border-top: 1px solid #111; padding-top: 20px; font-size: 11px; color: #333; letter-spacing: 1px; }
+        /* إخلاء المسؤولية المطور */
+        .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 40px; border-top: 1px solid #1a1d21; }
+        .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .legal-item { font-size: 11px; color: #777; line-height: 1.6; text-align: justify; }
+        .legal-tag { color: var(--main-red); font-weight: bold; display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 12px; }
+        .footer-copyright-pro { text-align: center; margin-top: 30px; border-top: 1px solid #111; padding-top: 20px; font-size: 11px; color: #333; letter-spacing: 1px; }
 
-        .safe-info-box { width: 100%; background: rgba(255, 59, 92, 0.05); border-top: 2px solid var(--main-red); padding: 20px; margin-top: 20px; box-sizing: border-box; }
-        .safe-line { font-size: 13px; margin-bottom: 8px; color: #ccc; line-height: 1.4; }
-        .safe-line.ar { text-align: right; font-size: 15px; color: #fff; font-weight: bold; }
+        .safe-info-box { width: 100%; background: rgba(255, 59, 92, 0.04); border-top: 2px solid var(--main-red); padding: 25px; margin-top: 20px; box-sizing: border-box; }
+        .warning-section { border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 15px; }
+        .safe-line { font-size: 13px; margin-bottom: 8px; color: #ccc; }
+        .safe-line.ar { text-align: right; font-size: 15px; color: #fff; font-weight: bold; direction: rtl; }
+        
+        .detailed-legal { font-size: 10px; color: #666; line-height: 1.5; }
+        .detailed-legal p { margin: 5px 0; }
+
+        @media (max-width: 600px) { .legal-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -85,13 +90,7 @@
             <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
             <span class="lang-btn" onclick="changeLanguage('fr', this)">FR</span>
             <span class="lang-btn" onclick="changeLanguage('de', this)">DE</span>
-            <span class="lang-btn" onclick="changeLanguage('nl', this)">NL</span>
             <span class="lang-btn" onclick="changeLanguage('es', this)">ES</span>
-            <span class="lang-btn" onclick="changeLanguage('it', this)">IT</span>
-            <span class="lang-btn" onclick="changeLanguage('pt', this)">PT</span>
-            <span class="lang-btn" onclick="changeLanguage('tr', this)">TR</span>
-            <span class="lang-btn" onclick="changeLanguage('ru', this)">RU</span>
-            <span class="lang-btn" onclick="changeLanguage('zh', this)">中文</span>
         </div>
     </div>
 
@@ -109,19 +108,19 @@
     <footer class="main-footer-disclaimer">
         <div class="legal-grid">
             <div class="legal-item">
-                <span class="legal-tag">Legal Notice</span>
-                MYTVPRO operates as a professional indexing engine. We do not host any files.
+                <span class="legal-tag">Legal Disclaimer</span>
+                MYTVPRO is a specialized web indexing engine. We do not host, store, or upload any media files or videos on our own servers. Our system automatically indexes links from external, third-party providers. We are not responsible for the content, copyright compliance, or legality of any indexed external materials.
             </div>
             <div class="legal-item">
-                <span class="legal-tag">Mention Légale</span>
-                MYTVPRO fonctionne comme un moteur d'indexation professionnel.
+                <span class="legal-tag">Clause de Non-Responsabilité</span>
+                MYTVPRO fonctionne comme un moteur de recherche et d'indexation. Nous n'hébergeons ni ne diffusons aucun fichier vidéo sur nos serveurs. Tous les contenus sont indexés à partir de plateformes tierces indépendantes. MYTVPRO décline toute responsabilité quant à la légalité ou au contenu des liens externes.
             </div>
-            <div class="legal-item" style="grid-column: span 2; text-align: right; direction: rtl;">
-                <span class="legal-tag" style="text-align: right;">إشعار قانوني</span>
-                يعمل موقع MYTVPRO كمحرك فهرسة احترافي فقط. نحن لا نستضيف أي ملفات فيديو على خوادمنا.
+            <div class="legal-item" style="grid-column: span 2; direction: rtl;">
+                <span class="legal-tag">إخلاء مسؤولية قانوني</span>
+                يعمل موقع MYTVPRO كمحرك فهرسة وبحث متقدم فقط. نحن لا نقوم باستضافة أو تخزين أو رفع أي ملفات فيديو على خوادمنا الخاصة. جميع المحتويات التي يتم عرضها هي روابط مفهرسة تلقائيًا من مزودين خارجيين وأطراف ثالثة مستقلة. الموقع غير مسؤول عن دقة أو قانونية أو حقوق الطبع والنشر للمواد الخارجية.
             </div>
         </div>
-        <div class="footer-copyright-pro">© 2026 MYTVPRO • ALL RIGHTS RESERVED</div>
+        <div class="footer-copyright-pro">© 2026 MYTVPRO GLOBAL INDEX • ALL RIGHTS RESERVED</div>
     </footer>
 
     <div id="videoPlayerContainer">
@@ -131,9 +130,15 @@
             
             <div class="safe-info-box">
                 <div class="warning-section">
-                    <div class="safe-line ar" dir="rtl">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية.</div>
-                    <div class="safe-line"><strong>NOTICE:</strong> Ads in the player are from external sources.</div>
-                    <div class="safe-line"><strong>AVIS:</strong> Les publicités proviennent de sources externes.</div>
+                    <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
+                    <div class="safe-line"><strong>NOTICE:</strong> Any advertisements appearing within the video player are served by external third-party sources.</div>
+                    <div class="safe-line"><strong>AVIS:</strong> Les publicités affichées dans le lecteur vidéo proviennent de sources externes indépendantes.</div>
+                </div>
+                
+                <div class="detailed-legal">
+                    <p><strong>EN:</strong> This content is indexed from non-affiliated servers. MYTVPRO does not control the ads or content provided by these external sources.</p>
+                    <p><strong>FR:</strong> Ce contenu est indexé depuis des serveurs non affiliés. MYTVPRO ne contrôle pas les publicités ou le contenu de ces sources externes.</p>
+                    <p dir="rtl"><strong>AR:</strong> هذا المحتوى تمت فهرسته من سيرفرات خارجية. موقع MYTVPRO لا يتحكم في الإعلانات أو المحتوى المقدم من هذه الأطراف.</p>
                 </div>
             </div>
         </div>
@@ -143,7 +148,6 @@
         const API_KEY = '715fb05852af662217013d8380237f2a';
         let currentType = 'movie', currentLang = 'en';
 
-        // تغيير اللغة هنا لن يظهر أي إعلان
         function changeLanguage(l, btn) {
             currentLang = l;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -168,7 +172,6 @@
                 </div>`).join('');
         }
 
-        // البحث هنا لن يظهر أي إعلان
         async function handleSearch(e) {
             const q = e.target.value;
             if(q.length > 2) {
@@ -179,9 +182,7 @@
         }
 
         function openPlayer(id) {
-            // الإعلان يظهر فقط هنا (عند النقر للمشاهدة) وبشرط الـ 15 دقيقة
-            triggerSimoAd();
-            
+            triggerSimoAd(); // إعلان الرابط المباشر (15 دقيقة)
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
