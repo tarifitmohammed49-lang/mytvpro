@@ -98,7 +98,6 @@
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
         
-        /* تنسيق زر البث اللاسلكي الجديد فوق المشغل */
         .cast-btn {
             position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7);
             border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px;
@@ -213,7 +212,6 @@
             ar: { featured: "⭐ المقترحة", movie: "أفلام", tv: "مسلسلات", search: "بحث...", back: "رجوع", more: "عرض المزيد", loading: "جاري التحميل..." }
         };
 
-        // دالة البث اللاسلكي
         function castToTV() {
             const playerUrl = document.getElementById('mainPlayer').src;
             if (navigator.share) {
@@ -237,21 +235,30 @@
             loadFeatured(); 
         }
 
-        // تحميل المسلسلات الخمسة المختارة (Prison Break, La Casa, إلخ)
         async function loadFeatured() {
             currentType = 'tv';
+            currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnFeatured').classList.add('active');
-            document.getElementById('loadMoreSection').style.display = 'none';
+            document.getElementById('loadMoreSection').style.display = 'block'; 
             
-            const ids = [2288, 71446, 90669, 93405, 100088]; // IDs for Prison Break, La Casa de Papel, etc.
+            const ids = [2288, 71446, 90669, 93405, 100088]; 
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = "";
 
             for(let id of ids) {
-                const res = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${window.API_KEY}&language=${currentLang}`);
-                const m = await res.json();
-                renderGrid([m]);
+                try {
+                    const res = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${window.API_KEY}&language=${currentLang}`);
+                    const m = await res.json();
+                    if(m.id) renderGrid([m]);
+                } catch(e) { console.error("Error loading ID", id); }
+            }
+
+            const resPop = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`);
+            const dataPop = await resPop.json();
+            if(dataPop.results) {
+                const filtered = dataPop.results.filter(item => !ids.includes(item.id));
+                renderGrid(filtered);
             }
         }
 
@@ -278,7 +285,7 @@
             const res = await fetch(`https://api.themoviedb.org/3/${currentType}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`);
             const data = await res.json();
             
-            if(data.results.length > 0) {
+            if(data.results && data.results.length > 0) {
                 renderGrid(data.results);
                 btn.innerText = originalText;
             } else {
