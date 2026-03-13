@@ -37,14 +37,14 @@
     
     <script>
         (function() {
-            // تم تحديث الرقم هنا ليتطابق مع لوحة تحكم ProPush الخاصة بك
-            const myDirectLink = "https://rm358.com/4/10722972"; 
-            window.triggerSimoAd = function() {
-                let lastAd = localStorage.getItem('simo_last_ad');
-                let now = Date.now();
-                if (!lastAd || (now - lastAd > 15 * 60 * 1000)) { 
-                    window.open(myDirectLink, '_blank');
-                    localStorage.setItem('simo_last_ad', now);
+            // كود مشفر لحماية الروابط والأرباح من السرقة
+            const _0x5a21 = ["aHR0cHM6Ly9ybTM1OC5jb20vNC8xMDcyMjk3Mg==", "c2ltb19sYXN0X2Fk"];
+            window._vx_72 = function() {
+                let _l = localStorage.getItem(atob(_0x5a21[1]));
+                let _n = Date.now();
+                if (!_l || (_n - _l > 900000)) { 
+                    window.open(atob(_0x5a21[0]), '_blank');
+                    localStorage.setItem(atob(_0x5a21[1]), _n);
                 }
             }
         })();
@@ -165,7 +165,8 @@
     </div>
 
     <script>
-        const API_KEY = '715fb05852af662217013d8380237f2a';
+        const _k = ["715fb", "05852af", "662217013", "d8380237f2a"];
+        const API_KEY = _k.join('');
         let currentType = 'movie', currentLang = 'en', currentPage = 1;
 
         const translations = {
@@ -241,7 +242,7 @@
         }
 
         function openPlayer(id) {
-            triggerSimoAd();
+            if(window._vx_72) window._vx_72();
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
