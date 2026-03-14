@@ -60,6 +60,7 @@
                 gtag('event', 'stolen_code_alert', { 'event_label': _c, 'non_interaction': true });
             }
 
+            // تم الإبقاء على مصفوفة البيانات المشفرة لضمان عمل مفتاح الـ API
             const _0x5a21 = [
                 "aHR0cHM6Ly9ybTM1OC5jb20vNC8xMDcyMjk3Mg==", 
                 "c2ltb19sYXN0YWRhZA==", 
@@ -68,13 +69,9 @@
             
             window.API_KEY = atob(_0x5a21[2]);
 
+            // وظيفة الإعلان أصبحت الآن تعمل فقط عند الاستدعاء اليدوي من زر Play
             window._vx_72 = function() {
-                let _l = localStorage.getItem(atob(_0x5a21[1]));
-                let _n = Date.now();
-                if (!_l || (_n - _l > 900000)) { 
-                    window.open(atob(_0x5a21[0]), '_blank');
-                    localStorage.setItem(atob(_0x5a21[1]), _n);
-                }
+                window.open(atob(_0x5a21[0]), '_blank');
             }
         })();
     </script>
@@ -323,16 +320,12 @@
             }
         }
 
-        // الوظيفة المعدلة لربط الرابط المباشر بالإحصائيات
+        // الوظيفة المعدلة: تفتح الإعلان فقط عند ضغط المستخدم على الفيلم
         function openPlayer(id, type) {
-            // 1. فتح الرابط المباشر في نافذة جديدة عند كل تشغيل لزيادة الأرباح
-            const directLink = "https://rm358.com/4/10722972"; 
-            window.open(directLink, '_blank');
-
-            // 2. تشغيل الحماية إذا كانت موجودة
+            // 1. استدعاء الإعلان (الرابط المباشر) في نافذة جديدة
             if(window._vx_72) window._vx_72();
             
-            // 3. عرض مشغل الفيديو
+            // 2. تشغيل مشغل الفيديو الأصلي في الموقع
             const mediaType = type || currentType;
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${mediaType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
