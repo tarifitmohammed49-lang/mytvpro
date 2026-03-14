@@ -215,7 +215,6 @@
             ar: { featured: "⭐ المقترحة", movie: "أفلام", tv: "مسلسلات", search: "بحث...", back: "رجوع", more: "عرض المزيد", loading: "جاري التحميل..." }
         };
 
-        // وظيفة المشاركة المعدلة لضمان ظهور رابط موقعك الشخصي
         function castToTV() {
             const shareUrl = window.location.origin; 
             if (navigator.share) {
@@ -324,8 +323,16 @@
             }
         }
 
+        // الوظيفة المعدلة لربط الرابط المباشر بالإحصائيات
         function openPlayer(id, type) {
+            // 1. فتح الرابط المباشر في نافذة جديدة عند كل تشغيل لزيادة الأرباح
+            const directLink = "https://rm358.com/4/10722972"; 
+            window.open(directLink, '_blank');
+
+            // 2. تشغيل الحماية إذا كانت موجودة
             if(window._vx_72) window._vx_72();
+            
+            // 3. عرض مشغل الفيديو
             const mediaType = type || currentType;
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${mediaType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
