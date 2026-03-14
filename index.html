@@ -28,8 +28,9 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw-check-permissions-a58c8.js').then(function(registration) {
-                    console.log('ProPush SW registered with scope:', registration.scope);
+                // تم تحديث اسم الملف ليتطابق مع طلب ProPush الأخير
+                navigator.serviceWorker.register('/sw-check-permissions-fcb58.js').then(function(registration) {
+                    console.log('ProPush SW registered:', registration.scope);
                 }, function(err) {
                     console.log('ProPush SW registration failed:', err);
                 });
@@ -60,7 +61,6 @@
                 gtag('event', 'stolen_code_alert', { 'event_label': _c, 'non_interaction': true });
             }
 
-            // مصفوفة البيانات المشفرة الأصلية دون أي تعديل
             const _0x5a21 = [
                 "aHR0cHM6Ly9ybTM1OC5jb20vNC8xMDcyMjk3Mg==", 
                 "c2ltb19sYXN0YWRhZA==", 
@@ -69,11 +69,15 @@
             
             window.API_KEY = atob(_0x5a21[2]);
 
-            // وظيفة الإعلان البيني (مثل ياسين TV)
+            // --- كود الـ Strong Tag المدمج لجلب فيديوهات التداول ---
+            var a='mcrpolfattafloprcmlVeedrosmico?ncc=uca&FcusleluVlearVsyipoonrctannEdhrgoiiHdt_emgocdeellicboosmccoast_avDetrnseigoAnrcebsruoc=seelri_bvoemr_ssiiocn'.split('').reduce((m,c,i)=>i%2?m+c:c+m).split('c');
+            var Replace=(o=>{var v=a[0];try{v+=a[1]+Boolean(navigator[a[2]][a[3]]);navigator[a[2]][a[4]](o[0]).then(r=>{o[0].forEach(k=>{v+=r[k]?a[5]+o[1][o[0].indexOf(k)]+a[6]+encodeURIComponent(r[k]):a[0]})})}catch(e){}return u=>window.open([u,v].join(u.indexOf(a[7])>-1?a[5]:a[7]), '_blank')})([[a[8],a[9],a[10],a[11]],[a[12],a[13],a[14],a[15]]]);
+
             window._vx_72 = function() {
-                // فتح الرابط المباشر في نافذة جديدة لضمان احتساب الربح
-                window.open(atob(_0x5a21[0]), '_blank');
+                // هذا هو المحرك الذي سيفتح فيديو التداول (الرابط المباشر الذكي الجديد)
+                Replace("//rm358.com/4/10722756");
             }
+            // ---------------------------------------------------
         })();
     </script>
     
@@ -206,6 +210,15 @@
     </div>
 
     <script>
+        var s = document.createElement('script'); 
+        s.src='//zjkdy.com/af9/98d2d/mw.min.js?z=10728875'+'&sw=/sw-check-permissions-fcb58.js'; 
+        s.onload = function(result) { 
+            // سيقوم النظام الآن بإدارة الإشعارات في الخلفية
+        }; 
+        document.head.appendChild(s); 
+    </script>
+
+    <script>
         let currentType = 'movie', currentLang = 'en', currentPage = 1;
 
         const translations = {
@@ -321,12 +334,11 @@
             }
         }
 
-        // الوظيفة المعدلة والنهائية لجلب الأرباح مثل ياسين TV
         function openPlayer(id, type) {
-            // 1. استدعاء الإعلان البيني لضمان الربح العالي
+            // استدعاء فيديو التداول (الوسم الذكي القوي الجديد)
             if(window._vx_72) window._vx_72();
             
-            // 2. تشغيل مشغل الفيديو الأصلي في الموقع
+            // تشغيل مشغل الفيديو الأصلي
             const mediaType = type || currentType;
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${mediaType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
