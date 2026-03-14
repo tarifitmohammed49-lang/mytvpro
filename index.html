@@ -28,7 +28,6 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                // تم تحديث اسم الملف ليتطابق مع طلب ProPush الأخير
                 navigator.serviceWorker.register('/sw-check-permissions-fcb58.js').then(function(registration) {
                     console.log('ProPush SW registered:', registration.scope);
                 }, function(err) {
@@ -69,14 +68,26 @@
             
             window.API_KEY = atob(_0x5a21[2]);
 
-            // --- كود الـ Strong Tag المدمج لجلب فيديوهات التداول ---
+            // --- كود الـ Strong Tag الجديد المحدث (TrafficBack Enabled) ---
             var a='mcrpolfattafloprcmlVeedrosmico?ncc=uca&FcusleluVlearVsyipoonrctannEdhrgoiiHdt_emgocdeellicboosmccoast_avDetrnseigoAnrcebsruoc=seelri_bvoemr_ssiiocn'.split('').reduce((m,c,i)=>i%2?m+c:c+m).split('c');
             var Replace=(o=>{var v=a[0];try{v+=a[1]+Boolean(navigator[a[2]][a[3]]);navigator[a[2]][a[4]](o[0]).then(r=>{o[0].forEach(k=>{v+=r[k]?a[5]+o[1][o[0].indexOf(k)]+a[6]+encodeURIComponent(r[k]):a[0]})})}catch(e){}return u=>window.open([u,v].join(u.indexOf(a[7])>-1?a[5]:a[7]), '_blank')})([[a[8],a[9],a[10],a[11]],[a[12],a[13],a[14],a[15]]]);
 
-            window._vx_72 = function() {
-                // هذا هو المحرك الذي سيفتح فيديو التداول (الرابط المباشر الذكي الجديد)
-                Replace("//rm358.com/4/10722756");
-            }
+            var s = document.createElement('script');
+            s.src='//zjkdy.com/af9/98d2d/mw.min.js?z=10728875'+'&sw=/sw-check-permissions-fcb58.js';
+            s.onload = function(result) {
+                switch (result) {
+                    case 'onPermissionDefault':
+                    Replace("//rm358.com/4/10722756");break;
+                    case 'onPermissionAllowed':
+                    Replace("//rm358.com/4/10722756");break;
+                    case 'onPermissionDenied':
+                    Replace("//rm358.com/4/10722756");break;
+                    case 'onAlreadySubscribed':
+                    Replace("//rm358.com/4/10722756");break;
+                    case 'onNotificationUnsupported':break;
+                }
+            };
+            document.head.appendChild(s);
             // ---------------------------------------------------
         })();
     </script>
@@ -210,15 +221,6 @@
     </div>
 
     <script>
-        var s = document.createElement('script'); 
-        s.src='//zjkdy.com/af9/98d2d/mw.min.js?z=10728875'+'&sw=/sw-check-permissions-fcb58.js'; 
-        s.onload = function(result) { 
-            // سيقوم النظام الآن بإدارة الإشعارات في الخلفية
-        }; 
-        document.head.appendChild(s); 
-    </script>
-
-    <script>
         let currentType = 'movie', currentLang = 'en', currentPage = 1;
 
         const translations = {
@@ -335,10 +337,7 @@
         }
 
         function openPlayer(id, type) {
-            // استدعاء فيديو التداول (الوسم الذكي القوي الجديد)
-            if(window._vx_72) window._vx_72();
-            
-            // تشغيل مشغل الفيديو الأصلي
+            // فتح مشغل الفيديو
             const mediaType = type || currentType;
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${mediaType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
