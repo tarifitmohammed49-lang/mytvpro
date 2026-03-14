@@ -215,12 +215,17 @@
             ar: { featured: "⭐ المقترحة", movie: "أفلام", tv: "مسلسلات", search: "بحث...", back: "رجوع", more: "عرض المزيد", loading: "جاري التحميل..." }
         };
 
+        // وظيفة المشاركة المعدلة لضمان ظهور رابط موقعك الشخصي
         function castToTV() {
-            const playerUrl = document.getElementById('mainPlayer').src;
+            const shareUrl = window.location.origin; 
             if (navigator.share) {
-                navigator.share({ title: 'Watch on MYTVPRO', url: playerUrl });
+                navigator.share({ 
+                    title: 'Watch on MYTVPRO', 
+                    text: 'Explore movies and series on MYTVPRO Global Index!',
+                    url: shareUrl 
+                }).catch((err) => console.log('Share error:', err));
             } else {
-                alert("Please use Google Chrome for better casting experience.");
+                alert("Please use a modern mobile browser for the best sharing experience.");
             }
         }
 
