@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ro" dir="ltr"> <head>
-    <title>MYTVPRO - Filme Online și Seriale Subtitrate Gratuit</title>
+    <title>MYTVPRO - Watch Movies & Series Online Free</title>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Urmărește cele mai noi filme și seriale online subtitrate în română pe MYTVPRO. Index global de divertisment gratuit.">
+    <meta name="description" content="Watch the latest movies and series online for free on MYTVPRO. Global entertainment index.">
     <meta name="robots" content="index, follow">
     
     <meta name="geo.region" content="RO" />
@@ -153,8 +153,8 @@
     <div class="header">
         <div class="logo" onclick="location.reload()">MYTVPRO</div>
         <div class="lang-container">
-            <span class="lang-btn" onclick="changeLanguage('en', this)">EN</span>
-            <span class="lang-btn active" onclick="changeLanguage('ro', this)">RO</span>
+            <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
+            <span class="lang-btn" onclick="changeLanguage('ro', this)">RO</span>
             <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
             <span class="lang-btn" onclick="changeLanguage('fr', this)">FR</span>
             <span class="lang-btn" onclick="changeLanguage('de', this)">DE</span>
@@ -169,35 +169,35 @@
     </div>
 
     <div class="nav-tabs">
-        <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Recomandate</button>
+        <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
         <button id="btnAnime" class="tab" onclick="loadGenre(16, 'tv', 'btnAnime')">🎌 Anime</button>
-        <button id="btnAction" class="tab" onclick="loadGenre(28, 'movie', 'btnAction')">🔥 Acțiune</button>
-        <button id="btnHorror" class="tab" onclick="loadGenre(27, 'movie', 'btnHorror')">💀 Groază</button>
-        <button id="btnKids" class="tab" onclick="loadGenre(10751, 'movie', 'btnKids')">👶 Copii</button>
+        <button id="btnAction" class="tab" onclick="loadGenre(28, 'movie', 'btnAction')">🔥 Action</button>
+        <button id="btnHorror" class="tab" onclick="loadGenre(27, 'movie', 'btnHorror')">💀 Horror</button>
+        <button id="btnKids" class="tab" onclick="loadGenre(10751, 'movie', 'btnKids')">👶 Kids</button>
         <button id="btnSciFi" class="tab" onclick="loadGenre(10765, 'tv', 'btnSciFi')">🚀 Sci-Fi</button>
-        <button id="btnMovies" class="tab" onclick="loadContent('movie')">Filme</button>
-        <button id="btnSeries" class="tab" onclick="loadContent('tv')">Seriale</button>
+        <button id="btnMovies" class="tab" onclick="loadContent('movie')">Movies</button>
+        <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
     </div>
 
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Caută..." onkeyup="handleSearch(event)">
+        <input type="text" id="searchInput" placeholder="Search..." onkeyup="handleSearch(event)">
     </div>
 
     <div id="moviesGrid" class="movie-grid"></div>
 
     <div class="load-more-container" id="loadMoreSection">
-        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">VEZI MAI MULT / عرض المزيد</button>
+        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE / عرض المزيد</button>
     </div>
 
     <footer class="main-footer-disclaimer">
         <div class="legal-grid">
             <div class="legal-item">
-                <span class="legal-tag">Legal Disclaimer (RO)</span>
-                MYTVPRO este un motor de indexare web specializat. Nu găzduim, stocăm sau încărcăm fișiere media sau videoclipuri pe serverele noastre.
-            </div>
-            <div class="legal-item">
                 <span class="legal-tag">Legal Disclaimer (EN)</span>
                 MYTVPRO is a specialized web indexing engine. We do not host, store, or upload any media files or videos on our own servers.
+            </div>
+            <div class="legal-item">
+                <span class="legal-tag">Legal Disclaimer (RO)</span>
+                MYTVPRO este un motor de indexare web specializat. Nu găzduim, stocăm sau încărcăm fișiere media sau videoclipuri pe serverele noastre.
             </div>
             <div class="legal-item" style="grid-column: span 2; direction: rtl;">
                 <span class="legal-tag">إشعار قانوني</span>
@@ -213,26 +213,26 @@
             <div class="cast-btn" onclick="castToTV()" title="Cast to TV">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3b5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 20h.01"></path></svg>
             </div>
-            <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">ÎNAPOI</button>
+            <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
             <div class="safe-info-box">
                 <div class="warning-section">
                     <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
-                    <div class="safe-line"><strong>AVERTISMENT (RO):</strong> Orice reclame care apar în interiorul playerului video sunt din surse externe terțe.</div>
                     <div class="safe-line"><strong>NOTICE (EN):</strong> Any advertisements appearing within the video player are from external third-party sources.</div>
+                    <div class="safe-line"><strong>AVERTISMENT (RO):</strong> Orice reclame care apar în interiorul playerului video sunt din surse externe terțe.</div>
                 </div>
                 <div class="warning-section" style="border-bottom: none;">
                     <div class="safe-line ar">إشعار قانوني: MYTVPRO هو محرك بحث للفهرسة فقط ولا يستضيف أي ملفات على خوادمه.</div>
-                    <div class="safe-line"><strong>AVIZ JURIDIC (RO):</strong> MYTVPRO este doar un motor de indexare și nu găzduiește niciun fișier pe serverele sale.</div>
                     <div class="safe-line"><strong>LEGAL NOTICE (EN):</strong> MYTVPRO is an indexing engine only and does not host any files on its servers.</div>
+                    <div class="safe-line"><strong>AVIZ JURIDIC (RO):</strong> MYTVPRO este doar un motor de indexare și nu găzduiește niciun fișier pe serverele sale.</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // التعديل: جعل اللغة الافتراضية عند التحميل هي الرومانية
-        let currentType = 'tv', currentLang = 'ro', currentPage = 1, isFeatured = true, currentGenre = null;
+        // التعديل الجوهري: جعل اللغة الافتراضية للبيانات هي الإنجليزية
+        let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
 
         const translations = {
             en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
