@@ -225,7 +225,7 @@
                 <div class="warning-section">
                     <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
                     <div class="safe-line"><strong>NOTICE (EN):</strong> Any advertisements appearing within the video player are from external third-party sources.</div>
-                    <div class="safe-line"><strong>AVERTISMENT (RO):</strong> Orice reclame care apar în interiorul playerului video sunt din surse externe terțe.</div>
+                    <div class="safe-line"><strong>AVERTISMENT (RO):</strong> Orice reclame care apar في interiorul playerului video sunt din surse externe terțe.</div>
                 </div>
                 <div class="warning-section" style="border-bottom: none;">
                     <div class="safe-line ar">إشعار قانوني: MYTVPRO هو محرك بحث للفهرسة فقط ولا يستضيف أي ملفات على خوادمه.</div>
@@ -268,21 +268,47 @@
 
         async function loadFeatured() {
             isFeatured = true; currentGenre = null;
-            currentType = 'tv';
             currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnFeatured').classList.add('active');
-            const ids = [2288, 71446, 90669, 93405, 100088]; 
+            
+            // التعديل هنا: إضافة أكثر من 10 عناوين تريند (أفلام ومسلسلات مختلطة)
+            const featuredItems = [
+                { id: 93405, type: 'tv' },    // Squid Game
+                { id: 100088, type: 'tv' },   // The Last of Us
+                { id: 71446, type: 'tv' },    // La Casa de Papel
+                { id: 2288, type: 'tv' },     // Prison Break
+                { id: 90669, type: 'tv' },    // 1899
+                { id: 1396, type: 'tv' },     // Breaking Bad
+                { id: 76479, type: 'movie' }, // Spider-Man: No Way Home
+                { id: 157336, type: 'movie' },// Interstellar
+                { id: 299536, type: 'movie' },// Avengers: Infinity War
+                { id: 634649, type: 'movie' },// Spider-Man: Across the Spider-Verse
+                { id: 507089, type: 'movie' },// Five Nights at Freddy's
+                { id: 955916, type: 'movie' },// Lift
+                { id: 82452, type: 'tv' },    // Avatar: The Last Airbender
+                { id: 111110, type: 'tv' }    // One Piece (Live Action)
+            ];
+
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = "";
-            for(let id of ids) {
+            
+            for(let item of featuredItems) {
                 try {
-                    const res = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${window.API_KEY}&language=${currentLang}`);
+                    const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
                     const m = await res.json();
-                    if(m.id) renderGrid([m]);
+                    if(m.id) {
+                        // تمرير نوع المحتوى الصحيح للدالة لضمان عمل المشغل
+                        const html = `
+                            <div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')">
+                                <img src="https://image.tmdb.org/t/p/w500${m.poster_path}">
+                                <div class="movie-title">${m.title || m.name}</div>
+                            </div>`;
+                        grid.innerHTML += html;
+                    }
                 } catch(e) {}
             }
-            document.getElementById('loadMoreSection').style.display = 'block';
+            document.getElementById('loadMoreSection').style.display = 'none'; // تعطيل "عرض المزيد" في Featured
         }
 
         async function loadGenre(genreId, type, btnId) {
