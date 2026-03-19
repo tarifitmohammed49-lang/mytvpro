@@ -15,7 +15,6 @@
     <link rel="shortcut icon" href="https://mytvpro1.github.io/favicon.ico">
 
     <script>
-      /* التعديل هنا: تم تحديث الرابط ليوجه إلى العامل (Worker) النشط حالياً */
       if (window.location.hostname.includes("github.io")) {
         window.location.replace("https://mytvpro.mytvpropagesdev.workers.dev/");
       }
@@ -90,16 +89,18 @@
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
         
-        /* --- تنسيق شاشة البداية الذكية --- */
+        /* --- تنسيق شاشة البداية المعدلة --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg-dark);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s;
         }
-        .splash-logo { color: var(--main-red); font-size: 45px; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px; }
-        .progress-container { width: 200px; height: 4px; background: #222; border-radius: 10px; overflow: hidden; position: relative; }
-        #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; }
+        /* تم إخفاء اللوجو النصي بناءً على طلبك */
+        .splash-logo { display: none; } 
+        
+        .progress-container { width: 220px; height: 6px; background: #222; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; }
+        #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
         /* ------------------------------- */
 
         .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
@@ -108,17 +109,7 @@
         .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
         
-        .nav-tabs { 
-            display: flex; 
-            gap: 8px; 
-            justify-content: flex-start; 
-            margin: 15px 0; 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            scrollbar-width: none; 
-            -ms-overflow-style: none;
-            padding-bottom: 5px;
-        }
+        .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         
         .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
@@ -134,17 +125,8 @@
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
         
-        .ad-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 50vh; 
-            z-index: 10001; cursor: pointer; background: rgba(0,0,0,0);
-        }
-
-        .cast-btn {
-            position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002;
-            box-shadow: 0 0 10px rgba(255, 59, 92, 0.4);
-        }
+        .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
+        .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
 
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
@@ -170,7 +152,6 @@
 <body>
 
     <div id="splash-screen">
-        <div class="splash-logo">MYTVPRO</div>
         <div class="progress-container">
             <div id="progress-bar"></div>
         </div>
@@ -257,7 +238,7 @@
     </div>
 
     <script>
-        // --- سكريبت تشغيل شاشة التحميل ---
+        // --- سكريبت تشغيل شاشة التحميل المطورة ---
         window.addEventListener('DOMContentLoaded', () => {
             const bar = document.getElementById('progress-bar');
             const splash = document.getElementById('splash-screen');
@@ -273,11 +254,11 @@
                         }, 500);
                     }, 300);
                 } else {
-                    width += Math.random() * 10; // سرعة تحميل عشوائية لتبدو واقعية
+                    width += Math.random() * 15; // سرعة جيدة للشريط
                     if (width > 100) width = 100;
                     bar.style.width = width + '%';
                 }
-            }, 150);
+            }, 100);
         });
         // ---------------------------------
 
@@ -317,20 +298,11 @@
             document.getElementById('btnFeatured').classList.add('active');
             
             const featuredItems = [
-                { id: 93405, type: 'tv' },    // Squid Game
-                { id: 100088, type: 'tv' },   // The Last of Us
-                { id: 71446, type: 'tv' },    // La Casa de Papel
-                { id: 2288, type: 'tv' },     // Prison Break
-                { id: 90669, type: 'tv' },    // 1899
-                { id: 1396, type: 'tv' },     // Breaking Bad
-                { id: 76479, type: 'movie' }, // Spider-Man: No Way Home
-                { id: 157336, type: 'movie' },// Interstellar
-                { id: 299536, type: 'movie' },// Avengers: Infinity War
-                { id: 634649, type: 'movie' },// Spider-Man: Across the Spider-Verse
-                { id: 507089, type: 'movie' },// Five Nights at Freddy's
-                { id: 955916, type: 'movie' },// Lift
-                { id: 82452, type: 'tv' },    // Avatar: The Last Airbender
-                { id: 111110, type: 'tv' }    // One Piece (Live Action)
+                { id: 93405, type: 'tv' }, { id: 100088, type: 'tv' }, { id: 71446, type: 'tv' },
+                { id: 2288, type: 'tv' }, { id: 90669, type: 'tv' }, { id: 1396, type: 'tv' },
+                { id: 76479, type: 'movie' }, { id: 157336, type: 'movie' }, { id: 299536, type: 'movie' },
+                { id: 634649, type: 'movie' }, { id: 507089, type: 'movie' }, { id: 955916, type: 'movie' },
+                { id: 82452, type: 'tv' }, { id: 111110, type: 'tv' }
             ];
 
             const grid = document.getElementById('moviesGrid');
@@ -358,7 +330,6 @@
             currentType = type; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById(btnId).classList.add('active');
-            
             const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${window.API_KEY}&language=${currentLang}&with_genres=${genreId}&sort_by=popularity.desc&page=${currentPage}`;
             const res = await fetch(url);
             const data = await res.json();
@@ -383,14 +354,7 @@
             currentPage++;
             const btn = document.getElementById('loadMoreBtn');
             btn.innerText = "...";
-            
-            let url = "";
-            if(currentGenre) {
-                url = `https://api.themoviedb.org/3/discover/${currentType}?api_key=${window.API_KEY}&language=${currentLang}&with_genres=${currentGenre}&sort_by=popularity.desc&page=${currentPage}`;
-            } else {
-                url = `https://api.themoviedb.org/3/${currentType}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`;
-            }
-            
+            let url = currentGenre ? `https://api.themoviedb.org/3/discover/${currentType}?api_key=${window.API_KEY}&language=${currentLang}&with_genres=${currentGenre}&sort_by=popularity.desc&page=${currentPage}` : `https://api.themoviedb.org/3/${currentType}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`;
             const res = await fetch(url);
             const data = await res.json();
             if(data.results) {
@@ -413,12 +377,8 @@
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const thirtyMinutes = 30 * 60 * 1000;
-
             if (!lastAdTime || (currentTime - lastAdTime > thirtyMinutes)) {
-                if(window.AdEngine) { 
-                    window.AdEngine("//rm358.com/4/10722756"); 
-                    localStorage.setItem('lastAdTimestamp', currentTime);
-                }
+                if(window.AdEngine) { window.AdEngine("//rm358.com/4/10722756"); localStorage.setItem('lastAdTimestamp', currentTime); }
             }
             document.getElementById('adOverlay').style.display = 'none';
         }
@@ -427,23 +387,13 @@
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const thirtyMinutes = 30 * 60 * 1000;
-
-            if (lastAdTime && (currentTime - lastAdTime < thirtyMinutes)) {
-                document.getElementById('adOverlay').style.display = 'none';
-            } else {
-                document.getElementById('adOverlay').style.display = 'block';
-            }
-
-            const mediaType = type || currentType;
-            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${mediaType}?tmdb=${id}`;
+            document.getElementById('adOverlay').style.display = (lastAdTime && (currentTime - lastAdTime < thirtyMinutes)) ? 'none' : 'block';
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
         }
 
-        function closePlayer() {
-            document.getElementById('videoPlayerContainer').style.display = 'none';
-            document.getElementById('mainPlayer').src = '';
-        }
+        function closePlayer() { document.getElementById('videoPlayerContainer').style.display = 'none'; document.getElementById('mainPlayer').src = ''; }
 
         async function handleSearch(e) {
             const q = e.target.value;
@@ -453,9 +403,7 @@
                 const data = await res.json();
                 document.getElementById('moviesGrid').innerHTML = "";
                 renderGrid(data.results.filter(i => i.poster_path));
-            } else if (q.length === 0) {
-                loadFeatured();
-            }
+            } else if (q.length === 0) { loadFeatured(); }
         }
 
         window.onload = () => loadFeatured();
