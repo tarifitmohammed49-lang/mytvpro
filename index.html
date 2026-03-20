@@ -128,12 +128,6 @@
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
         
-        .footer-app-box { text-align: center; padding: 30px 20px; margin: 20px auto; max-width: 600px; border-radius: 15px; background: linear-gradient(145deg, #1a1d21, #0b0e11); border: 1px solid #222; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
-        .footer-app-box h3 { color: var(--main-red); margin: 0 0 10px 0; font-size: 18px; }
-        .footer-app-box p { color: #888; font-size: 12px; margin-bottom: 20px; }
-        .footer-install-btn { display: inline-flex; align-items: center; background: var(--main-red); color: white; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 13px; transition: 0.3s; }
-        .footer-install-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 59, 92, 0.4); }
-
         .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; }
         .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
         .legal-item { font-size: 11px; color: #777; line-height: 1.6; text-align: justify; }
@@ -199,16 +193,6 @@
         <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE / عرض المزيد</button>
     </div>
 
-    <div class="footer-app-box">
-        <h3>GET MYTVPRO APP</h3>
-        <p>For a faster and better experience, install our official app now!</p>
-        <a href="https://mytvpro.mytvpropagesdev.workers.dev/" 
-           class="footer-install-btn" 
-           onclick="gtag('event', 'download_app', { 'event_category': 'App', 'event_label': 'APK Download' });">
-            INSTALL APP / تحميل التطبيق
-        </a>
-    </div>
-
     <footer class="main-footer-disclaimer">
         <div class="legal-grid">
             <div class="legal-item">
@@ -239,6 +223,7 @@
                 <div class="warning-section">
                     <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
                     <div class="safe-line"><strong>NOTICE (EN):</strong> Any advertisements appearing within the video player are from external third-party sources.</div>
+                    <div class="safe-line"><strong>AVERTISMENT (RO):</strong> Orice reclame care apar în interiorul playerului video sunt din surse externe terțe.</div>
                 </div>
             </div>
         </div>
@@ -290,12 +275,14 @@
             isFeatured = true; currentGenre = null; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnFeatured').classList.add('active');
-            const featuredItems = [{id:93405,type:'tv'},{id:100088,type:'tv'},{id:1396,type:'tv'},{id:76479,type:'movie'},{id:157336,type:'movie'},{id:634649,type:'movie'}];
+            const featuredItems = [{id:93405,type:'tv'},{id:100088,type:'tv'},{id:1396,type:'tv'},{id:76479,type:'movie'},{id:157336,type:'movie'},{id:634649,type:'movie'},{id:82452,type:'tv'},{id:111110,type:'tv'}];
             const grid = document.getElementById('moviesGrid'); grid.innerHTML = "";
             for(let item of featuredItems) {
-                const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
-                const m = await res.json();
-                if(m.id) grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`;
+                try {
+                    const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
+                    const m = await res.json();
+                    if(m.id) grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`;
+                } catch(e) {}
             }
             document.getElementById('loadMoreSection').style.display = 'none'; 
         }
@@ -333,7 +320,6 @@
             grid.innerHTML += list.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${m.name ? 'tv' : 'movie'}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
         }
 
-        // --- التعديل البرمجي للإعلانات فقط ---
         function triggerAd() {
             const currentTime = new Date().getTime();
             if(window.AdEngine) { 
@@ -347,15 +333,11 @@
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const ninetyMinutes = 90 * 60 * 1000;
-
-            // إظهار الإعلان فقط إذا مر 90 دقيقة
             document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
-            
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
         }
-        // ------------------------------------
 
         function closePlayer() { document.getElementById('videoPlayerContainer').style.display = 'none'; document.getElementById('mainPlayer').src = ''; }
 
