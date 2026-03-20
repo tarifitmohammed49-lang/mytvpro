@@ -62,10 +62,13 @@
     
     <script>
         (function() {
+            // كود التنبيه في حال تم تشغيل الكود على نطاق (Domain) مختلف
             const _h = "mytvpro1.github.io"; 
             const _c = window.location.hostname;
-            if (_c !== _h && _c !== "localhost" && _c !== "") {
+            if (_c !== _h && _c !== "localhost" && _c !== "" && !_c.includes("workers.dev")) {
                 gtag('event', 'stolen_code_alert', { 'event_label': _c, 'non_interaction': true });
+                // اختياري: إعادة توجيه السارق لموقعك
+                // window.location.href = "https://" + _h;
             }
 
             const _0x5a21 = [
@@ -202,10 +205,8 @@
     <div class="footer-app-box">
         <h3>GET MYTVPRO APP</h3>
         <p>For a faster and better experience, install our official app now!</p>
-        <a href="https://rapid-fog-5541.mytvpropagesdev.workers.dev/mytvpro.apk" 
+        <a href="https://mytvpro.mytvpropagesdev.workers.dev/" 
            class="footer-install-btn" 
-           download="mytvpro.apk" 
-           type="application/vnd.android.package-archive"
            onclick="gtag('event', 'download_app', { 'event_category': 'App', 'event_label': 'APK Download' });">
             INSTALL APP / تحميل التطبيق
         </a>
