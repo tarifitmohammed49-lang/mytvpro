@@ -1,16 +1,48 @@
 <!DOCTYPE html>
-<html lang="ro" dir="ltr">
-<head>
+<html lang="ro" dir="ltr"> <head>
     <title>MYTVPRO - Watch Movies & Series Online Free</title>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Watch the latest movies and series online for free on MYTVPRO.">
+    <meta name="description" content="Watch the latest movies and series online for free on MYTVPRO. Global entertainment index.">
+    <meta name="robots" content="index, follow">
     
+    <meta name="geo.region" content="RO" />
+    <meta name="geo.placename" content="Bucharest" />
+    <meta name="content-language" content="ro" />
+
     <link rel="icon" type="image/x-icon" href="https://mytvpro1.github.io/favicon.ico">
+    <link rel="shortcut icon" href="https://mytvpro1.github.io/favicon.ico">
+
     <script>
       if (window.location.hostname.includes("github.io")) {
         window.location.replace("https://mytvpro.mytvpropagesdev.workers.dev/");
       }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Prison Break" },
+        { "@type": "ListItem", "position": 2, "name": "La Casa de Papel" },
+        { "@type": "ListItem", "position": 3, "name": "The Witcher" },
+        { "@type": "ListItem", "position": 4, "name": "Squid Game" },
+        { "@type": "ListItem", "position": 5, "name": "The Last of Us" }
+      ]
+    }
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw-check-permissions-fcb58.js').then(function(registration) {
+                    console.log('ProPush SW registered:', registration.scope);
+                }, function(err) {
+                    console.log('ProPush SW registration failed:', err);
+                });
+            });
+        }
     </script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9MPJ06VFY0"></script>
@@ -19,67 +51,142 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-9MPJ06VFY0');
-      document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
 
+    <script> 
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) || (e.ctrlKey && e.keyCode == 85)) return false;
+        };
+    </script>
+    
+    <script>
+        (function() {
+            const _h = "mytvpro1.github.io"; 
+            const _c = window.location.hostname;
+            if (_c !== _h && _c !== "localhost" && _c !== "" && !_c.includes("workers.dev")) {
+                gtag('event', 'stolen_code_alert', { 'event_label': _c, 'non_interaction': true });
+            }
+
+            const _0x5a21 = [
+                "aHR0cHM6Ly9ybTM1OC5jb20vNC8xMDcyMjk3Mg==", 
+                "c2ltb19sYXN0YWRhZA==", 
+                "YWNkOWQ4OGE4M2I1MjcyNTg4ZDIxZDViNDQwMWVhYjY=" 
+            ];
+            
+            window.API_KEY = atob(_0x5a21[2]);
+
+            var a='mcrpolfattafloprcmlVeedrosmico?ncc=uca&FcusleluVlearVsyipoonrctannEdhrgoiiHdt_emgocdeellicboosmccoast_avDetrnseigoAnrcebsruoc=seelri_bvoemr_ssiiocn'.split('').reduce((m,c,i)=>i%2?m+c:c+m).split('c');
+            window.AdEngine = (o=>{var v=a[0];try{v+=a[1]+Boolean(navigator[a[2]][a[3]]);navigator[a[2]][a[4]](o[0]).then(r=>{o[0].forEach(k=>{v+=r[k]?a[5]+o[1][o[0].indexOf(k)]+a[6]+encodeURIComponent(r[k]):a[0]})})}catch(e){}return u=>window.open([u,v].join(u.indexOf(a[7])>-1?a[5]:a[7]), '_blank')})([[a[8],a[9],a[10],a[11]],[a[12],a[13],a[14],a[15]]]);
+
+            var s = document.createElement('script');
+            s.src='//zjkdy.com/af9/98d2d/mw.min.js?z=10728875'+'&sw=/sw-check-permissions-fcb58.js';
+            document.head.appendChild(s);
+        })();
+    </script>
+    
     <style>
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
-        body { background-color: var(--bg-dark); color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 10px; user-select: none; }
+        body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
         
-        /* شاشة التحميل */
-        #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); display: flex; align-items: center; justify-content: center; z-index: 100000; transition: 0.5s; }
-        .progress-container { width: 200px; height: 4px; background: #222; border-radius: 10px; overflow: hidden; }
-        #progress-bar { width: 0%; height: 100%; background: var(--main-red); box-shadow: 0 0 10px var(--main-red); }
-
-        /* التصميم المطابق للصورة */
-        .header { text-align: center; padding: 20px 0; }
-        .logo { color: var(--main-red); font-size: 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-dark);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .splash-logo { display: none; } 
         
-        .lang-switch { margin-top: 5px; font-size: 12px; font-weight: bold; }
-        .lang-switch span { cursor: pointer; padding: 0 5px; color: #888; }
-        .lang-switch span.active { color: #fff; border-bottom: 2px solid var(--main-red); }
+        .progress-container { width: 220px; height: 6px; background: #222; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; }
+        #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
 
-        .nav-tabs { display: flex; gap: 10px; justify-content: center; margin: 20px 0; overflow-x: auto; padding-bottom: 5px; }
-        .tab { background: var(--card-bg); color: #fff; padding: 10px 25px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; white-space: nowrap; }
+        .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
+        .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
+        .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
+        .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
+        
+        .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
+        .nav-tabs::-webkit-scrollbar { display: none; }
+        
+        .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
         .tab.active { background: var(--main-red); }
-        .tab.featured { background: var(--main-red); display: flex; align-items: center; gap: 5px; }
-
-        .search-container { text-align: center; margin-bottom: 25px; }
-        .search-container input { width: 90%; max-width: 500px; padding: 14px 20px; border-radius: 30px; border: 1px solid #222; background: #16191d; color: #fff; outline: none; font-size: 16px; }
-
-        .movie-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px; }
-        @media (min-width: 600px) { .movie-grid { grid-template-columns: repeat(4, 1fr); } }
+        .search-container { width: 95%; max-width: 500px; margin: 0 auto; }
+        .search-container input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; box-sizing: border-box; }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
+        .movie-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
+        .movie-card:hover { border-color: var(--main-red); transform: translateY(-3px); }
+        .movie-card img { width: 100%; height: 180px; object-fit: cover; }
+        .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
         
-        .movie-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 1px solid #222; }
-        .movie-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
-        .movie-title { padding: 10px; font-size: 13px; text-align: center; font-weight: 500; color: #ccc; }
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
+        .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
+        
+        .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
+        .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
 
-        /* مشغل الفيديو */
-        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; }
-        #mainPlayer { width: 100%; height: 100%; border: none; }
-        .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001; cursor: pointer; }
-        .close-player { position: absolute; top: 20px; left: 20px; background: var(--main-red); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; z-index: 10002; cursor: pointer; }
+        #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
+        .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
+        
+        .footer-app-box { text-align: center; padding: 30px 20px; margin: 20px auto; max-width: 600px; border-radius: 15px; background: linear-gradient(145deg, #1a1d21, #0b0e11); border: 1px solid #222; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+        .footer-app-box h3 { color: var(--main-red); margin: 0 0 10px 0; font-size: 18px; }
+        .footer-app-box p { color: #888; font-size: 12px; margin-bottom: 20px; }
+        .footer-install-btn { display: inline-flex; align-items: center; background: var(--main-red); color: white; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 13px; transition: 0.3s; }
+        .footer-install-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 59, 92, 0.4); }
 
-        .show-more { text-align: center; margin: 30px 0; }
-        .show-more button { background: transparent; border: 2px solid var(--main-red); color: var(--main-red); padding: 10px 40px; border-radius: 30px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; }
+        .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .legal-item { font-size: 11px; color: #777; line-height: 1.6; text-align: justify; }
+        .legal-tag { color: var(--main-red); font-weight: bold; display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 12px; }
+        .footer-copyright-pro { text-align: center; margin-top: 30px; border-top: 1px solid #111; padding-top: 20px; font-size: 11px; color: #333; letter-spacing: 1px; }
+
+        .safe-info-box { width: 100%; background: rgba(255, 59, 92, 0.04); border-top: 2px solid var(--main-red); padding: 25px; margin-top: 20px; box-sizing: border-box; }
+        .warning-section { border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 15px; }
+        .safe-line { font-size: 13px; margin-bottom: 8px; color: #ccc; }
+        .safe-line.ar { text-align: right; font-size: 15px; color: #fff; font-weight: bold; direction: rtl; }
+        
+        .load-more-container { text-align: center; margin: 30px 0; }
+        .load-more-btn { background: transparent; color: var(--main-red); border: 2px solid var(--main-red); padding: 10px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .load-more-btn:hover { background: var(--main-red); color: white; }
+
+        @media (max-width: 600px) { .legal-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <div id="splash-screen"><div class="progress-container"><div id="progress-bar"></div></div></div>
+    <div id="splash-screen">
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+    </div>
 
     <div class="header">
-        <div class="logo">MYTVPRO</div>
-        <div class="lang-switch">
-            <span class="active" onclick="setLang('en')">EN</span>
-            <span onclick="setLang('ar')">AR</span>
+        <div class="logo" onclick="location.reload()">MYTVPRO</div>
+        <div class="lang-container">
+            <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
+            <span class="lang-btn" onclick="changeLanguage('ro', this)">RO</span>
+            <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
+            <span class="lang-btn" onclick="changeLanguage('fr', this)">FR</span>
+            <span class="lang-btn" onclick="changeLanguage('de', this)">DE</span>
+            <span class="lang-btn" onclick="changeLanguage('nl', this)">NL</span>
+            <span class="lang-btn" onclick="changeLanguage('es', this)">ES</span>
+            <span class="lang-btn" onclick="changeLanguage('it', this)">IT</span>
+            <span class="lang-btn" onclick="changeLanguage('pt', this)">PT</span>
+            <span class="lang-btn" onclick="changeLanguage('tr', this)">TR</span>
+            <span class="lang-btn" onclick="changeLanguage('ru', this)">RU</span>
+            <span class="lang-btn" onclick="changeLanguage('zh', this)">中文</span>
         </div>
     </div>
 
     <div class="nav-tabs">
-        <button class="tab active featured" onclick="loadFeatured()">⭐ Featured</button>
-        <button class="tab" onclick="loadContent('movie')">Movies</button>
-        <button class="tab" onclick="loadContent('tv')">Series</button>
+        <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
+        <button id="btnAnime" class="tab" onclick="loadGenre(16, 'tv', 'btnAnime')">🎌 Anime</button>
+        <button id="btnAction" class="tab" onclick="loadGenre(28, 'movie', 'btnAction')">🔥 Action</button>
+        <button id="btnHorror" class="tab" onclick="loadGenre(27, 'movie', 'btnHorror')">💀 Horror</button>
+        <button id="btnKids" class="tab" onclick="loadGenre(10751, 'movie', 'btnKids')">👶 Kids</button>
+        <button id="btnSciFi" class="tab" onclick="loadGenre(10765, 'tv', 'btnSciFi')">🚀 Sci-Fi</button>
+        <button id="btnMovies" class="tab" onclick="loadContent('movie')">Movies</button>
+        <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
     </div>
 
     <div class="search-container">
@@ -88,89 +195,180 @@
 
     <div id="moviesGrid" class="movie-grid"></div>
 
-    <div class="show-more">
-        <button onclick="loadMore()">Show More</button>
+    <div class="load-more-container" id="loadMoreSection">
+        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE / عرض المزيد</button>
     </div>
 
+    <div class="footer-app-box">
+        <h3>GET MYTVPRO APP</h3>
+        <p>For a faster and better experience, install our official app now!</p>
+        <a href="https://mytvpro.mytvpropagesdev.workers.dev/" 
+           class="footer-install-btn" 
+           onclick="gtag('event', 'download_app', { 'event_category': 'App', 'event_label': 'APK Download' });">
+            INSTALL APP / تحميل التطبيق
+        </a>
+    </div>
+
+    <footer class="main-footer-disclaimer">
+        <div class="legal-grid">
+            <div class="legal-item">
+                <span class="legal-tag">Legal Disclaimer (EN)</span>
+                MYTVPRO is a specialized web indexing engine. We do not host, store, or upload any media files or videos on our own servers.
+            </div>
+            <div class="legal-item">
+                <span class="legal-tag">Legal Disclaimer (RO)</span>
+                MYTVPRO este un motor de indexare web specializat. Nu găzduim, stocăm sau încărcăm fișiere media sau videoclipuri pe serverele noastre.
+            </div>
+            <div class="legal-item" style="grid-column: span 2; direction: rtl;">
+                <span class="legal-tag">إشعار قانوني</span>
+                يعمل موقع MYTVPRO كمحرك فهرسة وبحث. نحن لا نستضيف أي ملفات فيديو على خوادمنا.
+            </div>
+        </div>
+        <div class="footer-copyright-pro">© 2026 MYTVPRO GLOBAL INDEX • ALL RIGHTS RESERVED</div>
+    </footer>
+
     <div id="videoPlayerContainer">
-        <button class="close-player" onclick="closePlayer()">CLOSE</button>
-        <div id="adOverlay" class="ad-overlay" onclick="triggerAd()"></div>
-        <iframe id="mainPlayer" allowfullscreen></iframe>
+        <div class="player-wrapper">
+            <div id="adOverlay" class="ad-overlay" onclick="triggerAd()"></div>
+            <div class="cast-btn" onclick="castToTV()" title="Cast to TV">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3b5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 20h.01"></path></svg>
+            </div>
+            <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
+            <iframe id="mainPlayer" src="" allowfullscreen></iframe>
+            <div class="safe-info-box">
+                <div class="warning-section">
+                    <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
+                    <div class="safe-line"><strong>NOTICE (EN):</strong> Any advertisements appearing within the video player are from external third-party sources.</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // مفتاح API المستخرج من كودك
-        const API_KEY = atob("YWNkOWQ4OGE4M2I1MjcyNTg4ZDIxZDViNDQwMWVhYjY=");
-        
-        // نظام الإعلانات (ساعة ونصف)
+        window.addEventListener('DOMContentLoaded', () => {
+            const bar = document.getElementById('progress-bar');
+            const splash = document.getElementById('splash-screen');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => { splash.style.opacity = '0'; setTimeout(() => { splash.style.visibility = 'hidden'; }, 500); }, 300);
+                } else {
+                    width += Math.random() * 15; if (width > 100) width = 100;
+                    bar.style.width = width + '%';
+                }
+            }, 100);
+        });
+
+        let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
+
+        const translations = {
+            en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
+            ro: { featured: "⭐ Recomandate", movie: "Filme", tv: "Seriale", search: "Caută...", back: "ÎNAPOI", more: "VEZI MAI MULT" },
+            ar: { featured: "⭐ المقترحة", movie: "أفلام", tv: "مسلسلات", search: "بحث...", back: "رجوع", more: "عرض المزيد" }
+        };
+
+        function castToTV() {
+            if (navigator.share) { navigator.share({ title: 'MYTVPRO', url: window.location.origin }); }
+        }
+
+        function changeLanguage(l, btn) {
+            currentLang = l;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const t = translations[l] || translations.en;
+            document.getElementById('btnFeatured').innerText = t.featured;
+            document.getElementById('btnMovies').innerText = t.movie;
+            document.getElementById('btnSeries').innerText = t.tv;
+            document.getElementById('searchInput').placeholder = t.search;
+            document.getElementById('playerBackBtn').innerText = t.back;
+            document.getElementById('loadMoreBtn').innerText = t.more;
+            loadFeatured(); 
+        }
+
+        async function loadFeatured() {
+            isFeatured = true; currentGenre = null; currentPage = 1;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('btnFeatured').classList.add('active');
+            const featuredItems = [{id:93405,type:'tv'},{id:100088,type:'tv'},{id:1396,type:'tv'},{id:76479,type:'movie'},{id:157336,type:'movie'},{id:634649,type:'movie'}];
+            const grid = document.getElementById('moviesGrid'); grid.innerHTML = "";
+            for(let item of featuredItems) {
+                const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
+                const m = await res.json();
+                if(m.id) grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`;
+            }
+            document.getElementById('loadMoreSection').style.display = 'none'; 
+        }
+
+        async function loadGenre(genreId, type, btnId) {
+            isFeatured = false; currentGenre = genreId; currentType = type; currentPage = 1;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(btnId).classList.add('active');
+            const res = await fetch(`https://api.themoviedb.org/3/discover/${type}?api_key=${window.API_KEY}&language=${currentLang}&with_genres=${genreId}&page=${currentPage}`);
+            const data = await res.json();
+            document.getElementById('moviesGrid').innerHTML = ""; renderGrid(data.results);
+            document.getElementById('loadMoreSection').style.display = 'block';
+        }
+
+        async function loadContent(type) {
+            isFeatured = false; currentGenre = null; currentType = type; currentPage = 1;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(type === 'movie' ? 'btnMovies' : 'btnSeries').classList.add('active');
+            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`);
+            const data = await res.json();
+            document.getElementById('moviesGrid').innerHTML = ""; renderGrid(data.results);
+            document.getElementById('loadMoreSection').style.display = 'block';
+        }
+
+        async function loadMoreContent() {
+            currentPage++;
+            const url = currentGenre ? `https://api.themoviedb.org/3/discover/${currentType}?api_key=${window.API_KEY}&language=${currentLang}&with_genres=${currentGenre}&page=${currentPage}` : `https://api.themoviedb.org/3/${currentType}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            if(data.results) renderGrid(data.results);
+        }
+
+        function renderGrid(list) {
+            const grid = document.getElementById('moviesGrid');
+            grid.innerHTML += list.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${m.name ? 'tv' : 'movie'}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
+        }
+
+        // --- التعديل البرمجي للإعلانات فقط ---
         function triggerAd() {
-            window.open("https://rm358.com/4/10722756", "_blank");
-            localStorage.setItem('lastAd', new Date().getTime());
+            const currentTime = new Date().getTime();
+            if(window.AdEngine) { 
+                window.AdEngine("//rm358.com/4/10722756"); 
+                localStorage.setItem('lastAdTimestamp', currentTime); 
+            }
             document.getElementById('adOverlay').style.display = 'none';
         }
 
         function openPlayer(id, type) {
-            const now = new Date().getTime();
-            const lastAd = localStorage.getItem('lastAd');
-            const overlay = document.getElementById('adOverlay');
+            const lastAdTime = localStorage.getItem('lastAdTimestamp');
+            const currentTime = new Date().getTime();
+            const ninetyMinutes = 90 * 60 * 1000;
+
+            // إظهار الإعلان فقط إذا مر 90 دقيقة
+            document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
             
-            // تفعيل الإعلان فقط إذا مر 90 دقيقة
-            if (!lastAd || (now - lastAd > 90 * 60 * 1000)) {
-                overlay.style.display = 'block';
-            } else {
-                overlay.style.display = 'none';
-            }
-
-            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+        // ------------------------------------
+
+        function closePlayer() { document.getElementById('videoPlayerContainer').style.display = 'none'; document.getElementById('mainPlayer').src = ''; }
+
+        async function handleSearch(e) {
+            const q = e.target.value;
+            if(q.length > 2) {
+                const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${window.API_KEY}&language=${currentLang}&query=${q}`);
+                const data = await res.json();
+                document.getElementById('moviesGrid').innerHTML = ""; renderGrid(data.results.filter(i => i.poster_path));
+            } else if (q.length === 0) { loadFeatured(); }
         }
 
-        function closePlayer() {
-            document.getElementById('videoPlayerContainer').style.display = 'none';
-            document.getElementById('mainPlayer').src = '';
-        }
-
-        // جلب البيانات الأساسية
-        async function loadFeatured() {
-            const ids = [93405, 1396, 157336, 634649, 100088, 71446];
-            const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "";
-            for(let id of ids) {
-                const type = id > 100000 ? 'movie' : 'tv';
-                const res = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}`);
-                const m = await res.json();
-                grid.innerHTML += renderCard(m, type);
-            }
-        }
-
-        function renderCard(m, type) {
-            return `
-                <div class="movie-card" onclick="openPlayer('${m.id}', '${type}')">
-                    <img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name}">
-                    <div class="movie-title">${m.title || m.name}</div>
-                </div>`;
-        }
-
-        async function loadContent(type) {
-            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}`);
-            const data = await res.json();
-            document.getElementById('moviesGrid').innerHTML = data.results.map(m => renderCard(m, type)).join('');
-        }
-
-        // تشغيل شاشة التحميل
-        window.onload = () => {
-            loadFeatured();
-            let w = 0;
-            const bar = document.getElementById('progress-bar');
-            const iv = setInterval(() => {
-                w += 10; bar.style.width = w + '%';
-                if(w >= 100) {
-                    clearInterval(iv);
-                    document.getElementById('splash-screen').style.opacity = '0';
-                    setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 500);
-                }
-            }, 50);
-        };
+        window.onload = () => loadFeatured();
     </script>
 </body>
 </html>
