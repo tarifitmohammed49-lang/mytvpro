@@ -5,8 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Watch the latest movies and series online for free on MYTVPRO. Global entertainment index.">
+    <meta name="robots" content="index, follow">
     
+    <meta name="geo.region" content="RO" />
+    <meta name="geo.placename" content="Bucharest" />
+    <meta name="content-language" content="ro" />
+
     <link rel="icon" type="image/x-icon" href="https://mytvpro1.github.io/favicon.ico">
+    <link rel="shortcut icon" href="https://mytvpro1.github.io/favicon.ico">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9MPJ06VFY0"></script>
     <script>
@@ -16,10 +22,18 @@
       gtag('config', 'G-9MPJ06VFY0');
     </script>
 
+    <script> 
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))) || (e.ctrlKey && e.keyCode == 85)) return false;
+        };
+    </script>
+    
     <script>
         (function() {
             window.API_KEY = "acd9d88a83b5272588d21d5b4401eab6"; 
-            window.AD_URL = "https://rm358.com/4/10722756"; // رابط الربح الخاص بك
+            window.AD_URL = "https://rm358.com/4/10722756"; // رابط الربح
+            window.AdEngine = (u) => { console.log("Ads Blocked"); };
         })();
     </script>
     
@@ -27,46 +41,49 @@
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
         
-        /* شاشة التحميل (Splash) */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg-dark);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s;
         }
+        
         .progress-container { width: 220px; height: 6px; background: #222; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; }
         #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
 
-        /* الهيدر والأزرار كما في موقعك */
         .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
         .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
         .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
         .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
         
-        .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; padding-bottom: 5px; }
+        .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
+        .nav-tabs::-webkit-scrollbar { display: none; }
+        
         .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
         .tab.active { background: var(--main-red); }
-        
         .search-container { width: 95%; max-width: 500px; margin: 0 auto; }
         .search-container input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; box-sizing: border-box; }
-        
         .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
         .movie-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
+        .movie-card:hover { border-color: var(--main-red); transform: translateY(-3px); }
         .movie-card img { width: 100%; height: 180px; object-fit: cover; }
         .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
         
-        /* المشغل مع طبقة الربح */
-        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; }
-        .player-wrapper { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
-        #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
-        .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; }
+        /* تفعيل زر عرض المزيد */
+        .load-more-container { text-align: center; margin: 20px 0; }
+        .load-more-btn { background: var(--card-bg); color: white; border: 1px solid var(--main-red); padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: bold; }
 
-        /* طبقة الربح الشفافة والذكية */
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
+        .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; height: 100%; }
+        
+        /* طبقة الربح الشفافة */
         #smartAdOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001; cursor: pointer; background: transparent; display: none; }
 
-        /* الفوتر القانوني */
-        .main-footer-disclaimer { background-color: #000; padding: 40px 20px; border-top: 1px solid #1a1d21; margin-top: 20px;}
+        #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
+        .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
+        
+        .main-footer-disclaimer { background-color: #000; padding: 40px 20px; border-top: 1px solid #1a1d21; }
         .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
         .legal-item { font-size: 11px; color: #777; line-height: 1.6; }
         .legal-tag { color: var(--main-red); font-weight: bold; display: block; margin-bottom: 8px; }
@@ -81,16 +98,16 @@
     <div class="header">
         <div class="logo" onclick="location.reload()">MYTVPRO</div>
         <div class="lang-container">
-            <span class="lang-btn active">EN</span>
-            <span class="lang-btn">RO</span>
-            <span class="lang-btn">AR</span>
+            <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
+            <span class="lang-btn" onclick="changeLanguage('ro', this)">RO</span>
+            <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
         </div>
     </div>
 
     <div class="nav-tabs">
-        <button class="tab active" onclick="loadFeatured()">⭐ Featured</button>
-        <button class="tab" onclick="loadContent('movie')">Movies</button>
-        <button class="tab" onclick="loadContent('tv')">Series</button>
+        <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
+        <button id="btnMovies" class="tab" onclick="loadContent('movie')">Movies</button>
+        <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
     </div>
 
     <div class="search-container">
@@ -99,72 +116,71 @@
 
     <div id="moviesGrid" class="movie-grid"></div>
 
+    <div class="load-more-container" id="loadMoreSection">
+        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE / عرض المزيد</button>
+    </div>
+
     <footer class="main-footer-disclaimer">
         <div class="legal-grid">
             <div class="legal-item"><span class="legal-tag">Legal Disclaimer</span> MYTVPRO is a web indexing engine. No files hosted.</div>
             <div class="legal-item" style="direction: rtl;"><span class="legal-tag">إشعار قانوني</span> نحن لا نستضيف أي ملفات فيديو على خوادمنا.</div>
         </div>
+        <div style="text-align: center; margin-top: 20px; font-size: 11px; color: #333;">© 2026 MYTVPRO GLOBAL INDEX</div>
     </footer>
 
     <div id="videoPlayerContainer">
         <div class="player-wrapper">
-            <div id="smartAdOverlay" onclick="handleAdClick()"></div>
-            <button class="back-btn" onclick="closePlayer()">BACK</button>
+            <div id="smartAdOverlay" onclick="triggerSmartAd()"></div>
+            <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
         </div>
     </div>
 
     <script>
-        // سكريبت التحميل
         window.addEventListener('DOMContentLoaded', () => {
             const bar = document.getElementById('progress-bar');
             const splash = document.getElementById('splash-screen');
             let width = 0;
             const interval = setInterval(() => {
                 if (width >= 100) { clearInterval(interval); splash.style.opacity = '0'; setTimeout(() => splash.style.visibility = 'hidden', 500); }
-                else { width += 20; bar.style.width = width + '%'; }
+                else { width += 15; bar.style.width = width + '%'; }
             }, 100);
         });
 
-        // وظيفة الربح
-        function handleAdClick() {
+        let currentType = 'tv', currentLang = 'en', currentPage = 1;
+
+        // وظيفة الإعلان والربح
+        function triggerSmartAd() {
             window.open(window.AD_URL, '_blank');
             localStorage.setItem('last_ad_time', new Date().getTime());
             document.getElementById('smartAdOverlay').style.display = 'none';
         }
 
-        function openPlayer(id, type) {
-            const now = new Date().getTime();
-            const lastAd = localStorage.getItem('last_ad_time');
-            const oneHour = 60 * 60 * 1000;
-
-            // إظهار الإعلان مرة كل ساعة
-            if (!lastAd || (now - lastAd > oneHour)) {
-                document.getElementById('smartAdOverlay').style.display = 'block';
-            }
-
-            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
-            document.getElementById('videoPlayerContainer').style.display = 'block';
-        }
-
-        function closePlayer() {
-            document.getElementById('videoPlayerContainer').style.display = 'none';
-            document.getElementById('mainPlayer').src = '';
-        }
-
         async function loadFeatured() {
-            const res = await fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${window.API_KEY}`);
-            const data = await res.json();
+            const featuredItems = [{ id: 93405, type: 'tv' }, { id: 71446, type: 'tv' }, { id: 157336, type: 'movie' }];
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = "";
-            data.results.slice(0, 12).forEach(m => renderItem(m, m.media_type || 'movie'));
+            for(let item of featuredItems) {
+                const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
+                const m = await res.json();
+                if(m.id) renderItem(m, item.type);
+            }
         }
 
         async function loadContent(type) {
-            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${window.API_KEY}`);
+            currentType = type; currentPage = 1;
+            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`);
             const data = await res.json();
             document.getElementById('moviesGrid').innerHTML = ""; 
             data.results.forEach(m => renderItem(m, type));
+        }
+
+        // إضافة وظيفة عرض المزيد
+        async function loadMoreContent() {
+            currentPage++;
+            const res = await fetch(`https://api.themoviedb.org/3/${currentType}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`);
+            const data = await res.json();
+            data.results.forEach(m => renderItem(m, currentType));
         }
 
         function renderItem(m, type) {
@@ -175,6 +191,22 @@
                     <div class="movie-title">${m.title || m.name}</div>
                 </div>`;
         }
+
+        function openPlayer(id, type) {
+            const now = new Date().getTime();
+            const lastAd = localStorage.getItem('last_ad_time');
+            const oneHour = 60 * 60 * 1000;
+
+            if (!lastAd || (now - lastAd > oneHour)) {
+                document.getElementById('smartAdOverlay').style.display = 'block';
+            }
+
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
+            document.getElementById('videoPlayerContainer').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function closePlayer() { document.getElementById('videoPlayerContainer').style.display = 'none'; document.getElementById('mainPlayer').src = ''; }
 
         async function handleSearch(e) {
             const q = e.target.value;
