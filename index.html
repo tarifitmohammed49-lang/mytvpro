@@ -100,50 +100,48 @@
         #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
 
         .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
-        .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
+        .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; }
         .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
-        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
+        .lang-btn { color: #888; font-weight: bold; cursor: pointer; font-size: 11px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
         
-        .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
+        .nav-tabs { display: flex; gap: 8px; justify-content: center; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         
-        .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
+        .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; transition: 0.3s; }
         .tab.active { background: var(--main-red); }
-        .search-container { width: 95%; max-width: 500px; margin: 0 auto; }
-        .search-container input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; box-sizing: border-box; }
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
-        .movie-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
-        .movie-card:hover { border-color: var(--main-red); transform: translateY(-3px); }
-        .movie-card img { width: 100%; height: 180px; object-fit: cover; }
-        .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
+        .tab.featured { display: flex; align-items: center; gap: 5px; }
+
+        .search-container { width: 95%; max-width: 500px; margin: 0 auto 20px auto; }
+        .search-container input { width: 100%; padding: 14px; border-radius: 25px; border: 1px solid #222; background: #16191d; color: white; outline: none; box-sizing: border-box; font-size: 15px; }
+        
+        /* تصميم الشبكة الثنائي كما في الصورة */
+        .movie-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px; }
+        @media (min-width: 768px) { .movie-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .movie-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
+        .movie-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+        .movie-title { padding: 8px; font-size: 12px; height: 32px; overflow: hidden; font-weight: 500; color: #ccc; }
         
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
-        .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
+        .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; height: 100%; }
         
         /* طبقة الإعلان الشفافة فوق المشغل */
-        .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); display: none; }
+        .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); display: none; }
         
-        .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
-
-        #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
-        .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
+        #mainPlayer { width: 100%; height: 100%; background: #000; border: none; }
+        .close-player-btn { position: absolute; top: 20px; left: 20px; background: var(--main-red); color: #fff; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 10002; }
         
-        .footer-app-box { text-align: center; padding: 30px 20px; margin: 20px auto; max-width: 600px; border-radius: 15px; background: linear-gradient(145deg, #1a1d21, #0b0e11); border: 1px solid #222; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
-        .footer-app-box h3 { color: var(--main-red); margin: 0 0 10px 0; font-size: 18px; }
-        .footer-app-box p { color: #888; font-size: 12px; margin-bottom: 20px; }
-        .footer-install-btn { display: inline-flex; align-items: center; background: var(--main-red); color: white; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 13px; transition: 0.3s; }
+        .show-more { text-align: center; margin: 30px 0; }
+        .show-more button { background: transparent; color: var(--main-red); border: 2px solid var(--main-red); padding: 10px 40px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; text-transform: uppercase; }
 
-        .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; }
-        .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .legal-item { font-size: 11px; color: #777; line-height: 1.6; text-align: justify; }
-        .legal-tag { color: var(--main-red); font-weight: bold; display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 12px; }
-        .footer-copyright-pro { text-align: center; margin-top: 30px; border-top: 1px solid #111; padding-top: 20px; font-size: 11px; color: #333; letter-spacing: 1px; }
+        .footer-app-box { text-align: center; padding: 30px 20px; margin: 20px auto; max-width: 600px; border-radius: 15px; background: #16191d; border: 1px solid #222; }
+        .footer-app-box h3 { color: var(--main-red); margin-bottom: 10px; font-size: 18px; }
+        .footer-install-btn { display: inline-block; background: var(--main-red); color: white; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 15px; }
 
-        .load-more-container { text-align: center; margin: 30px 0; }
-        .load-more-btn { background: transparent; color: var(--main-red); border: 2px solid var(--main-red); padding: 10px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-
-        @media (max-width: 600px) { .legal-grid { grid-template-columns: 1fr; } }
+        .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; text-align: center; }
+        .legal-item { font-size: 11px; color: #555; margin-bottom: 10px; }
+        .footer-copyright-pro { font-size: 10px; color: #333; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -155,15 +153,15 @@
     </div>
 
     <div class="header">
-        <div class="logo" onclick="location.reload()">MYTVPRO</div>
+        <div class="logo">MYTVPRO</div>
         <div class="lang-container">
-            <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
-            <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
+            <span class="lang-btn active" onclick="setLang('en')">EN</span>
+            <span class="lang-btn" onclick="setLang('ar')">AR</span>
         </div>
     </div>
 
     <div class="nav-tabs">
-        <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
+        <button id="btnFeatured" class="tab active featured" onclick="loadFeatured()">⭐ Featured</button>
         <button id="btnMovies" class="tab" onclick="loadContent('movie')">Movies</button>
         <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
     </div>
@@ -174,51 +172,46 @@
 
     <div id="moviesGrid" class="movie-grid"></div>
 
-    <div class="load-more-container" id="loadMoreSection">
-        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE</button>
+    <div class="show-more">
+        <button onclick="loadMore()">SHOW MORE</button>
     </div>
 
     <div class="footer-app-box">
         <h3>GET MYTVPRO APP</h3>
-        <p>For a faster and better experience, install our official app now!</p>
-        <a href="https://mytvpro1.github.io/mytvpro.apk" download="mytvpro.apk" class="footer-install-btn">INSTALL APP</a>
+        <p style="color: #888; font-size: 12px;">Faster experience, anytime, anywhere.</p>
+        <a href="https://mytvpro1.github.io/mytvpro.apk" download class="footer-install-btn">INSTALL APP</a>
     </div>
 
     <footer class="main-footer-disclaimer">
-        <div class="legal-grid">
-            <div class="legal-item"><span class="legal-tag">Legal</span>MYTVPRO is an indexing engine only.</div>
-            <div class="legal-item" style="direction: rtl;"><span class="legal-tag">قانوني</span>محرك بحث وفهرسة فقط.</div>
-        </div>
+        <div class="legal-item">MYTVPRO is an indexing engine only.</div>
         <div class="footer-copyright-pro">© 2026 MYTVPRO GLOBAL INDEX</div>
     </footer>
 
     <div id="videoPlayerContainer">
         <div class="player-wrapper">
+            <button class="close-player-btn" onclick="closePlayer()">CLOSE</button>
             <div id="adOverlay" class="ad-overlay" onclick="triggerAd()"></div>
-            <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
         </div>
     </div>
 
     <script>
-        // دالة تفعيل الإعلان (تعمل كل 90 دقيقة)
+        // دالة الإعلان
         function triggerAd() {
-            const currentTime = new Date().getTime();
             if(window.AdEngine) { 
                 window.AdEngine("//rm358.com/4/10722756"); 
-                localStorage.setItem('lastAdTime', currentTime); 
+                localStorage.setItem('lastAdTime', new Date().getTime()); 
             }
             document.getElementById('adOverlay').style.display = 'none';
         }
 
         function openPlayer(id, type) {
-            const currentTime = new Date().getTime();
-            const lastAdTime = localStorage.getItem('lastAdTime');
-            const interval = 90 * 60 * 1000; // 90 دقيقة
-
-            // إظهار طبقة الإعلان فقط إذا انتهت المدة
+            const now = new Date().getTime();
+            const lastAd = localStorage.getItem('lastAdTime');
             const overlay = document.getElementById('adOverlay');
-            if (!lastAdTime || (currentTime - lastAdTime > interval)) {
+
+            // إظهار الإعلان فقط إذا مر 90 دقيقة
+            if (!lastAd || (now - lastAd > 90 * 60 * 1000)) {
                 overlay.style.display = 'block';
             } else {
                 overlay.style.display = 'none';
@@ -226,7 +219,6 @@
 
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
-            window.scrollTo(0,0);
         }
 
         function closePlayer() { 
@@ -234,12 +226,11 @@
             document.getElementById('mainPlayer').src = ''; 
         }
 
-        // --- باقي منطق الموقع الأصلي (Featured, Content, Search) ---
         async function loadFeatured() {
-            const featuredIds = [93405, 1396, 157336, 634649];
+            const ids = [93405, 1396, 157336, 634649, 100088, 71446];
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = "";
-            for(let id of featuredIds) {
+            for(let id of ids) {
                 const type = id > 100000 ? 'movie' : 'tv';
                 const res = await fetch(`https://api.themoviedb.org/3/${type}/${id}?api_key=${window.API_KEY}`);
                 const m = await res.json();
@@ -250,8 +241,7 @@
         async function loadContent(type) {
             const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${window.API_KEY}`);
             const data = await res.json();
-            const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = data.results.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
+            document.getElementById('moviesGrid').innerHTML = data.results.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
         }
 
         async function handleSearch(e) {
@@ -265,11 +255,11 @@
 
         window.onload = () => {
             loadFeatured();
-            const bar = document.getElementById('progress-bar');
             let w = 0;
+            const bar = document.getElementById('progress-bar');
             const iv = setInterval(() => {
                 w += 20; bar.style.width = w + '%';
-                if(w >= 100) { clearInterval(iv); document.getElementById('splash-screen').style.opacity = '0'; setTimeout(() => document.getElementById('splash-screen').style.visibility='hidden', 500); }
+                if(w >= 100) { clearInterval(iv); document.getElementById('splash-screen').style.opacity = '0'; setTimeout(() => document.getElementById('splash-screen').style.display='none', 500); }
             }, 100);
         };
     </script>
