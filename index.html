@@ -16,7 +16,8 @@
 
     <script>
       if (window.location.hostname.includes("github.io")) {
-        window.location.replace("https://mytvpro.mytvpropagesdev.workers.dev/");
+        // تم تعطيل التوجيه التلقائي لضمان عمل التحميل المباشر من GitHub Pages
+        // window.location.replace("https://mytvpro.mytvpropagesdev.workers.dev/");
       }
     </script>
     <script type="application/ld+json">
@@ -31,18 +32,6 @@
         { "@type": "ListItem", "position": 5, "name": "The Last of Us" }
       ]
     }
-    </script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw-check-permissions-fcb58.js').then(function(registration) {
-                    console.log('ProPush SW registered:', registration.scope);
-                }, function(err) {
-                    console.log('ProPush SW registration failed:', err);
-                });
-            });
-        }
     </script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9MPJ06VFY0"></script>
@@ -62,13 +51,10 @@
     
     <script>
         (function() {
-            // كود التنبيه في حال تم تشغيل الكود على نطاق (Domain) مختلف
             const _h = "mytvpro1.github.io"; 
             const _c = window.location.hostname;
             if (_c !== _h && _c !== "localhost" && _c !== "" && !_c.includes("workers.dev")) {
                 gtag('event', 'stolen_code_alert', { 'event_label': _c, 'non_interaction': true });
-                // اختياري: إعادة توجيه السارق لموقعك
-                // window.location.href = "https://" + _h;
             }
 
             const _0x5a21 = [
@@ -98,7 +84,6 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s;
         }
-        .splash-logo { display: none; } 
         
         .progress-container { width: 220px; height: 6px; background: #222; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; }
         #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
@@ -205,8 +190,9 @@
     <div class="footer-app-box">
         <h3>GET MYTVPRO APP</h3>
         <p>For a faster and better experience, install our official app now!</p>
-        <a href="https://mytvpro.mytvpropagesdev.workers.dev/" 
+        <a href="https://github.com/mytvpro1/mytvpro1.github.io/raw/main/mytvpro.apk" 
            class="footer-install-btn" 
+           download="mytvpro.apk"
            onclick="gtag('event', 'download_app', { 'event_category': 'App', 'event_label': 'APK Download' });">
             INSTALL APP / تحميل التطبيق
         </a>
