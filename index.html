@@ -8,6 +8,8 @@
     <meta name="description" content="Watch the latest movies and series online for free on MYTVPRO. Global entertainment index.">
     <meta name="keywords" content="MYTVPRO, مشاهدة أفلام مجانا, مسلسلات أون لاين, أفلام المغرب, EgyBest alternative, watch movies free online">
     <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://mytvpro.mytvpropagesdev.workers.dev/" />
     
     <meta name="geo.region" content="RO" />
     <meta name="geo.placename" content="Bucharest" />
@@ -17,10 +19,12 @@
     <link rel="shortcut icon" href="https://mytvpro1.github.io/favicon.ico">
 
     <script>
-      if (window.location.hostname.includes("github.io")) {
-        window.location.replace("https://mytvpro.mytvpropagesdev.workers.dev/");
+      // تحديث كود التوجيه ليكون أكثر دقة وسرعة
+      if (window.location.hostname === "mytvpro1.github.io") {
+        window.location.replace("https://mytvpro.mytvpropagesdev.workers.dev" + window.location.pathname + window.location.search);
       }
     </script>
+    
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -64,7 +68,7 @@
     
     <script>
         (function() {
-            const _h = "mytvpro1.github.io"; 
+            const _h = "mytvpro.mytvpropagesdev.workers.dev"; // تحديث النطاق الموثوق هنا أيضاً
             const _c = window.location.hostname;
             if (_c !== _h && _c !== "localhost" && _c !== "" && !_c.includes("workers.dev")) {
                 gtag('event', 'stolen_code_alert', { 'event_label': _c, 'non_interaction': true });
@@ -88,29 +92,20 @@
     </script>
     
     <style>
+        /* كود الـ CSS يبقى كما هو دون تغيير */
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
-        
-        #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-dark);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s;
-        }
+        #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s; }
         .splash-logo { display: none; } 
-        
         .progress-container { width: 220px; height: 6px; background: #222; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; }
         #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
-
         .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
         .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
         .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
         .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
-        
         .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
         .nav-tabs::-webkit-scrollbar { display: none; }
-        
         .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
         .tab.active { background: var(--main-red); }
         .search-container { width: 95%; max-width: 500px; margin: 0 auto; }
@@ -120,36 +115,28 @@
         .movie-card:hover { border-color: var(--main-red); transform: translateY(-3px); }
         .movie-card img { width: 100%; height: 180px; object-fit: cover; }
         .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
-        
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
-        
         .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
         .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
-
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
-        
         .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; }
         .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
         .legal-item { font-size: 11px; color: #777; line-height: 1.6; text-align: justify; }
         .legal-tag { color: var(--main-red); font-weight: bold; display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 12px; }
         .footer-copyright-pro { text-align: center; margin-top: 30px; border-top: 1px solid #111; padding-top: 20px; font-size: 11px; color: #333; letter-spacing: 1px; }
-
         .safe-info-box { width: 100%; background: rgba(255, 59, 92, 0.04); border-top: 2px solid var(--main-red); padding: 25px; margin-top: 20px; box-sizing: border-box; }
         .warning-section { border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 15px; }
         .safe-line { font-size: 13px; margin-bottom: 8px; color: #ccc; }
         .safe-line.ar { text-align: right; font-size: 15px; color: #fff; font-weight: bold; direction: rtl; }
-        
         .load-more-container { text-align: center; margin: 30px 0; }
         .load-more-btn { background: transparent; color: var(--main-red); border: 2px solid var(--main-red); padding: 10px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .load-more-btn:hover { background: var(--main-red); color: white; }
-
         @media (max-width: 600px) { .legal-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-
     <div id="splash-screen">
         <div class="progress-container">
             <div id="progress-bar"></div>
