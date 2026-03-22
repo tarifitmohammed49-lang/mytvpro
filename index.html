@@ -128,6 +128,7 @@
         .warning-section { border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 15px; }
         .safe-line { font-size: 13px; margin-bottom: 8px; color: #ccc; }
         .safe-line.ar { text-align: right; font-size: 15px; color: #fff; font-weight: bold; direction: rtl; }
+        .disclaimer-pro { font-size: 11px; color: #777; line-height: 1.5; margin-top: 10px; border-left: 2px solid #333; padding-left: 10px; }
         .load-more-container { text-align: center; margin: 30px 0; }
         .load-more-btn { background: transparent; color: var(--main-red); border: 2px solid var(--main-red); padding: 10px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .load-more-btn:hover { background: var(--main-red); color: white; }
@@ -211,6 +212,13 @@
                     <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
                     <div class="safe-line"><strong>NOTICE (EN):</strong> Any advertisements appearing within the video player are from external third-party sources.</div>
                     <div class="safe-line"><strong>AVERTISMENT (RO):</strong> Orice reclame care apar în interiorul playerului video sunt din surse externe terțe.</div>
+                    
+                    <div class="disclaimer-pro">
+                        <strong>Disclaimer (EN):</strong> MYTVPRO acts solely as a search index. We do not host, control, or take responsibility for the content, privacy policies, or practices of any third-party video providers or advertisers.
+                    </div>
+                    <div class="disclaimer-pro">
+                        <strong>Avis de non-responsabilité (FR):</strong> MYTVPRO agit uniquement en tant qu'index de recherche. Nous n'hébergeons, ne contrôlons et n'assumons aucune responsabilité quant au contenu, aux politiques de confidentialité ou aux pratiques de tout fournisseur de vidéo ou annonceur tiers.
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,7 +279,6 @@
                     if(m.id) grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name} online free"><div class="movie-title">${m.title || m.name}</div></div>`;
                 } catch(e) {}
             }
-            // تعديل: تفعيل زر عرض المزيد في قسم Featured
             document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
@@ -299,7 +306,6 @@
             currentPage++;
             let url = "";
             if (isFeatured) {
-                // إذا كنا في قسم Featured، نجلب أفلاماً شائعة إضافية
                 url = `https://api.themoviedb.org/3/trending/all/day?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`;
             } else {
                 url = currentGenre ? `https://api.themoviedb.org/3/discover/${currentType}?api_key=${window.API_KEY}&language=${currentLang}&with_genres=${currentGenre}&page=${currentPage}` : `https://api.themoviedb.org/3/${currentType}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`;
