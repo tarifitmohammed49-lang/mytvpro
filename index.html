@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="ro" dir="ltr"> <head>
-    <title>MYTVPRO - Watch Movies & Series Online Free</title>
+<html lang="ar" dir="ltr"> 
+<head>
+    <title>MYTVPRO - مشاهدة أفلام ومسلسلات أون لاين مجاناً | Watch Free Movies & Series</title>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="X_YLEA1qHanoOXBP6fCXulTEg-CGk4dGq1Qgx1G3VkI" />
-    <meta name="description" content="Watch the latest movies and series online for free on MYTVPRO. Global entertainment index.">
-    <meta name="keywords" content="MYTVPRO, مشاهدة أفلام مجانا, مسلسلات أون لاين, أفلام المغرب, EgyBest alternative, watch movies free online">
-    <meta name="robots" content="index, follow">
-
+    
+    <meta name="description" content="استمتع بمشاهدة أحدث الأفلام والمسلسلات العالمية والعربية مجاناً على MYTVPRO. جودة عالية، سيرفرات سريعة، وأفضل بديل لمواقع إيجي بست وماي سيما بدون إعلانات مزعجة.">
+    
+    <meta name="keywords" content="MYTVPRO, ماي تي في برو, مشاهدة أفلام مجانا, مسلسلات أون لاين, أفلام المغرب, EgyBest alternative, MyCima, مشاهدة مسلسل The Last of Us مترجم, حصريات الأفلام 2026, watch movies free online">
+    
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://mytvpro.mytvpropagesdev.workers.dev/" />
     
-    <meta name="geo.region" content="RO" />
-    <meta name="geo.placename" content="Bucharest" />
-    <meta name="content-language" content="ro" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mytvpro.mytvpropagesdev.workers.dev/">
+    <meta property="og:title" content="MYTVPRO - عالمك المجاني للأفلام والمسلسلات">
+    <meta property="og:description" content="شاهد أحدث المسلسلات والأفلام بجودة عالية ومجاناً. اضغط للمشاهدة الآن!">
+    <meta property="og:image" content="https://image.tmdb.org/t/p/w1280/uDzyEG9u9cw69CDvCishnJv7fjU.jpg"> <meta property="og:locale" content="ar_AR">
+
+    <meta name="geo.region" content="MA" />
+    <meta name="geo.placename" content="Casablanca" />
+    <meta name="content-language" content="ar, en, ro" />
 
     <link rel="icon" type="image/x-icon" href="https://mytvpro1.github.io/favicon.ico">
     <link rel="shortcut icon" href="https://mytvpro1.github.io/favicon.ico">
@@ -27,13 +36,26 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MYTVPRO",
+      "url": "https://mytvpro.mytvpropagesdev.workers.dev/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://mytvpro.mytvpropagesdev.workers.dev/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
       "@type": "ItemList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Prison Break" },
         { "@type": "ListItem", "position": 2, "name": "La Casa de Papel" },
-        { "@type": "ListItem", "position": 3, "name": "The Witcher" },
-        { "@type": "ListItem", "position": 4, "name": "Squid Game" },
-        { "@type": "ListItem", "position": 5, "name": "The Last of Us" }
+        { "@type": "ListItem", "position": 3, "name": "The Last of Us" },
+        { "@type": "ListItem", "position": 4, "name": "Squid Game" }
       ]
     }
     </script>
@@ -142,8 +164,8 @@
         </div>
     </div>
 
-    <div class="header">
-        <div class="logo" onclick="location.reload()">MYTVPRO</div>
+    <header class="header">
+        <h1 class="logo" onclick="location.reload()">MYTVPRO</h1>
         <div class="lang-container">
             <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
             <span class="lang-btn" onclick="changeLanguage('ro', this)">RO</span>
@@ -158,7 +180,7 @@
             <span class="lang-btn" onclick="changeLanguage('ru', this)">RU</span>
             <span class="lang-btn" onclick="changeLanguage('zh', this)">中文</span>
         </div>
-    </div>
+    </header>
 
     <div class="nav-tabs">
         <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
@@ -172,10 +194,10 @@
     </div>
 
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search..." onkeyup="handleSearch(event)">
+        <input type="text" id="searchInput" placeholder="Search Movies & Series..." onkeyup="handleSearch(event)">
     </div>
 
-    <div id="moviesGrid" class="movie-grid"></div>
+    <main id="moviesGrid" class="movie-grid"></main>
 
     <div class="load-more-container" id="loadMoreSection">
         <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE / عرض المزيد</button>
@@ -206,7 +228,7 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3b5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 20h.01"></path></svg>
             </div>
             <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
-            <iframe id="mainPlayer" src="" allowfullscreen></iframe>
+            <iframe id="mainPlayer" src="" allowfullscreen title="Video Player"></iframe>
             <div class="safe-info-box">
                 <div class="warning-section">
                     <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
@@ -215,9 +237,6 @@
                     
                     <div class="disclaimer-pro">
                         <strong>Disclaimer (EN):</strong> MYTVPRO acts solely as a search index. We do not host, control, or take responsibility for the content, privacy policies, or practices of any third-party video providers or advertisers.
-                    </div>
-                    <div class="disclaimer-pro">
-                        <strong>Avis de non-responsabilité (FR):</strong> MYTVPRO agit uniquement en tant qu'index de recherche. Nous n'hébergeons, ne contrôlons et n'assumons aucune responsabilité quant au contenu, aux politiques de confidentialité ou aux pratiques de tout fournisseur de vidéo ou annonceur tiers.
                     </div>
                 </div>
             </div>
@@ -243,9 +262,9 @@
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
 
         const translations = {
-            en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
+            en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search Movies & Series...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
             ro: { featured: "⭐ Recomandate", movie: "Filme", tv: "Seriale", search: "Caută...", back: "ÎNAPOI", more: "VEZI MAI MULT" },
-            ar: { featured: "⭐ المقترحة", movie: "أفلام", tv: "مسلسلات", search: "بحث...", back: "رجوع", more: "عرض المزيد" }
+            ar: { featured: "⭐ المقترحة", movie: "أفلام", tv: "مسلسلات", search: "بحث عن أفلام ومسلسلات...", back: "رجوع", more: "عرض المزيد" }
         };
 
         function castToTV() {
@@ -276,7 +295,7 @@
                 try {
                     const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
                     const m = await res.json();
-                    if(m.id) grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name} online free"><div class="movie-title">${m.title || m.name}</div></div>`;
+                    if(m.id) grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name} online free" loading="lazy"><div class="movie-title">${m.title || m.name}</div></div>`;
                 } catch(e) {}
             }
             document.getElementById('loadMoreSection').style.display = 'block'; 
@@ -317,7 +336,7 @@
 
         function renderGrid(list) {
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML += list.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${m.name ? 'tv' : 'movie'}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name} free online"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
+            grid.innerHTML += list.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${m.name ? 'tv' : 'movie'}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name} free online" loading="lazy"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
         }
 
         function triggerAd() {
@@ -352,5 +371,6 @@
 
         window.onload = () => loadFeatured();
     </script>
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9ca686ee6efb457c8a7d9df7a68d8593"}'></script></body>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9ca686ee6efb457c8a7d9df7a68d8593"}'></script>
+</body>
 </html>
