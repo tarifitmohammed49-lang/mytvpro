@@ -26,6 +26,9 @@
 
     <link rel="icon" type="image/x-icon" href="https://mytvpro1.github.io/favicon.ico">
     <link rel="shortcut icon" href="https://mytvpro1.github.io/favicon.ico">
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#ff3b5c">
 
     <script>
       if (window.location.hostname === "mytvpro1.github.io") {
@@ -63,6 +66,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
+                // تفعيل ملف الـ SW الذي قمت بتعديله مسبقاً
                 navigator.serviceWorker.register('/sw-check-permissions-fcb58.js').then(function(registration) {
                     console.log('ProPush SW registered:', registration.scope);
                 }, function(err) {
