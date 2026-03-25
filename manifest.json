@@ -3,12 +3,17 @@
   "name": "MYTVPRO - Premium Streaming",
   "icons": [
     {
-      "src": "https://mytvpro1.github.io/favicon.ico",
+      "src": "favicon.ico",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "start_url": "/",
+  "start_url": "/index.html",
   "display": "standalone",
   "theme_color": "#ff3b5c",
   "background_color": "#0b0e11"
