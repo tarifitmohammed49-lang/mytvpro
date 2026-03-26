@@ -1,5 +1,1 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="beIN_SPORTS_1" tvg-logo="https://i.imgur.com/84N9ZfM.png" group-title="Sports",beIN SPORTS 1
-https://live-bein-1.example.com/playlist.m3u8
-#EXTINF:-1 tvg-id="beIN_SPORTS_2" tvg-logo="https://i.imgur.com/84N9ZfM.png" group-title="Sports",beIN SPORTS 2
-https://live-bein-2.example.com/playlist.m3u8
