@@ -20,7 +20,7 @@ jobs:
         run: pip install requests
 
       - name: Run Simo Sniper
-        run: python sniper.py
+        run: python sniper_script.py
 
       - name: Save Results
         run: |
