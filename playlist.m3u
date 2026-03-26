@@ -1,0 +1,5 @@
+#EXTM3U
+#EXTINF:-1, Simo TV - beIN Source 1
+http://web12.iptv-planet.com:8080/hls/attesiatv.m3u8
+#EXTINF:-1, Simo TV - beIN Source 2
+http://player.elahmad.net/player/#http://htvpalsat.mada.ps:8888/audeh/index.m3u8
