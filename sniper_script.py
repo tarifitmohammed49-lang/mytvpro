@@ -1,29 +1,26 @@
 import requests
-import re
 
-# مصادر روابط beIN Sports - قناص سيمو
+# مصادر قوية ومباشرة
 SOURCES = [
-    "https://raw.githubusercontent.com/MohamedH96/TV/main/Bein.m3u",
-    "https://raw.githubusercontent.com/Mocro-Player/Mocro/main/Mocro.m3u"
+    "https://iptv-org.github.io/iptv/countries/mo.m3u", # قنوات المغرب
+    "https://raw.githubusercontent.com/Stay-S/IPTV/main/free.m3u" # قنوات رياضية متنوعة
 ]
 
 def fetch_links():
     channels_content = "#EXTM3U\n"
-    print("🚀 جاري قنص روابط beIN Sports الجديدة...")
+    print("🚀 جاري محاولة صيد قنوات جديدة...")
     for url in SOURCES:
         try:
-            response = requests.get(url, timeout=10)
+            response = requests.get(url, timeout=15)
             if response.status_code == 200:
-                # البحث عن قنوات beIN بذكاء
-                matches = re.findall(r'(#EXTINF.*?,beIN SPORTS.*?\n(http.*?))', response.text, re.IGNORECASE)
-                for match in matches:
-                    info, link = match
-                    channels_content += f"{info}\n{link}\n"
+                lines = response.text.split('\n')
+                for i in range(len(lines)):
+                    if "beIN" in lines[i] or "Sports" in lines[i]:
+                        channels_content += lines[i] + "\n" + lines[i+1] + "\n"
         except:
             continue
     return channels_content
 
-playlist_data = fetch_links()
+# حفظ النتائج
 with open("playlist.m3u", "w", encoding="utf-8") as f:
-    f.write(playlist_data)
-print("✅ تم تحديث playlist.m3u بنجاح!")
+    f.write(fetch_links())
