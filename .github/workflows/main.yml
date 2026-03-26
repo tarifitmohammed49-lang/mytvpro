@@ -1,0 +1,31 @@
+name: Simo Sniper Auto Update
+on:
+  schedule:
+    - cron: '0 * * * *' # تحديث آلي كل ساعة
+  workflow_dispatch: # زر للتشغيل اليدوي
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Requirements
+        run: pip install requests
+
+      - name: Run Simo Sniper
+        run: python sniper.py
+
+      - name: Save Results
+        run: |
+          git config --global user.name "Simo-Developer"
+          git config --global user.email "simo@mytvpro.com"
+          git add playlist.m3u
+          git commit -m "🚀 صيد جديد: $(date)" || echo "لا توجد تغييرات"
+          git push
