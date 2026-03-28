@@ -273,8 +273,8 @@
         });
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
-        // رابط الـ Worker الخاص بك
-        const CLOUDFLARE_WORKER_URL = 'https://mytvpro.mytvpropagesdev.workers.dev/';
+        // رابط الـ Worker الخاص بك - تم تعديل المسار لضمان الربط الصحيح
+        const CLOUDFLARE_WORKER_URL = 'https://mytvpro.mytvpropagesdev.workers.dev';
 
         const translations = {
             en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search Movies & Series...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
@@ -405,7 +405,7 @@
             window.scrollTo(0,0);
         }
 
-        // مشغل البث المباشر (HLS) المطور للقنوات
+        // مشغل البث المباشر (HLS) المطور للقنوات - تم التحديث ليعمل مع الـ Worker
         function openLivePlayer(streamUrl) {
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
@@ -415,20 +415,42 @@
             const liveVideo = document.getElementById('liveVideoPlayer');
             const mainPlayer = document.getElementById('mainPlayer');
             
-            // إخفاء مشغل الأفلام وإظهار مشغل البث
             mainPlayer.style.display = 'none';
             mainPlayer.src = '';
             liveVideo.style.display = 'block';
             
-            // حقن الـ Worker في رابط البث
-            const proxiedUrl = CLOUDFLARE_WORKER_URL + streamUrl;
+            // حقن الـ Worker في رابط البث مع الوسيط الصحيح ?url=
+            const proxiedUrl = CLOUDFLARE_WORKER_URL + "/?url=" + encodeURIComponent(streamUrl);
 
             if (Hls.isSupported()) {
-                const hls = new Hls();
+                const hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: true
+                });
                 hls.loadSource(proxiedUrl);
                 hls.attachMedia(liveVideo);
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    liveVideo.play();
+                    liveVideo.muted = false;
+                    liveVideo.play().catch(() => {
+                        liveVideo.muted = true;
+                        liveVideo.play();
+                    });
+                });
+                
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        switch (data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                hls.startLoad();
+                                break;
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                hls.recoverMediaError();
+                                break;
+                            default:
+                                hls.destroy();
+                                break;
+                        }
+                    }
                 });
             } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
                 liveVideo.src = proxiedUrl;
