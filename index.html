@@ -68,7 +68,6 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                // تفعيل ملف الـ SW الذي قمت بتعديله مسبقاً
                 navigator.serviceWorker.register('/sw-check-permissions-fcb58.js').then(function(registration) {
                     console.log('ProPush SW registered:', registration.scope);
                 }, function(err) {
@@ -122,7 +121,6 @@
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
         #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s; }
-        .splash-logo { display: none; } 
         .progress-container { width: 220px; height: 6px; background: #222; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; }
         #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
         .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
@@ -190,6 +188,7 @@
 
     <div class="nav-tabs">
         <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
+        <button id="btnLiveFoot" class="tab" onclick="loadLiveFoot()">⚽ Live Foot</button>
         <button id="btnAnime" class="tab" onclick="loadGenre(16, 'tv', 'btnAnime')">🎌 Anime</button>
         <button id="btnAction" class="tab" onclick="loadGenre(28, 'movie', 'btnAction')">🔥 Action</button>
         <button id="btnHorror" class="tab" onclick="loadGenre(27, 'movie', 'btnHorror')">💀 Horror</button>
@@ -307,6 +306,34 @@
             document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
+        // --- دالة تشغيل القنوات الحية (Live Foot) الجديدة ---
+        async function loadLiveFoot() {
+            isFeatured = false; currentGenre = null; currentPage = 1;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('btnLiveFoot').classList.add('active');
+            const grid = document.getElementById('moviesGrid');
+            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب قنوات البث المباشر...</p>";
+            
+            try {
+                const res = await fetch('links.json');
+                const data = await res.json();
+                grid.innerHTML = "";
+                if(data.length === 0) {
+                    grid.innerHTML = "<p style='text-align:center;width:100%;'>لا توجد مباريات جارية حالياً.</p>";
+                }
+                data.forEach(channel => {
+                    grid.innerHTML += `
+                        <div class="movie-card" onclick="openLivePlayer('${channel.url}')">
+                            <img src="https://mytvpro1.github.io/favicon.ico" alt="Live Stream" style="object-fit: contain; padding: 20px; background: #111;">
+                            <div class="movie-title">${channel.name}</div>
+                        </div>`;
+                });
+            } catch(e) {
+                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في تحميل القنوات.</p>";
+            }
+            document.getElementById('loadMoreSection').style.display = 'none';
+        }
+
         async function loadGenre(genreId, type, btnId) {
             isFeatured = false; currentGenre = genreId; currentType = type; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -354,12 +381,26 @@
             document.getElementById('adOverlay').style.display = 'none';
         }
 
+        // مشغل الأفلام العادي
         function openPlayer(id, type) {
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const ninetyMinutes = 90 * 60 * 1000;
             document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
+            document.getElementById('videoPlayerContainer').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        // مشغل البث المباشر (HLS) للقنوات
+        function openLivePlayer(streamUrl) {
+            const lastAdTime = localStorage.getItem('lastAdTimestamp');
+            const currentTime = new Date().getTime();
+            const ninetyMinutes = 90 * 60 * 1000;
+            document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
+            
+            // نستخدم مشغل يدعم HLS مثل vidsrc أو مشغل بسيط
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/tv?tmdb=1&s=1&e=1&url=${encodeURIComponent(streamUrl)}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
         }
