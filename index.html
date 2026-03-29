@@ -36,7 +36,7 @@
 
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mux.js/6.0.1/mux.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <script>
       if (window.location.hostname === "mytvpro1.github.io") {
@@ -378,6 +378,7 @@
             window.scrollTo(0,0);
         }
 
+        // دالة المشغل المحدثة لدعم روابط الـ TS والـ M3U8
         async function openLivePlayer(streamUrl) {
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
@@ -391,19 +392,28 @@
             mainPlayer.src = '';
             liveVideoElement.style.display = 'block';
 
-            if (!vjsPlayer) {
-                vjsPlayer = videojs('liveVideoPlayer', {
-                    html5: { hls: { overrideNative: true }, vhs: { overrideNative: true } }
+            // إذا كان الرابط ينتهي بـ .ts أو يحتوي على output=mpegts نستخدم Hls.js مباشرة
+            if (Hls.isSupported() && (streamUrl.includes('.ts') || streamUrl.includes('output=mpegts'))) {
+                const hls = new Hls({
+                    xhrSetup: function (xhr, url) {
+                        xhr.setRequestHeader('User-Agent', 'VLC/3.0.18 LibVLC/3.0.18');
+                    }
                 });
+                hls.loadSource(streamUrl);
+                hls.attachMedia(liveVideoElement);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    liveVideoElement.play();
+                });
+            } else {
+                // استخدام Video.js للروابط العادية m3u8
+                if (!vjsPlayer) {
+                    vjsPlayer = videojs('liveVideoPlayer', {
+                        html5: { hls: { overrideNative: true }, vhs: { overrideNative: true } }
+                    });
+                }
+                vjsPlayer.src({ src: streamUrl, type: 'application/x-mpegURL' });
+                vjsPlayer.play().catch(e => console.log("Play error:", e));
             }
-
-            let streamType = 'application/x-mpegURL';
-            if (streamUrl.includes('output=mpegts') || streamUrl.includes(':2082') || streamUrl.includes('.ts')) {
-                streamType = 'video/mp2t';
-            }
-
-            vjsPlayer.src({ src: streamUrl, type: streamType });
-            vjsPlayer.play().catch(e => console.log("Play error:", e));
 
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
@@ -415,6 +425,9 @@
             if (vjsPlayer) {
                 vjsPlayer.pause();
             }
+            const liveVideoElement = document.getElementById('liveVideoPlayer');
+            liveVideoElement.pause();
+            liveVideoElement.src = "";
         }
 
         async function handleSearch(e) {
