@@ -53,19 +53,6 @@
       }
     }
     </script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Prison Break" },
-        { "@type": "ListItem", "position": 2, "name": "La Casa de Papel" },
-        { "@type": "ListItem", "position": 3, "name": "The Last of Us" },
-        { "@type": "ListItem", "position": 4, "name": "Squid Game" }
-      ]
-    }
-    </script>
 
     <script>
         if ('serviceWorker' in navigator) {
@@ -269,9 +256,6 @@
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
         
-        // ✅ هذا هو رابط الـ Worker المموه الخاص بك
-        const CLOUDFLARE_WORKER_URL = 'https://autumn-hill-decfmyt-worker.mytvpropagesdev.workers.dev/';
-
         const translations = {
             en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search Movies & Series...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
             ro: { featured: "⭐ Recomandate", movie: "Filme", tv: "Seriale", search: "Caută...", back: "ÎNAPOI", more: "VEZI MAI MULT" },
@@ -317,26 +301,26 @@
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب القنوات المشفرة عبر المحرك الآمن...</p>";
+            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب القنوات المشفرة...</p>";
             
             try {
-                // ✅ جلب الرابط من الـ Worker مباشرة
-                const res = await fetch(CLOUDFLARE_WORKER_URL);
-                const data = await res.json();
+                const res = await fetch('links.json');
+                const channels = await res.json();
                 grid.innerHTML = "";
                 
-                if(!data.url) {
-                    grid.innerHTML = "<p style='text-align:center;width:100%;'>لا توجد مباريات جارية حالياً.</p>";
+                if(!channels || channels.length === 0) {
+                    grid.innerHTML = "<p style='text-align:center;width:100%;'>لا توجد قنوات متاحة حالياً.</p>";
                 } else {
-                    // عرض القناة التي جلبها الـ Worker
-                    grid.innerHTML += `
-                        <div class="movie-card" onclick="openLivePlayer()">
-                            <img src="https://mytvpro1.github.io/favicon.ico" alt="Live Stream" style="object-fit: contain; padding: 20px; background: #111;">
-                            <div class="movie-title">beIN SPORTS HD (Live)</div>
-                        </div>`;
+                    channels.forEach(channel => {
+                        grid.innerHTML += `
+                            <div class="movie-card" onclick="openLivePlayer('${channel.url}')">
+                                <img src="${channel.logo || 'https://mytvpro1.github.io/favicon.ico'}" alt="${channel.name}" style="object-fit: contain; padding: 20px; background: #111;">
+                                <div class="movie-title">${channel.name}</div>
+                            </div>`;
+                    });
                 }
             } catch(e) {
-                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في الاتصال بالمحرك.</p>";
+                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في جلب ملف القنوات.</p>";
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
@@ -400,7 +384,7 @@
             window.scrollTo(0,0);
         }
 
-        async function openLivePlayer() {
+        async function openLivePlayer(streamUrl) {
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const ninetyMinutes = 90 * 60 * 1000;
@@ -413,30 +397,23 @@
             mainPlayer.src = '';
             liveVideo.style.display = 'block';
             
-            try {
-                // ✅ جلب الرابط المموه من الـ Worker
-                const response = await fetch(CLOUDFLARE_WORKER_URL);
-                const data = await response.json();
-                const streamUrl = data.url;
-
-                if (Hls.isSupported()) {
-                    const hls = new Hls({ lowLatencyMode: true });
-                    hls.loadSource(streamUrl);
-                    hls.attachMedia(liveVideo);
-                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                        liveVideo.play();
-                    });
-                    hls.on(Hls.Events.ERROR, function (event, data) {
-                        if (data.fatal) hls.recoverMediaError();
-                    });
-                } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
-                    liveVideo.src = streamUrl;
-                    liveVideo.addEventListener('loadedmetadata', function() {
-                        liveVideo.play();
-                    });
-                }
-            } catch (e) {
-                console.error("فشل في تشغيل البث المباشر");
+            if (Hls.isSupported()) {
+                if (window.hls) { window.hls.destroy(); }
+                const hls = new Hls({ lowLatencyMode: true });
+                window.hls = hls;
+                hls.loadSource(streamUrl);
+                hls.attachMedia(liveVideo);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    liveVideo.play();
+                });
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) hls.recoverMediaError();
+                });
+            } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
+                liveVideo.src = streamUrl;
+                liveVideo.addEventListener('loadedmetadata', function() {
+                    liveVideo.play();
+                });
             }
 
             document.getElementById('videoPlayerContainer').style.display = 'block';
@@ -448,6 +425,7 @@
             document.getElementById('mainPlayer').src = ''; 
             const liveVideo = document.getElementById('liveVideoPlayer');
             liveVideo.pause();
+            if (window.hls) { window.hls.destroy(); }
             liveVideo.src = '';
         }
 
