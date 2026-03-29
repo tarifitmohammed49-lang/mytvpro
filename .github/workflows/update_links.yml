@@ -1,38 +1,32 @@
-name: Simo Sniper Auto Update
+name: Update Live Channels
 
 on:
   schedule:
-    # سيتم التحديث تلقائياً كل 6 ساعات لضمان ثبات الروابط
-    - cron: '0 */6 * * *'
-  workflow_dispatch: # يتيح لك تشغيله يدوياً في أي وقت
+    - cron: '0 * * * *' # يعمل كل ساعة
+  workflow_dispatch: # يسمح لك بتشغيله يدوياً
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: ambassadors/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.x'
 
-      - name: Install Requests
+      - name: Install dependencies
         run: pip install requests
 
-      - name: Run Sniper Shield
-        env:
-          # هنا نقوم بفتح الخزنة وتمرير البيانات للقناص سراً
-          IPTV_USER: ${{ secrets.IPTV_USER }}
-          IPTV_PASS: ${{ secrets.IPTV_PASS }}
-          IPTV_HOST: ${{ secrets.IPTV_HOST }}
-        run: python Simo_Sniper.py
+      - name: Run Sniper
+        run: python sniper.py
 
-      - name: Save Protected Links
+      - name: Commit and Push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add links.json
-          git commit -m "Update Protected Links [Simo Shield]" || exit 0
+          git commit -m "Update links.json" || exit 0
           git push
