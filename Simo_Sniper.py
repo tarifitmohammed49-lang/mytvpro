@@ -1,57 +1,40 @@
-import requests, json
+import json
 
 def hunt():
-    print("🚀 Simo Sniper: Extracting BeIN Sports from your subscription...")
+    print("🚀 Simo Sniper: Injecting Premium BeIN Channels into Live Foot...")
     
-    # رابط اشتراكك الشخصي (الملف الكامل)
-    m3u_url = "http://s1219.x.smline.xyz:2082/get.php?username=287466745324941&password=44754351&type=m3u&output=mpegts"
+    # هذه هي القائمة التي أرسلتها أنت (قنواتك الشغالة)
+    premium_channels = [
+        {"name": "⭐ BeIn 1 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/b1U0TXBPYU85TXRwWTlUYVVKNkNhdWtxcEdnR2tkcHZOUmZzekNNOWMwWWxka1BPNlNKTHlzKzd5Vys4eWo0Wg==.ts"},
+        {"name": "⭐ BeIn 2 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/NEQ5cGhpQWlSTm9kNkFDeGFMWlFpTXdWY0Y0bmUycUlXUnVMb0VwbFhIa0pLWUlEK0pqZEJMRUMwMFhJN3hHMw==.ts"},
+        {"name": "⭐ BeIn 3 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/c0xvTG84ellzWVBaQ3M3eDJ0MCs4bG5tTEJTU2RYN01hNldzUlAvanVlbThoRFFJaDVvRUpFYzBlQkxWWTlJeg==.ts"},
+        {"name": "⭐ BeIn 4 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/amZId09XT3ZmQ3BBUXVUS2dpbFZOV2hSOWFjNjU4V1F0bWVxMG1hSjdwTDhhMHJWTlRvUDZXclRuRThWYmhvTQ==.ts"},
+        {"name": "⭐ BeIn 5 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/dUJxOEoyZWFISWZ4eXEzS3IwTVYxbERGbnNMN3l1RXkrSW9FRDN1UUdXWEtVbTNxS1A2aHcva2lBVFpuT0Rpcg==.ts"},
+        {"name": "⭐ BeIn 6 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/SGVMY0RkUW9NY2NQc2VzelFHMk8wTm1FcUlyYWoxMUVZTnZaeVJsMnVVL3NBU1dnLzhUTWl6SjZGNExOci9NVQ==.ts"},
+        {"name": "⭐ BeIn 7 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/TWxxMGxHclcyRnVGbkhGdW9NTXZzZlZtVEVVV1VmUHBnSnlIb3lKMFNBY2NKS0RLYU9SM3I2bXlRUVc4NjZkWg==.ts"},
+        {"name": "⭐ BeIn 8 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/RjFQckNxWXIwdHJ2bDhSRGZKKzFJME9HaWwwSk9oN2N6TlFQamJqNCszS0J2Q3ZuSmpJZkMrZXFGaitYYmU5WA==.ts"},
+        {"name": "⭐ BeIn 9 FHD", "url": "http://s1219.x.smline.xyz:2082/plays/ZlEyN2E0dlliNVdNektUZDJvS3RHSjFUdVhVc1I4anE0QjR1bVk0Y1k5Wk9ZbmJhVGFqRVFPTlkySHdoZ3lWLw==.ts"},
+        {"name": "⭐ BeIn Sports News FHD", "url": "http://s1219.x.smline.xyz:2082/plays/b0daUHozNUpiQitGL25FN3d4MzdmYWVGQy8zVDMyTVJHdysxNzF3dmVuSXk4b3ROMjFrVnRnemNEK0ZETURIQw==.ts"},
+        {"name": "⭐ beIN Sports 1 HD", "url": "http://s1219.x.smline.xyz:2082/plays/ZDBWbHJBZmM0a3lZRk10NmpIKzZ6a2xCNFV2dzZTUUJSWmY1SWQ0L1NPbWRTWUx1aFFMbVkrL2FFV0ZleUtELzUxOEhmSkQ5ell6cGZBczc5UDJ0Z3c9PQ==.ts"},
+        {"name": "⭐ BeIn 1 FR FHD", "url": "http://s1219.x.smline.xyz:2082/plays/UnZOcG5kT2kzbnU4VDFkNC9lNjhyQVdwSXdwNWczbEtMdjhUcVIxVzErRFcra2l4TzNDbHdlMDRHOTRxUHdEdw==.ts"}
+        # ملاحظة: يمكنك إضافة باقي القنوات بنفس الطريقة هنا
+    ]
+
+    final_list = []
     
-    found_channels = []
-    fake_headers = {"User-Agent": "VLC/3.0.18 LibVLC/3.0.18"}
+    for ch in premium_channels:
+        final_list.append({
+            "name": ch["name"],
+            "url": ch["url"],
+            "logo": "https://mytvpro1.github.io/favicon.ico",
+            "headers": {"User-Agent": "VLC/3.0.18 LibVLC/3.0.18"}
+        })
 
-    try:
-        # جلب محتوى الاشتراك
-        response = requests.get(m3u_url, headers=fake_headers, timeout=20)
-        if response.status_code == 200:
-            lines = response.text.split('\n')
-            for i in range(len(lines)):
-                # البحث عن كلمة BEIN في أسماء القنوات داخل ملفك
-                if "#EXTINF" in lines[i] and "BEIN" in lines[i].upper():
-                    name = lines[i].split(',')[-1].strip()
-                    # التأكد من وجود رابط تحت الاسم
-                    if i + 1 < len(lines) and lines[i+1].startswith('http'):
-                        url = lines[i+1].strip()
-                        found_channels.append({
-                            "name": f"⭐ {name}",
-                            "url": url,
-                            "logo": "https://mytvpro1.github.io/favicon.ico",
-                            "headers": fake_headers # حماية إضافية لكل قناة
-                        })
-            print(f"✅ Found {len(found_channels)} BeIN channels in your account.")
-    except Exception as e:
-        print(f"❌ Error accessing your subscription: {e}")
-
-    # إضافة قنوات تمويه (إخبارية) في نهاية القائمة
-    sources = ["https://iptv-org.github.io/iptv/languages/ara.m3u"]
-    try:
-        r = requests.get(sources[0], timeout=10)
-        if r.status_code == 200:
-            extra_lines = r.text.split('\n')
-            for j in range(len(extra_lines)):
-                if "#EXTINF" in extra_lines[j] and any(w in extra_lines[j].upper() for w in ["AL GHAD", "AL JAZEERA"]):
-                    name = extra_lines[j].split(',')[-1].strip()
-                    if j + 1 < len(extra_lines) and extra_lines[j+1].startswith('http'):
-                        found_channels.append({
-                            "name": name,
-                            "url": extra_lines[j+1].strip(),
-                            "logo": "https://mytvpro1.github.io/favicon.ico"
-                        })
-                if len(found_channels) >= 80: break
-    except: pass
-
-    # حفظ النتيجة النهائية
+    # حفظ الملف ليقرأه الموقع فوراً
     with open('links.json', 'w', encoding='utf-8') as f:
-        json.dump(found_channels, f, ensure_ascii=False, indent=2)
+        json.dump(final_list, f, ensure_ascii=False, indent=2)
+    
+    print(f"✅ Success! {len(final_list)} BeIN channels are now ready for your website.")
 
 if __name__ == "__main__":
     hunt()
