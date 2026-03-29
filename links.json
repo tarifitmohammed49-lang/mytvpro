@@ -1,80 +1,946 @@
 [
   {
-    "name": "⭐ MY PREMIUM SERVER (Simo)",
-    "url": "http://s1219.x.smline.xyz:2082/get.php?username=287466745324941&password=44754351&type=m3u&output=mpegts",
+    "name": "⭐ Bein Espana",
+    "url": "http://s1219.x.smline.xyz:2082/plays/WnhtdTk2ZHgvTHAyWloyRzhGVkN2QnoxV3BsY0xIQVF5dDBFZjZkWjkwVUhkajAxdlkwcVF3TWxBYzlvK3lOMjRCZkU3b1Y3VStrU1JlUGllZzBNQVE9PQ==.ts",
     "logo": "https://mytvpro1.github.io/favicon.ico",
     "headers": {
       "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
     }
   },
   {
-    "name": "Al Ghad TV (1080p)",
-    "url": "https://eazyvwqssi.erbvr.com/alghadtv/alghadtv.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ Bein Sports News",
+    "url": "http://s1219.x.smline.xyz:2082/plays/OS9jZEVMWTE1MXVBUEdPVW94QWMySzhtVmxlUWh4dllOVzRCWFRiUDI5YVNKS0xZVW0xeWxJQkdYSHVYNDlubQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Al Jazeera (1080p)",
-    "url": "https://live-hls-apps-aja-fa.getaj.net/AJA/01.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ Bein Sport",
+    "url": "http://s1219.x.smline.xyz:2082/plays/S3F6TkxFNXhqeDZGWVRjR00zTXA5TFlWQmFTUnVZMzlOc3RyMWdaK3F2bm9HWC80aEVKWnhrd0JYSFNLdENJNg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Al Jazeera Documentary (1080p) [Geo-blocked]",
-    "url": "https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/eFRkU3FSM3hhQ0FBWFRkV2NKMERNUlBDVnN0VXNSSFhmV2NjcTNHaVNaby9xRWJ3MjhFNXAxVHpBcVhycC9maQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Al Jazeera Mubasher (1080p)",
-    "url": "https://live-hls-apps-ajm-fa.getaj.net/AJM/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 1 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RncwL3RITHU4cGZCcmk5R0VjRC9kc0RzWG9GSklGNUtQSExjbzV5TVQyYjNMcXFKL1pCRzRJNzRxMCtORTdzQQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Al Jazeera Mubasher 24 (1080p)",
-    "url": "https://live-hls-apps-ajm24-fa.getaj.net/AJM24/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/WmY5VVJSUmpidHNNWG5ZME9CT2dPcmRxc1ZtaTlZdjg4RHk2R2ZIRVlpcVhjMUJuZEMwWUVZREhELzRzTVp4Tg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Al Jazeera Mubasher Broadcast 2 (1080p)",
-    "url": "https://live-hls-apps-ajm2-fa.getaj.net/AJM2/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 2 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SzhseERxcWd4bHJyS2FNbkMrSkt3K0I0cXo3SzNuam44bm8venR2RWNkUFM1dWtRMEFRNEdENXAzeDFaUVFDNA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Bahrain Sports 1 (720p) [Not 24/7]",
-    "url": "https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 3 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/bXh2SnFxQnQyRWdHWndsWDMyV05yaWljSUQwenpZM213My9uc3E2WWhzT2xOSXFyK0hlQ3ZuZ0p3cnVBYUZSMQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Bahrain Sports 2 (720p) [Not 24/7]",
-    "url": "https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 3 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RGJTV1lzQjVWZ09RSmdiR3c2SnlGQjAzWGpNK3BacTRCYTJpclovMmc0YUEzV1R6U0F3blY2amMzaCtybS9BZA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Jordan Sport (1080p) [Geo-blocked]",
-    "url": "https://jrtv-live.ercdn.net/jordansporthd/jordansporthd.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 4 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/Z1JzYTRmOFphRW4zRXFpT3JxTUpmOENpOUdlalJ2bkhaN0NzVG1kT0VnejY3T3Y2Rk5IU25SUmxNcEhvNnU1cA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Jordan Sport 2 (1080p) [Geo-blocked]",
-    "url": "https://jrtv-live.ercdn.net/learning2/learning2.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 4 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/UHc3VXM1UVhzV1BFZGM5YnlYTFFoaTVQRTNVYSsxSXNxUk84YzQ1NlRoanNIeFQzdnNsMXNzWFdwbXhFNHYrdA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "KTV Sport (1080p)",
-    "url": "https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 5 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/VzB3T2tNSjRBTUNyUk5XNTNjK0wyQ1lTNSt3aStjL25CTGREMjBTODc3RVU2elh3ZXJKbEM2Uk5PTUl0SjRwUg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "KTV Sport Plus (1080p)",
-    "url": "https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 5 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/azU2TEJHNTVSUzh3akYrcnJqeCsxbmVBVTNxeDNRNjNoWHYrZlJKMU10Q0dHa0RTSGhrK3NhSnMwaWJDdUxYeg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Oman Sports TV (1080p) [Not 24/7]",
-    "url": "https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 6 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SngvQVRuZW02SFYyRjVuVTYwRVlsbC9RYXVWVGc4eFg2aUdvcjhnU2lkTDhIbzhRWkUyNjlFMXd2Ryt0UzlGaQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   },
   {
-    "name": "Sharjah Sports (1080p) [Geo-blocked]",
-    "url": "https://svs.itworkscdn.net/smc4sportslive/smc4.smil/playlist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
+    "name": "⭐ BeIn 6 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/b2VvN0pqVmthYmJlVWdkWXBSa1pJOGNGaUZ4N2M3UmlZcnlESEVYQ0FvbGcxTDUzYS8zbHRud1BpSTZqdTJGNA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 7 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/VFdIbWdjbzZ3alV5dE9UTE5CMUNtb0w4YzVyR1I2SWxuN2krU3JRUnBDR3kxTU1LOW9UalZQR0o2bUZiMFphWg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 7 sd",
+    "url": "http://s1219.x.smline.xyz:2082/plays/M1c3eUgvQ051czhzZW5pdDRId1dJdDc1MklncmRHcitTdlhGY2gxa0NTNUxGdkJBOUV4QWpPdFBPZWYwOUZkcQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 8 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/eTBIZzRKMG1rUmJXeGx2ek9yT1BCeURjUjhOaFA5eDVoSS94VEhnWVptdFRCWWhqUUVhZzJVSm9iYjBNZFhvMA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 8 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/YmRvTnFtUlFWc2J4L3ZCVjZjcCt2T0UveStHUUtrbkZkbnQ1a3hKZWpNelM3VUltMDNYb2VFZ21SLzlJMk13ZA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 9 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/TEI4KzBpdzZMY2dIT3pFRlYxcnliVFU4aXlVUnJSMTUxeXBlKzJ2RnZSV2tYQ3QrSGFCYVExcFRRMnFCa2xFbg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 9 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/eko2ZWQ3R2IyU2VGTkRBOFpkcGlVSlQyR3FQZG5rZ0NsL01zL2VVRFdCNytFOFNuS2FTMHFoc05ZYnM3bEhvOA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Xtra 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/U2xVSVAybUFkZXFzRmkyQVdua29kTi9FS25sVkY1b3ZHNkRxYk9FbUhva2xiOHJneFJjR2h6dnFqOUJ2c0NKZQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Xtra 1 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/N1R5MW45R3VRMmdndk1ENjE1bG94bnIxT3l5bVJGUXFiT29hQzZPNU1zMzlBZXN1NUZwNkJmQ2t1OXlYTlZVbQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Xtra 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/enpRNFk2YVFEVU1TSHVONFVlUWRhbVp2WWlYbDVqS3dnSEVNSldZMWdTdjRYRUVTSTdTYjEveXlIYTNBdUpadg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Xtra 2 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/NVlTY2Z5VFM1SVQxWVVraE40c2JoM2d0WlIxUmxwdmNLcHBNa2ExQ1hjWlczRjB1Q1E4YUxLckRwUU5ZREUyYQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Xtra 3 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/d01BMU12QmxmRWhzeEtabmFMTTVFTmRuY1JqT2dmWlJsRVBXdjhBV1kyQ0NuRGJ4cS9GL3lDNUo0WU1UUDlxSg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Xtra 3 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/VGQ0c1dDY0JlZEhKQkM2NTFnRDVIY1R3QkVheUl5VjFqclpPS3l2RHhzb3lIaFE3YWsxMWVYL1U1M21aZUVVZA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn EN 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/cU0zRExDaEc1S1hqQkRsL2Uvc28wS0l6b2l6NlBBdGxvTktJNnROeHpaRFdwWm9vZ1FUL0Z5cFRyR0lHQWFxWQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn EN 1 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/c0pvTmlXQWpoR1VScVBaTHhaTzV4Z1hQamhzNzZtck5ncUZFVGgxcVlVL3B6R2R3Rk1PU3RXQkZtaURHZHBSVA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn EN 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/bHgwU3V0dGdGTXVzdW1Oa0VCN25uR1drb3VScTh5WWMwci9JbmFkcnJtanZOUDR3ekdDYmpaOGQrZW1hRmJRag==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn EN 2 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/VzFKT3RzejZobTRWUnY4bHFEU0h1eEU0NUhFbXdja2ZFb0E2WDdDZnc1RHF4bkhSdEg5WGUxMWMzQTdVOTNxTw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn EN  Xtra",
+    "url": "http://s1219.x.smline.xyz:2082/plays/NG5oUGtBVjNFZE9Qb3hyZlkxa0d0cU9DTGhYbitSUlFWUS82V2hKbW1KNktGWGJqRm5FVFd0U1l3UGVVaXVNVA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn N",
+    "url": "http://s1219.x.smline.xyz:2082/plays/YVRKcVNIUDVJVTF3d05BVnVUTXBwMVRXMzBjeURSOWtoaFc0N2FUNzdCejV0dWxRays0ZXFmbmNVTTNHNDVJVg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn FR 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RWRCS1NtWTZwUTNMRHNGcTFaWG50NTEzTGJoMUJIZW8zVnVGd0kycS9mcytqSS91TUhqcUJKRGVjRUF2dU5GNw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn FR 1 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SlVSL0tDeTBlTjlDYlFJWmRHOFJjRGM1VnRqUkJmUTdSWXh0b3M0dW5pd1dZNmQralBteE5rUFNyemY0NnE0cQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn FR 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SHR2MFFnd2tQTU9lSG9ESDBWaFVIMU1BQit0QlUwbDZtYks2RnhtczRYYktHL012S0pJazBVSHZBalJ0VlJSMw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn FR 2 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/ZkZsT0hLNlVHdG1YWmltdlVFV0JSWlRkWnNPNTJFRDl2VER1SCtDbWZUUENNMGtXeXJTRWJnd3Q0K3k0UXlRRw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn FR 3 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/ZmVLYUZjRithTHhEb281V3ZxZnVUemNYbS9EejBYV3pNdEFXOUFLVzJjSzQ4SDJVK0xTOU9sMTdKY0JSaXcrMg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn FR 3 SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/YzBOMUZvUStucnRHVjJpM1pQOEVLMGRGOEZqTkhTdGpyTXYzbU9uczBERzM1ZnJQNTlmUnNBcWJ6d1RBVjU1dw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport NBA HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SE83QloyUTJYTlcwUXVVaDlZYmVVeCszOGVlTlNPYmlNTmFGZUZzSy9xd2ZOTTRiQU0zdHU0QzUzNllod2V1UA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport NBA SD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/bHNyWW0ySFhya00rOWNxZkkwMnJWeHlobmF6K0RHU0VsckRzVDRSd3dlNVczOVlsNW9Xa2J4dmVKWVRWT2hNdg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ Bein AFC",
+    "url": "http://s1219.x.smline.xyz:2082/plays/UTN1L3FYQzNFdzNQdVU4OWU3bXA1bzJhRWs3SkE4d29idkg2MGk4M0NOMWNtN0d1WjVRaU01WEhhMVNyejdNdQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ Bein AFC 1",
+    "url": "http://s1219.x.smline.xyz:2082/plays/YmorMzlybU53R3hIVmx4NlA1QjhrdUY1VGZjNVh4WHR6VkFzQ21oOVRjaVBkQ1EzV2JxRHNFT0pjamdsVmQyaA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Movies 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/dlJQUVphQ080RWUvalFuQjRkK2dCOXVaSHp0amwxMW44M0JCZkI1OWJ2cEt5R3UwdmRVbWdPclNpRWtIYUN3TzZQMkJodE1rVGwvUCs5Nkx6YTNyTUE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Movies 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/d055OUpmeEQvR0toWWN1a1VJeEk4QitqVG1NVEV2dkpVVm9CY2F5Qklqc1BNWUVmMFR4N3JkbTNxMFlkS1hGZ2pDWGxqWVNJL3M0Y2dPNk83L0FoT2c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Movies 3 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/Zm9NRG9yMERhemFmbTFVKy9ka1ljNWM1bnhWVkQ1Zk5JbEIzWlVSZ1VtamVZaHVRSG4wWTErM1RDdi9CWFBQTStiUzV1UTM3TGVvSER6WklaazJKMXc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Movies 4 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/dlBha1h6d2F0TFRGUnFqSEtDZHZaVVFnOFpFQ25wM1puUTFTRkNPWlh3SDRSSDFkNmliTjJhUW5aVVh5cnp5OFFuTHh1cWVtaWpjbVFnbGU1YmFQSGc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Drama HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/eHhlUHNEWnNLclVEYmhaa3BhalE1Q2JLbFlRNWRTVy9LSWsrRnhuS2ZsSUZ1dEllYzAvMDlJN0JEakVTVm84QTYxYzJZaUd2SWNJSWxJMkRRSytMWHc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Series 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/OGkySHQxYzNMYW5tV3BEanorRkJyY0ZkQ2owU2x6OEY5SGd5eUtrVUZIWTlWdU1QZnJJcUhUMHN6VHVwZVNjYUFiQzJzSjZoSzB1NkhpeFl2Qlk0N3c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn Series 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/bllNRlhXdEFwSFB6TTcvemNnR1ZXbVFaRG9ydmt2ZGxPUjRVR2FPRzlyZUpUSm5QVFpkbjVqRzlRenppLzhsOU1ONEI3UzlTdXNucFZjK3UvVG5INmc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 1 FR",
+    "url": "http://s1219.x.smline.xyz:2082/plays/d2tNcTNKQVAwSlZlcWNaZTBFU3I2V1RPMCtlaXJyZ1J5ZEtMTnJJaWxuUy95Y3RKeVZGb3FFNm9ENzVURFdwWVlKbHVCT2YwQjhjYWVWYmMyTWlzbVE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 2 FR",
+    "url": "http://s1219.x.smline.xyz:2082/plays/R2p0R0JSSTVwUTBzL1MwZHgvQTVKVGVIZTdGdUxhVDlOL3FDSkxoTVZGNElWQVVpWCtVU1RadW5QaE16dEdlN3A4VkFTQUxIbXlyK0U2YjRYZU5CWEE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 3 FR",
+    "url": "http://s1219.x.smline.xyz:2082/plays/V1E4aC9hNmxDLzNFWjFSVm9mMEFxUlovb3Y2Z1dMOXd3aG5WQUQwNmdTdW5ERHZFcFBmdHRJeTlCajR1dWlrTDJMZmcxMit6YlJ4NytQNFJqMW9pWWc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 4",
+    "url": "http://s1219.x.smline.xyz:2082/plays/VEJsNjRmU3EzeG1aaEJET2VNcWFxc1U5YlBtSngyUGljWjA3T0RBRmtkeVdmK3lyWnBteUtlbHZVaFI0VThieUUvTnFhUjdodzdxVnpUTHI3RzRqbnc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 5",
+    "url": "http://s1219.x.smline.xyz:2082/plays/ZlB5WnhicjhvaDJTY0hUTDRLSHYyR1dxN3pqbG9OUVk0eWdST01XRnpKSU9JQm9nMXVyTGhmUDVFdmJJM0IyN0ZqV1lVdVFrQjJnVXJ4R3FCUmgzbVE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 6",
+    "url": "http://s1219.x.smline.xyz:2082/plays/Y05OQ1J4emlPbjRyaXpSeGlXNnRhMEphczl5YWdaaG9VaTJ5YTZwRkZDMWRzY1psaU0xY3FWUFlMcTg5WjlZOHFNdnl4WVpBR24rOXVRSXRXalIxaWc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 7",
+    "url": "http://s1219.x.smline.xyz:2082/plays/MmNaeHF0YkZMSW16WS9KYXlqU2h4ZlBWVmhPdGdDcCtHaEJtR2pjZkU4K0xDM2NvYTV6Ly9KalhQMVhuWFRGZXpjL1UxRmVhWlcrL3dKeVdMWTdjK2c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 8",
+    "url": "http://s1219.x.smline.xyz:2082/plays/L0xEckpaa2JsZHd3WDZjcHJFN2tFRmh1TGlmcVRENHVCNzRST2pLZk10YVk2NzRWWGRTV1NxWWRWcXpmbEovM08wYzhaQW1VYmd6VzNZN2JtSE8rZUE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 9",
+    "url": "http://s1219.x.smline.xyz:2082/plays/VGU1eFVpaGVsRXVRK2lpOEJqSUF2VHhqZDBCUzVUSGxMM052L0tVUi8vTEpjdEdwbzlZai8rMGhpWDdKcXZ5SmJjQXNNbFJiblhoUDJzTmlSZm5vZFE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 10",
+    "url": "http://s1219.x.smline.xyz:2082/plays/cXo4cS90NUpVcWJtVWVsblc0TTJEcnJ1QjhNTk9QUXlMakVDWFBGSExEOXgrZlRDd3RuNW1ZNG9UTDA5RVZFcVc1R3dKZHJUT1hZM3A0OGwwa1pWRkE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 1 FR",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RXdYNjNJTjZ3cHNlY1BQQVRMYTduRjVieFV4RHVlV2ZwN1pKWU5tZUVRa3ZyR0pvUVdadTRmQkxIc0tJQVlFbnNrS0pQRWIvSy8wZ041MklFWjgyRXc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 2 FR",
+    "url": "http://s1219.x.smline.xyz:2082/plays/dG1jUUdSRjR1UC9YOEY0amxmcWJIcVRWSWN5eHd3Skk5ZFBBK2ZIRjk3UG9OdE5YTEcwL2tCSnd2Q2JMcW9YSFF4SEZWQVRGTzNzU0xxZk5zaUtYZFE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 3 FR",
+    "url": "http://s1219.x.smline.xyz:2082/plays/VU5ySzJWdndVWkQ2YWRDL0Z3Q2dQRjRxNC95dk1DelZjbmdwV0p2aTQzSjJQUStnb2ZOS0NWRjF0MHgzMEtxV3BIK1FlTi9WOTFaOXRGNk1IejBsR0E9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 4",
+    "url": "http://s1219.x.smline.xyz:2082/plays/cFc1TzJBNzdrZGpBOElxblpTTVQzSjdtQ2dQZ05yd1R4NGNhZlpQSkk1NlFMRjNZUS9obm5WK1BCRS9PQ2VNeGlEYVFJekp4U3pqWFk3alRUNzRYd2c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 5",
+    "url": "http://s1219.x.smline.xyz:2082/plays/aElmMWdxVW9iY0tkR00wV1Z6NFRCY0RsYXNYYnJKdnowVitpVTZXMEY3cFhCWXhvdGZYMmhZNmZub2RURzIvcjF2T3NDLzRRZTFVOFVLRVBPOXRGeFE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 6",
+    "url": "http://s1219.x.smline.xyz:2082/plays/TGV2YUtrNFNGMHVobkJPcElWcFNyY2JUbkI2dlJCN3ZpamRpeXpiSHo1eEU0OU02ZkU3cHdHaGZBNHc5TVZHWjBMb0liNU5EbGwwc0dXS1pRNzhUcWc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 7",
+    "url": "http://s1219.x.smline.xyz:2082/plays/TzUwR0V5UXNrQ3BGU1NmRUhZbHh5NmRBRUlMejNObms2ZXB5Y0drMTJkNHlQakp5WGN1MUs0RGZMQzhxMU8xY2lraU0vbDB2UTlIM0U3aFdZQ0UrSmc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 8",
+    "url": "http://s1219.x.smline.xyz:2082/plays/bFNXWlIwUzBjUitJRHBHWE9mKzA4TWZ4QjVoSkwvVlhINzVhWVJFcUFCalJURUF2RWI0MmdKKzhaK0lRaG1lTDZhbUUrSy9sMUxnZXMxTEdLbzJ1cEE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 9",
+    "url": "http://s1219.x.smline.xyz:2082/plays/M3d4TzJ6RXlmQ2E3bitKRld1aHFld2oxWUZrN3BYbW9zdkcrTmVybnpGdGdFM3Q2UEFjeXIxZ0tWK0QxTUV1VVRUNjl2aDQ0RWJEN3ppZVkyczNicmc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport Max 10",
+    "url": "http://s1219.x.smline.xyz:2082/plays/NFd6SVdjS290djBZWmFTQ2Q1NVlUUGZXSnNveU5yOGNUWVJsTEtzS1cwMkRnL3dIVjJxL0N6bGJKdFltT3hIem5RbkpkeGJ4NGVEc1pEUStFNThXQUE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ Bein Espana",
+    "url": "http://s1219.x.smline.xyz:2082/plays/UlcrWlA0MCsxSlJtOVllMVQvWnpYUCszak9LcDd0WVB5MnNJcHUzZ2huTTcvd1RFSG1KWkxXNGtJZjhoalBEczRXNUVzRVgwRXV1ZjMyaTdVNVcwUkE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beINSPORTS",
+    "url": "http://s1219.x.smline.xyz:2082/plays/QUk1LzU3MGFlK1hHRVZCaWViRjY1dUtGYWU4RkNBekFQMWwxWk5EL1o4RVdPeERibjRDSnRLRk9tZGlIQ1ZrcVRteDFoK2VvNDAyUXlxSzJEYzZmM3c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Sports Connect",
+    "url": "http://s1219.x.smline.xyz:2082/plays/aFF0aFNETWc0NkEyMlVVTUw0citDWG1yVVQ0RzUzWDF6NDRuYTV5Q0tpdGlPT3NZS1JpVng1T2lCQ0UzK1R6TUVKMWlwNHI3QmYrb09BUCtSb1ZnSXc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN SPORTS XTRA",
+    "url": "http://s1219.x.smline.xyz:2082/plays/T0pYV25yVWswL0grWHFJSXdaNDBSWEl5MGlTeDBEeXJXZHM3aTJLUW9GdnIwWGlYY2lLS0FleXNlbGFLd1VOUEtyVko4cUFiUU81OVVUWVNDcVVOL0E9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beINSPORTS",
+    "url": "http://s1219.x.smline.xyz:2082/plays/cHgyUUJaRHBuYU1SZjFoWTZuSjlabVVReTJBdU1zN2EyZEFjUzIwUGF6RnllMFZ3MHNMSmNCWHdaa3U3Z3RRclFtajVWNU1DN2xiVjg0U1JCWC9MUnc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Sports Connect",
+    "url": "http://s1219.x.smline.xyz:2082/plays/bnp3SGlxVDdDdmpMQW5RakFqRzdvdFhYc0ZNUzVvV3JRQy9JbkZOcUVidjlFZFFRR05GU1BlYmdEWXYyR1JUQktsaWlYZm85d3paS2lOcndVTzR3Mnc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN SPORTS XTRA",
+    "url": "http://s1219.x.smline.xyz:2082/plays/akYwem1lTlRkeVFoL3Fsa2wyZ1A5NGlROGtFUjFQczRWbGVoWmswTEJUU0ZmVTJXVWNzZ1lIV2hCMW5QMjMvVmIwRXZQUTg5NUsxTUlkNHpIOTc2bHc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIN Sports",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RkdYcWVKRHhiSHkyNElWRWtJTU5YWFlaYW9jdDFIcGNUaFFNaGl4TGU3aThHVi81UnVOcWw1ZEpmV05IclI2L3A5dzZPS29SMnp6VXJrZ0VSWTNpZkE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ Bein Sports Laliga",
+    "url": "http://s1219.x.smline.xyz:2082/plays/anJvbkZ4T0dMTFh0MkZKd2ZGWTQ0S0J0OWp3ZGlQNTdoR0o2eU1DWGhGTGxERkV5dzNRN3JMZjJlcy90a00rVi9nVEIxUndtZXJQNWUxYUt6OE16a3c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ Bein Sports",
+    "url": "http://s1219.x.smline.xyz:2082/plays/NEhXUWRUc2FHMGpQTEdBZStveUZQNHg0bzVFWlNvUGlYZmtjbi9JMWRtSWRvTXhpbjRoRytiZjI2U1BMNk5lZ09JVlNBeEs1SHFGZVUrREtSMlVxYVE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BEIN SPORTS XTRA Ñ HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RDljOTB6OEgrc3NORGVWNzAxY3ZsTjB6N21rYkkxZ0wxbU9oNTdSNEZQY2RlMVNoQ0Q5NWNOSjVNb3BCVGlyL1QrVXNLVCtEV0hHdGlzcTVmRlZXUEE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BEIN SPORTS Ñ HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/YmUwVGRFZjBQZkFnUm9zZHBVQUd0alFGTE9Sbk5nT1lJdjNjZjcwbVptZGh4VFU1T0JYclRPOGF2VzUzQWZxNitneE5DcTA5akIwOExFM0FtaUxZQ0E9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Sports 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/ZDBWbHJBZmM0a3lZRk10NmpIKzZ6a2xCNFV2dzZTUUJSWmY1SWQ0L1NPbWRTWUx1aFFMbVkrL2FFV0ZleUtELzUxOEhmSkQ5ell6cGZBczc5UDJ0Z3c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Sports 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/MnU4STdEUGtpUG9YK0E3bVBkZjRia2N2dlBMdGJqR2s2eHIzWC9GZm1sZUNVT0t5UUk3QTZaU3k5Szl1Z2lOS1lqSjUxRUhZNGNuZm40NWlWSnFmM1E9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Sports 3 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/MmpmZVBrS082bU1CM1gzbHU1amlPSEpTcjRCaFR5b3hTUFFsT2xmMEtkSE9uN3lodTFwRXNzU2ZsVFFSUkQyNDRzekJJNDZ6Nk5VR1pHTCtKamRrWnc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN SPORTS HABER HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/UUY4S2phaGdCeW5xam9JWndNNCtreUtJOWg1bDRKNnpoT2FyMy9aSk5VUmdoaDVxQ2NSWDFMckdBT0VuVHRlcDl1elpEUG9JS2dZeXI2Znc2YlJib3c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beiN SERIES 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/L2ZZMHVGaE5SYnNuZXJqTit3c1FvbE9CYzNXd3FRN1pWQm5KVkVGMVltMDl1RkFiQmppTUxNT2xacUNxWG5BTlVRSGQ3RmRNd3RPQnRnYlZxK3ZPZkE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN SERIES 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SDJVaXdYWFJ1ZEFTQmdKOVV1amFUVWRzZlIwcVJMYy94Z2ZybUdHSlE0eExJQkRXKzloQ1FaK2E1TzcvTjdRMUhkTEtwNm8rTlFFRVAvY3p5dkdDUHc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN MOVIES TURK HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RVlpQXlMR1RNVmM4K1ZUNFROTXU0b2tFV3dLTDhqaC9uKy9QNFVUUzhxUGtwWkdSanUyWGFqVUJqZ1RaUks2QlpLSTRzMHBFLzFqaDBGaXBGZ1FUbHc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN GURME HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/eGpjdXk3eHpVeVUrN05hRVVvZ3V4N1RMVTU2Z0hubzRObU1LRG8wbTd6U2V6c2dUR1hLVVZ2aHNCcEh4NE81WGw0eWhybDZTZTN4Q294U3J0YXIxa1E9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN MOVIES PREMIERE HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SnFnRnhSZFBsVklVSlF2ckQ1WmZIT2tRMFFLalF1MmJ5YWNNM0Zyek9UTkIwWStPNGVVQTdEVXU5YmVDSUZMQ3hSRXUxNy9BTGw0djBVRjVHQUMrMlE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN MOVIES STARS HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SHUxaU42Yzh4REpsemMyNnF2TXArNmNpeDB5NEFRbXEzS3g4OVdEckhnZGlJem1uMGk4QzRrSkt4UzFrQ1lwQk5qcEJ0Y2orUEt6N1BQWVFhcE1teGc9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN SPORTS MAX 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/WDJjdmxWejRpUmJKeDhXNVdaSzBZbFB1WitTTGo4SVdyYXNvU2E4aC81Y2k3dDBaSFdwclJnK0pldVdMTXJ0VUtLNml3aS9DVWZQaXQvTHMya3hOM1E9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN SPORTS MAX 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/bWNZZWphd3BMYVROYk1sNXZtNGpWYkNHdi9QbVpuREZNWmU1YUIzRGMxNUFJQ2wvUk9pSGw0Y2pUMjJaVnJ0cDBYQ3pqNzNiamNPdHJibTF1Rkg1L2c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN IZ HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/QVRTYTJYVS9UWThaYmptcjRla1dtV0FtdS9UclB2b2J2bWZQQnVJR0RVU2labCsxWTFyU0tEK01aaTltM3BrUkFMcWFxRGZoNTNIV05tYm5ydzcyYkE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Boxoffice 1 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RHhJUklDYmdrcXV6YzZSTEloQ05yamRINWJKekVIWVNpMkI0NW9ZOGttVTlqOHBUSWdkZWQxWmE4Z2I1MlBDVE0xakRTRGd4ZTZEcWVhUGJtM0lyVUE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Boxoffice 2 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/MFdHZEl3VUp6UGdHMm9Vdk11S2VvTUtJUEpyTlBEV0p4V0R5aGZzemRyN0tRblZDbHlHTEV2OS8xc3JVcndjMGVQdm93UWRGcEREUXdseFJEamo5SlE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Boxoffice 3 HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/aUg0TWZoMGk4OE4xLzNVMUttN3lZQnEyWUxQcWdjMHNFRTdVN2cyaEUxVDUxUTBreGlqL2RQM3VQaXRUZVVuckgzK3crNE5meG55QU1xS2xPQzUxU3c9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ DbeIN SERIES VICE HD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SUI1bjcyNlNwZzNnSm90SnNFTElQelVsRnZlUEZDNDBEdXdRRmtFdnptdUhiSFcvbTUvWFJGWm1JQnhuOHJWS1hlUnZBSmJTZFRZeHhIbWo2bC83QkE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ beIN Tr",
+    "url": "http://s1219.x.smline.xyz:2082/plays/TUF3RGxDYkxzbFU3dDNWckw3MjhvWmxCQ2dySmdsa0NaakdldnZNcWpxNFk4ZnBlYldHY1lSMjZISGlFK012dHIzWER6T05CaklBbk5YWlhIb01PdEE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport News FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/b0daUHozNUpiQitGL25FN3d4MzdmYWVGQy8zVDMyTVJHdysxNzF3dmVuSXk4b3ROMjFrVnRnemNEK0ZETURIQw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/VGhjWCtYVldreGFPc3JkeWRqbVM5eitLZ3BESzNJWVhud2FJMzNJWGNnMmh3elNPcW5RUWEwVmhuZzdZSkh6Qg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 1 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/b1U0TXBPYU85TXRwWTlUYVVKNkNhdWtxcEdnR2tkcHZOUmZzekNNOWMwWWxka1BPNlNKTHlzKzd5Vys4eWo0Wg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 2 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/NEQ5cGhpQWlSTm9kNkFDeGFMWlFpTXdWY0Y0bmUycUlXUnVMb0VwbFhIa0pLWUlEK0pqZEJMRUMwMFhJN3hHMw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 3 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/c0xvTG84ellzWVBaQ3M3eDJ0MCs4bG5tTEJTU2RYN01hNldzUlAvanVlbThoRFFJaDVvRUpFYzBlQkxWWTlJeg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 4 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/amZId09XT3ZmQ3BBUXVUS2dpbFZOV2hSOWFjNjU4V1F0bWVxMG1hSjdwTDhhMHJWTlRvUDZXclRuRThWYmhvTQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 5 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/dUJxOEoyZWFISWZ4eXEzS3IwTVYxbERGbnNMN3l1RXkrSW9FRDN1UUdXWEtVbTNxS1A2aHcva2lBVFpuT0Rpcg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 6 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/SGVMY0RkUW9NY2NQc2VzelFHMk8wTm1FcUlyYWoxMUVZTnZaeVJsMnVVL3NBU1dnLzhUTWl6SjZGNExOci9NVQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 7 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/TWxxMGxHclcyRnVGbkhGdW9NTXZzZlZtVEVVV1VmUHBnSnlIb3lKMFNBY2NKS0RLYU9SM3I2bXlRUVc4NjZkWg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 8 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RjFQckNxWXIwdHJ2bDhSRGZKKzFJME9HaWwwSk9oN2N6TlFQamJqNCszS0J2Q3ZuSmpJZkMrZXFGaitYYmU5WA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 9 FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/ZlEyN2E0dlliNVdNektUZDJvS3RHSjFUdVhVc1I4anE0QjR1bVk0Y1k5Wk9ZbmJhVGFqRVFPTlkySHdoZ3lWLw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 1 FR FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/UnZOcG5kT2kzbnU4VDFkNC9lNjhyQVdwSXdwNWczbEtMdjhUcVIxVzErRFcra2l4TzNDbHdlMDRHOTRxUHdEdw==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 2 FR FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/UVdDUHc0RXdXUHI5amc0WGpVNnZPeGR2YlFEMkpCQjUxQW5vbDc1M2txeWdncHg4UXR4MlRhVWVFczlPQkRyZA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeIn 3 FR FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/RnZRcDZxRVA4MjdJei9HV2JWdGxYa2ZZUVhDS2pWOXAvTnJvcGtLbHJ5STd1VWFiMVJjMTBiVkk5bzlHMXo0WA==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 1 FR FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/MzA1NG5tNjU1NW5HU1VlbDRZNmx6VXRhUmtxRnM0a0RrdkdjUlBJRVJWYjBURFlrWk5uMXpNUUVVOVdkd3JLTg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 2 FR FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/dEpFWUZIL20ybGpwYUJ5MWI2UGYzRC9iQTJZeEwrRzc2cjNjNGZDVjViWktqOUtHNE9EQXNVTmxjd1dzT05jbQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ BeInSport 3 FR FHD",
+    "url": "http://s1219.x.smline.xyz:2082/plays/WEo4VHBiREFUbG9yaStBNWhkNm9NYUFaNlBaS2YxYUxtS0ZCMVBLeGh4dFNNbm5OeFZZZ2VZMVNWRldveGRGYg==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
+  },
+  {
+    "name": "⭐ Bein Espana",
+    "url": "http://s1219.x.smline.xyz:2082/plays/M2V5d3VPbTQwYjFObXRvc3pOaGl2Z2tNazl0eWtnaWZ6ZFdjZkswVkE0bndXcm9UajlxN0gwaVBTZ3N0alZPQ0N2SWRKM2M2M3Rqd3Zod1JzYTZJblE9PQ==.ts",
+    "logo": "https://mytvpro1.github.io/favicon.ico",
+    "headers": {
+      "User-Agent": "VLC/3.0.18 LibVLC/3.0.18"
+    }
   }
 ]
