@@ -1,197 +1,252 @@
 [
   {
-    "name": "Al Ghad TV (1080p)",
+    "name": "⭐ MY PREMIUM SERVER (Simo)",
+    "url": "http://s1219.x.smline.xyz:2082/get.php?username=287466745324941&password=44754351&type=m3u&output=mpegts",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Al Ghad TV (1080p)",
     "url": "https://eazyvwqssi.erbvr.com/alghadtv/alghadtv.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Al Hadath (1080p)",
+    "name": "⚽ Al Hadath (1080p)",
     "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-hadath/2ff87ec4c2f3ede35295a20637d9f8fd/index.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Al Jazeera Mubasher Broadcast 2 (1080p)",
+    "name": "⚽ Al Ittihad (552p) [Not 24/7]",
+    "url": "http://185.105.4.151:8080/_defapp_/ittihad/index.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Al Jadeed (1080p)",
+    "url": "http://185.9.2.18/chid_391/mono.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Al Jazeera Mubasher Broadcast 2 (1080p)",
     "url": "https://live-hls-apps-ajm2-fa.getaj.net/AJM2/index.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Al Madina (720p)",
+    "name": "⚽ Al Madina (720p)",
     "url": "https://streaming.zaytonatube.com:8081/AlMadinatv/almadina21/index.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Al Mayadeen (576p)",
+    "name": "⚽ Al Mayadeen (576p)",
     "url": "https://mdnlv.cdn.octivid.com/almdn/smil:mpegts.stream.smil/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Al Rayyan Al Qadeem (1080p)",
+    "name": "⚽ Al Rayyan Al Qadeem (1080p)",
     "url": "https://alrayyancdn.vidgyor.com/pub-nooldraybinbdh/liveabr/playlist_dvr.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Al Riyadh Radio (1080p)",
+    "name": "⚽ Al Riyadh Radio (1080p)",
     "url": "https://live.kwikmotion.com/sbrksariyadhradiolive/srpksariyadhradio/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Al-Fady TV (1080p) [Not 24/7]",
+    "name": "⚽ Al-Fady TV (1080p) [Not 24/7]",
     "url": "https://5d658d7e9f562.streamlock.net/alfadytv.tv/alfadytv.smil/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Al-Jawadain TV (1080p) [Not 24/7]",
+    "name": "⚽ Al-Jawadain TV (1080p) [Not 24/7]",
     "url": "https://live.aljawadain.org/live/aljawadaintv/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Alkarma TV North America & Canada (1080p) [Not 24/7]",
+    "name": "⚽ Alkarma TV North America & Canada (1080p) [Not 24/7]",
     "url": "https://5aafcc5de91f1.streamlock.net/alkarmatv.com/alkarmana1.smil/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Alkhuzama Radio (1080p)",
+    "name": "⚽ Alkass Five (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/alkass5-p/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkass Four (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/alkass4-p/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkass One (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/alkass1-p/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkass Seven (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/alkass7-p/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkass SHOOF (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/shooflive/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkass SHOOF 2 (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/shooflive2/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkass Six (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/alkass6-p/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkass Three (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/alkass3-p/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkass Two (1080p)",
+    "url": "https://liveeu-gcp.alkassdigital.net/alkass2-p/main.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Alkhuzama Radio (1080p)",
     "url": "https://live.kwikmotion.com/sbrksakhuzamaradiolive/srpkhuzama/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Asharq Radio (1080p)",
+    "name": "⚽ Arryadia (576p)",
+    "url": "http://5.253.46.190:8000/play/a0ea/index.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Arryadia HD (1080p)",
+    "url": "http://5.253.46.190:8000/play/a0bi/index.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Arryadia HD1 (1080p)",
+    "url": "http://5.253.46.190:8000/play/a0dq/index.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Asharq Radio (1080p)",
     "url": "https://svs.itworkscdn.net/asharqradiovlive/asharqradiov/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Chada TV (720p)",
+    "name": "⚽ Assadisa (576p)",
+    "url": "http://5.253.46.190:8000/play/a0ed/index.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Assadissa HD (1080p)",
+    "url": "http://5.253.46.190:8000/play/a0ag/index.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Bahrain Sports 1 (720p) [Not 24/7]",
+    "url": "https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Bahrain Sports 2 (720p) [Not 24/7]",
+    "url": "https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Chada TV (720p)",
     "url": "https://chadatv.vedge.infomaniak.com/livecast/chadatv/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Damascus Radio (720p)",
+    "name": "⚽ Damascus Radio (720p)",
     "url": "https://radiodamascus.ortas.live/RDimshq/RDimshqLive/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "El Radio 9090 FM (480p)",
+    "name": "⚽ El Radio 9090 FM (480p)",
     "url": "https://9090video.mobtada.com/hls/stream.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "MBC 1 (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-1/15cf99af5de54063fdabfefe66adc075/index.m3u8",
+    "name": "⚽ Holy Quran Radio Nablus (720p)",
+    "url": "http://streaming.zaytonatube.com:8080/holyquran/holyquran/video.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "MBC 1 Egypt (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-1-na/eec141533c90dd34722c503a296dd0d8/index.m3u8",
+    "name": "⚽ Jordan Sport (1080p) [Geo-blocked]",
+    "url": "https://jrtv-live.ercdn.net/jordansporthd/jordansporthd.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "MBC 1 USA (1080p) [Geo-blocked]",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-1-usa/fdac3a4fc0473f1f56e07ec1d63a4b7b/index.m3u8",
+    "name": "⚽ Jordan Sport 2 (1080p) [Geo-blocked]",
+    "url": "https://jrtv-live.ercdn.net/learning2/learning2.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "MBC 3 USA (1080p) [Geo-blocked]",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-3-usa/5d58265a862a476dc7f97694addb5ded/index.m3u8",
+    "name": "⚽ KTV Sport (1080p)",
+    "url": "https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "MBC 4 (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-4/24f134f1cd63db9346439e96b86ca6ed/index.m3u8",
+    "name": "⚽ KTV Sport Plus (1080p)",
+    "url": "https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "MBC 5 (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-5/ee6b000cee0629411b666ab26cb13e9b/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC Bollywood (1080p) [Geo-blocked]",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-bollywood/546eb40d7dcf9a209255dd2496903764/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC Drama (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-drama/2c28a458e2f3253e678b07ac7d13fe71/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC Drama USA (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-drama-usa/ea2f5db904aff224b7066e59c7f585a2/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC Iraq (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-iraq/e38c44b1b43474e1c39cb5b90203691e/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC Masr (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr/956eac069c78a35d47245db6cdbb1575/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC Masr 2 (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-2/754931856515075b0aabf0e583495c68/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC Masr Drama (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-drama/567b703c19ede6598222de81b0e4508b/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC Masr USA (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-usa/cd8d40acdab28aac0582faa3bd3983f1/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "MBC+ Drama (1080p)",
-    "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-plus-drama/e37251ec2aac8f6c98f75cd0fa37cd28/index.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "Nidae AlIslam Radio (1080p)",
+    "name": "⚽ Nidae AlIslam Radio (1080p)",
     "url": "https://live.kwikmotion.com/sbrksanedaradiolive/srpksanedaradio/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Pulse95 Radio (1080p)",
+    "name": "⚽ Oman Sports TV (1080p) [Not 24/7]",
+    "url": "https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Pulse95 Radio (1080p)",
     "url": "https://svs.itworkscdn.net/pulse95live/pulse96/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Quran Radio (1080p)",
+    "name": "⚽ Quran Radio (1080p)",
     "url": "https://live.kwikmotion.com/sbrksaquranradiolive/srpksaquranradio/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Sada-E-Haq TV (720p)",
+    "name": "⚽ Radio Albalad TV (720p)",
+    "url": "http://streaming.zaytonatube.com:8080/radioalbalad/radioalbalad/playlist.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Radio Fann Jordan Studio (1080p) [Not 24/7]",
+    "url": "http://45.63.116.205/hls2/stream1.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Radio Yaqeen Jordan City View (1080p) [Not 24/7]",
+    "url": "http://45.63.116.205/hls4/stream1.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Rotana Radio Jordan Studio (1080p) [Not 24/7]",
+    "url": "http://45.63.116.205/hls/stream1.m3u8",
+    "logo": "https://mytvpro1.github.io/favicon.ico"
+  },
+  {
+    "name": "⚽ Sada-E-Haq TV (720p)",
     "url": "https://live.relentlessinnovations.net:1936/sadaehaq/sadaehaq/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Saudia Radio (1080p)",
+    "name": "⚽ Saudia Radio (1080p)",
     "url": "https://live.kwikmotion.com/sbrksasaudiaradiolive/srpksasaudiaradio/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   },
   {
-    "name": "Sharjah Radio (1080p)",
+    "name": "⚽ Sharjah Radio (1080p)",
     "url": "https://svs.itworkscdn.net/smcradiolive/smcradiolive/playlist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "Sharjah Radio Quran (1080p)",
-    "url": "https://live.kwikmotion.com/smcquranlive/quranradiolive/playlist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "Tele Tchad (1080p)",
-    "url": "https://strhlslb01.streamakaci.tv/str_tchad_tchad/str_tchad_multi/playlist.m3u8",
-    "logo": "https://mytvpro1.github.io/favicon.ico"
-  },
-  {
-    "name": "Watar Radio (1080p)",
-    "url": "https://svs.itworkscdn.net/smcwatarlive/smcwatar/playlist.m3u8",
     "logo": "https://mytvpro1.github.io/favicon.ico"
   }
 ]
