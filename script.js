@@ -1,62 +1,49 @@
-function playChannel(url) {
-    const video = document.getElementById('liveVideoPlayer');
+import requests
+import re
+import json
+import os
+
+def get_live_links():
+    # قائمة المصادر (يمكنك إضافة روابط Raw لملفات m3u مشهورة هنا)
+    sources = [
+        "https://raw.githubusercontent.com/Iptv-Full/Free-Iptv/main/iptv.m3u",
+        "https://raw.githubusercontent.com/moez-bth/my-iptv/main/playlist.m3u"
+    ]
     
-    // إظهار المشغل
-    video.style.display = "block";
+    channels_found = []
+    # الكلمات المفتاحية التي نبحث عنها
+    target_channels = ["beIN SPORTS 1", "beIN SPORTS 2", "beIN SPORTS 3", "beIN SPORTS 4"]
 
-    // ملاحظة: الرابط القادم في المتغير url هو بالفعل يحتوي على رابط الووركر + التشفير
-    // مثال: https://noisy-frog-a85dmytv-proxy.workers.dev/RzBNdWppNmVy...
-    const finalUrl = url; 
+    for source in sources:
+        try:
+            response = requests.get(source, timeout=10)
+            if response.status_status == 200:
+                lines = response.text.split('\n')
+                for i in range(len(lines)):
+                    for target in target_channels:
+                        if target.lower() in lines[i].lower() and i+1 < len(lines):
+                            url = lines[i+1].strip()
+                            if url.startswith("http"):
+                                # إضافة القناة للقائمة
+                                channels_found.append({
+                                    "name": target + " HD",
+                                    "url": url,
+                                    "logo": "https://mytvpro1.github.io/favicon.ico"
+                                })
+                                break
+        except:
+            continue
+            
+    # إزالة التكرار
+    unique_channels = {v['name']: v for v in channels_found}.values()
+    return list(unique_channels)
 
-    if (Hls.isSupported()) {
-        // تنظيف أي نسخة سابقة من HLS لتجنب تعليق البث
-        if (window.hls) {
-            window.hls.destroy();
-        }
+def save_to_json(data):
+    with open('links.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-        const hls = new Hls({
-            xhrSetup: function (xhr, url) {
-                // إعدادات إضافية لضمان عمل البث عبر Cloudflare
-                xhr.withCredentials = false;
-            }
-        });
-
-        window.hls = hls; // حفظ النسخة الحالية
-        hls.loadSource(finalUrl); 
-        hls.attachMedia(video);
-
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            video.muted = false; 
-            video.play().catch(e => {
-                console.log("Auto-play prevented, needs user interaction");
-                // في بعض المتصفحات يجب أن يضغط المستخدم أولاً
-            });
-        });
-
-        // مراقبة الأخطاء
-        hls.on(Hls.Events.ERROR, function (event, data) {
-            if (data.fatal) {
-                switch (data.type) {
-                    case Hls.ErrorTypes.NETWORK_ERROR:
-                        console.error("خطأ في الشبكة: تأكد من رابط الووركر");
-                        hls.startLoad();
-                        break;
-                    case Hls.ErrorTypes.MEDIA_ERROR:
-                        console.error("خطأ في الميديا: محاولة الإصلاح...");
-                        hls.recoverMediaError();
-                        break;
-                    default:
-                        hls.destroy();
-                        break;
-                }
-            }
-        });
-
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        // دعم متصفح Safari
-        video.src = finalUrl;
-        video.addEventListener('loadedmetadata', function() {
-            video.play();
-        });
-    }
-}
+if __name__ == "__main__":
+    print("جاري اصطياد القنوات...")
+    links = get_live_links()
+    save_to_json(links)
+    print(f"تم العثور على {len(links)} قنوات وحفظها في links.json")
