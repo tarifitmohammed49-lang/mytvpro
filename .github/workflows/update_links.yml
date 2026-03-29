@@ -1,21 +1,20 @@
-name: Update Live Channels
+name: Simo Sniper Auto Update
 
 on:
+  workflow_dispatch: # للتشغيل اليدوي
   schedule:
-    - cron: '0 * * * *' 
-  workflow_dispatch:
+    - cron: '0 */6 * * *' # للتشغيل التلقائي كل 6 ساعات
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v4 # تم تصحيح المسار هنا ✅
         with:
           python-version: '3.9'
 
@@ -23,12 +22,12 @@ jobs:
         run: pip install requests
 
       - name: Run Simo Sniper
-        run: python Simo_Sniper.py
+        run: python Simo_Sniper.py # تأكد أن هذا هو نفس اسم ملف السكريبت عندك
 
-      - name: Commit and Push
+      - name: Commit and Push changes
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.name "Simo Sniper Bot"
           git add links.json
-          git commit -m "Update links" || exit 0
-          git push origin main
+          git commit -m "Update links.json [🚀]" || exit 0
+          git push
