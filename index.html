@@ -273,8 +273,8 @@
         });
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
-        // رابط الـ Worker الخاص بك - تم تعديل المسار لضمان الربط الصحيح
-        const CLOUDFLARE_WORKER_URL = 'https://mytvpro.mytvpropagesdev.workers.dev';
+        // رابط الـ Worker الخاص بك لفك تشفير البث
+        const CLOUDFLARE_WORKER_URL = 'https://mytvpro.mytvpropagesdev.workers.dev/?url=';
 
         const translations = {
             en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search Movies & Series...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
@@ -390,14 +390,14 @@
             document.getElementById('adOverlay').style.display = 'none';
         }
 
-        // مشغل الأفلام العادي
+        // دالة فتح مشغل الأفلام (Iframe)
         function openPlayer(id, type) {
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const ninetyMinutes = 90 * 60 * 1000;
             document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
             
-            // تهيئة المشغل للأفلام
+            // تهيئة العرض
             document.getElementById('liveVideoPlayer').style.display = 'none';
             document.getElementById('mainPlayer').style.display = 'block';
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
@@ -405,7 +405,7 @@
             window.scrollTo(0,0);
         }
 
-        // مشغل البث المباشر (HLS) المطور للقنوات - تم التحديث ليعمل مع الـ Worker
+        // دالة فتح مشغل القنوات (HLS) المتطور
         function openLivePlayer(streamUrl) {
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
@@ -415,42 +415,27 @@
             const liveVideo = document.getElementById('liveVideoPlayer');
             const mainPlayer = document.getElementById('mainPlayer');
             
+            // إخفاء مشغل الأفلام وإظهار مشغل البث
             mainPlayer.style.display = 'none';
             mainPlayer.src = '';
             liveVideo.style.display = 'block';
             
-            // حقن الـ Worker في رابط البث مع الوسيط الصحيح ?url=
-            const proxiedUrl = CLOUDFLARE_WORKER_URL + "/?url=" + encodeURIComponent(streamUrl);
+            // حقن الـ Worker لفك تشفير الرابط
+            const proxiedUrl = CLOUDFLARE_WORKER_URL + encodeURIComponent(streamUrl);
 
             if (Hls.isSupported()) {
                 const hls = new Hls({
-                    enableWorker: true,
-                    lowLatencyMode: true
+                    lowLatencyMode: true,
+                    backBufferLength: 90
                 });
                 hls.loadSource(proxiedUrl);
                 hls.attachMedia(liveVideo);
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    liveVideo.muted = false;
-                    liveVideo.play().catch(() => {
-                        liveVideo.muted = true;
-                        liveVideo.play();
-                    });
+                    liveVideo.play();
                 });
-                
+                // محاولة الإصلاح التلقائي في حال تعثر البث
                 hls.on(Hls.Events.ERROR, function (event, data) {
-                    if (data.fatal) {
-                        switch (data.type) {
-                            case Hls.ErrorTypes.NETWORK_ERROR:
-                                hls.startLoad();
-                                break;
-                            case Hls.ErrorTypes.MEDIA_ERROR:
-                                hls.recoverMediaError();
-                                break;
-                            default:
-                                hls.destroy();
-                                break;
-                        }
-                    }
+                    if (data.fatal) hls.recoverMediaError();
                 });
             } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
                 liveVideo.src = proxiedUrl;
