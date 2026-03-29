@@ -146,7 +146,6 @@
         .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
         .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
-        /* تنسيق مشغل البث المباشر المخصص */
         #liveVideoPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); display: none; }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
         .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; }
@@ -237,17 +236,13 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3b5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 20h.01"></path></svg>
             </div>
             <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
-            
             <iframe id="mainPlayer" src="" allowfullscreen title="Video Player"></iframe>
-            
             <video id="liveVideoPlayer" controls playsinline></video>
-
             <div class="safe-info-box">
                 <div class="warning-section">
                     <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
                     <div class="safe-line"><strong>NOTICE (EN):</strong> Any advertisements appearing within the video player are from external third-party sources.</div>
                     <div class="safe-line"><strong>AVERTISMENT (RO):</strong> Orice reclame care apar în interiorul playerului video sunt din surse externe terțe.</div>
-                    
                     <div class="disclaimer-pro">
                         <strong>Disclaimer (EN):</strong> MYTVPRO acts solely as a search index. We do not host, control, or take responsibility for the content, privacy policies, or practices of any third-party video providers or advertisers.
                     </div>
@@ -273,8 +268,9 @@
         });
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
-        // رابط الـ Worker الخاص بك لفك تشفير البث
-        const CLOUDFLARE_WORKER_URL = 'https://mytvpro.mytvpropagesdev.workers.dev/?url=';
+        
+        // ✅ هذا هو رابط الـ Worker المموه الخاص بك
+        const CLOUDFLARE_WORKER_URL = 'https://autumn-hill-decfmyt-worker.mytvpropagesdev.workers.dev/';
 
         const translations = {
             en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search Movies & Series...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
@@ -321,24 +317,26 @@
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب قنوات البث المباشر...</p>";
+            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب القنوات المشفرة عبر المحرك الآمن...</p>";
             
             try {
-                const res = await fetch('links.json');
+                // ✅ جلب الرابط من الـ Worker مباشرة
+                const res = await fetch(CLOUDFLARE_WORKER_URL);
                 const data = await res.json();
                 grid.innerHTML = "";
-                if(data.length === 0) {
+                
+                if(!data.url) {
                     grid.innerHTML = "<p style='text-align:center;width:100%;'>لا توجد مباريات جارية حالياً.</p>";
-                }
-                data.forEach(channel => {
+                } else {
+                    // عرض القناة التي جلبها الـ Worker
                     grid.innerHTML += `
-                        <div class="movie-card" onclick="openLivePlayer('${channel.url}')">
+                        <div class="movie-card" onclick="openLivePlayer()">
                             <img src="https://mytvpro1.github.io/favicon.ico" alt="Live Stream" style="object-fit: contain; padding: 20px; background: #111;">
-                            <div class="movie-title">${channel.name}</div>
+                            <div class="movie-title">beIN SPORTS HD (Live)</div>
                         </div>`;
-                });
+                }
             } catch(e) {
-                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في تحميل القنوات.</p>";
+                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في الاتصال بالمحرك.</p>";
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
@@ -390,14 +388,11 @@
             document.getElementById('adOverlay').style.display = 'none';
         }
 
-        // دالة فتح مشغل الأفلام (Iframe)
         function openPlayer(id, type) {
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const ninetyMinutes = 90 * 60 * 1000;
             document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
-            
-            // تهيئة العرض
             document.getElementById('liveVideoPlayer').style.display = 'none';
             document.getElementById('mainPlayer').style.display = 'block';
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
@@ -405,8 +400,7 @@
             window.scrollTo(0,0);
         }
 
-        // دالة فتح مشغل القنوات (HLS) المتطور
-        function openLivePlayer(streamUrl) {
+        async function openLivePlayer() {
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const ninetyMinutes = 90 * 60 * 1000;
@@ -415,33 +409,34 @@
             const liveVideo = document.getElementById('liveVideoPlayer');
             const mainPlayer = document.getElementById('mainPlayer');
             
-            // إخفاء مشغل الأفلام وإظهار مشغل البث
             mainPlayer.style.display = 'none';
             mainPlayer.src = '';
             liveVideo.style.display = 'block';
             
-            // حقن الـ Worker لفك تشفير الرابط
-            const proxiedUrl = CLOUDFLARE_WORKER_URL + encodeURIComponent(streamUrl);
+            try {
+                // ✅ جلب الرابط المموه من الـ Worker
+                const response = await fetch(CLOUDFLARE_WORKER_URL);
+                const data = await response.json();
+                const streamUrl = data.url;
 
-            if (Hls.isSupported()) {
-                const hls = new Hls({
-                    lowLatencyMode: true,
-                    backBufferLength: 90
-                });
-                hls.loadSource(proxiedUrl);
-                hls.attachMedia(liveVideo);
-                hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    liveVideo.play();
-                });
-                // محاولة الإصلاح التلقائي في حال تعثر البث
-                hls.on(Hls.Events.ERROR, function (event, data) {
-                    if (data.fatal) hls.recoverMediaError();
-                });
-            } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
-                liveVideo.src = proxiedUrl;
-                liveVideo.addEventListener('loadedmetadata', function() {
-                    liveVideo.play();
-                });
+                if (Hls.isSupported()) {
+                    const hls = new Hls({ lowLatencyMode: true });
+                    hls.loadSource(streamUrl);
+                    hls.attachMedia(liveVideo);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                        liveVideo.play();
+                    });
+                    hls.on(Hls.Events.ERROR, function (event, data) {
+                        if (data.fatal) hls.recoverMediaError();
+                    });
+                } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
+                    liveVideo.src = streamUrl;
+                    liveVideo.addEventListener('loadedmetadata', function() {
+                        liveVideo.play();
+                    });
+                }
+            } catch (e) {
+                console.error("فشل في تشغيل البث المباشر");
             }
 
             document.getElementById('videoPlayerContainer').style.display = 'block';
@@ -467,6 +462,5 @@
 
         window.onload = () => loadFeatured();
     </script>
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9ca686ee6efb457c8a7d9df7a68d8593"}'></script>
 </body>
 </html>
