@@ -14,7 +14,6 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        /* تم الإبقاء على التصميم الأصلي مع إضافة لمسة VLC للمشغل */
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
         #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s; }
@@ -22,6 +21,9 @@
         #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
         .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
         .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
+        .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
+        .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
         .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; padding-bottom: 5px; }
         .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
         .tab.active { background: var(--main-red); }
@@ -45,7 +47,7 @@
 
     <header class="header">
         <h1 class="logo" onclick="location.reload()">MYTVPRO</h1>
-        <div class="lang-container" id="langList">
+        <div class="lang-container">
             <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
             <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
         </div>
@@ -74,31 +76,54 @@
             <button class="back-btn" onclick="closePlayer()">BACK</button>
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
             <video id="liveVideoPlayer" class="video-js vjs-big-play-centered" controls preload="auto" playsinline style="display:none;"></video>
-            
             <div class="safe-info-box">
-                <div class="safe-line ar">تنبيه: يتم تحديث روابط البث المباشر تلقائياً لضمان الاستمرارية.</div>
+                <div class="safe-line ar">تنبيه: يتم تحديث الروابط تلقائياً كل 10 ثوانٍ لضمان استمرارية البث.</div>
             </div>
         </div>
     </div>
 
     <script>
-        // المتغيرات العالمية للتحكم في البث
+        // --- 1. استعادة الأكواد المشفرة الأصلية (ضروري جداً لفتح الموقع) ---
+        const _0x5a21 = ["aHR0cHM6Ly9ybTM1OC5jb20vNC8xMDcyMjk3Mg==", "c2ltb19sYXN0YWRhZA==", "YWNkOWQ4OGE4M2I1MjcyNTg4ZDIxZDViNDQwMWVhYjY="];
+        window.API_KEY = atob(_0x5a21[2]);
+
+        // --- 2. متغيرات نظام القناص اللحظي ---
         let windowLinks = [];
         let currentActiveHls = null;
         let lastSelectedChannelName = "";
+        let currentLang = 'en', currentPage = 1, currentType = 'tv';
 
-        // 1. نظام التحديث اللحظي (كل 10 ثوانٍ)
+        // نظام تحديث الروابط في الخلفية كل 10 ثوانٍ
         async function startAutoSniperRefresh() {
             setInterval(async () => {
                 try {
                     const res = await fetch('links.json?nocache=' + Date.now());
                     windowLinks = await res.json();
-                    console.log("Simo Sniper: Links updated in background.");
                 } catch(e) { console.log("Sniper check failed..."); }
             }, 10000); 
         }
 
-        // 2. مشغل القنوات المطور (الذي يحل مشكلة الـ .ts والتوكين)
+        // --- 3. إدارة واجهة المستخدم والسبلاش سكرين ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const bar = document.getElementById('progress-bar');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    hideSplash();
+                } else {
+                    width += 20; bar.style.width = width + '%';
+                }
+            }, 100);
+        });
+
+        function hideSplash() {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            setTimeout(() => { splash.style.visibility = 'hidden'; }, 500);
+        }
+
+        // --- 4. مشغل القنوات (النسخة التي لا تموت) ---
         async function openLivePlayer(streamUrl, channelName) {
             lastSelectedChannelName = channelName;
             const liveVideoElement = document.getElementById('liveVideoPlayer');
@@ -109,33 +134,24 @@
             liveVideoElement.style.display = 'block';
             document.getElementById('videoPlayerContainer').style.display = 'block';
 
-            // تنظيف المشغل القديم إذا وجد
             if (currentActiveHls) { currentActiveHls.destroy(); }
 
-            // استخدام بروكسي لتجاوز حماية المتصفح لروابط الـ TS
+            // استخدام البروكسي لتجاوز الحماية
             const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(streamUrl);
 
             if (Hls.isSupported()) {
                 currentActiveHls = new Hls({
-                    manifestLoadingMaxRetry: 5,
-                    levelLoadingMaxRetry: 5,
-                    xhrSetup: function(xhr) {
-                        // محاكاة VLC
-                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                    }
+                    xhrSetup: function(xhr) { xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); }
                 });
-                
                 currentActiveHls.loadSource(proxyUrl);
                 currentActiveHls.attachMedia(liveVideoElement);
-                
                 currentActiveHls.on(Hls.Events.MANIFEST_PARSED, () => liveVideoElement.play());
 
-                // نظام الإصلاح التلقائي: إذا مات الرابط، ابحث عن الرابط الجديد فوراً
+                // إذا انقطع البث، ابحث عن الرابط الجديد فوراً
                 currentActiveHls.on(Hls.Events.ERROR, function (event, data) {
                     if (data.fatal) {
-                        console.log("Token Expired! Re-sniping...");
                         const freshLink = windowLinks.find(c => c.name === lastSelectedChannelName);
-                        if (freshLink) { openLivePlayer(freshLink.url, lastSelectedChannelName); }
+                        if (freshLink) openLivePlayer(freshLink.url, lastSelectedChannelName);
                     }
                 });
             } else {
@@ -144,7 +160,17 @@
             }
         }
 
-        // 3. تعديل دالة تحميل قسم Live Foot لقراءة الأسماء بدقة
+        // --- 5. تحميل المحتوى (أفلام وقنوات) ---
+        async function loadFeatured() {
+            const grid = document.getElementById('moviesGrid');
+            grid.innerHTML = "";
+            try {
+                const res = await fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${window.API_KEY}&language=${currentLang}`);
+                const data = await res.json();
+                renderGrid(data.results);
+            } catch(e) { console.log(e); }
+        }
+
         async function loadLiveFoot() {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
@@ -155,44 +181,42 @@
                 const res = await fetch('links.json?v=' + Date.now());
                 windowLinks = await res.json();
                 grid.innerHTML = "";
-                
                 windowLinks.forEach(channel => {
                     grid.innerHTML += `
                         <div class="movie-card" onclick="openLivePlayer('${channel.url}', '${channel.name}')">
-                            <img src="${channel.logo || 'https://mytvpro1.github.io/favicon.ico'}" alt="${channel.name}" style="object-fit: contain; padding: 20px; background: #111;">
+                            <img src="${channel.logo || 'https://mytvpro1.github.io/favicon.ico'}" style="object-fit: contain; padding: 20px; background: #111;">
                             <div class="movie-title">${channel.name}</div>
                         </div>`;
                 });
-            } catch(e) { grid.innerHTML = "<p>خطأ في الاتصال بالسيرفر.</p>"; }
-            document.getElementById('loadMoreSection').style.display = 'none';
-        }
-
-        // --- بقية الدوال الأصلية للموقع (أفلام/مسلسلات) بدون تغيير ---
-        async function loadFeatured() {
-            // كود الأفلام الأصلي الخاص بك...
-            const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "<p style='text-align:center;width:100%;'>Loading Featured...</p>";
-            // تم اختصار الكود هنا للحفاظ على المساحة، لكنه سيعمل في النسخة الكاملة
-            // (سأضع هنا الكود الذي يطلب من TMDB باستخدام API_KEY الخاص بك)
-            fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${window.API_KEY}&language=ar`)
-            .then(r => r.json()).then(data => { grid.innerHTML = ""; renderGrid(data.results); });
+            } catch(e) { grid.innerHTML = "<p>خطأ في جلب القنوات.</p>"; }
         }
 
         function renderGrid(list) {
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML += list.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${m.name ? 'tv' : 'movie'}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" loading="lazy"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
+            grid.innerHTML += list.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${m.name ? 'tv' : 'movie'}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
+        }
+
+        function openPlayer(id, type) {
+            document.getElementById('liveVideoPlayer').style.display = 'none';
+            document.getElementById('mainPlayer').style.display = 'block';
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
+            document.getElementById('videoPlayerContainer').style.display = 'block';
         }
 
         function closePlayer() { 
             document.getElementById('videoPlayerContainer').style.display = 'none'; 
+            document.getElementById('mainPlayer').src = '';
             if(currentActiveHls) currentActiveHls.destroy();
             const v = document.getElementById('liveVideoPlayer'); v.pause(); v.src = "";
         }
 
-        // تشغيل نظام القناص اللحظي عند فتح الموقع
-        window.onload = () => { loadFeatured(); startAutoSniperRefresh(); };
-        
-        // (بقية الدوال المساعدة مثل triggerAd و changeLanguage تظل كما هي في كودك الأصلي)
+        function triggerAd() { window.open("https://rm358.com/4/10722756", "_blank"); document.getElementById('adOverlay').style.display = 'none'; }
+
+        // تشغيل كل شيء عند البداية
+        window.onload = () => {
+            loadFeatured();
+            startAutoSniperRefresh();
+        };
     </script>
 </body>
 </html>
