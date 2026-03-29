@@ -1,37 +1,24 @@
-name: Simo Sniper Auto Update
-
+name: Simo Sniper Final Fix
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 * * * *'
 
-# هذا الجزء الجديد هو المفتاح لحل مشكلة exit code 2 ✅
 permissions:
-  contents: write
+  contents: write  # هذا السطر هو الذي سيجعل العلامة خضراء
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-
-      - name: Install dependencies
-        run: pip install requests
-
-      - name: Run Simo Sniper
-        run: python Simo_Sniper.py
-
-      - name: Commit and Push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Simo Sniper Bot"
+      - run: pip install requests
+      - run: python Simo_Sniper.py
+      - run: |
+          git config --local user.name "Simo-Developer"
           git add links.json
-          git commit -m "Update links.json [🚀]" || exit 0
+          git commit -m "🚀 Update Links" || exit 0
           git push
