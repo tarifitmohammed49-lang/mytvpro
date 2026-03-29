@@ -8,12 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Python
-        # ✅ تم تصحيح هذا السطر ليعمل بنجاح
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
@@ -22,13 +23,12 @@ jobs:
         run: pip install requests
 
       - name: Run Simo Sniper
-        # تأكد أن اسم الملف هو Simo_Sniper.py
         run: python Simo_Sniper.py
 
-      - name: Commit and Push changes
+      - name: Commit and Push
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "Simo Sniper Bot"
+          git config --local user.name "GitHub Action"
           git add links.json
-          git commit -m "Update links.json" || exit 0
-          git push
+          git commit -m "Update links" || exit 0
+          git push origin main
