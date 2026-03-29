@@ -1,9 +1,13 @@
 name: Simo Sniper Auto Update
 
 on:
-  workflow_dispatch: # للتشغيل اليدوي
+  workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *' # للتشغيل التلقائي كل 6 ساعات
+    - cron: '0 */6 * * *'
+
+# هذا الجزء الجديد هو المفتاح لحل مشكلة exit code 2 ✅
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -14,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v4 # تم تصحيح المسار هنا ✅
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
@@ -22,7 +26,7 @@ jobs:
         run: pip install requests
 
       - name: Run Simo Sniper
-        run: python Simo_Sniper.py # تأكد أن هذا هو نفس اسم ملف السكريبت عندك
+        run: python Simo_Sniper.py
 
       - name: Commit and Push changes
         run: |
