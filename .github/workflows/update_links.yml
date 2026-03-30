@@ -21,7 +21,7 @@ jobs:
 
       - name: Run Sniper
         env:
-          # هنا كان النقص! يجب ربط السكريبت بالـ Secrets التي وضعتها في الإعدادات
+          # هذا هو الجزء السحري الناقص الذي يربط السكريبت بالـ Secrets
           IPTV_HOST: ${{ secrets.IPTV_HOST }}
           IPTV_USER: ${{ secrets.IPTV_USER }}
           IPTV_PASS: ${{ secrets.IPTV_PASS }}
