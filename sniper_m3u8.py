@@ -1,12 +1,12 @@
 import os
-import requests  # هذا السطر كان ناقصاً!
+import requests
 
 # سحب البيانات من "الخزنة" التي فتحها الـ Workflow
 HOST = os.getenv("IPTV_HOST")
 USER = os.getenv("IPTV_USER")
 PASS = os.getenv("IPTV_PASS")
 
-# التأكد من أن الروابط لا تحتوي على فراغات زائدة
+# بناء الرابط
 url = f"{HOST}/get.php?username={USER}&password={PASS}&type=m3u_plus&output=m3u8"
 
 headers = {
@@ -14,7 +14,7 @@ headers = {
 }
 
 try:
-    # محاولة الاتصال بالسيرفر
+    # الاتصال بالسيرفر وجلب القنوات
     response = requests.get(url, headers=headers, timeout=30)
     
     if response.status_code == 200:
