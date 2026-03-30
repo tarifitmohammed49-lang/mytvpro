@@ -389,9 +389,9 @@
         }
 
         async function openLivePlayer(streamUrl) {
-            // ⚠️ استبدل الرابط أدناه برابط الـ Worker الخاص بك الذي حصلت عليه من Cloudflare
-            const workerProxy = "https://yellow-cherry-8dc1.mytv-proxy.workers.dev/?url=";
-            const finalUrl = workerProxy + encodeURIComponent(streamUrl);
+            // التعديل الجديد: ربط القنوات بالبروكسي الخاص بك في Cloudflare
+            const proxyUrl = "https://bitter-lab-7724mytv-proxy.mytvpropagesdev.workers.dev/?url=";
+            const finalUrl = proxyUrl + encodeURIComponent(streamUrl);
 
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
