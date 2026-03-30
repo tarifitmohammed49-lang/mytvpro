@@ -1,10 +1,10 @@
 import requests
+import os
 
-HOST = "http://s1219.x.smline.xyz:2082"
-USER = "287466745324941"
-PASS = "44754351"
+HOST = os.getenv("IPTV_HOST")
+USER = os.getenv("IPTV_USER")
+PASS = os.getenv("IPTV_PASS")
 
-# طلب m3u8 لتعمل في الموقع مباشرة
 url = f"{HOST}/get.php?username={USER}&password={PASS}&type=m3u_plus&output=m3u8"
 
 headers = {
