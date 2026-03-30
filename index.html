@@ -284,32 +284,21 @@
             document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
+        // ==========================================
+        // تعديل سيمو: جلب القنوات من ملف JSON
+        // ==========================================
         async function loadLiveFoot() {
             isFeatured = false; currentGenre = null; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب القنوات المحدثة...</p>";
+            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب القنوات المحدثة من GitHub...</p>";
             
             try {
-                const res = await fetch('playlist.m3u');
-                if(!res.ok) throw new Error("File not found");
-                const text = await res.text();
-                
-                const lines = text.split('\n');
-                let channels = [];
-                for (let i = 0; i < lines.length; i++) {
-                    if (lines[i].startsWith('#EXTINF:')) {
-                        const infoLine = lines[i];
-                        const name = infoLine.substring(infoLine.lastIndexOf(',') + 1).trim() || "Channel";
-                        const logoMatch = infoLine.match(/tvg-logo="([^"]+)"/);
-                        const logo = logoMatch ? logoMatch[1] : 'https://mytvpro1.github.io/favicon.ico';
-                        const url = lines[i + 1] ? lines[i + 1].trim() : null;
-                        if (url && url.startsWith('http')) {
-                            channels.push({ name, logo, url });
-                        }
-                    }
-                }
+                // جلب ملف القنوات بصيغة JSON
+                const res = await fetch('channels.json'); 
+                if(!res.ok) throw new Error("JSON File not found");
+                const channels = await res.json();
 
                 grid.innerHTML = "";
                 if(channels.length === 0) {
@@ -324,7 +313,8 @@
                     });
                 }
             } catch(e) {
-                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في جلب ملف القنوات M3U.</p>";
+                console.error("Error loading JSON channels:", e);
+                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في جلب ملف القنوات (تأكد من وجود ملف channels.json في المستودع).</p>";
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
@@ -389,7 +379,6 @@
         }
 
         async function openLivePlayer(streamUrl) {
-            // التعديل الجديد: ربط القنوات بالبروكسي الخاص بك في Cloudflare
             const proxyUrl = "https://bitter-lab-7724mytv-proxy.mytvpropagesdev.workers.dev/?url=";
             const finalUrl = proxyUrl + encodeURIComponent(streamUrl);
 
