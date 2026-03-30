@@ -1,8 +1,6 @@
 name: Update MyTV Channels
 on:
-  schedule:
-    - cron: '0 */6 * * *' # يعمل كل 6 ساعات
-  workflow_dispatch: # يتيح لك تشغيله يدوياً للتجربة
+  workflow_dispatch:
 
 jobs:
   build:
@@ -10,27 +8,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
       - name: Install dependencies
         run: pip install requests
-
       - name: Run Sniper
         env:
-          # هذا هو الجزء السحري الناقص الذي يربط السكريبت بالـ Secrets
           IPTV_HOST: ${{ secrets.IPTV_HOST }}
           IPTV_USER: ${{ secrets.IPTV_USER }}
           IPTV_PASS: ${{ secrets.IPTV_PASS }}
         run: python sniper_m3u8.py
-
       - name: Commit and Push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add playlist.m3u
-          git commit -m "Update channels to m3u8" || exit 0
+          git commit -m "Update playlist" || exit 0
           git push
