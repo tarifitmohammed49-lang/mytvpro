@@ -1,24 +1,31 @@
-name: Simo Sniper Final Fix
+name: Update MyTV Channels
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'
-
-permissions:
-  contents: write  # هذا السطر هو الذي سيجعل العلامة خضراء
+    - cron: '0 */6 * * *' # يعمل كل 6 ساعات
+  workflow_dispatch: # يتيح لك تشغيله يدوياً للتحربة
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-      - run: pip install requests
-      - run: python Simo_Sniper.py
-      - run: |
-          git config --local user.name "Simo-Developer"
-          git add links.json
-          git commit -m "🚀 Update Links" || exit 0
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Sniper
+        run: python sniper_m3u8.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add playlist.m3u
+          git commit -m "Update channels to m3u8" || exit 0
           git push
