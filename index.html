@@ -301,26 +301,47 @@
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب القنوات المشفرة...</p>";
+            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب القنوات المحدثة...</p>";
             
             try {
-                const res = await fetch('links.json');
-                const channels = await res.json();
-                grid.innerHTML = "";
+                // تعديل هنا: قراءة ملف playlist.m3u بدلاً من links.json
+                const res = await fetch('playlist.m3u');
+                if(!res.ok) throw new Error("File not found");
+                const text = await res.text();
                 
-                if(!channels || channels.length === 0) {
+                // تحويل نص M3U إلى كائنات قنوات
+                const lines = text.split('\n');
+                let channels = [];
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].startsWith('#EXTINF:')) {
+                        const infoLine = lines[i];
+                        const name = infoLine.substring(infoLine.lastIndexOf(',') + 1).trim() || "Channel";
+                        
+                        // استخراج اللوجو إذا وجد
+                        const logoMatch = infoLine.match(/tvg-logo="([^"]+)"/);
+                        const logo = logoMatch ? logoMatch[1] : 'https://mytvpro1.github.io/favicon.ico';
+                        
+                        const url = lines[i + 1] ? lines[i + 1].trim() : null;
+                        if (url && url.startsWith('http')) {
+                            channels.push({ name, logo, url });
+                        }
+                    }
+                }
+
+                grid.innerHTML = "";
+                if(channels.length === 0) {
                     grid.innerHTML = "<p style='text-align:center;width:100%;'>لا توجد قنوات متاحة حالياً.</p>";
                 } else {
                     channels.forEach(channel => {
                         grid.innerHTML += `
                             <div class="movie-card" onclick="openLivePlayer('${channel.url}')">
-                                <img src="${channel.logo || 'https://mytvpro1.github.io/favicon.ico'}" alt="${channel.name}" style="object-fit: contain; padding: 20px; background: #111;">
+                                <img src="${channel.logo}" alt="${channel.name}" style="object-fit: contain; padding: 20px; background: #111;" onerror="this.src='https://mytvpro1.github.io/favicon.ico'">
                                 <div class="movie-title">${channel.name}</div>
                             </div>`;
                     });
                 }
             } catch(e) {
-                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في جلب ملف القنوات.</p>";
+                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في جلب ملف القنوات M3U.</p>";
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
