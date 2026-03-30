@@ -1,26 +1,29 @@
 import os
 import requests
+import json
 
-# جلب البيانات من Secrets
-HOST = os.getenv("IPTV_HOST")
-USER = os.getenv("IPTV_USER")
-PASS = os.getenv("IPTV_PASS")
+def run_sniper():
+    # هنا نضع الروابط التي تجلب التوكينات (أو السيرفر الخاص بك)
+    # ملاحظة: يمكنك تعديل الرابط أدناه ليتوافق مع مصدر روابطك
+    source_url = "https://raw.githubusercontent.com/mytvpro1/sniped-links/main/bein_tokens.json" 
+    
+    try:
+        print("Searching for fresh beIN Sports tokens...")
+        response = requests.get(source_url, timeout=15)
+        
+        if response.status_code == 200:
+            channels_data = response.json()
+            
+            # حفظ البيانات في ملف channels.json
+            with open("channels.json", "w", encoding="utf-8") as f:
+                json.dump(channels_data, f, ensure_ascii=False, indent=2)
+            
+            print(f"Successfully sniped {len(channels_data)} channels and saved to channels.json")
+        else:
+            print("Failed to fetch tokens from source.")
 
-url = f"{HOST}/get.php?username={USER}&password={PASS}&type=m3u_plus&output=m3u8"
+    except Exception as e:
+        print(f"Error during sniping: {e}")
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-}
-
-try:
-    response = requests.get(url, headers=headers, timeout=30)
-    if response.status_code == 200:
-        with open("playlist.m3u", "w", encoding="utf-8") as f:
-            f.write(response.text)
-        print("✅ Success: playlist.m3u updated!")
-    else:
-        print(f"❌ Error: {response.status_code}")
-        exit(1)
-except Exception as e:
-    print(f"⚠️ Exception: {e}")
-    exit(1)
+if __name__ == "__main__":
+    run_sniper()
