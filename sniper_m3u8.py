@@ -1,12 +1,11 @@
 import os
 import requests
 
-# سحب البيانات من "الخزنة" التي فتحها الـ Workflow
+# جلب البيانات من Secrets
 HOST = os.getenv("IPTV_HOST")
 USER = os.getenv("IPTV_USER")
 PASS = os.getenv("IPTV_PASS")
 
-# بناء الرابط
 url = f"{HOST}/get.php?username={USER}&password={PASS}&type=m3u_plus&output=m3u8"
 
 headers = {
@@ -14,15 +13,13 @@ headers = {
 }
 
 try:
-    # الاتصال بالسيرفر وجلب القنوات
     response = requests.get(url, headers=headers, timeout=30)
-    
     if response.status_code == 200:
         with open("playlist.m3u", "w", encoding="utf-8") as f:
             f.write(response.text)
         print("✅ Success: playlist.m3u updated!")
     else:
-        print(f"❌ Error: Server returned status code {response.status_code}")
+        print(f"❌ Error: {response.status_code}")
         exit(1)
 except Exception as e:
     print(f"⚠️ Exception: {e}")
