@@ -2,7 +2,7 @@ name: Update MyTV Channels
 on:
   schedule:
     - cron: '0 */6 * * *' # يعمل كل 6 ساعات
-  workflow_dispatch: # يتيح لك تشغيله يدوياً للتحربة
+  workflow_dispatch: # يتيح لك تشغيله يدوياً للتجربة
 
 jobs:
   build:
@@ -20,6 +20,11 @@ jobs:
         run: pip install requests
 
       - name: Run Sniper
+        env:
+          # هنا كان النقص! يجب ربط السكريبت بالـ Secrets التي وضعتها في الإعدادات
+          IPTV_HOST: ${{ secrets.IPTV_HOST }}
+          IPTV_USER: ${{ secrets.IPTV_USER }}
+          IPTV_PASS: ${{ secrets.IPTV_PASS }}
         run: python sniper_m3u8.py
 
       - name: Commit and Push changes
