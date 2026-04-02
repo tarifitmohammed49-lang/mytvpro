@@ -15,7 +15,14 @@ def fetch_iptv_org():
                     # استخراج الاسم واللوغو باستخدام Regex
                     name_match = re.search('tvg-name="(.*?)"', lines[i])
                     logo_match = re.search('tvg-logo="(.*?)"', lines[i])
-                    name = name_match.group(1) if name_match else "Unknown Channel"
+                    
+                    # إذا لم يجد tvg-name، نبحث عن الاسم بعد الفاصلة الأخيرة
+                    if not name_match:
+                        name_match = lines[i].split(',')[-1].strip()
+                        name = name_match if name_match else "Unknown Channel"
+                    else:
+                        name = name_match.group(1)
+                        
                     logo = logo_match.group(1) if logo_match else "https://mytvpro1.github.io/favicon.ico"
                     
                     # الرابط يكون في السطر التالي مباشرة
@@ -34,26 +41,37 @@ def fetch_iptv_org():
 
 def update_index_html(channels):
     """حقن القنوات في ملف index.html"""
-    channels_html = ""
+    channels_html = "\n"  # سطر جديد للترتيب
     for ch in channels:
+        # نقوم بعمل فلترة بسيطة للقنوات المهمة أو عرض أول 50 قناة لتجنب ثقل الصفحة
         channels_html += f'''
-    <div class="movie-card" onclick="openLivePlayer('{ch['url']}')">
-        <img src="{ch['logo']}" alt="{ch['name']}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy">
-        <div class="movie-title">{ch['name']}</div>
-    </div>'''
+            <div class="movie-card" onclick="openLivePlayer('{ch['url']}')">
+                <img src="{ch['logo']}" alt="{ch['name']}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy">
+                <div class="movie-title">{ch['name']}</div>
+            </div>'''
+    
+    channels_html += "\n"
 
     try:
         with open('index.html', 'r', encoding='utf-8') as f:
             content = f.read()
 
+        # هذه هي العلامات التي يجب أن تطابق ما في الـ HTML تماماً
         start_tag = ""
         end_tag = ""
 
         if start_tag in content and end_tag in content:
-            new_content = content.split(start_tag)[0] + start_tag + channels_html + end_tag + content.split(end_tag)[1]
+            # تقسيم الملف وحقن الكود الجديد بين العلامتين
+            parts_before = content.split(start_tag)
+            parts_after = parts_before[1].split(end_tag)
+            
+            new_content = parts_before[0] + start_tag + channels_html + end_tag + parts_after[1]
+            
             with open('index.html', 'w', encoding='utf-8') as f:
                 f.write(new_content)
-            print("Successfully updated index.html with new channels!")
+            print(f"Successfully updated index.html with {len(channels)} channels!")
+        else:
+            print("Error: Could not find markers (CHANNELS_START/END) in index.html")
     except Exception as e:
         print(f"Error updating HTML: {e}")
 
@@ -70,6 +88,7 @@ if __name__ == "__main__":
     
     # 3. تحديث الموقع مباشرة
     if all_channels:
-        update_index_html(all_channels)
+        # نرسل أول 100 قناة فقط لضمان سرعة التحميل
+        update_index_html(all_channels[:100])
     else:
         print("No channels found to update.")
