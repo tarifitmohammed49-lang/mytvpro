@@ -30,6 +30,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          # هنا السر: نرفع ملف الروابط وملف الموقع معاً
           git add links.json index.html
-          git commit -m "Update Channels" || echo "No changes"
+          git commit -m "Update Channels in Website" || echo "No changes"
           git push
