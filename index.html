@@ -287,37 +287,17 @@
         }
 
         // ==========================================
-        // تعديل سيمو: جلب القنوات من ملف JSON
+        // التعديل المخصص: Live Foot Channels
         // ==========================================
         async function loadLiveFoot() {
             isFeatured = false; currentGenre = null; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "<p style='text-align:center;width:100%;'>جاري جلب القنوات المحدثة من GitHub...</p>";
             
-            try {
-                // جلب ملف القنوات بصيغة JSON
-                const res = await fetch('channels.json'); 
-                if(!res.ok) throw new Error("JSON File not found");
-                const channels = await res.json();
-
-                grid.innerHTML = "";
-                if(channels.length === 0) {
-                    grid.innerHTML = "<p style='text-align:center;width:100%;'>لا توجد قنوات متاحة حالياً.</p>";
-                } else {
-                    channels.forEach(channel => {
-                        grid.innerHTML += `
-                            <div class="movie-card" onclick="openLivePlayer('${channel.url}')">
-                                <img src="${channel.logo}" alt="${channel.name}" style="object-fit: contain; padding: 20px; background: #111;" onerror="this.src='https://mytvpro1.github.io/favicon.ico'">
-                                <div class="movie-title">${channel.name}</div>
-                            </div>`;
-                    });
-                }
-            } catch(e) {
-                console.error("Error loading JSON channels:", e);
-                grid.innerHTML = "<p style='text-align:center;width:100%;'>خطأ في جلب ملف القنوات (تأكد من وجود ملف channels.json في المستودع).</p>";
-            }
+            // علامات البداية والنهاية لمحرك GitHub Python
+            grid.innerHTML = ``;
+            
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
