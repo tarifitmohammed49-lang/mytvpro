@@ -1,13 +1,15 @@
 name: Update MyTV Channels
 
 on:
-  workflow_dispatch: # لتشغيل التحديث يدوياً في أي وقت
+  workflow_dispatch: 
   schedule:
-    - cron: '0 0 * * *' # تحديث تلقائي كل يوم عند منتصف الليل
+    - cron: '0 */6 * * *' 
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write 
 
     steps:
       - name: Checkout code
@@ -22,22 +24,12 @@ jobs:
         run: pip install requests
 
       - name: Run Sniper
-        env:
-          # هذا السطر يربط السكربت بالرابط السري الذي أضفته في الإعدادات
-          IPTV_URL: ${{ secrets.IPTV_URL }}
         run: python sniper_m3u8.py
 
-      - name: Commit and Push changes
+      - name: Commit and Push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          # التأكد من إضافة ملف القنوات الجديد
-          if [ -f channels.json ]; then
-            git add channels.json
-            git commit -m "Update channels.json with fresh links" || echo "No changes to commit"
-            git push
-          else
-            echo "Error: channels.json not found!"
-            exit 1
-          fi
+          git add links.json index.html
+          git commit -m "Update Channels" || echo "No changes"
+          git push
