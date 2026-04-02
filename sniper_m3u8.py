@@ -2,79 +2,57 @@ import os
 import requests
 import re
 
-# 1. جلب رابط الملف من إعدادات GitHub (Secrets)
-m3u_url = os.getenv('IPTV_URL')
-
-def fetch_channels():
-    if not m3u_url:
+def update_html_with_channels():
+    # 1. جلب الرابط السري من إعدادات GitHub
+    iptv_url = os.getenv('IPTV_URL')
+    if not iptv_url:
         print("Error: IPTV_URL secret is not set!")
-        return ""
-
-    try:
-        response = requests.get(m3u_url, timeout=15)
-        response.raise_for_status()
-        m3u_content = response.text
-    except Exception as e:
-        print(f"Error fetching M3U: {e}")
-        return ""
-
-    # استخراج القنوات باستخدام Regex (الاسم، اللوجو، والرابط)
-    # نبحث عن #EXTINF مع tvg-logo و اسم القناة، ثم الرابط في السطر التالي
-    pattern = re.compile(r'#EXTINF:-1.*?tvg-logo="(.*?)".*?,(.*?)\n(http.*)', re.MULTILINE)
-    matches = pattern.findall(m3u_content)
-
-    channels_html = ""
-    
-    for logo, name, url in matches:
-        # تنظيف الرابط والاسم من أي مسافات زائدة
-        url = url.strip()
-        name = name.strip()
-        
-        # إنشاء الكارت بتنسيق MYTVPRO
-        # نستخدم دالة openLivePlayer التي أضفناها في index.html
-        card = f'''
-        <div class="movie-card" onclick="openLivePlayer('{url}')">
-            <img src="{logo}" alt="{name}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy">
-            <div class="movie-title">{name}</div>
-        </div>
-        '''
-        channels_html += card
-
-    return channels_html
-
-def update_index_html(content):
-    file_path = 'index.html'
-    if not os.path.exists(file_path):
-        print("Error: index.html not found!")
         return
 
-    with open(file_path, 'r', encoding='utf-8') as f:
-        html_data = f.read()
-
-    # تحديد علامات الحقن (يجب أن تتطابق تماماً مع الموجود في index.html)
-    start_tag = ""
-    end_tag = ""
-
-    if start_tag in html_data and end_tag in html_data:
-        # تقسيم الملف وحقن القنوات الجديدة
-        before = html_data.split(start_tag)[0]
-        after = html_data.split(end_tag)[1]
+    try:
+        # 2. جلب قائمة القنوات (رابط M3U أو JSON)
+        response = requests.get(iptv_url)
+        data = response.text
         
-        new_html = before + start_tag + "\n" + content + "\n" + end_tag + after
+        # هنا سنقوم بإنشاء كود الـ HTML لكل قناة
+        # ملاحظة: هذا المثال يفترض أننا نستخرج روابط beIN
+        # يمكنك تعديل الـ Regex حسب شكل البيانات القادمة من الرابط السري
+        channels_html = ""
         
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(new_html)
-        print(f"Successfully injected {content.count('movie-card')} channels into index.html")
-    else:
-        print("Error: Could not find injection tags (CHANNELS_START/END) in index.html")
+        # مثال لاستخراج القنوات (يجب تعديله ليتناسب مع مصدر روابطك)
+        # هذا الكود سيولد بطاقة (Card) لكل قناة بنفس تصميم موقعك
+        
+        # لنفترض أننا سنضع قنوات beIN Sports كمثال ثابت الآن للتجربة:
+        sample_channels = [
+            {"name": "beIN SPORTS 1", "url": "رابط_القناة_المتغير", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/BeIN_Sports_1_logo.svg/1200px-BeIN_Sports_1_logo.svg.png"},
+            {"name": "beIN SPORTS 2", "url": "رابط_القناة_المتغير", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/BeIN_Sports_2_logo.svg/1200px-BeIN_Sports_2_logo.svg.png"}
+        ]
+
+        for ch in sample_channels:
+            channels_html += f"""
+            <div class="movie-card" onclick="openLivePlayer('{ch['url']}')">
+                <img src="{ch['logo']}" alt="{ch['name']} live" loading="lazy">
+                <div class="movie-title">{ch['name']}</div>
+            </div>
+            """
+
+        # 3. فتح ملف index.html وحقن الكود
+        with open('index.html', 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # البحث عن العلامات واستبدال ما بينها
+        pattern = r".*?"
+        replacement = f"\n{channels_html}\n"
+        
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+        with open('index.html', 'w', encoding='utf-8') as f:
+            f.write(new_content)
+            
+        print("Successfully injected channels into index.html!")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    print("Starting Sniper Update...")
-    # 1. توليد كود الـ HTML الخاص بالقنوات
-    new_content = fetch_channels() 
-    
-    if new_content:
-        # 2. تحديث ملف الموقع مباشرة
-        update_index_html(new_content)
-    else:
-        print("No channels found to update.")
+    update_html_with_channels()
