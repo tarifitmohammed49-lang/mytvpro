@@ -1,58 +1,75 @@
-import os
 import requests
+import json
 import re
 
-def update_html_with_channels():
-    # 1. جلب الرابط السري من إعدادات GitHub
-    iptv_url = os.getenv('IPTV_URL')
-    if not iptv_url:
-        print("Error: IPTV_URL secret is not set!")
-        return
+def fetch_iptv_org():
+    """سحب القنوات العربية من iptv-org"""
+    url = "https://iptv-org.github.io/iptv/languages/ara.m3u"
+    try:
+        response = requests.get(url, timeout=15)
+        if response.status_code == 200:
+            lines = response.text.split('\n')
+            channels = []
+            for i in range(len(lines)):
+                if lines[i].startswith('#EXTINF'):
+                    # استخراج الاسم واللوغو باستخدام Regex
+                    name_match = re.search('tvg-name="(.*?)"', lines[i])
+                    logo_match = re.search('tvg-logo="(.*?)"', lines[i])
+                    name = name_match.group(1) if name_match else "Unknown Channel"
+                    logo = logo_match.group(1) if logo_match else "https://mytvpro1.github.io/favicon.ico"
+                    
+                    # الرابط يكون في السطر التالي مباشرة
+                    if i + 1 < len(lines):
+                        link = lines[i+1].strip()
+                        if link.startswith('http'):
+                            channels.append({
+                                "name": name,
+                                "url": link,
+                                "logo": logo
+                            })
+            return channels
+    except Exception as e:
+        print(f"Error fetching iptv-org: {e}")
+    return []
+
+def update_index_html(channels):
+    """حقن القنوات في ملف index.html"""
+    channels_html = ""
+    for ch in channels:
+        channels_html += f'''
+    <div class="movie-card" onclick="openLivePlayer('{ch['url']}')">
+        <img src="{ch['logo']}" alt="{ch['name']}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy">
+        <div class="movie-title">{ch['name']}</div>
+    </div>'''
 
     try:
-        # 2. جلب قائمة القنوات (رابط M3U أو JSON)
-        response = requests.get(iptv_url)
-        data = response.text
-        
-        # هنا سنقوم بإنشاء كود الـ HTML لكل قناة
-        # ملاحظة: هذا المثال يفترض أننا نستخرج روابط beIN
-        # يمكنك تعديل الـ Regex حسب شكل البيانات القادمة من الرابط السري
-        channels_html = ""
-        
-        # مثال لاستخراج القنوات (يجب تعديله ليتناسب مع مصدر روابطك)
-        # هذا الكود سيولد بطاقة (Card) لكل قناة بنفس تصميم موقعك
-        
-        # لنفترض أننا سنضع قنوات beIN Sports كمثال ثابت الآن للتجربة:
-        sample_channels = [
-            {"name": "beIN SPORTS 1", "url": "رابط_القناة_المتغير", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/BeIN_Sports_1_logo.svg/1200px-BeIN_Sports_1_logo.svg.png"},
-            {"name": "beIN SPORTS 2", "url": "رابط_القناة_المتغير", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/BeIN_Sports_2_logo.svg/1200px-BeIN_Sports_2_logo.svg.png"}
-        ]
-
-        for ch in sample_channels:
-            channels_html += f"""
-            <div class="movie-card" onclick="openLivePlayer('{ch['url']}')">
-                <img src="{ch['logo']}" alt="{ch['name']} live" loading="lazy">
-                <div class="movie-title">{ch['name']}</div>
-            </div>
-            """
-
-        # 3. فتح ملف index.html وحقن الكود
         with open('index.html', 'r', encoding='utf-8') as f:
             content = f.read()
 
-        # البحث عن العلامات واستبدال ما بينها
-        pattern = r".*?"
-        replacement = f"\n{channels_html}\n"
-        
-        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+        start_tag = ""
+        end_tag = ""
 
-        with open('index.html', 'w', encoding='utf-8') as f:
-            f.write(new_content)
-            
-        print("Successfully injected channels into index.html!")
-
+        if start_tag in content and end_tag in content:
+            new_content = content.split(start_tag)[0] + start_tag + channels_html + end_tag + content.split(end_tag)[1]
+            with open('index.html', 'w', encoding='utf-8') as f:
+                f.write(new_content)
+            print("Successfully updated index.html with new channels!")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"Error updating HTML: {e}")
 
+# التشغيل الرئيسي
 if __name__ == "__main__":
-    update_html_with_channels()
+    print("Starting Sniper Update...")
+    
+    # 1. جلب القنوات
+    all_channels = fetch_iptv_org()
+    
+    # 2. حفظها في links.json كنسخة احتياطية
+    with open('links.json', 'w', encoding='utf-8') as f:
+        json.dump(all_channels, f, ensure_ascii=False, indent=2)
+    
+    # 3. تحديث الموقع مباشرة
+    if all_channels:
+        update_index_html(all_channels)
+    else:
+        print("No channels found to update.")
