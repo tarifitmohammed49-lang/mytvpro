@@ -36,8 +36,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-    <script src="channels_data.js"></script>
-
     <script>
       if (window.location.hostname === "mytvpro1.github.io") {
         window.location.replace("https://mytvpro.mytvpropagesdev.workers.dev" + window.location.pathname + window.location.search);
@@ -288,7 +286,7 @@
             document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
-        /* تحديث: جلب القنوات مباشرة من GitHub الخام لضمان الظهور الفوري */
+        /* جلب القنوات بشكل سري ومباشر */
         async function loadLiveFoot() {
             isFeatured = false; currentGenre = null; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -297,17 +295,18 @@
             grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>🔄 جاري تحديث القنوات الحية...</p>"; 
 
             try {
-                // جلب ملف channels_data.js من GitHub مباشرة
+                // جلب ملف channels_data.js من GitHub الخام
                 const response = await fetch('https://raw.githubusercontent.com/mytvpro1/mytvpro1.github.io/main/channels_data.js');
                 const text = await response.text();
                 
-                // تحويل النص البرمجي إلى كائن JSON
-                const jsonData = text.replace('const myChannels = ', '').replace(';', '');
+                // تنظيف الكود لتحويله إلى JSON
+                const jsonData = text.substring(text.indexOf('[') , text.lastIndexOf(']') + 1);
                 const channels = JSON.parse(jsonData);
 
                 grid.innerHTML = ""; 
                 if (channels.length > 0) {
                     channels.forEach(ch => {
+                        // يتم إرسال الرابط المشفر كما هو للدالة
                         grid.innerHTML += `
                             <div class="movie-card" onclick="openLivePlayer('${ch.url}')">
                                 <img src="${ch.logo}" alt="${ch.name}" loading="lazy" style="object-fit: contain; background: #000; padding: 10px;">
@@ -318,10 +317,8 @@
                     grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>⚠️ لا توجد قنوات متاحة حالياً.</p>";
                 }
             } catch (error) {
-                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ حدث خطأ أثناء الاتصال بالخادم. يرجى إعادة المحاولة.</p>";
-                console.error("Fetch error:", error);
+                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ خطأ في الجلب. تأكد من تشغيل الـ Action في GitHub.</p>";
             }
-            
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
@@ -384,9 +381,14 @@
             window.scrollTo(0,0);
         }
 
-        async function openLivePlayer(streamUrl) {
+        /* تعديل: فك تشفير الرابط لحظياً قبل التشغيل */
+        async function openLivePlayer(encodedUrl) {
+            // فك التشفير (Base64)
+            const streamUrl = atob(encodedUrl); 
+            
             const proxyUrl = "https://broad-cake-463d.mytvpropagesdev.workers.dev/?target=";
             const finalUrl = proxyUrl + encodeURIComponent(streamUrl);
+            
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
             const ninetyMinutes = 90 * 60 * 1000;
