@@ -1,50 +1,37 @@
-import requests
-import json
 import re
 import os
 
-# دالة لجلب الروابط المحدثة (beIN Tokens) من مصادر GitHub نشطة
-def fetch_bein_tokens():
-    print("Searching for fresh beIN Tokens...")
-    # هذه روابط لمصادر مشهورة بتحديث التوكنات يومياً على GitHub
-    sources = [
-        "https://raw.githubusercontent.com/arab-iptv/arab-iptv/master/bein.m3u",
-        "https://raw.githubusercontent.com/mohamed-be/iptv/main/bein_sports.m3u"
-    ]
+def update_from_playlist():
+    # هذا هو اسم الملف الذي يظهر في صورتك الأخيرة
+    file_path = 'playlist (2).m3u' 
     
-    bein_channels = []
-    for url in sources:
-        try:
-            response = requests.get(url, timeout=10)
-            if response.status_code == 200:
-                lines = response.text.split('\n')
-                for i in range(len(lines)):
-                    if '#EXTINF' in lines[i] and 'beIN' in lines[i]:
-                        name = lines[i].split(',')[-1].strip()
-                        # البحث عن شعار القناة إذا وجد
-                        logo_match = re.search('tvg-logo="(.*?)"', lines[i])
-                        logo = logo_match.group(1) if logo_match else "https://mytvpro1.github.io/favicon.ico"
-                        if i + 1 < len(lines):
-                            link = lines[i+1].strip()
-                            if link.startswith('http'):
-                                bein_channels.append({"name": name, "url": link, "logo": logo})
-                if bein_channels: break # إذا وجدنا روابط لا داعي لإكمال بقية المصادر
-        except: continue
-    return bein_channels
-
-def update_index_html(channels):
-    if not channels:
-        print("No channels found.")
+    if not os.path.exists(file_path):
+        print(f"❌ Error: {file_path} not found in GitHub!")
         return
 
-    channels_html = ""
-    for ch in channels:
-        channels_html += f'''
-        <div class="movie-card" onclick="openLivePlayer('{ch['url']}')">
-            <img src="{ch['logo']}" alt="{ch['name']}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy">
-            <div class="movie-title">{ch['name']}</div>
-        </div>'''
+    with open(file_path, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
 
+    channels_html = ""
+    for i in range(len(lines)):
+        if lines[i].startswith('#EXTINF'):
+            # استخراج الاسم والشعار
+            name = lines[i].split(',')[-1].strip()
+            logo_match = re.search('tvg-logo="(.*?)"', lines[i])
+            logo = logo_match.group(1) if logo_match else "https://mytvpro1.github.io/favicon.ico"
+            
+            # الرابط في السطر التالي
+            if i + 1 < len(lines):
+                url = lines[i+1].strip()
+                if url.startswith('http'):
+                    # تصميم كارت القناة لموقع Simo Final
+                    channels_html += f'''
+                    <div class="movie-card" onclick="openLivePlayer('{url}')">
+                        <img src="{logo}" alt="{name}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy">
+                        <div class="movie-title">{name}</div>
+                    </div>'''
+
+    # حقن الكود في index.html بين العلامات
     try:
         with open('index.html', 'r', encoding='utf-8') as f:
             content = f.read()
@@ -59,15 +46,11 @@ def update_index_html(channels):
             
             with open('index.html', 'w', encoding='utf-8') as f:
                 f.write(new_content)
-            print(f"✅ Updated index.html with {len(channels)} fresh channels!")
+            print(f"✅ Successfully added channels from {file_path}!")
         else:
-            print("❌ Markers not found in index.html")
+            print("❌ Markers not found in index.html. Add and first.")
     except Exception as e:
         print(f"❌ Error: {e}")
 
 if __name__ == "__main__":
-    # 1. صيد القنوات المحدثة
-    live_bein = fetch_bein_tokens()
-    
-    # 2. تحديث index.html مباشرة
-    update_index_html(live_bein)
+    update_from_playlist()
