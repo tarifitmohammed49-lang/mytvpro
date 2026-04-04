@@ -286,19 +286,13 @@
             document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
-        // ==========================================
-        // التعديل المخصص: Live Foot Channels
-        // ==========================================
         async function loadLiveFoot() {
             isFeatured = false; currentGenre = null; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            
-            // تم وضع العلامات هنا بشكل صحيح ليتمكن Sniper من حقن القنوات
             grid.innerHTML = `
 `;
-            
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
@@ -362,7 +356,8 @@
         }
 
         async function openLivePlayer(streamUrl) {
-            const proxyUrl = "https://bitter-lab-7724mytv-proxy.mytvpropagesdev.workers.dev/?url=";
+            // التعديل: استخدام البروكسي الجديد الخاص بك (broad-cake-463d)
+            const proxyUrl = "https://broad-cake-463d.mytvpropagesdev.workers.dev/?target=";
             const finalUrl = proxyUrl + encodeURIComponent(streamUrl);
 
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
@@ -379,7 +374,10 @@
             
             if (Hls.isSupported()) {
                 if (window.hls) { window.hls.destroy(); }
-                const hls = new Hls({ lowLatencyMode: true });
+                const hls = new Hls({ 
+                    lowLatencyMode: true,
+                    xhrSetup: function(xhr, url) { xhr.withCredentials = false; }
+                });
                 window.hls = hls;
                 hls.loadSource(finalUrl); 
                 hls.attachMedia(liveVideo);
