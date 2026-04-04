@@ -79,7 +79,6 @@
                 gtag('event', 'stolen_code_alert', { 'event_label': _c, 'non_interaction': true });
             }
 
-            // تم إصلاح المفتاح هنا ليعمل الموقع فوراً
             const _0x5a21 = [
                 "aHR0cHM6Ly9ybTM1OC5jb20vNC8xMDcyMjk3Mg==", 
                 "c2ltb19sYXN0YWRhZA==", 
@@ -183,8 +182,7 @@
         <input type="text" id="searchInput" placeholder="Search Movies & Series..." onkeyup="handleSearch(event)">
     </div>
 
-    <main id="moviesGrid" class="movie-grid">
-        </main>
+    <main id="moviesGrid" class="movie-grid"></main>
 
     <div class="load-more-container" id="loadMoreSection">
         <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE / عرض المزيد</button>
@@ -293,10 +291,7 @@
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            const items = grid.children;
-            for (let item of items) {
-                item.style.display = (item.getAttribute('onclick') && item.getAttribute('onclick').includes('openLivePlayer')) ? 'block' : 'none';
-            }
+            grid.innerHTML = ``;
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
@@ -385,6 +380,7 @@
                 liveVideo.addEventListener('loadedmetadata', () => liveVideo.play());
             }
             document.getElementById('videoPlayerContainer').style.display = 'block';
+            window.scrollTo(0,0);
         }
 
         function closePlayer() { 
