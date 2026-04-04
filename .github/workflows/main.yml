@@ -2,15 +2,16 @@ name: Update Live Channels Sniper
 
 on:
   schedule:
-    - cron: '0 3 * * *' # يعمل تلقائياً كل يوم الساعة 3 صباحاً
-  workflow_dispatch: # يتيح لك التشغيل اليدوي بضغطة زر
+    - cron: '0 * * * *' # يعمل تلقائياً كل ساعة
+  workflow_dispatch: # يتيح لك تشغيله يدوياً بنقرة زر
 
 permissions:
-  contents: write # هذا السطر هو الحل لمشكلة الفشل الأحمر في صورك
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,6 +21,9 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Install dependencies
+        run: pip install requests
+
       - name: Run Sniper Script
         run: python update_channels.py
 
@@ -27,7 +31,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          touch channel_data.js # هذا السطر يضمن وجود الملف حتى لو فشل السكربت
+          touch channel_data.js
           git add channel_data.js
           git commit -m "Auto-update channels list" || echo "No changes to commit"
           git push
