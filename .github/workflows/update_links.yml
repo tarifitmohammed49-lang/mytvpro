@@ -1,31 +1,41 @@
-name: Update Live Channels
-on:
-  schedule:
-    - cron: '0 */6 * * *' # يعمل كل 6 ساعات لتجديد الروابط
-  workflow_dispatch: # يسمح لك بتشغيله يدوياً
+import json
+import os
+import re
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-          
-      - name: Install dependencies
-        run: pip install requests
+def sniper_extractor():
+    m3u_file = 'playlist.m3u' # الاسم الصحيح من صورتك
+    channels = []
+    
+    if not os.path.exists(m3u_file):
+        print("❌ File not found!")
+        return
+
+    print("🚀 Sniping channels from heavy file...")
+    
+    with open(m3u_file, 'r', encoding='utf-8') as f:
+        content = f.read()
         
-      - name: Run Sniper
-        # تأكدنا هنا أن الاسم يطابق ملفك الفعلي sniper_m3u8.py
-        run: python sniper_m3u8.py 
+    # استخدام Regex للبحث عن النمط (الاسم والرابط) مهما كان تعقيد السطر
+    pattern = re.compile(r'#EXTINF:.*?,(.*?)\n(http.*)', re.MULTILINE)
+    matches = pattern.findall(content)
+    
+    for name, url in matches:
+        # تنظيف الرابط والاسم
+        clean_name = name.strip()
+        clean_url = url.strip()
         
-      - name: Commit and Push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add index.html
-          git commit -m "Update Live Links" || echo "No changes to commit"
-          git push
+        # استخراج اللوجو إذا وجد في السطر الأصلي (اختياري)
+        channels.append({
+            "name": clean_name,
+            "url": clean_url,
+            "logo": "https://mytvpro1.github.io/favicon.ico"
+        })
+
+    # كتابة الملف الذي ينتظره الموقع ليختفي التنبيه
+    with open('channels_data.js', 'w', encoding='utf-8') as f:
+        f.write("const myChannels = " + json.dumps(channels, ensure_ascii=False) + ";")
+    
+    print(f"✅ Success! {len(channels)} channels added to MYTVPRO.")
+
+if __name__ == "__main__":
+    sniper_extractor()
