@@ -1,64 +1,166 @@
-<div class="search-container">
+<!DOCTYPE html>
+<html lang="ar" dir="ltr"> 
+<head>
+    <title>MYTVPRO - مشاهدة أفلام ومسلسلات أون لاين مجاناً | Watch Free Movies & Series</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <script>
+        // هذا الجزء ضروري جداً لكي يفتح الموقع ولا يظل الشاشة بيضاء
+        (function() {
+            window.API_KEY = atob("YWNkOWQ4OGE4M2I1MjcyNTg4ZDIxZDViNDQwMWVhYjY=");
+        })();
+    </script>
+
+    <style>
+        :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
+        body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
+        #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s; }
+        .progress-container { width: 220px; height: 6px; background: #222; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; }
+        #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
+        .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
+        .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
+        .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
+        .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
+        .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
+        .nav-tabs::-webkit-scrollbar { display: none; }
+        .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
+        .tab.active { background: var(--main-red); }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
+        .movie-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; }
+        .movie-card img { width: 100%; height: 180px; object-fit: cover; }
+        .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
+        .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
+        .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
+        .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; }
+        #mainPlayer, #liveVideoPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
+        .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
+        .main-footer-disclaimer { background-color: #000; padding: 40px 20px; border-top: 1px solid #1a1d21; }
+        .legal-tag { color: var(--main-red); font-weight: bold; }
+        .footer-copyright-pro { text-align: center; margin-top: 30px; color: #333; font-size: 11px; }
+        .safe-info-box { width: 100%; border-top: 2px solid var(--main-red); padding: 25px; background: rgba(255, 59, 92, 0.04); }
+        .safe-line.ar { text-align: right; direction: rtl; color: #fff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="splash-screen">
+        <div class="progress-container"><div id="progress-bar"></div></div>
+    </div>
+
+    <header class="header">
+        <h1 class="logo" onclick="location.reload()">MYTVPRO</h1>
+        <div class="lang-container">
+            <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
+            <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
+        </div>
+    </header>
+
+    <div class="nav-tabs">
+        <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
+        <button id="btnLiveFoot" class="tab" onclick="loadLiveFoot()">⚽ Live Foot</button>
+        <button id="btnAnime" class="tab" onclick="loadGenre(16, 'tv', 'btnAnime')">🎌 Anime</button>
+        <button id="btnAction" class="tab" onclick="loadGenre(28, 'movie', 'btnAction')">🔥 Action</button>
+        <button id="btnMovies" class="tab" onclick="loadContent('movie')">Movies</button>
+        <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
+    </div>
+
+    <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search Movies & Series..." onkeyup="handleSearch(event)">
     </div>
 
     <main id="moviesGrid" class="movie-grid">
         </main>
 
-    <script>
-        // ... (كل المتغيرات والـ API KEY تبقى كما هي) ...
+    <div class="load-more-container" id="loadMoreSection">
+        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE / عرض المزيد</button>
+    </div>
 
-        // تحديث دالة Live Foot لتظهر القنوات المحقونة فقط
+    <footer class="main-footer-disclaimer">
+        <div class="legal-grid">
+            <div class="legal-item"><span class="legal-tag">Legal Disclaimer (EN)</span> MYTVPRO is a specialized web indexing engine...</div>
+            <div class="legal-item" style="grid-column: span 2; direction: rtl;"><span class="legal-tag">إشعار قانوني</span> يعمل موقع MYTVPRO كمحرك فهرسة وبحث...</div>
+        </div>
+        <div class="footer-copyright-pro">© 2026 MYTVPRO GLOBAL INDEX • ALL RIGHTS RESERVED</div>
+    </footer>
+
+    <div id="videoPlayerContainer">
+        <div class="player-wrapper">
+            <div id="adOverlay" class="ad-overlay" onclick="triggerAd()"></div>
+            <div class="cast-btn" onclick="castToTV()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3b5c" stroke-width="2"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 20h.01"></path></svg></div>
+            <button class="back-btn" onclick="closePlayer()">BACK</button>
+            <iframe id="mainPlayer" src="" allowfullscreen></iframe>
+            <video id="liveVideoPlayer" controls playsinline></video>
+            <div class="safe-info-box">
+                <div class="warning-section">
+                    <div class="safe-line ar">تنبيه: الإعلانات داخل المشغل من مصادر خارجية.</div>
+                    <div class="safe-line"><strong>NOTICE:</strong> External ads apply within the player.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // إعداد شريط التحميل (Splash Screen) ليعمل مع تصميمك
+        window.addEventListener('DOMContentLoaded', () => {
+            const bar = document.getElementById('progress-bar');
+            const splash = document.getElementById('splash-screen');
+            let w = 0;
+            const int = setInterval(() => {
+                if (w >= 100) {
+                    clearInterval(int);
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.style.display = 'none', 500);
+                } else { w += 10; bar.style.width = w + '%'; }
+            }, 50);
+        });
+
+        let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true;
+
         function loadLiveFoot() {
-            isFeatured = false; currentGenre = null; currentPage = 1;
+            isFeatured = false;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
-            
-            const grid = document.getElementById('moviesGrid');
-            const items = grid.children;
-            
-            let hasChannels = false;
+            const items = document.getElementById('moviesGrid').children;
             for (let item of items) {
-                // نبحث عن العناصر التي تحتوي على دالة تشغيل البث المباشر
-                if (item.outerHTML.includes('openLivePlayer')) {
-                    item.style.display = 'block';
-                    hasChannels = true;
-                } else {
-                    item.style.display = 'none';
-                }
+                item.style.display = (item.getAttribute('onclick') && item.getAttribute('onclick').includes('openLivePlayer')) ? 'block' : 'none';
             }
-            
-            // إذا كانت المنطقة فارغة (قبل تشغيل القناص)
-            if (!hasChannels) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px;">جاري تحديث الروابط... تأكد من تشغيل GitHub Actions</div>';
-            }
-            
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
-        // تحديث دالة loadFeatured لكي لا تمسح علامات الحقن
         async function loadFeatured() {
-            isFeatured = true; currentGenre = null; currentPage = 1;
+            isFeatured = true; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnFeatured').classList.add('active');
-            
             const grid = document.getElementById('moviesGrid');
+            grid.innerHTML = ''; 
             
-            // نحتفظ بالقنوات المحقونة مخفية ونعرض الأفلام فقط
-            const channelsHtml = grid.innerHTML.match(/[\s\S]*/);
-            grid.innerHTML = channelsHtml ? channelsHtml[0] : '';
-            
-            const featuredItems = [{id:93405,type:'tv'},{id:100088,type:'tv'},{id:1396,type:'tv'},{id:76479,type:'movie'},{id:157336,type:'movie'},{id:634649,type:'movie'},{id:82452,type:'tv'},{id:111110,type:'tv'}];
-            
+            const featuredItems = [{id:93405,type:'tv'},{id:100088,type:'tv'},{id:1396,type:'tv'},{id:76479,type:'movie'},{id:157336,type:'movie'}];
             for(let item of featuredItems) {
                 try {
                     const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
                     const m = await res.json();
-                    if(m.id) grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name} online free" loading="lazy"><div class="movie-title">${m.title || m.name}</div></div>`;
+                    if(m.id) {
+                        grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name}"><div class="movie-title">${m.title || m.name}</div></div>`;
+                    }
                 } catch(e) {}
             }
-            document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
-        // ... (باقي الدوال كما هي تماماً) ...
+        function openPlayer(id, type) {
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
+            document.getElementById('videoPlayerContainer').style.display = 'block';
+        }
+
+        function closePlayer() { 
+            document.getElementById('videoPlayerContainer').style.display = 'none'; 
+            document.getElementById('mainPlayer').src = ''; 
+        }
+
+        window.onload = () => loadFeatured();
     </script>
+</body>
+</html>
