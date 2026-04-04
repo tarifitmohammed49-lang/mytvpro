@@ -21,12 +21,13 @@ jobs:
           python-version: '3.9'
 
       - name: Run Sniper Script
-        run: python update_channels.py # تأكد أن هذا الاسم يطابق ملف البايثون لديك
+        run: python update_channels.py
 
       - name: Commit and Push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          touch channel_data.js # هذا السطر يضمن وجود الملف حتى لو فشل السكربت
           git add channel_data.js
           git commit -m "Auto-update channels list" || echo "No changes to commit"
           git push
