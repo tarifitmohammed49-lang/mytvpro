@@ -9,18 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+          
       - name: Install dependencies
         run: pip install requests
+        
       - name: Run Sniper
-        run: python sniper.py # تأكد أن هذا هو اسم ملف البايثون عندك
+        # التعديل هنا: تأكدنا من استخدام الاسم الصحيح للملف الموجود في مستودعك
+        run: python sniper_m3u8.py 
+        
       - name: Commit and Push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add index.html
-          git commit -m "Update Live Links"
+          git commit -m "Update Live Links" || echo "No changes to commit"
           git push
