@@ -288,25 +288,38 @@
             document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
-        /* تعديل وظيفة Live Foot لتعرض قنوات الـ Sniper تلقائياً */
+        /* تحديث: جلب القنوات مباشرة من GitHub الخام لضمان الظهور الفوري */
         async function loadLiveFoot() {
             isFeatured = false; currentGenre = null; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = ""; 
+            grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>🔄 جاري تحديث القنوات الحية...</p>"; 
 
-            // التحقق من وجود قنوات في ملف channels_data.js
-            if (typeof myChannels !== 'undefined' && myChannels.length > 0) {
-                myChannels.forEach(ch => {
-                    grid.innerHTML += `
-                        <div class="movie-card" onclick="openLivePlayer('${ch.url}')">
-                            <img src="${ch.logo}" alt="${ch.name}" loading="lazy" style="object-fit: contain; background: #000; padding: 10px;">
-                            <div class="movie-title">${ch.name}</div>
-                        </div>`;
-                });
-            } else {
-                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>جاري تحديث القنوات... يرجى المحاولة لاحقاً.</p>";
+            try {
+                // جلب ملف channels_data.js من GitHub مباشرة
+                const response = await fetch('https://raw.githubusercontent.com/mytvpro1/mytvpro1.github.io/main/channels_data.js');
+                const text = await response.text();
+                
+                // تحويل النص البرمجي إلى كائن JSON
+                const jsonData = text.replace('const myChannels = ', '').replace(';', '');
+                const channels = JSON.parse(jsonData);
+
+                grid.innerHTML = ""; 
+                if (channels.length > 0) {
+                    channels.forEach(ch => {
+                        grid.innerHTML += `
+                            <div class="movie-card" onclick="openLivePlayer('${ch.url}')">
+                                <img src="${ch.logo}" alt="${ch.name}" loading="lazy" style="object-fit: contain; background: #000; padding: 10px;">
+                                <div class="movie-title">${ch.name}</div>
+                            </div>`;
+                    });
+                } else {
+                    grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>⚠️ لا توجد قنوات متاحة حالياً.</p>";
+                }
+            } catch (error) {
+                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ حدث خطأ أثناء الاتصال بالخادم. يرجى إعادة المحاولة.</p>";
+                console.error("Fetch error:", error);
             }
             
             document.getElementById('loadMoreSection').style.display = 'none';
