@@ -36,6 +36,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
+    <script src="channels_data.js"></script>
+
     <script>
       if (window.location.hostname === "mytvpro1.github.io") {
         window.location.replace("https://mytvpro.mytvpropagesdev.workers.dev" + window.location.pathname + window.location.search);
@@ -286,12 +288,27 @@
             document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
+        /* تعديل وظيفة Live Foot لتعرض قنوات الـ Sniper تلقائياً */
         async function loadLiveFoot() {
             isFeatured = false; currentGenre = null; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = ``;
+            grid.innerHTML = ""; 
+
+            // التحقق من وجود قنوات في ملف channels_data.js
+            if (typeof myChannels !== 'undefined' && myChannels.length > 0) {
+                myChannels.forEach(ch => {
+                    grid.innerHTML += `
+                        <div class="movie-card" onclick="openLivePlayer('${ch.url}')">
+                            <img src="${ch.logo}" alt="${ch.name}" loading="lazy" style="object-fit: contain; background: #000; padding: 10px;">
+                            <div class="movie-title">${ch.name}</div>
+                        </div>`;
+                });
+            } else {
+                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>جاري تحديث القنوات... يرجى المحاولة لاحقاً.</p>";
+            }
+            
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
