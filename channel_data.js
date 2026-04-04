@@ -12,4 +12,6 @@ const myChannels = [
   {
     "name": "DAZN DE | Event 10",
     "logo": "https://mytvpro1.github.io/favicon.ico",
-    "url": "http://
+    "url": "http://s1219.x.smline.xyz:2082/plays/cjVaNS82L0lnRW9yL25DSXoxY2FyS2NMakpod3QvRWVqOXFlNjI2RVN3SU45OElFbGc5SWFWVG9sZ2d4bi9jU2o3Y1ExZlVYdE9LTVVOK1BoWnhLbmc9PQ==.ts"
+  }
+];
