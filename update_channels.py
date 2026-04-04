@@ -1,43 +1,53 @@
+import requests
 import json
 import os
-import re
-import base64
 
-def sniper_extractor():
-    m3u_file = 'playlist.m3u' 
-    output_file = 'channels_data.js'
+# قائمة الروابط التي تريد جلبها (ضع هنا روابط البحث أو الملفات التي تحتوي التوكينات)
+SOURCES = [
+    "https://raw.githubusercontent.com/example/dazn1_token.txt",
+    "https://raw.githubusercontent.com/example/dazn2_token.txt",
+    "https://raw.githubusercontent.com/example/dazn3_token.txt"
+]
+
+def fetch_links():
     channels = []
+    # هنا نقوم بتسمية القنوات وتحديد الروابط
+    # سأضع لك مثالاً لثلاث قنوات DAZN
+    for i, source in enumerate(SOURCES, 1):
+        try:
+            # محاولة جلب الرابط المباشر من المصدر
+            response = requests.get(source, timeout=10)
+            if response.status_code == 200:
+                link = response.text.strip()
+                if link:
+                    channels.append({
+                        "name": f"DAZN DE {i+7}", # سيبدأ من DAZN 8 و 9 و 10
+                        "url": link
+                    })
+        except Exception as e:
+            print(f"Error fetching source {i}: {e}")
     
-    if not os.path.exists(m3u_file):
-        print("M3U file not found!")
-        return
+    return channels
 
-    with open(m3u_file, 'r', encoding='utf-8') as f:
-        content = f.read()
-        
-    pattern = re.compile(r'#EXTINF:.*?,(.*?)\n(http.*)', re.MULTILINE)
-    matches = pattern.findall(content)
+def save_to_js(channels):
+    # هذا هو الجزء الأهم الذي كان ينقصك يا سيمو
+    # نقوم بكتابة المتغير البرمجي قبل البيانات
+    filename = "channel_data.js"
     
-    # أهم خطوة: سنأخذ فقط القنوات الرياضية لكي لا يشنج الموقع
-    important_keywords = ['bein', 'ssc', 'abu dhabi', 'alkass', 'espn', 'sky', 'dazn', 'canal', 'eurosport', 'rmc']
-
-    for name, url in matches:
-        clean_name = name.strip()
-        name_lower = clean_name.lower()
-        
-        if any(key in name_lower for key in important_keywords):
-            encoded_url = base64.b64encode(url.strip().encode()).decode()
-            channels.append({
-                "name": clean_name,
-                "url": encoded_url,
-                "logo": "https://mytvpro1.github.io/favicon.ico"
-            })
-
-    with open(output_file, 'w', encoding='utf-8') as f:
-        # كتابة الملف بتنسيق صغير جداً
-        f.write("const myChannels = " + json.dumps(channels, ensure_ascii=False) + ";")
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write("var live_channels = ")
+        json.dump(channels, f, indent=2, ensure_ascii=False)
+        f.write(";")
     
-    print(f"✅ تم استخراج {len(channels)} قناة رياضية فقط. الحجم الآن مثالي!")
+    print(f"Successfully saved {len(channels)} channels to {filename}")
 
 if __name__ == "__main__":
-    sniper_extractor()
+    print("Starting Sniper Update...")
+    live_data = fetch_links()
+    
+    if live_data:
+        save_to_js(live_data)
+    else:
+        # في حال فشل السحب، نضع مصفوفة فارغة لكي لا يتوقف الموقع
+        save_to_js([])
+        print("No links found, saved empty list.")
