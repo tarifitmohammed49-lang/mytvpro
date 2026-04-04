@@ -1,36 +1,26 @@
-name: Update MyTV Channels
-
+name: Update Live Channels
 on:
-  workflow_dispatch: 
   schedule:
-    - cron: '0 */6 * * *' 
+    - cron: '0 */6 * * *' # يعمل كل 6 ساعات لتجديد الروابط
+  workflow_dispatch: # يسمح لك بتشغيله يدوياً
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write 
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+      - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
       - name: Install dependencies
         run: pip install requests
-
       - name: Run Sniper
-        run: python sniper_m3u8.py
-
-      - name: Commit and Push
+        run: python sniper.py # تأكد أن هذا هو اسم ملف البايثون عندك
+      - name: Commit and Push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # هنا السر: نرفع ملف الروابط وملف الموقع معاً
-          git add links.json index.html
-          git commit -m "Update Channels in Website" || echo "No changes"
+          git add index.html
+          git commit -m "Update Live Links"
           git push
