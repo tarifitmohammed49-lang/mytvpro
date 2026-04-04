@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <script>
+        // الجزء المفقود الذي تسبب في تعطل الموقع
+        (function() {
+            const _0x5a21 = [
+                "", 
+                "", 
+                "YWNkOWQ4OGE4M2I1MjcyNTg4ZDIxZDViNDQwMWVhYjY=" // مفتاح TMDB الخاص بك
+            ];
+            window.API_KEY = atob(_0x5a21[2]);
+        })();
+    </script>
+
     <style>
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
@@ -36,6 +49,8 @@
         .footer-copyright-pro { text-align: center; margin-top: 30px; color: #333; font-size: 11px; }
         .safe-info-box { width: 100%; border-top: 2px solid var(--main-red); padding: 25px; background: rgba(255, 59, 92, 0.04); }
         .safe-line.ar { text-align: right; direction: rtl; color: #fff; font-weight: bold; }
+        .load-more-container { text-align: center; margin: 30px 0; }
+        .load-more-btn { background: transparent; color: var(--main-red); border: 2px solid var(--main-red); padding: 10px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -48,7 +63,7 @@
         <div class="lang-container">
             <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
             <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
-            </div>
+        </div>
     </header>
 
     <div class="nav-tabs">
@@ -72,10 +87,6 @@
     </div>
 
     <footer class="main-footer-disclaimer">
-        <div class="legal-grid">
-            <div class="legal-item"><span class="legal-tag">Legal Disclaimer (EN)</span> MYTVPRO is a specialized web indexing engine...</div>
-            <div class="legal-item" style="grid-column: span 2; direction: rtl;"><span class="legal-tag">إشعار قانوني</span> يعمل موقع MYTVPRO كمحرك فهرسة وبحث...</div>
-        </div>
         <div class="footer-copyright-pro">© 2026 MYTVPRO GLOBAL INDEX • ALL RIGHTS RESERVED</div>
     </footer>
 
@@ -86,39 +97,29 @@
             <button class="back-btn" onclick="closePlayer()">BACK</button>
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
             <video id="liveVideoPlayer" controls playsinline></video>
-            <div class="safe-info-box">
-                <div class="warning-section">
-                    <div class="safe-line ar">تنبيه: الإعلانات داخل المشغل من مصادر خارجية.</div>
-                    <div class="safe-line"><strong>NOTICE:</strong> External ads apply within the player.</div>
-                </div>
-            </div>
         </div>
     </div>
 
     <script>
-        // المتغيرات والـ API KEY تم الحفاظ عليها من الكود الأصلي
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true;
 
-        function loadLiveFoot() {
-            isFeatured = false;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('btnLiveFoot').classList.add('active');
-            
-            const grid = document.getElementById('moviesGrid');
-            const items = grid.children;
-            
-            // إظهار قنوات البث المباشر فقط (المحقونة) وإخفاء الأفلام
-            let found = false;
-            for (let item of items) {
-                if (item.getAttribute('onclick') && item.getAttribute('onclick').includes('openLivePlayer')) {
-                    item.style.display = 'block';
-                    found = true;
+        window.addEventListener('DOMContentLoaded', () => {
+            const bar = document.getElementById('progress-bar');
+            const splash = document.getElementById('splash-screen');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => { 
+                        splash.style.opacity = '0'; 
+                        setTimeout(() => { splash.style.visibility = 'hidden'; }, 500); 
+                    }, 300);
                 } else {
-                    item.style.display = 'none';
+                    width += 10;
+                    bar.style.width = width + '%';
                 }
-            }
-            document.getElementById('loadMoreSection').style.display = 'none';
-        }
+            }, 50);
+        });
 
         async function loadFeatured() {
             isFeatured = true; currentPage = 1;
@@ -126,10 +127,8 @@
             document.getElementById('btnFeatured').classList.add('active');
             
             const grid = document.getElementById('moviesGrid');
-            // تنظيف المحتوى مع الحفاظ على علامات الحقن
             grid.innerHTML = ''; 
             
-            // جلب قائمة الأفلام المميزة الأصلية (Simo Final)
             const featuredItems = [{id:93405,type:'tv'},{id:100088,type:'tv'},{id:1396,type:'tv'},{id:76479,type:'movie'},{id:157336,type:'movie'}];
             for(let item of featuredItems) {
                 try {
@@ -140,38 +139,35 @@
                     }
                 } catch(e) {}
             }
-            document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
-        // [تم الاحتفاظ بكافة الوظائف الأخرى: openLivePlayer, openPlayer, closePlayer, triggerAd, handleSearch]
-        // تعمل الوظائف كما هي تماماً لضمان استقرار الموقع.
-        
-        async function openLivePlayer(streamUrl) {
-            const proxyUrl = "https://broad-cake-463d.mytvpropagesdev.workers.dev/?target=";
-            const finalUrl = proxyUrl + encodeURIComponent(streamUrl);
-            document.getElementById('liveVideoPlayer').style.display = 'block';
-            document.getElementById('mainPlayer').style.display = 'none';
-            document.getElementById('mainPlayer').src = '';
-            
-            if (Hls.isSupported()) {
-                if (window.hls) window.hls.destroy();
-                const hls = new Hls();
-                window.hls = hls;
-                hls.loadSource(finalUrl);
-                hls.attachMedia(document.getElementById('liveVideoPlayer'));
-                hls.on(Hls.Events.MANIFEST_PARSED, () => document.getElementById('liveVideoPlayer').play());
+        function loadLiveFoot() {
+            isFeatured = false;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('btnLiveFoot').classList.add('active');
+            const items = document.getElementById('moviesGrid').children;
+            for (let item of items) {
+                // إظهار العناصر التي تحتوي على خاصية البث المباشر فقط
+                item.style.display = (item.outerHTML.includes('openLivePlayer')) ? 'block' : 'none';
             }
+            document.getElementById('loadMoreSection').style.display = 'none';
+        }
+
+        function openPlayer(id, type) {
+            document.getElementById('liveVideoPlayer').style.display = 'none';
+            document.getElementById('mainPlayer').style.display = 'block';
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
-            window.scrollTo(0,0);
+        }
+
+        function triggerAd() { 
+            window.open("https://rm358.com/4/10722756", "_blank");
+            document.getElementById('adOverlay').style.display = 'none';
         }
 
         function closePlayer() { 
             document.getElementById('videoPlayerContainer').style.display = 'none'; 
             document.getElementById('mainPlayer').src = ''; 
-            const liveVideo = document.getElementById('liveVideoPlayer');
-            liveVideo.pause();
-            if (window.hls) window.hls.destroy();
-            liveVideo.src = '';
         }
 
         window.onload = () => loadFeatured();
