@@ -182,7 +182,8 @@
         <input type="text" id="searchInput" placeholder="Search Movies & Series..." onkeyup="handleSearch(event)">
     </div>
 
-    <main id="moviesGrid" class="movie-grid"></main>
+    <main id="moviesGrid" class="movie-grid">
+        </main>
 
     <div class="load-more-container" id="loadMoreSection">
         <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreContent()">SHOW MORE / عرض المزيد</button>
@@ -286,16 +287,18 @@
             document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
-        async function loadLiveFoot() {
+        function loadLiveFoot() {
             isFeatured = false; currentGenre = null; currentPage = 1;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
-            const grid = document.getElementById('moviesGrid');
             
-            // تم التعديل هنا: إضافة العلامات SNIPER_START و SNIPER_END لكي يراها السكربت
-            grid.innerHTML = `
-                `;
+            // عند الضغط على Live Foot يتم فقط تصفير المحتوى لضمان ظهور القنوات المحقونة فقط
+            // السكربت سيقوم بتعبئة المنطقة بين العلامات مسبقاً في ملف index.html
             document.getElementById('loadMoreSection').style.display = 'none';
+            
+            // في حالة كان هناك بحث أو تصفية نشطة، نقوم بإرجاع العرض للوضع الافتراضي
+            const grid = document.getElementById('moviesGrid');
+            // ملاحظة: القنوات ستكون موجودة بالفعل في الـ DOM لأن السكربت حقنها في الملف الثابت
         }
 
         async function loadGenre(genreId, type, btnId) {
