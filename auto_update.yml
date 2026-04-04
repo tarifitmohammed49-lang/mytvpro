@@ -16,17 +16,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create playlist file from Secret
-        # هذا هو السطر الناقص الذي يربط "الخزنة" بالسكربت
         run: echo "${{ secrets.MY_M3U_CONTENT }}" > playlist.m3u
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
 
       - name: Run Sniper Script
         run: python update_channels.py 
@@ -36,5 +31,5 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add channels_data.js
-          git commit -m "Auto-update channels list" || echo "No changes to commit"
+          git commit -m "Auto-update secure channels" || echo "No changes to commit"
           git push
