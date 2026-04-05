@@ -26,6 +26,21 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
+      # خطوة التشفير والحماية قبل تشغيل السكريبت أو تحديث الملف
+      - name: Encrypt and Prepare Channels Data
+        env:
+          # هذا هو السر الذي وضعته في إعدادات GitHub (Settings > Secrets)
+          MY_CHANNELS_LIST: ${{ secrets.MY_CHANNELS_LIST }}
+        run: |
+          # تحويل البيانات إلى Base64 لإخفائها عن الأعين في ملف JS
+          ENCODED_DATA=$(echo "$MY_CHANNELS_LIST" | base64 -w 0)
+          
+          # إنشاء الملف المشفر الذي سيقرأه المتصفح
+          echo "var _0xSimoEncoded = '$ENCODED_DATA';" > channels_data.js
+          echo "var _0xSimoData = JSON.parse(atob(_0xSimoEncoded));" >> channels_data.js
+          echo "تحميل البيانات وتشفيرها بنجاح لمشروع MYTVPRO"
+
+      # إذا كان سكريبت البايثون يقوم بتحديث روابط معينة، سيعمل الآن فوق الملف المشفر
       - name: Run Sniper Script
         run: python update_channels.py
 
@@ -34,14 +49,14 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 1. تسجيل التغييرات أولاً (حل مشكلة unstaged changes)
+          # تسجيل التغييرات في الملف المشفر
           git add channels_data.js
           
-          # 2. عمل Commit مؤقت لتنظيف بيئة العمل
-          git commit -m "Auto-update: New Tokenized Links $(date +'%Y-%m-%d %H:%M')" || echo "No changes to commit"
+          # عمل Commit مع طابع زمني
+          git commit -m "Auto-update & Encrypt: $(date +'%Y-%m-%d %H:%M')" || echo "No changes to commit"
           
-          # 3. الآن يمكن عمل pull و rebase بأمان
+          # جلب آخر التحديثات ودمجها
           git pull --rebase origin main
           
-          # 4. الرفع النهائي
+          # الرفع النهائي للموقع
           git push origin main
