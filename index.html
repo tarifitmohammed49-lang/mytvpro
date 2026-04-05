@@ -294,11 +294,8 @@
             grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px; color:var(--main-red);'>🔄 جاري تحديث القنوات الحية...</p>"; 
 
             try {
-                // استخدام Date.now() لمنع الكاش وجلب أحدث ملف دائماً
                 const response = await fetch('https://raw.githubusercontent.com/mytvpro1/mytvpro1.github.io/main/channels_data.js?t=' + Date.now());
                 const text = await response.text();
-                
-                // استخراج المصفوفة آمن برمجياً
                 const start = text.indexOf('[');
                 const end = text.lastIndexOf(']') + 1;
                 const jsonData = text.substring(start, end);
@@ -382,11 +379,9 @@
             window.scrollTo(0,0);
         }
 
+        // --- التعديل هنا فقط يا سيمو ---
         async function openLivePlayer(streamUrl) {
             if (!streamUrl) return;
-
-            // تم إزالة إضافة البروكسي من هنا لتجنب "البروكسي المزدوج" لأن السنايبر يضيفه مسبقاً
-            const finalUrl = streamUrl;
             
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
@@ -398,29 +393,30 @@
             
             mainPlayer.style.display = 'none';
             mainPlayer.src = '';
-            liveVideo.style.display = 'block';
             
+            liveVideo.style.display = 'block';
+            liveVideo.pause();
+            liveVideo.removeAttribute('src'); 
+            liveVideo.load();
+            liveVideo.muted = true; // كتم الصوت لضمان تجاوز قيود المتصفح
+
             if (Hls.isSupported()) {
                 if (window.hls) { window.hls.destroy(); }
-                const hls = new Hls({
-                    debug: false,
-                    lowLatencyMode: true
-                });
+                const hls = new Hls({ debug: false });
                 window.hls = hls;
-                hls.loadSource(finalUrl); 
+                hls.loadSource(streamUrl); 
                 hls.attachMedia(liveVideo);
-                hls.on(Hls.Events.MANIFEST_PARSED, () => liveVideo.play().catch(e => console.log("Play error", e)));
-                
-                // خطة الطوارئ: إذا فشل HLS في قراءة الرابط
-                hls.on(Hls.Events.ERROR, function (event, data) {
-                    if (data.fatal) {
-                        console.error("HLS Fatal Error:", data);
-                        liveVideo.src = finalUrl;
-                        liveVideo.play().catch(e => console.log("Native fallback error", e));
-                    }
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    liveVideo.play().catch(e => {
+                        console.log("Autoplay blocked, showing controls");
+                        liveVideo.controls = true;
+                    });
+                });
+                hls.on(Hls.Events.ERROR, (event, data) => {
+                    if (data.fatal) { liveVideo.src = streamUrl; liveVideo.play(); }
                 });
             } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
-                liveVideo.src = finalUrl;
+                liveVideo.src = streamUrl;
                 liveVideo.addEventListener('loadedmetadata', () => liveVideo.play());
             }
             document.getElementById('videoPlayerContainer').style.display = 'block';
