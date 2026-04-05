@@ -119,7 +119,23 @@
         .movie-card img { width: 100%; height: 180px; object-fit: cover; }
         .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
+        
+        /* --- تعديل حاوية المشغل لدعم التمويه --- */
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
+        
+        /* كود الشعار المموّه (Watermark) */
+        .watermark-overlay {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 65px;
+            z-index: 10002;
+            pointer-events: none;
+            opacity: 0.9;
+            display: none; /* يظهر فقط في البث الحي */
+        }
+        .watermark-overlay img { width: 100%; filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.8)); }
+
         .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
         .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
         #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
@@ -208,6 +224,10 @@
 
     <div id="videoPlayerContainer">
         <div class="player-wrapper">
+            <div id="watermark" class="watermark-overlay">
+                <img src="https://mytvpro1.github.io/favicon.ico" alt="MYTVPRO">
+            </div>
+
             <div id="adOverlay" class="ad-overlay" onclick="triggerAd()"></div>
             <div class="cast-btn" onclick="castToTV()" title="Cast to TV">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3b5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 20h.01"></path></svg>
@@ -227,6 +247,8 @@
             </div>
         </div>
     </div>
+
+    <script src="channels_data.js"></script>
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
@@ -294,12 +316,16 @@
             grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px; color:var(--main-red);'>🔄 جاري تحديث القنوات الحية...</p>"; 
 
             try {
-                const response = await fetch('https://raw.githubusercontent.com/mytvpro1/mytvpro1.github.io/main/channels_data.js?t=' + Date.now());
-                const text = await response.text();
-                const start = text.indexOf('[');
-                const end = text.lastIndexOf(']') + 1;
-                const jsonData = text.substring(start, end);
-                let channels = JSON.parse(jsonData);
+                // استخدام المتغير الجديد _0xSimoData إذا كان متوفراً
+                let channels = (typeof _0xSimoData !== 'undefined') ? _0xSimoData : [];
+                
+                if (channels.length === 0) {
+                    const response = await fetch('channels_data.js?t=' + Date.now());
+                    const text = await response.text();
+                    const start = text.indexOf('[');
+                    const end = text.lastIndexOf(']') + 1;
+                    channels = JSON.parse(text.substring(start, end));
+                }
 
                 grid.innerHTML = ""; 
                 if (channels && channels.length > 0) {
@@ -314,8 +340,7 @@
                     grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>⚠️ لا توجد قنوات متاحة حالياً.</p>";
                 }
             } catch (error) {
-                console.error("Fetch Error:", error);
-                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ خطأ في الجلب. تأكد من اسم ملف channels_data.js في GitHub.</p>";
+                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ خطأ في الجلب. تأكد من الملف.</p>";
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
@@ -373,13 +398,13 @@
             const ninetyMinutes = 90 * 60 * 1000;
             document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
             document.getElementById('liveVideoPlayer').style.display = 'none';
+            document.getElementById('watermark').style.display = 'none'; // إخفاء التمويه في الأفلام
             document.getElementById('mainPlayer').style.display = 'block';
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
         }
 
-        // --- التعديل هنا فقط يا سيمو ---
         async function openLivePlayer(streamUrl) {
             if (!streamUrl) return;
             
@@ -390,15 +415,19 @@
             
             const liveVideo = document.getElementById('liveVideoPlayer');
             const mainPlayer = document.getElementById('mainPlayer');
+            const watermark = document.getElementById('watermark');
             
             mainPlayer.style.display = 'none';
             mainPlayer.src = '';
+            
+            // إظهار التمويه فقط للبث الحي (beIN)
+            watermark.style.display = 'block';
             
             liveVideo.style.display = 'block';
             liveVideo.pause();
             liveVideo.removeAttribute('src'); 
             liveVideo.load();
-            liveVideo.muted = true; // كتم الصوت لضمان تجاوز قيود المتصفح
+            liveVideo.muted = true;
 
             if (Hls.isSupported()) {
                 if (window.hls) { window.hls.destroy(); }
@@ -408,7 +437,6 @@
                 hls.attachMedia(liveVideo);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => {
                     liveVideo.play().catch(e => {
-                        console.log("Autoplay blocked, showing controls");
                         liveVideo.controls = true;
                     });
                 });
@@ -426,6 +454,7 @@
         function closePlayer() { 
             document.getElementById('videoPlayerContainer').style.display = 'none'; 
             document.getElementById('mainPlayer').src = ''; 
+            document.getElementById('watermark').style.display = 'none';
             const liveVideo = document.getElementById('liveVideoPlayer');
             liveVideo.pause();
             if (window.hls) { window.hls.destroy(); }
