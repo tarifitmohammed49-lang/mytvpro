@@ -383,11 +383,10 @@
         }
 
         async function openLivePlayer(streamUrl) {
-            // التعديل الجوهري: الرابط مباشر ولا يحتاج لفك تشفير Base64
             if (!streamUrl) return;
 
-            const proxyUrl = "https://broad-cake-463d.mytvpropagesdev.workers.dev/?target=";
-            const finalUrl = proxyUrl + encodeURIComponent(streamUrl);
+            // تم إزالة إضافة البروكسي من هنا لتجنب "البروكسي المزدوج" لأن السنايبر يضيفه مسبقاً
+            const finalUrl = streamUrl;
             
             const lastAdTime = localStorage.getItem('lastAdTimestamp');
             const currentTime = new Date().getTime();
@@ -403,11 +402,23 @@
             
             if (Hls.isSupported()) {
                 if (window.hls) { window.hls.destroy(); }
-                const hls = new Hls({ lowLatencyMode: true });
+                const hls = new Hls({
+                    debug: false,
+                    lowLatencyMode: true
+                });
                 window.hls = hls;
                 hls.loadSource(finalUrl); 
                 hls.attachMedia(liveVideo);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => liveVideo.play().catch(e => console.log("Play error", e)));
+                
+                // خطة الطوارئ: إذا فشل HLS في قراءة الرابط
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        console.error("HLS Fatal Error:", data);
+                        liveVideo.src = finalUrl;
+                        liveVideo.play().catch(e => console.log("Native fallback error", e));
+                    }
+                });
             } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
                 liveVideo.src = finalUrl;
                 liveVideo.addEventListener('loadedmetadata', () => liveVideo.play());
