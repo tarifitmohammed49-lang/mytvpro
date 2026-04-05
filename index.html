@@ -266,7 +266,7 @@
         });
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
-        let shakaPlayerInstance = null; // متغير لحفظ نسخة مشغل شاكا
+        let shakaPlayerInstance = null; 
 
         const translations = {
             en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search Movies & Series...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
@@ -398,7 +398,7 @@
             window.scrollTo(0,0);
         }
 
-        // --- نظام المشغل المطور Shaka Player للبث المباشر ---
+        // --- نظام المشغل المطور Shaka Player المربوط بالـ Worker ---
         async function openLivePlayer(streamUrl) {
             if (!streamUrl) return;
             
@@ -418,21 +418,19 @@
             liveVideo.style.display = 'block';
             container.style.display = 'block';
             
-            // تنظيف أي مشغل سابق
             if (shakaPlayerInstance) {
                 await shakaPlayerInstance.destroy();
                 shakaPlayerInstance = null;
             }
 
+            // رابط الـ Worker الخاص بك للعمل كبروكسي لكسر الحماية
             const workerUrl = "https://misty-silence-e830.mytvpropagesdev.workers.dev/";
-            const finalProxyUrl = `${workerUrl}?target=${encodeURIComponent(streamUrl)}`;
+            const finalProxyUrl = `${workerUrl}?url=${encodeURIComponent(streamUrl)}`;
 
-            // تهيئة شاكا بلاير
             shaka.polyfill.installAll();
             if (shaka.Player.isBrowserSupported()) {
                 shakaPlayerInstance = new shaka.Player(liveVideo);
                 
-                // إعدادات الذكاء الاصطناعي لثبات البث
                 shakaPlayerInstance.configure({
                     streaming: {
                         retryParameters: { maxAttempts: 5, baseDelay: 1000, backoffFactor: 2 },
@@ -441,12 +439,12 @@
                     }
                 });
 
-                // تفعيل البروكسي لكل طلبات القطع (Segments)
+                // تفعيل الفلتر لإجبار المشغل على طلب كل قطعة (Segment) من خلال الـ Worker
                 shakaPlayerInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
-                    if (type === shaka.net.NetworkingEngine.RequestType.SEGMENT || type === shaka.net.NetworkingEngine.RequestType.MANIFEST) {
-                        if (!request.uris[0].includes(window.location.hostname) && !request.uris[0].startsWith(workerUrl)) {
-                            request.uris[0] = `${workerUrl}?target=${encodeURIComponent(request.uris[0])}`;
-                        }
+                    const uri = request.uris[0];
+                    // إذا كان الرابط لا يحتوي على الـ Worker الخاص بك، قم بتمريره من خلاله
+                    if (!uri.includes(workerUrl) && !uri.startsWith('data:')) {
+                        request.uris[0] = `${workerUrl}?url=${encodeURIComponent(uri)}`;
                     }
                 });
 
@@ -455,7 +453,6 @@
                     liveVideo.play();
                 } catch (e) {
                     console.error('Shaka Error:', e);
-                    // خطة بديلة إذا فشل شاكا
                     liveVideo.src = finalProxyUrl;
                     liveVideo.play();
                 }
