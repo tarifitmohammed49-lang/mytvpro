@@ -313,17 +313,16 @@
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('btnLiveFoot').classList.add('active');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px; color:var(--main-red);'>🔄 جاري تحديث القنوات الحية...</p>"; 
+            grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px; color:var(--main-red);'>🔄 جاري جلب القنوات المشفرة...</p>"; 
 
             try {
-                let channels = (typeof _0xSimoData !== 'undefined') ? _0xSimoData : [];
-                if (channels.length === 0) {
-                    const response = await fetch('channels_data.js?t=' + Date.now());
-                    const text = await response.text();
-                    const start = text.indexOf('[');
-                    const end = text.lastIndexOf(']') + 1;
-                    channels = JSON.parse(text.substring(start, end));
+                let channels = [];
+                if (typeof _0xSimoData !== 'undefined') {
+                    channels = _0xSimoData;
+                } else if (typeof _0xSimoEncoded !== 'undefined') {
+                    channels = JSON.parse(atob(_0xSimoEncoded));
                 }
+
                 grid.innerHTML = ""; 
                 if (channels && channels.length > 0) {
                     channels.forEach(ch => {
@@ -333,7 +332,8 @@
                     grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>⚠️ لا توجد قنوات متاحة حالياً.</p>";
                 }
             } catch (error) {
-                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ خطأ في الجلب.</p>";
+                console.error("Fetch Error:", error);
+                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ خطأ في جلب القنوات.</p>";
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
@@ -423,7 +423,6 @@
                 shakaPlayerInstance = null;
             }
 
-            // رابط الـ Worker الخاص بك للعمل كبروكسي لكسر الحماية
             const workerUrl = "https://misty-silence-e830.mytvpropagesdev.workers.dev/";
             const finalProxyUrl = `${workerUrl}?url=${encodeURIComponent(streamUrl)}`;
 
@@ -439,11 +438,9 @@
                     }
                 });
 
-                // تفعيل الفلتر لإجبار المشغل على طلب كل قطعة (Segment) من خلال الـ Worker
                 shakaPlayerInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
                     const uri = request.uris[0];
-                    // إذا كان الرابط لا يحتوي على الـ Worker الخاص بك، قم بتمريره من خلاله
-                    if (!uri.includes(workerUrl) && !uri.startsWith('data:')) {
+                    if (!uri.includes("mytvpropagesdev.workers.dev") && !uri.startsWith('data:')) {
                         request.uris[0] = `${workerUrl}?url=${encodeURIComponent(uri)}`;
                     }
                 });
