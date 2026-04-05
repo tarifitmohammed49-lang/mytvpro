@@ -33,7 +33,7 @@ def fetch_links():
     return channels
 
 def save_to_js(channels):
-    filename = "channel_data.js"
+    filename = "channels_data.js"
     # تحويل البيانات إلى تنسيق جافا سكريبت
     with open(filename, "w", encoding="utf-8") as f:
         f.write("var live_channels = ")
