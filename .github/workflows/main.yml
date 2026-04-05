@@ -18,45 +18,21 @@ jobs:
         with:
           fetch-depth: 0 
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Install dependencies
-        run: pip install requests
-
-      # خطوة التشفير والحماية قبل تشغيل السكريبت أو تحديث الملف
-      - name: Encrypt and Prepare Channels Data
+      - name: Encrypt and Update Channels
         env:
-          # هذا هو السر الذي وضعته في إعدادات GitHub (Settings > Secrets)
           MY_CHANNELS_LIST: ${{ secrets.MY_CHANNELS_LIST }}
         run: |
-          # تحويل البيانات إلى Base64 لإخفائها عن الأعين في ملف JS
+          # تحويل البيانات إلى Base64 للحماية
           ENCODED_DATA=$(echo "$MY_CHANNELS_LIST" | base64 -w 0)
           
-          # إنشاء الملف المشفر الذي سيقرأه المتصفح
+          # إنشاء ملف البيانات المشفر
           echo "var _0xSimoEncoded = '$ENCODED_DATA';" > channels_data.js
           echo "var _0xSimoData = JSON.parse(atob(_0xSimoEncoded));" >> channels_data.js
-          echo "تحميل البيانات وتشفيرها بنجاح لمشروع MYTVPRO"
-
-      # إذا كان سكريبت البايثون يقوم بتحديث روابط معينة، سيعمل الآن فوق الملف المشفر
-      - name: Run Sniper Script
-        run: python update_channels.py
 
       - name: Commit and Push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # تسجيل التغييرات في الملف المشفر
           git add channels_data.js
-          
-          # عمل Commit مع طابع زمني
-          git commit -m "Auto-update & Encrypt: $(date +'%Y-%m-%d %H:%M')" || echo "No changes to commit"
-          
-          # جلب آخر التحديثات ودمجها
-          git pull --rebase origin main
-          
-          # الرفع النهائي للموقع
+          git commit -m "Auto-update & Encrypt Channels" || echo "No changes"
           git push origin main
