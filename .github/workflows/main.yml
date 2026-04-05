@@ -2,8 +2,8 @@ name: Update Live Channels Sniper
 
 on:
   schedule:
-    - cron: '0 * * * *' # يعمل تلقائياً كل ساعة
-  workflow_dispatch: # يتيح لك تشغيله يدوياً من تبويب Actions
+    - cron: '0 * * * *' 
+  workflow_dispatch: 
 
 permissions:
   contents: write
@@ -34,15 +34,14 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # جلب آخر التغييرات لتفادي الرفض (Rejection)
-          git pull --rebase origin main
-          
-          # أضف ملف البيانات (تأكد من الاسم: channels_data.js أو channel_data.js)
+          # 1. تسجيل التغييرات أولاً (حل مشكلة unstaged changes)
           git add channels_data.js
           
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto-update: New Tokenized Links $(date +'%Y-%m-%d %H:%M')"
-            git push origin main
-          fi
+          # 2. عمل Commit مؤقت لتنظيف بيئة العمل
+          git commit -m "Auto-update: New Tokenized Links $(date +'%Y-%m-%d %H:%M')" || echo "No changes to commit"
+          
+          # 3. الآن يمكن عمل pull و rebase بأمان
+          git pull --rebase origin main
+          
+          # 4. الرفع النهائي
+          git push origin main
