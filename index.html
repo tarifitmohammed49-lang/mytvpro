@@ -402,7 +402,7 @@
             window.scrollTo(0,0);
         }
 
-        // --- التعديل الجذري لربط المشغل بالـ Worker ---
+        // --- التعديل الجذري والنهائي للمشغل ليعمل عبر البروكسي ---
         async function openLivePlayer(streamUrl) {
             if (!streamUrl) return;
             
@@ -411,10 +411,6 @@
             const ninetyMinutes = 90 * 60 * 1000;
             document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
             
-            // رابط الـ Worker البروكسي الخاص بك
-            const proxyBase = "https://mytvpro.mytvpropagesdev.workers.dev/?target=";
-            const finalProxyUrl = proxyBase + encodeURIComponent(streamUrl);
-
             const liveVideo = document.getElementById('liveVideoPlayer');
             const mainPlayer = document.getElementById('mainPlayer');
             const watermark = document.getElementById('watermark');
@@ -425,38 +421,41 @@
             watermark.style.display = 'block';
             liveVideo.style.display = 'block';
             
+            if (window.hls) { window.hls.destroy(); }
             liveVideo.pause();
             liveVideo.removeAttribute('src'); 
             liveVideo.load();
-            liveVideo.muted = true;
+
+            // استخدام مسار البروكسي الجديد المتوافق مع الـ Worker
+            const finalProxyUrl = `/proxy?url=${encodeURIComponent(streamUrl)}`;
 
             if (Hls.isSupported()) {
-                if (window.hls) { window.hls.destroy(); }
                 const hls = new Hls({ 
-                    debug: false,
-                    // تمرير الـ Cookies أو الـ Headers إذا لزم الأمر في المستقبل
                     xhrSetup: function(xhr, url) {
-                        xhr.withCredentials = false;
+                        // تمرير القطع المباشرة عبر البروكسي أيضاً لحل مشكلة التوقف
+                        if (!url.includes(window.location.hostname) && (url.includes('.ts') || url.includes('.m3u8'))) {
+                            xhr.open('GET', `/proxy?url=${encodeURIComponent(url)}`, true);
+                        }
                     }
                 });
                 window.hls = hls;
-                hls.loadSource(finalProxyUrl); // استخدام الرابط المحمي
+                hls.loadSource(finalProxyUrl);
                 hls.attachMedia(liveVideo);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    liveVideo.play().catch(e => {
-                        liveVideo.controls = true;
+                    liveVideo.play().catch(() => {
+                        liveVideo.muted = true;
+                        liveVideo.play();
                     });
                 });
                 hls.on(Hls.Events.ERROR, (event, data) => {
                     if (data.fatal) { 
-                        // محاولة أخيرة بالرابط المباشر إذا فشل البروكسي
                         liveVideo.src = streamUrl; 
                         liveVideo.play(); 
                     }
                 });
             } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
                 liveVideo.src = finalProxyUrl;
-                liveVideo.addEventListener('loadedmetadata', () => liveVideo.play());
+                liveVideo.play();
             }
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
