@@ -414,27 +414,30 @@
             const liveVideo = document.getElementById('liveVideoPlayer');
             const mainPlayer = document.getElementById('mainPlayer');
             const watermark = document.getElementById('watermark');
+            const container = document.getElementById('videoPlayerContainer');
             
             mainPlayer.style.display = 'none';
             mainPlayer.src = '';
             
             watermark.style.display = 'block';
             liveVideo.style.display = 'block';
+            container.style.display = 'block';
             
             if (window.hls) { window.hls.destroy(); }
             liveVideo.pause();
             liveVideo.removeAttribute('src'); 
             liveVideo.load();
 
-            // استخدام مسار البروكسي الجديد المتوافق مع الـ Worker
-            const finalProxyUrl = `/proxy?url=${encodeURIComponent(streamUrl)}`;
+            // الربط مع الـ Worker الخاص بك لكسر حماية CORS
+            const workerUrl = "https://misty-silence-e830.mytvpropagesdev.workers.dev/";
+            const finalProxyUrl = `${workerUrl}?url=${encodeURIComponent(streamUrl)}`;
 
             if (Hls.isSupported()) {
                 const hls = new Hls({ 
                     xhrSetup: function(xhr, url) {
-                        // تمرير القطع المباشرة عبر البروكسي أيضاً لحل مشكلة التوقف
-                        if (!url.includes(window.location.hostname) && (url.includes('.ts') || url.includes('.m3u8'))) {
-                            xhr.open('GET', `/proxy?url=${encodeURIComponent(url)}`, true);
+                        // تمرير كل القطع المباشرة (.ts) عبر الـ Worker لتجنب الـ 404
+                        if (!url.includes(window.location.hostname) && !url.startsWith(workerUrl)) {
+                            xhr.open('GET', `${workerUrl}?url=${encodeURIComponent(url)}`, true);
                         }
                     }
                 });
@@ -449,7 +452,7 @@
                 });
                 hls.on(Hls.Events.ERROR, (event, data) => {
                     if (data.fatal) { 
-                        liveVideo.src = streamUrl; 
+                        liveVideo.src = finalProxyUrl; 
                         liveVideo.play(); 
                     }
                 });
@@ -457,7 +460,6 @@
                 liveVideo.src = finalProxyUrl;
                 liveVideo.play();
             }
-            document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
         }
 
