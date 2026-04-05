@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # ضروري لجلب كل التاريخ وتفادي مشاكل الـ Push
+          fetch-depth: 0 
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -34,13 +34,12 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # جلب آخر التغييرات من المستودع لتجنب تعارض الـ Push
+          # جلب آخر التغييرات لتفادي الرفض (Rejection)
           git pull --rebase origin main
           
-          # إضافة الملف المحدث
+          # أضف ملف البيانات (تأكد من الاسم: channels_data.js أو channel_data.js)
           git add channels_data.js
           
-          # التحقق مما إذا كانت هناك تغييرات فعلاً قبل عمل Commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
