@@ -120,10 +120,8 @@
         .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         
-        /* --- تعديل حاوية المشغل لدعم التمويه --- */
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
         
-        /* كود الشعار المموّه (Watermark) */
         .watermark-overlay {
             position: absolute;
             top: 15px;
@@ -132,7 +130,7 @@
             z-index: 10002;
             pointer-events: none;
             opacity: 0.9;
-            display: none; /* يظهر فقط في البث الحي */
+            display: none;
         }
         .watermark-overlay img { width: 100%; filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.8)); }
 
@@ -316,7 +314,6 @@
             grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px; color:var(--main-red);'>🔄 جاري تحديث القنوات الحية...</p>"; 
 
             try {
-                // استخدام المتغير الجديد _0xSimoData إذا كان متوفراً
                 let channels = (typeof _0xSimoData !== 'undefined') ? _0xSimoData : [];
                 
                 if (channels.length === 0) {
@@ -398,13 +395,14 @@
             const ninetyMinutes = 90 * 60 * 1000;
             document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
             document.getElementById('liveVideoPlayer').style.display = 'none';
-            document.getElementById('watermark').style.display = 'none'; // إخفاء التمويه في الأفلام
+            document.getElementById('watermark').style.display = 'none'; 
             document.getElementById('mainPlayer').style.display = 'block';
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
             window.scrollTo(0,0);
         }
 
+        // --- التعديل الجذري لربط المشغل بالـ Worker ---
         async function openLivePlayer(streamUrl) {
             if (!streamUrl) return;
             
@@ -413,6 +411,10 @@
             const ninetyMinutes = 90 * 60 * 1000;
             document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
             
+            // رابط الـ Worker البروكسي الخاص بك
+            const proxyBase = "https://mytvpro.mytvpropagesdev.workers.dev/?target=";
+            const finalProxyUrl = proxyBase + encodeURIComponent(streamUrl);
+
             const liveVideo = document.getElementById('liveVideoPlayer');
             const mainPlayer = document.getElementById('mainPlayer');
             const watermark = document.getElementById('watermark');
@@ -420,10 +422,9 @@
             mainPlayer.style.display = 'none';
             mainPlayer.src = '';
             
-            // إظهار التمويه فقط للبث الحي (beIN)
             watermark.style.display = 'block';
-            
             liveVideo.style.display = 'block';
+            
             liveVideo.pause();
             liveVideo.removeAttribute('src'); 
             liveVideo.load();
@@ -431,9 +432,15 @@
 
             if (Hls.isSupported()) {
                 if (window.hls) { window.hls.destroy(); }
-                const hls = new Hls({ debug: false });
+                const hls = new Hls({ 
+                    debug: false,
+                    // تمرير الـ Cookies أو الـ Headers إذا لزم الأمر في المستقبل
+                    xhrSetup: function(xhr, url) {
+                        xhr.withCredentials = false;
+                    }
+                });
                 window.hls = hls;
-                hls.loadSource(streamUrl); 
+                hls.loadSource(finalProxyUrl); // استخدام الرابط المحمي
                 hls.attachMedia(liveVideo);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => {
                     liveVideo.play().catch(e => {
@@ -441,10 +448,14 @@
                     });
                 });
                 hls.on(Hls.Events.ERROR, (event, data) => {
-                    if (data.fatal) { liveVideo.src = streamUrl; liveVideo.play(); }
+                    if (data.fatal) { 
+                        // محاولة أخيرة بالرابط المباشر إذا فشل البروكسي
+                        liveVideo.src = streamUrl; 
+                        liveVideo.play(); 
+                    }
                 });
             } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
-                liveVideo.src = streamUrl;
+                liveVideo.src = finalProxyUrl;
                 liveVideo.addEventListener('loadedmetadata', () => liveVideo.play());
             }
             document.getElementById('videoPlayerContainer').style.display = 'block';
