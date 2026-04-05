@@ -3,7 +3,7 @@ name: Update Live Channels Sniper
 on:
   schedule:
     - cron: '0 * * * *' # يعمل تلقائياً كل ساعة
-  workflow_dispatch: # يتيح لك تشغيله يدوياً
+  workflow_dispatch: # يتيح لك تشغيله يدوياً من تبويب Actions
 
 permissions:
   contents: write
@@ -33,7 +33,17 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add channel_data.js
-          git commit -m "Auto-update channels list" || echo "No changes to commit"
-          git pull --rebase origin main # دمج التعديلات اليدوية
-          git push origin main
+          
+          # جلب آخر التغييرات من المستودع لتجنب تعارض الـ Push
+          git pull --rebase origin main
+          
+          # إضافة الملف المحدث
+          git add channels_data.js
+          
+          # التحقق مما إذا كانت هناك تغييرات فعلاً قبل عمل Commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-update: New Tokenized Links $(date +'%Y-%m-%d %H:%M')"
+            git push origin main
+          fi
