@@ -430,14 +430,15 @@
 
             // الربط مع الـ Worker الخاص بك لكسر حماية CORS
             const workerUrl = "https://misty-silence-e830.mytvpropagesdev.workers.dev/";
-            const finalProxyUrl = `${workerUrl}?url=${encodeURIComponent(streamUrl)}`;
+            // تم التعديل هنا ليكون target بدلاً من url ليتوافق مع الـ Worker وروابط القنوات
+            const finalProxyUrl = `${workerUrl}?target=${encodeURIComponent(streamUrl)}`;
 
             if (Hls.isSupported()) {
                 const hls = new Hls({ 
                     xhrSetup: function(xhr, url) {
-                        // تمرير كل القطع المباشرة (.ts) عبر الـ Worker لتجنب الـ 404
+                        // تمرير كل القطع المباشرة (.ts) عبر الـ Worker باستخدام target لتجنب الـ 404
                         if (!url.includes(window.location.hostname) && !url.startsWith(workerUrl)) {
-                            xhr.open('GET', `${workerUrl}?url=${encodeURIComponent(url)}`, true);
+                            xhr.open('GET', `${workerUrl}?target=${encodeURIComponent(url)}`, true);
                         }
                     }
                 });
