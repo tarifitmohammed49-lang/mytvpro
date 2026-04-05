@@ -35,6 +35,7 @@
     <meta name="theme-color" content="#ff3b5c">
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
 
     <script>
       if (window.location.hostname === "mytvpro1.github.io") {
@@ -265,7 +266,8 @@
         });
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
-        
+        let shakaPlayerInstance = null; // متغير لحفظ نسخة مشغل شاكا
+
         const translations = {
             en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search Movies & Series...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
             ro: { featured: "⭐ Recomandate", movie: "Filme", tv: "Seriale", search: "Caută...", back: "ÎNAPOI", more: "VEZI MAI MULT" },
@@ -315,7 +317,6 @@
 
             try {
                 let channels = (typeof _0xSimoData !== 'undefined') ? _0xSimoData : [];
-                
                 if (channels.length === 0) {
                     const response = await fetch('channels_data.js?t=' + Date.now());
                     const text = await response.text();
@@ -323,21 +324,16 @@
                     const end = text.lastIndexOf(']') + 1;
                     channels = JSON.parse(text.substring(start, end));
                 }
-
                 grid.innerHTML = ""; 
                 if (channels && channels.length > 0) {
                     channels.forEach(ch => {
-                        grid.innerHTML += `
-                            <div class="movie-card" onclick="openLivePlayer('${ch.url}')">
-                                <img src="${ch.logo}" alt="${ch.name}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy" style="object-fit: contain; background: #000; padding: 10px;">
-                                <div class="movie-title">${ch.name}</div>
-                            </div>`;
+                        grid.innerHTML += `<div class="movie-card" onclick="openLivePlayer('${ch.url}')"><img src="${ch.logo}" alt="${ch.name}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy" style="object-fit: contain; background: #000; padding: 10px;"><div class="movie-title">${ch.name}</div></div>`;
                     });
                 } else {
                     grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>⚠️ لا توجد قنوات متاحة حالياً.</p>";
                 }
             } catch (error) {
-                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ خطأ في الجلب. تأكد من الملف.</p>";
+                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ خطأ في الجلب.</p>";
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
@@ -402,7 +398,7 @@
             window.scrollTo(0,0);
         }
 
-        // --- التعديل الجذري والنهائي للمشغل ليعمل عبر البروكسي ---
+        // --- نظام المشغل المطور Shaka Player للبث المباشر ---
         async function openLivePlayer(streamUrl) {
             if (!streamUrl) return;
             
@@ -418,46 +414,52 @@
             
             mainPlayer.style.display = 'none';
             mainPlayer.src = '';
-            
             watermark.style.display = 'block';
             liveVideo.style.display = 'block';
             container.style.display = 'block';
             
-            if (window.hls) { window.hls.destroy(); }
-            liveVideo.pause();
-            liveVideo.removeAttribute('src'); 
-            liveVideo.load();
+            // تنظيف أي مشغل سابق
+            if (shakaPlayerInstance) {
+                await shakaPlayerInstance.destroy();
+                shakaPlayerInstance = null;
+            }
 
-            // الربط مع الـ Worker الخاص بك لكسر حماية CORS
             const workerUrl = "https://misty-silence-e830.mytvpropagesdev.workers.dev/";
-            // تم التعديل هنا ليكون target بدلاً من url ليتوافق مع الـ Worker وروابط القنوات
             const finalProxyUrl = `${workerUrl}?target=${encodeURIComponent(streamUrl)}`;
 
-            if (Hls.isSupported()) {
-                const hls = new Hls({ 
-                    xhrSetup: function(xhr, url) {
-                        // تمرير كل القطع المباشرة (.ts) عبر الـ Worker باستخدام target لتجنب الـ 404
-                        if (!url.includes(window.location.hostname) && !url.startsWith(workerUrl)) {
-                            xhr.open('GET', `${workerUrl}?target=${encodeURIComponent(url)}`, true);
+            // تهيئة شاكا بلاير
+            shaka.polyfill.installAll();
+            if (shaka.Player.isBrowserSupported()) {
+                shakaPlayerInstance = new shaka.Player(liveVideo);
+                
+                // إعدادات الذكاء الاصطناعي لثبات البث
+                shakaPlayerInstance.configure({
+                    streaming: {
+                        retryParameters: { maxAttempts: 5, baseDelay: 1000, backoffFactor: 2 },
+                        bufferingGoal: 30,
+                        rebufferingGoal: 10
+                    }
+                });
+
+                // تفعيل البروكسي لكل طلبات القطع (Segments)
+                shakaPlayerInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
+                    if (type === shaka.net.NetworkingEngine.RequestType.SEGMENT || type === shaka.net.NetworkingEngine.RequestType.MANIFEST) {
+                        if (!request.uris[0].includes(window.location.hostname) && !request.uris[0].startsWith(workerUrl)) {
+                            request.uris[0] = `${workerUrl}?target=${encodeURIComponent(request.uris[0])}`;
                         }
                     }
                 });
-                window.hls = hls;
-                hls.loadSource(finalProxyUrl);
-                hls.attachMedia(liveVideo);
-                hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    liveVideo.play().catch(() => {
-                        liveVideo.muted = true;
-                        liveVideo.play();
-                    });
-                });
-                hls.on(Hls.Events.ERROR, (event, data) => {
-                    if (data.fatal) { 
-                        liveVideo.src = finalProxyUrl; 
-                        liveVideo.play(); 
-                    }
-                });
-            } else if (liveVideo.canPlayType('application/vnd.apple.mpegurl')) {
+
+                try {
+                    await shakaPlayerInstance.load(finalProxyUrl);
+                    liveVideo.play();
+                } catch (e) {
+                    console.error('Shaka Error:', e);
+                    // خطة بديلة إذا فشل شاكا
+                    liveVideo.src = finalProxyUrl;
+                    liveVideo.play();
+                }
+            } else {
                 liveVideo.src = finalProxyUrl;
                 liveVideo.play();
             }
@@ -470,7 +472,10 @@
             document.getElementById('watermark').style.display = 'none';
             const liveVideo = document.getElementById('liveVideoPlayer');
             liveVideo.pause();
-            if (window.hls) { window.hls.destroy(); }
+            if (shakaPlayerInstance) {
+                shakaPlayerInstance.destroy();
+                shakaPlayerInstance = null;
+            }
             liveVideo.src = '';
         }
 
