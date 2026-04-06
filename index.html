@@ -35,8 +35,8 @@
     
     <meta name="theme-color" content="#ff3b5c">
 
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
 
     <script>
       if (window.location.hostname === "mytvpro1.github.io") {
@@ -132,13 +132,16 @@
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
         
+        /* حاوية الفيديو المحدثة لـ Video.js */
+        #videoContainer { width: 100%; }
+        .vjs-default-skin { border-bottom: 1px solid var(--main-red); }
+
         .watermark-overlay { position: absolute; top: 15px; right: 15px; width: 65px; z-index: 10002; pointer-events: none; opacity: 0.9; display: none; }
         .watermark-overlay img { width: 100%; filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.8)); }
 
         .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
         .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
-        #mainPlayer, #liveVideoPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
-        #liveVideoPlayer { display: none; }
+        #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
         
         .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; }
@@ -226,7 +229,11 @@
             </div>
             <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
             <iframe id="mainPlayer" src="" allowfullscreen></iframe>
-            <video id="liveVideoPlayer" controls playsinline></video>
+            
+            <div id="videoContainer" style="display:none; width:100%;">
+                <video id="liveVideoPlayer" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="auto" style="height: 50vh; background:#000;"></video>
+            </div>
+
             <div class="safe-info-box">
                 <div class="warning-section">
                     <div class="safe-line ar">تنبيه: الإعلانات داخل المشغل هي من مصادر خارجية ولا تتبع لنا.</div>
@@ -256,7 +263,7 @@
         });
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
-        let shakaPlayerInstance = null;
+        let vjsPlayer = null; // متغير لحفظ حالة مشغل الفيديو
 
         window.onload = () => loadFeatured();
 
@@ -276,6 +283,7 @@
             isFeatured = false; setActiveTab('btnLiveFoot');
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = "";
+            // البحث عن البيانات في المتغير الصحيح المأخوذ من channels_data.js
             let channels = (typeof _0xSimoData !== 'undefined') ? _0xSimoData : [];
             if (channels.length > 0) {
                 channels.forEach(ch => {
@@ -284,44 +292,50 @@
                         <div class="movie-title">${ch.name}</div>
                     </div>`;
                 });
+            } else {
+                grid.innerHTML = "<p style='text-align:center; width:100%;'>No Channels Available / لا توجد قنوات متاحة</p>";
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
-        // --- نظام المشغل المطور Shaka Player المربوط بالـ Worker ---
+        // --- نظام مشغل البث المباشر المحدث (يدعم HTTP و TS) ---
         async function openLivePlayer(streamUrl) {
             checkAds();
-            const liveVideo = document.getElementById('liveVideoPlayer');
             const mainPlayer = document.getElementById('mainPlayer');
+            const videoContainer = document.getElementById('videoContainer');
+            
             mainPlayer.style.display = 'none'; mainPlayer.src = '';
-            liveVideo.style.display = 'block';
+            videoContainer.style.display = 'block';
             document.getElementById('watermark').style.display = 'block';
             document.getElementById('videoPlayerContainer').style.display = 'block';
 
-            if (shakaPlayerInstance) await shakaPlayerInstance.destroy();
-            shaka.polyfill.installAll();
-            
-            const workerUrl = "https://misty-silence-e830.mytvpropagesdev.workers.dev/";
-            const finalUrl = `${workerUrl}?url=${encodeURIComponent(streamUrl)}`;
-
-            if (shaka.Player.isBrowserSupported()) {
-                shakaPlayerInstance = new shaka.Player(liveVideo);
-                shakaPlayerInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
-                    const uri = request.uris[0];
-                    if (!uri.includes("workers.dev") && !uri.startsWith('data:')) {
-                        request.uris[0] = `${workerUrl}?url=${encodeURIComponent(uri)}`;
-                    }
-                });
-                try { await shakaPlayerInstance.load(finalUrl); liveVideo.play(); } catch (e) { liveVideo.src = finalUrl; liveVideo.play(); }
-            } else {
-                liveVideo.src = finalUrl; liveVideo.play();
+            // تدمير المشغل القديم إذا وجد لضمان عدم حدوث تداخل
+            if (vjsPlayer) {
+                vjsPlayer.dispose();
+                // إعادة بناء عنصر الفيديو داخل الحاوية بعد Dispose
+                videoContainer.innerHTML = '<video id="liveVideoPlayer" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="auto" style="height: 50vh; background:#000;"></video>';
             }
+
+            // تهيئة المشغل الجديد (Video.js) لدعم التدفق المباشر و TS
+            vjsPlayer = videojs('liveVideoPlayer', {
+                html5: { vhs: { overrideNative: true, allowReplay: false } }
+            });
+
+            // تحديد نوع الملف (M3U8 أو TS مباشر)
+            let type = 'application/x-mpegURL'; // الافتراضي لـ HLS
+            if (streamUrl.includes('.ts')) {
+                type = 'video/mp2t'; // نوع الملف لروابط TS الخام
+            }
+
+            vjsPlayer.src({ src: streamUrl, type: type });
+            vjsPlayer.play();
+
             window.scrollTo(0,0);
         }
 
         function openPlayer(id, type) {
             checkAds();
-            document.getElementById('liveVideoPlayer').style.display = 'none';
+            document.getElementById('videoContainer').style.display = 'none';
             document.getElementById('watermark').style.display = 'none';
             document.getElementById('mainPlayer').style.display = 'block';
             document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
@@ -332,9 +346,13 @@
         function closePlayer() {
             document.getElementById('videoPlayerContainer').style.display = 'none';
             document.getElementById('mainPlayer').src = '';
-            const liveVideo = document.getElementById('liveVideoPlayer');
-            liveVideo.pause(); liveVideo.src = '';
-            if (shakaPlayerInstance) shakaPlayerInstance.destroy();
+            if (vjsPlayer) {
+                vjsPlayer.pause();
+                vjsPlayer.dispose();
+                vjsPlayer = null;
+                // تصفير الحاوية لاستقبال مشغل جديد لاحقاً
+                document.getElementById('videoContainer').innerHTML = '<video id="liveVideoPlayer" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="auto" style="height: 50vh; background:#000;"></video>';
+            }
         }
 
         function checkAds() {
@@ -358,7 +376,8 @@
 
         function setActiveTab(id) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            const btn = document.getElementById(id);
+            if(btn) btn.classList.add('active');
         }
 
         async function handleSearch(e) {
