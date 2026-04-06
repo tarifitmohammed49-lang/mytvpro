@@ -108,6 +108,16 @@
         .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
         .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
+        
+        /* APK SECTION STYLE - SIMO ADDS */
+        .apk-download-box { background: var(--card-bg); border: 2px solid var(--main-red); border-radius: 15px; padding: 15px; margin: 15px auto; max-width: 500px; display: flex; align-items: center; gap: 15px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 59, 92, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0); } }
+        .apk-icon { width: 50px; height: 50px; flex-shrink: 0; }
+        .apk-text { flex-grow: 1; font-size: 11px; color: #ccc; line-height: 1.4; }
+        .apk-text b { color: #fff; display: block; margin-bottom: 2px; font-size: 12px; }
+        .apk-btn { background: var(--main-red); color: #fff; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; text-decoration: none; text-align: center; white-space: nowrap; }
+        /* END APK SECTION STYLE */
+
         .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
@@ -181,6 +191,16 @@
         </div>
     </header>
 
+    <div class="apk-download-box">
+        <img src="https://mytvpro1.github.io/favicon.ico" class="apk-icon" alt="APK Icon">
+        <div class="apk-text">
+            <b>Simo TV App (OFFICIAL)</b>
+            AR: لمشاهدة القنوات الرياضية بالمجان حمل التطبيق <br>
+            EN: Download App to watch sports channels for free <br>
+            FR: Téléchargez l'application pour regarder le sport gratuitement
+        </div>
+        <a href="https://mytvpro1.github.io/simotv.apk" class="apk-btn">DOWNLOAD APK</a>
+    </div>
     <div class="nav-tabs">
         <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
         <button id="btnLiveFoot" class="tab" onclick="loadLiveFoot()">⚽ Live Foot</button>
