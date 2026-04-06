@@ -109,6 +109,14 @@
         .lang-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
         .lang-btn { color: var(--main-red); font-weight: bold; cursor: pointer; font-size: 10px; padding: 4px; transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
+        
+        .apk-download-box { background: var(--card-bg); border: 2px solid var(--main-red); border-radius: 15px; padding: 15px; margin: 15px auto; max-width: 500px; display: flex; align-items: center; gap: 15px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 59, 92, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0); } }
+        .apk-icon { width: 50px; height: 50px; flex-shrink: 0; }
+        .apk-text { flex-grow: 1; font-size: 11px; color: #ccc; line-height: 1.4; }
+        .apk-text b { color: #fff; display: block; margin-bottom: 2px; font-size: 12px; }
+        .apk-btn { background: var(--main-red); color: #fff; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; text-decoration: none; text-align: center; white-space: nowrap; }
+
         .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 5px; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
@@ -120,27 +128,18 @@
         .movie-card:hover { border-color: var(--main-red); transform: translateY(-3px); }
         .movie-card img { width: 100%; height: 180px; object-fit: cover; }
         .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
-        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
         
-        .watermark-overlay {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 65px;
-            z-index: 10002;
-            pointer-events: none;
-            opacity: 0.9;
-            display: none;
-        }
+        .watermark-overlay { position: absolute; top: 15px; right: 15px; width: 65px; z-index: 10002; pointer-events: none; opacity: 0.9; display: none; }
         .watermark-overlay img { width: 100%; filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.8)); }
 
         .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
         .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
-        #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
-        #liveVideoPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); display: none; }
+        #mainPlayer, #liveVideoPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
+        
         .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; }
         .legal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; }
         .legal-item { font-size: 11px; color: #777; line-height: 1.6; text-align: justify; }
@@ -168,28 +167,25 @@
         <h1 class="logo" onclick="location.reload()">MYTVPRO</h1>
         <div class="lang-container">
             <span class="lang-btn active" onclick="changeLanguage('en', this)">EN</span>
-            <span class="lang-btn" onclick="changeLanguage('ro', this)">RO</span>
             <span class="lang-btn" onclick="changeLanguage('ar', this)">AR</span>
             <span class="lang-btn" onclick="changeLanguage('fr', this)">FR</span>
-            <span class="lang-btn" onclick="changeLanguage('de', this)">DE</span>
-            <span class="lang-btn" onclick="changeLanguage('nl', this)">NL</span>
-            <span class="lang-btn" onclick="changeLanguage('es', this)">ES</span>
-            <span class="lang-btn" onclick="changeLanguage('it', this)">IT</span>
-            <span class="lang-btn" onclick="changeLanguage('pt', this)">PT</span>
-            <span class="lang-btn" onclick="changeLanguage('tr', this)">TR</span>
-            <span class="lang-btn" onclick="changeLanguage('ru', this)">RU</span>
-            <span class="lang-btn" onclick="changeLanguage('zh', this)">中文</span>
         </div>
     </header>
+
+    <div class="apk-download-box">
+        <img src="https://mytvpro1.github.io/favicon.ico" class="apk-icon" alt="APK Icon">
+        <div class="apk-text">
+            <b>Simo TV App (OFFICIAL)</b>
+            AR: لمشاهدة القنوات الرياضية بالمجان حمل التطبيق <br>
+            EN: Download App to watch sports channels for free
+        </div>
+        <a href="https://www.appcreator24.com/app3987277-rntplh" class="apk-btn">DOWNLOAD APK</a>
+    </div>
 
     <div class="nav-tabs">
         <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
         <button id="btnLiveFoot" class="tab" onclick="loadLiveFoot()">⚽ Live Foot</button>
-        <button id="btnAnime" class="tab" onclick="loadGenre(16, 'tv', 'btnAnime')">🎌 Anime</button>
         <button id="btnAction" class="tab" onclick="loadGenre(28, 'movie', 'btnAction')">🔥 Action</button>
-        <button id="btnHorror" class="tab" onclick="loadGenre(27, 'movie', 'btnHorror')">💀 Horror</button>
-        <button id="btnKids" class="tab" onclick="loadGenre(10751, 'movie', 'btnKids')">👶 Kids</button>
-        <button id="btnSciFi" class="tab" onclick="loadGenre(10765, 'tv', 'btnSciFi')">🚀 Sci-Fi</button>
         <button id="btnMovies" class="tab" onclick="loadContent('movie')">Movies</button>
         <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
     </div>
@@ -208,13 +204,9 @@
         <div class="legal-grid">
             <div class="legal-item">
                 <span class="legal-tag">Legal Disclaimer (EN)</span>
-                MYTVPRO is a specialized web indexing engine. We do not host, store, or upload any media files or videos on our own servers.
+                MYTVPRO is a specialized web indexing engine. We do not host any media files on our servers.
             </div>
-            <div class="legal-item">
-                <span class="legal-tag">Legal Disclaimer (RO)</span>
-                MYTVPRO este un motor de indexare web specializat. Nu găzduim, stocăm sau încărcăm fișiere media sau videoclipuri pe serverele noastre.
-            </div>
-            <div class="legal-item" style="grid-column: span 2; direction: rtl;">
+            <div class="legal-item" style="direction: rtl;">
                 <span class="legal-tag">إشعار قانوني</span>
                 يعمل موقع MYTVPRO كمحرك فهرسة وبحث. نحن لا نستضيف أي ملفات فيديو على خوادمنا.
             </div>
@@ -227,22 +219,17 @@
             <div id="watermark" class="watermark-overlay">
                 <img src="https://mytvpro1.github.io/favicon.ico" alt="MYTVPRO">
             </div>
-
             <div id="adOverlay" class="ad-overlay" onclick="triggerAd()"></div>
             <div class="cast-btn" onclick="castToTV()" title="Cast to TV">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff3b5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6M2 20h.01"></path></svg>
             </div>
             <button class="back-btn" id="playerBackBtn" onclick="closePlayer()">BACK</button>
-            <iframe id="mainPlayer" src="" allowfullscreen title="Video Player"></iframe>
+            <iframe id="mainPlayer" src="" allowfullscreen></iframe>
             <video id="liveVideoPlayer" controls playsinline></video>
             <div class="safe-info-box">
                 <div class="warning-section">
-                    <div class="safe-line ar">تنبيه: الإعلانات التي تظهر داخل مشغل الفيديو هي إعلانات من مصادر خارجية ولا تتبع لموقعنا.</div>
-                    <div class="safe-line"><strong>NOTICE (EN):</strong> Any advertisements appearing within the video player are from external third-party sources.</div>
-                    <div class="safe-line"><strong>AVERTISMENT (RO):</strong> Orice reclame care apar în interiorul playerului video sunt din surse externe terțe.</div>
-                    <div class="disclaimer-pro">
-                        <strong>Disclaimer (EN):</strong> MYTVPRO acts solely as a search index. We do not host, control, or take responsibility for the content, privacy policies, or practices of any third-party video providers or advertisers.
-                    </div>
+                    <div class="safe-line ar">تنبيه: الإعلانات داخل المشغل هي من مصادر خارجية ولا تتبع لنا.</div>
+                    <div class="safe-line"><strong>NOTICE:</strong> Ads inside the player are from external sources.</div>
                 </div>
             </div>
         </div>
@@ -251,6 +238,7 @@
     <script src="channels_data.js"></script>
 
     <script>
+        // نظام شاشة التحميل
         window.addEventListener('DOMContentLoaded', () => {
             const bar = document.getElementById('progress-bar');
             const splash = document.getElementById('splash-screen');
@@ -258,236 +246,148 @@
             const interval = setInterval(() => {
                 if (width >= 100) {
                     clearInterval(interval);
-                    setTimeout(() => { splash.style.opacity = '0'; setTimeout(() => { splash.style.visibility = 'hidden'; }, 500); }, 300);
+                    setTimeout(() => { splash.style.opacity = '0'; setTimeout(() => splash.style.visibility = 'hidden', 500); }, 300);
                 } else {
-                    width += Math.random() * 15; if (width > 100) width = 100;
+                    width += Math.random() * 20; if (width > 100) width = 100;
                     bar.style.width = width + '%';
                 }
             }, 100);
         });
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
-        let shakaPlayerInstance = null; 
+        let shakaPlayerInstance = null;
 
-        const translations = {
-            en: { featured: "⭐ Featured", movie: "Movies", tv: "Series", search: "Search Movies & Series...", back: "BACK", more: "SHOW MORE / عرض المزيد" },
-            ro: { featured: "⭐ Recomandate", movie: "Filme", tv: "Seriale", search: "Caută...", back: "ÎNAPOI", more: "VEZI MAI MULT" },
-            ar: { featured: "⭐ المقترحة", movie: "أفلام", tv: "مسلسلات", search: "بحث عن أفلام ومسلسلات...", back: "رجوع", more: "عرض المزيد" }
-        };
-
-        function castToTV() {
-            if (navigator.share) { navigator.share({ title: 'MYTVPRO', url: window.location.origin }); }
-        }
-
-        function changeLanguage(l, btn) {
-            currentLang = l;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const t = translations[l] || translations.en;
-            document.getElementById('btnFeatured').innerText = t.featured;
-            document.getElementById('btnMovies').innerText = t.movie;
-            document.getElementById('btnSeries').innerText = t.tv;
-            document.getElementById('searchInput').placeholder = t.search;
-            document.getElementById('playerBackBtn').innerText = t.back;
-            document.getElementById('loadMoreBtn').innerText = t.more;
-            loadFeatured(); 
-        }
+        // لود البداية
+        window.onload = () => loadFeatured();
 
         async function loadFeatured() {
             isFeatured = true; currentGenre = null; currentPage = 1;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('btnFeatured').classList.add('active');
-            const featuredItems = [{id:93405,type:'tv'},{id:100088,type:'tv'},{id:1396,type:'tv'},{id:76479,type:'movie'},{id:157336,type:'movie'},{id:634649,type:'movie'},{id:82452,type:'tv'},{id:111110,type:'tv'}];
+            setActiveTab('btnFeatured');
+            const featuredIds = [{id:93405,type:'tv'},{id:1396,type:'tv'},{id:157336,type:'movie'},{id:634649,type:'movie'}];
             const grid = document.getElementById('moviesGrid'); grid.innerHTML = "";
-            for(let item of featuredItems) {
-                try {
-                    const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
-                    const m = await res.json();
-                    if(m.id) grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${item.type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name} online free" loading="lazy"><div class="movie-title">${m.title || m.name}</div></div>`;
-                } catch(e) {}
+            for(let item of featuredIds) {
+                const res = await fetch(`https://api.themoviedb.org/3/${item.type}/${item.id}?api_key=${window.API_KEY}&language=${currentLang}`);
+                const m = await res.json();
+                if(m.id) grid.innerHTML += renderCard(m, item.type);
             }
-            document.getElementById('loadMoreSection').style.display = 'block'; 
         }
 
         async function loadLiveFoot() {
-            isFeatured = false; currentGenre = null; currentPage = 1;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('btnLiveFoot').classList.add('active');
+            isFeatured = false; setActiveTab('btnLiveFoot');
             const grid = document.getElementById('moviesGrid');
-            grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px; color:var(--main-red);'>🔄 جاري جلب القنوات المشفرة...</p>"; 
-
-            try {
-                let channels = [];
-                // التحقق من وجود المصفوفة المشفرة أو العادية من ملف channels_data.js
-                if (typeof _0xSimoData !== 'undefined') {
-                    channels = _0xSimoData;
-                } else if (typeof _0xSimoEncoded !== 'undefined') {
-                    channels = JSON.parse(atob(_0xSimoEncoded));
-                }
-
-                grid.innerHTML = ""; 
-                if (channels && channels.length > 0) {
-                    channels.forEach(ch => {
-                        grid.innerHTML += `
-                            <div class="movie-card" onclick="openLivePlayer('${ch.url}')">
-                                <img src="${ch.logo}" alt="${ch.name}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" loading="lazy" style="object-fit: contain; background: #000; padding: 10px;">
-                                <div class="movie-title">${ch.name}</div>
-                            </div>`;
-                    });
-                } else {
-                    grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>⚠️ لا توجد قنوات متاحة حالياً.</p>";
-                }
-            } catch (error) {
-                console.error("Fetch Error:", error);
-                grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>❌ خطأ في جلب القنوات.</p>";
+            grid.innerHTML = "";
+            if (typeof _0xSimoData !== 'undefined') {
+                _0xSimoData.forEach(ch => {
+                    grid.innerHTML += `<div class="movie-card" onclick="openLivePlayer('${ch.url}')">
+                        <img src="${ch.logo}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" style="object-fit: contain; padding: 10px;">
+                        <div class="movie-title">${ch.name}</div>
+                    </div>`;
+                });
             }
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
-        async function loadGenre(genreId, type, btnId) {
-            isFeatured = false; currentGenre = genreId; currentType = type; currentPage = 1;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(btnId).classList.add('active');
-            const res = await fetch(`https://api.themoviedb.org/3/discover/${type}?api_key=${window.API_KEY}&language=${currentLang}&with_genres=${genreId}&page=${currentPage}`);
-            const data = await res.json();
-            document.getElementById('moviesGrid').innerHTML = ""; renderGrid(data.results);
-            document.getElementById('loadMoreSection').style.display = 'block';
-        }
+        async function openLivePlayer(streamUrl) {
+            checkAds();
+            const liveVideo = document.getElementById('liveVideoPlayer');
+            const mainPlayer = document.getElementById('mainPlayer');
+            mainPlayer.style.display = 'none'; mainPlayer.src = '';
+            liveVideo.style.display = 'block';
+            document.getElementById('watermark').style.display = 'block';
+            document.getElementById('videoPlayerContainer').style.display = 'block';
 
-        async function loadContent(type) {
-            isFeatured = false; currentGenre = null; currentType = type; currentPage = 1;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(type === 'movie' ? 'btnMovies' : 'btnSeries').classList.add('active');
-            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`);
-            const data = await res.json();
-            document.getElementById('moviesGrid').innerHTML = ""; renderGrid(data.results);
-            document.getElementById('loadMoreSection').style.display = 'block';
-        }
+            if (shakaPlayerInstance) await shakaPlayerInstance.destroy();
+            shaka.polyfill.installAll();
+            
+            const workerUrl = "https://misty-silence-e830.mytvpropagesdev.workers.dev/";
+            const finalUrl = `${workerUrl}?url=${encodeURIComponent(streamUrl)}`;
 
-        async function loadMoreContent() {
-            currentPage++;
-            let url = "";
-            if (isFeatured) {
-                url = `https://api.themoviedb.org/3/trending/all/day?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`;
+            if (shaka.Player.isBrowserSupported()) {
+                shakaPlayerInstance = new shaka.Player(liveVideo);
+                shakaPlayerInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
+                    if (type == shaka.net.NetworkingEngine.RequestType.SEGMENT || request.uris[0].includes('.m3u8')) {
+                        const originalUri = request.uris[0];
+                        if(!originalUri.includes('workers.dev')) {
+                            request.uris[0] = `${workerUrl}?url=${encodeURIComponent(originalUri)}`;
+                        }
+                    }
+                });
+                try { await shakaPlayerInstance.load(finalUrl); liveVideo.play(); } catch (e) { liveVideo.src = finalUrl; liveVideo.play(); }
             } else {
-                url = currentGenre ? `https://api.themoviedb.org/3/discover/${currentType}?api_key=${window.API_KEY}&language=${currentLang}&with_genres=${currentGenre}&page=${currentPage}` : `https://api.themoviedb.org/3/${currentType}/popular?api_key=${window.API_KEY}&language=${currentLang}&page=${currentPage}`;
+                liveVideo.src = finalUrl; liveVideo.play();
             }
-            const res = await fetch(url);
-            const data = await res.json();
-            if(data.results) renderGrid(data.results);
-        }
-
-        function renderGrid(list) {
-            const grid = document.getElementById('moviesGrid');
-            grid.innerHTML += list.map(m => `<div class="movie-card" onclick="openPlayer('${m.id}', '${m.name ? 'tv' : 'movie'}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title || m.name} free online" loading="lazy"><div class="movie-title">${m.title || m.name}</div></div>`).join('');
-        }
-
-        function triggerAd() {
-            const currentTime = new Date().getTime();
-            if(window.AdEngine) { 
-                window.AdEngine("//rm358.com/4/10722756"); 
-                localStorage.setItem('lastAdTimestamp', currentTime); 
-            }
-            document.getElementById('adOverlay').style.display = 'none';
         }
 
         function openPlayer(id, type) {
-            const lastAdTime = localStorage.getItem('lastAdTimestamp');
-            const currentTime = new Date().getTime();
-            const ninetyMinutes = 90 * 60 * 1000;
-            document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
+            checkAds();
             document.getElementById('liveVideoPlayer').style.display = 'none';
-            document.getElementById('watermark').style.display = 'none'; 
             document.getElementById('mainPlayer').style.display = 'block';
-            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
-            window.scrollTo(0,0);
         }
 
-        async function openLivePlayer(streamUrl) {
-            if (!streamUrl) return;
-            
-            const lastAdTime = localStorage.getItem('lastAdTimestamp');
-            const currentTime = new Date().getTime();
-            const ninetyMinutes = 90 * 60 * 1000;
-            document.getElementById('adOverlay').style.display = (!lastAdTime || (currentTime - lastAdTime > ninetyMinutes)) ? 'block' : 'none';
-            
+        function closePlayer() {
+            document.getElementById('videoPlayerContainer').style.display = 'none';
+            document.getElementById('mainPlayer').src = '';
             const liveVideo = document.getElementById('liveVideoPlayer');
-            const mainPlayer = document.getElementById('mainPlayer');
-            const watermark = document.getElementById('watermark');
-            const container = document.getElementById('videoPlayerContainer');
-            
-            mainPlayer.style.display = 'none';
-            mainPlayer.src = '';
-            watermark.style.display = 'block';
-            liveVideo.style.display = 'block';
-            container.style.display = 'block';
-            
-            if (shakaPlayerInstance) {
-                await shakaPlayerInstance.destroy();
-                shakaPlayerInstance = null;
-            }
-
-            const workerUrl = "https://misty-silence-e830.mytvpropagesdev.workers.dev/";
-            const finalProxyUrl = `${workerUrl}?url=${encodeURIComponent(streamUrl)}`;
-
-            shaka.polyfill.installAll();
-            if (shaka.Player.isBrowserSupported()) {
-                shakaPlayerInstance = new shaka.Player(liveVideo);
-                
-                shakaPlayerInstance.configure({
-                    streaming: {
-                        retryParameters: { maxAttempts: 5, baseDelay: 1000, backoffFactor: 2 },
-                        bufferingGoal: 30,
-                        rebufferingGoal: 10
-                    }
-                });
-
-                shakaPlayerInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
-                    const uri = request.uris[0];
-                    if (!uri.includes("mytvpropagesdev.workers.dev") && !uri.startsWith('data:')) {
-                        request.uris[0] = `${workerUrl}?url=${encodeURIComponent(uri)}`;
-                    }
-                });
-
-                try {
-                    await shakaPlayerInstance.load(finalProxyUrl);
-                    liveVideo.play();
-                } catch (e) {
-                    console.error('Shaka Error:', e);
-                    liveVideo.src = finalProxyUrl;
-                    liveVideo.play();
-                }
-            } else {
-                liveVideo.src = finalProxyUrl;
-                liveVideo.play();
-            }
-            window.scrollTo(0,0);
+            liveVideo.pause(); liveVideo.src = '';
+            if (shakaPlayerInstance) shakaPlayerInstance.destroy();
         }
 
-        function closePlayer() { 
-            document.getElementById('videoPlayerContainer').style.display = 'none'; 
-            document.getElementById('mainPlayer').src = ''; 
-            document.getElementById('watermark').style.display = 'none';
-            const liveVideo = document.getElementById('liveVideoPlayer');
-            liveVideo.pause();
-            if (shakaPlayerInstance) {
-                shakaPlayerInstance.destroy();
-                shakaPlayerInstance = null;
-            }
-            liveVideo.src = '';
+        function checkAds() {
+            const lastAd = localStorage.getItem('lastAdTimestamp');
+            const now = new Date().getTime();
+            document.getElementById('adOverlay').style.display = (!lastAd || (now - lastAd > 5400000)) ? 'block' : 'none';
+        }
+
+        function triggerAd() {
+            if(window.AdEngine) window.AdEngine("//rm358.com/4/10722756");
+            localStorage.setItem('lastAdTimestamp', new Date().getTime());
+            document.getElementById('adOverlay').style.display = 'none';
+        }
+
+        function renderCard(m, type) {
+            return `<div class="movie-card" onclick="openPlayer('${m.id}', '${type}')">
+                <img src="https://image.tmdb.org/t/p/w500${m.poster_path}" loading="lazy">
+                <div class="movie-title">${m.title || m.name}</div>
+            </div>`;
+        }
+
+        function setActiveTab(id) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
         }
 
         async function handleSearch(e) {
             const q = e.target.value;
             if(q.length > 2) {
-                const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${window.API_KEY}&language=${currentLang}&query=${q}`);
+                const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${window.API_KEY}&query=${q}`);
                 const data = await res.json();
-                document.getElementById('moviesGrid').innerHTML = ""; renderGrid(data.results.filter(i => i.poster_path));
-            } else if (q.length === 0) { loadFeatured(); }
+                const grid = document.getElementById('moviesGrid'); grid.innerHTML = "";
+                data.results.forEach(m => { if(m.poster_path) grid.innerHTML += renderCard(m, m.media_type); });
+            }
         }
 
-        window.onload = () => loadFeatured();
+        // دوال إضافية للأصناف والمزيد
+        async function loadGenre(id, type, btnId) {
+            isFeatured = false; currentGenre = id; currentType = type; currentPage = 1;
+            setActiveTab(btnId);
+            const res = await fetch(`https://api.themoviedb.org/3/discover/${type}?api_key=${window.API_KEY}&with_genres=${id}&page=1`);
+            const data = await res.json();
+            document.getElementById('moviesGrid').innerHTML = "";
+            data.results.forEach(m => document.getElementById('moviesGrid').innerHTML += renderCard(m, type));
+            document.getElementById('loadMoreSection').style.display = 'block';
+        }
+
+        async function loadContent(type) {
+            isFeatured = false; currentGenre = null; currentType = type; currentPage = 1;
+            setActiveTab(type === 'movie' ? 'btnMovies' : 'btnSeries');
+            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${window.API_KEY}&page=1`);
+            const data = await res.json();
+            document.getElementById('moviesGrid').innerHTML = "";
+            data.results.forEach(m => document.getElementById('moviesGrid').innerHTML += renderCard(m, type));
+            document.getElementById('loadMoreSection').style.display = 'block';
+        }
     </script>
 </body>
 </html>
