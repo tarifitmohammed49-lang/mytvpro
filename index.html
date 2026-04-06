@@ -138,6 +138,7 @@
         .ad-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50vh; z-index: 10001; cursor: pointer; background: rgba(0,0,0,0); }
         .cast-btn { position: absolute; top: 15px; right: 15px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--main-red); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10002; box-shadow: 0 0 10px rgba(255, 59, 92, 0.4); }
         #mainPlayer, #liveVideoPlayer { width: 100%; height: 50vh; background: #000; border: none; border-bottom: 1px solid var(--main-red); }
+        #liveVideoPlayer { display: none; }
         .back-btn { background: #1a1d21; color: #fff; border: 1px solid var(--main-red); padding: 10px 40px; border-radius: 25px; margin: 15px 0; cursor: pointer; font-weight: bold; z-index: 10002; position: relative; }
         
         .main-footer-disclaimer { background-color: #000; padding: 40px 20px; margin-top: 20px; border-top: 1px solid #1a1d21; }
@@ -238,7 +239,7 @@
     <script src="channels_data.js"></script>
 
     <script>
-        // نظام شاشة التحميل
+        // نظام شاشة التحميل (Splash)
         window.addEventListener('DOMContentLoaded', () => {
             const bar = document.getElementById('progress-bar');
             const splash = document.getElementById('splash-screen');
@@ -257,7 +258,6 @@
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
         let shakaPlayerInstance = null;
 
-        // لود البداية
         window.onload = () => loadFeatured();
 
         async function loadFeatured() {
@@ -276,8 +276,9 @@
             isFeatured = false; setActiveTab('btnLiveFoot');
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = "";
-            if (typeof _0xSimoData !== 'undefined') {
-                _0xSimoData.forEach(ch => {
+            let channels = (typeof _0xSimoData !== 'undefined') ? _0xSimoData : [];
+            if (channels.length > 0) {
+                channels.forEach(ch => {
                     grid.innerHTML += `<div class="movie-card" onclick="openLivePlayer('${ch.url}')">
                         <img src="${ch.logo}" onerror="this.src='https://mytvpro1.github.io/favicon.ico'" style="object-fit: contain; padding: 10px;">
                         <div class="movie-title">${ch.name}</div>
@@ -287,6 +288,7 @@
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
+        // --- نظام المشغل المطور Shaka Player المربوط بالـ Worker ---
         async function openLivePlayer(streamUrl) {
             checkAds();
             const liveVideo = document.getElementById('liveVideoPlayer');
@@ -305,25 +307,26 @@
             if (shaka.Player.isBrowserSupported()) {
                 shakaPlayerInstance = new shaka.Player(liveVideo);
                 shakaPlayerInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
-                    if (type == shaka.net.NetworkingEngine.RequestType.SEGMENT || request.uris[0].includes('.m3u8')) {
-                        const originalUri = request.uris[0];
-                        if(!originalUri.includes('workers.dev')) {
-                            request.uris[0] = `${workerUrl}?url=${encodeURIComponent(originalUri)}`;
-                        }
+                    const uri = request.uris[0];
+                    if (!uri.includes("workers.dev") && !uri.startsWith('data:')) {
+                        request.uris[0] = `${workerUrl}?url=${encodeURIComponent(uri)}`;
                     }
                 });
                 try { await shakaPlayerInstance.load(finalUrl); liveVideo.play(); } catch (e) { liveVideo.src = finalUrl; liveVideo.play(); }
             } else {
                 liveVideo.src = finalUrl; liveVideo.play();
             }
+            window.scrollTo(0,0);
         }
 
         function openPlayer(id, type) {
             checkAds();
             document.getElementById('liveVideoPlayer').style.display = 'none';
+            document.getElementById('watermark').style.display = 'none';
             document.getElementById('mainPlayer').style.display = 'block';
-            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
+            document.getElementById('mainPlayer').src = `https://vidsrc.me/embed/${type || currentType}?tmdb=${id}`;
             document.getElementById('videoPlayerContainer').style.display = 'block';
+            window.scrollTo(0,0);
         }
 
         function closePlayer() {
@@ -365,10 +368,9 @@
                 const data = await res.json();
                 const grid = document.getElementById('moviesGrid'); grid.innerHTML = "";
                 data.results.forEach(m => { if(m.poster_path) grid.innerHTML += renderCard(m, m.media_type); });
-            }
+            } else if (q.length === 0) { loadFeatured(); }
         }
 
-        // دوال إضافية للأصناف والمزيد
         async function loadGenre(id, type, btnId) {
             isFeatured = false; currentGenre = id; currentType = type; currentPage = 1;
             setActiveTab(btnId);
