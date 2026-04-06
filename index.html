@@ -132,7 +132,6 @@
         #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; overflow-y: auto; }
         .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; }
         
-        /* حاوية الفيديو المحدثة لـ Video.js */
         #videoContainer { width: 100%; }
         .vjs-default-skin { border-bottom: 1px solid var(--main-red); }
 
@@ -246,7 +245,6 @@
     <script src="channels_data.js"></script>
 
     <script>
-        // نظام شاشة التحميل (Splash)
         window.addEventListener('DOMContentLoaded', () => {
             const bar = document.getElementById('progress-bar');
             const splash = document.getElementById('splash-screen');
@@ -263,7 +261,7 @@
         });
 
         let currentType = 'tv', currentLang = 'en', currentPage = 1, isFeatured = true, currentGenre = null;
-        let vjsPlayer = null; // متغير لحفظ حالة مشغل الفيديو
+        let vjsPlayer = null;
 
         window.onload = () => loadFeatured();
 
@@ -283,7 +281,6 @@
             isFeatured = false; setActiveTab('btnLiveFoot');
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = "";
-            // البحث عن البيانات في المتغير الصحيح المأخوذ من channels_data.js
             let channels = (typeof _0xSimoData !== 'undefined') ? _0xSimoData : [];
             if (channels.length > 0) {
                 channels.forEach(ch => {
@@ -298,9 +295,13 @@
             document.getElementById('loadMoreSection').style.display = 'none';
         }
 
-        // --- نظام مشغل البث المباشر المحدث (يدعم HTTP و TS) ---
-        async function openLivePlayer(streamUrl) {
+        // --- نظام مشغل البث المباشر المحدث (يدعم التشفير وروابط TS) ---
+        async function openLivePlayer(encodedUrl) {
             checkAds();
+            
+            // فك التشفير هنا قبل التشغيل
+            const streamUrl = atob(encodedUrl); 
+            
             const mainPlayer = document.getElementById('mainPlayer');
             const videoContainer = document.getElementById('videoContainer');
             
@@ -309,22 +310,18 @@
             document.getElementById('watermark').style.display = 'block';
             document.getElementById('videoPlayerContainer').style.display = 'block';
 
-            // تدمير المشغل القديم إذا وجد لضمان عدم حدوث تداخل
             if (vjsPlayer) {
                 vjsPlayer.dispose();
-                // إعادة بناء عنصر الفيديو داخل الحاوية بعد Dispose
                 videoContainer.innerHTML = '<video id="liveVideoPlayer" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="auto" style="height: 50vh; background:#000;"></video>';
             }
 
-            // تهيئة المشغل الجديد (Video.js) لدعم التدفق المباشر و TS
             vjsPlayer = videojs('liveVideoPlayer', {
                 html5: { vhs: { overrideNative: true, allowReplay: false } }
             });
 
-            // تحديد نوع الملف (M3U8 أو TS مباشر)
-            let type = 'application/x-mpegURL'; // الافتراضي لـ HLS
+            let type = 'application/x-mpegURL'; 
             if (streamUrl.includes('.ts')) {
-                type = 'video/mp2t'; // نوع الملف لروابط TS الخام
+                type = 'video/mp2t'; 
             }
 
             vjsPlayer.src({ src: streamUrl, type: type });
@@ -350,7 +347,6 @@
                 vjsPlayer.pause();
                 vjsPlayer.dispose();
                 vjsPlayer = null;
-                // تصفير الحاوية لاستقبال مشغل جديد لاحقاً
                 document.getElementById('videoContainer').innerHTML = '<video id="liveVideoPlayer" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="auto" style="height: 50vh; background:#000;"></video>';
             }
         }
