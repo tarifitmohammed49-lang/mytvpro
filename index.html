@@ -1,112 +1,94 @@
 <!DOCTYPE html>
 <html lang="ar" dir="ltr"> 
 <head>
-    <title>MYTVPRO - Simo Final Version</title>
+    <title>MYTVPRO - Simo Final</title>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     
-    <meta name="google-site-verification" content="X_YLEA1qHanoOXBP6fCXulTEg-CGk4dGq1Qgx1G3VkI" />
     <link rel="icon" type="image/x-icon" href="https://mytvpro1.github.io/favicon.ico">
-    
-    <meta name="theme-color" content="#ff3b5c">
-
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
 
     <style>
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; overflow-x: hidden; }
-        #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100000; transition: opacity 0.5s ease, visibility 0.5s; }
-        .progress-container { width: 220px; height: 6px; background: #222; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #333; }
-        #progress-bar { width: 0%; height: 100%; background: var(--main-red); transition: width 0.1s linear; box-shadow: 0 0 10px var(--main-red); }
-        .header { display: flex; flex-direction: column; align-items: center; padding: 10px; gap: 10px; }
-        .logo { color: var(--main-red); font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
         
-        .nav-tabs { display: flex; gap: 8px; justify-content: flex-start; margin: 15px 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; padding-bottom: 5px; }
-        .tab { background: var(--card-bg); color: white; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; flex: 0 0 auto; }
-        .tab.active { background: var(--main-red); }
+        /* تصميم الهيدر واللوجو الخاص بك */
+        .header { display: flex; flex-direction: column; align-items: center; padding: 15px; gap: 10px; }
+        .logo { color: var(--main-red); font-size: 28px; font-weight: bold; cursor: pointer; text-shadow: 0 0 10px rgba(255, 59, 92, 0.5); }
         
-        .search-container { width: 95%; max-width: 500px; margin: 0 auto; }
-        .search-container input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; box-sizing: border-box; }
-        
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
-        .movie-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid #222; text-align: center; transition: 0.3s; position: relative; }
-        .movie-card img { width: 100%; height: 180px; object-fit: cover; }
-        .movie-title { padding: 5px; font-size: 11px; height: 30px; overflow: hidden; }
+        /* تصميم صندوق تحميل APK */
+        .apk-box { background: var(--card-bg); border: 1px solid var(--main-red); border-radius: 15px; padding: 15px; margin: 10px auto; max-width: 500px; display: flex; align-items: center; gap: 15px; }
+        .apk-btn { background: var(--main-red); color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; }
 
-        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; }
-        .player-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; height: 100%; }
-        #liveVideoPlayer { width: 100%; height: 50vh; background: #000; border-bottom: 2px solid var(--main-red); }
-        #mainPlayer { width: 100%; height: 50vh; background: #000; border: none; }
-        .back-btn { background: var(--main-red); color: #fff; border: none; padding: 12px 40px; border-radius: 25px; margin: 20px; cursor: pointer; font-weight: bold; }
+        /* التبويبات */
+        .nav-tabs { display: flex; gap: 10px; justify-content: center; margin: 20px 0; overflow-x: auto; padding-bottom: 10px; }
+        .tab { background: var(--card-bg); color: white; padding: 10px 20px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .tab.active { background: var(--main-red); box-shadow: 0 0 15px var(--main-red); }
         
-        .watermark { position: absolute; top: 10px; right: 10px; width: 50px; opacity: 0.7; z-index: 10; pointer-events: none; }
+        /* البحث */
+        .search-container { width: 90%; max-width: 600px; margin: 0 auto 20px; }
+        .search-container input { width: 100%; padding: 14px; border-radius: 30px; border: 1px solid #333; background: var(--card-bg); color: white; outline: none; text-align: center; }
+
+        /* الشبكة */
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 10px; }
+        .movie-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; cursor: pointer; border: 1px solid #222; transition: 0.3s; }
+        .movie-card:hover { border-color: var(--main-red); transform: scale(1.03); }
+        .movie-card img { width: 100%; height: 200px; object-fit: cover; }
+        .movie-title { padding: 8px; font-size: 12px; text-align: center; font-weight: bold; }
+
+        /* المشغل في المنتصف كما طلبت */
+        #videoPlayerContainer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
+        #playerContent { width: 100%; max-width: 800px; position: relative; }
+        #liveVideoPlayer, #mainPlayer { width: 100%; height: 50vh; background: #000; border: 2px solid var(--main-red); border-radius: 10px; }
+        .back-btn { background: var(--main-red); color: white; border: none; padding: 12px 50px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div id="splash-screen">
-        <div class="logo">MYTVPRO</div>
-        <div class="progress-container"><div id="progress-bar"></div></div>
-    </div>
-
     <header class="header">
-        <h1 class="logo" onclick="location.reload()">MYTVPRO</h1>
+        <div class="logo" onclick="location.reload()">MYTVPRO</div>
     </header>
+
+    <div class="apk-box">
+        <div style="flex-grow:1; font-size:12px;">
+            <b>Simo TV App (OFFICIAL)</b><br>
+            حمل التطبيق لمشاهدة القنوات مجاناً
+        </div>
+        <a href="https://www.appcreator24.com/app3987277-rntplh" class="apk-btn">DOWNLOAD APK</a>
+    </div>
 
     <div class="nav-tabs">
         <button id="btnFeatured" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
         <button id="btnLiveFoot" class="tab" onclick="loadLiveFoot()">⚽ Live Foot</button>
-        <button id="btnAction" class="tab" onclick="loadGenre(28, 'movie', 'btnAction')">🔥 Action</button>
         <button id="btnMovies" class="tab" onclick="loadContent('movie')">Movies</button>
         <button id="btnSeries" class="tab" onclick="loadContent('tv')">Series</button>
     </div>
 
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search..." onkeyup="handleSearch(event)">
+        <input type="text" id="searchInput" placeholder="Search Movies & Series..." onkeyup="handleSearch(event)">
     </div>
 
     <main id="moviesGrid" class="movie-grid"></main>
 
     <div id="videoPlayerContainer">
-        <div class="player-wrapper">
+        <div id="playerContent">
             <video id="liveVideoPlayer" controls playsinline></video>
             <iframe id="mainPlayer" style="display:none;" allowfullscreen></iframe>
-            <button class="back-btn" onclick="closePlayer()">رجوع / BACK</button>
+            <center><button class="back-btn" onclick="closePlayer()">BACK / رجوع</button></center>
         </div>
     </div>
 
+    <script src="channels_data.js"></script>
+
     <script>
-        // دمج بيانات القنوات مباشرة لضمان العمل في APK
-        const _0xSimoData = [
-            { name: "beIN Sports 1", url: "http://s1219.x.smline.xyz:2082/plays/eFRkU3FSM3hhQ0FBWFRkV2NKMERNYjZqVGtoUDVZMW1HODB2M3BQdnFKOHphN2h5VEphL05FbjR4MGFKbGxORTVJbmZsdUU5dFRRVnBvaklGcnJSR3c9PQ==.ts", logo: "https://mytvpro1.github.io/favicon.ico" },
-            { name: "beIN Sports 2", url: "http://s1219.x.smline.xyz:2082/plays/WmY5VVJSUmpidHNNWG5ZME9CT2dPajJrQ0FaZkFmWkdyUUl6dmJ4U2tpRlRDZnpWSHMvL2tPUDcwZzF4eDg5dFNmekNVNnJTaEJSYjUxSVQ4c3M5L1E9PQ==.ts", logo: "https://mytvpro1.github.io/favicon.ico" },
-            { name: "beIN Sports 3", url: "http://s1219.x.smline.xyz:2082/plays/bXh2SnFxQnQyRWdHWndsWDMyV05ycWxyaFJCdDZMUy9Tb1EwczdPVHU4aWpZWldyRkhsY2dHQjNzemVyaTFEZTdsRzBYL2RYeXNFWitCcFVUc04yL0E9PQ==.ts", logo: "https://mytvpro1.github.io/favicon.ico" }
-            // يمكنك إضافة الـ 9 قنوات هنا بنفس التنسيق
-        ];
-
         window.API_KEY = "acd9d88a83b5272588d21d5b4401eab6"; 
-        let shakaInstance = null;
-
-        window.onload = () => {
-            // انيميشن التحميل
-            let w = 0;
-            const b = document.getElementById('progress-bar');
-            const iv = setInterval(() => {
-                w += 10; b.style.width = w + '%';
-                if(w >= 100) { 
-                    clearInterval(iv); 
-                    document.getElementById('splash-screen').style.display='none';
-                    loadFeatured();
-                }
-            }, 50);
-        };
 
         async function loadFeatured() {
-            updateTabs('btnFeatured');
-            const items = [{id:93405,t:'tv'},{id:100088,t:'tv'},{id:157336,t:'movie'},{id:634649,t:'movie'}];
+            setActiveTab('btnFeatured');
+            const items = [{id:93405,t:'tv'},{id:1396,t:'tv'},{id:157336,t:'movie'},{id:634649,t:'movie'}];
             const grid = document.getElementById('moviesGrid'); grid.innerHTML = "";
             for(let i of items) {
                 const res = await fetch(`https://api.themoviedb.org/3/${i.t}/${i.id}?api_key=${window.API_KEY}`);
@@ -116,45 +98,49 @@
         }
 
         function loadLiveFoot() {
-            updateTabs('btnLiveFoot');
+            setActiveTab('btnLiveFoot');
             const grid = document.getElementById('moviesGrid');
             grid.innerHTML = "";
-            _0xSimoData.forEach(ch => {
-                grid.innerHTML += `<div class="movie-card" onclick="openLivePlayer('${ch.url}')">
-                    <img src="${ch.logo}" style="object-fit:contain; padding:10px;">
-                    <div class="movie-title">${ch.name}</div>
-                </div>`;
-            });
+            
+            // التأكد من قراءة البيانات من الملف الخارجي مهما كان اسم المصفوفة
+            let channels = window._0xSimoData || window.channels || [];
+            
+            if (channels.length > 0) {
+                channels.forEach(ch => {
+                    grid.innerHTML += `
+                        <div class="movie-card" onclick="openLivePlayer('${ch.url}')">
+                            <img src="${ch.logo}" style="object-fit:contain; background:#000; padding:10px;">
+                            <div class="movie-title">${ch.name}</div>
+                        </div>`;
+                });
+            } else {
+                grid.innerHTML = "<p style='text-align:center; width:100%; color:var(--main-red);'>⚠️ لم يتم العثور على قنوات. تأكد من ملف channels_data.js</p>";
+            }
         }
 
-        async function openLivePlayer(url) {
+        function openLivePlayer(url) {
             const container = document.getElementById('videoPlayerContainer');
             const video = document.getElementById('liveVideoPlayer');
-            const iframe = document.getElementById('mainPlayer');
-            
-            container.style.display = 'block';
+            container.style.display = 'flex';
             video.style.display = 'block';
-            iframe.style.display = 'none';
-
-            // إذا كان الرابط .ts نستخدم HLS.js
+            document.getElementById('mainPlayer').style.display = 'none';
+            
             if (Hls.isSupported()) {
                 const hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function() { video.play(); });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            } else {
                 video.src = url;
-                video.addEventListener('loadedmetadata', function() { video.play(); });
+                video.play();
             }
         }
 
         function openPlayer(id, type) {
             const container = document.getElementById('videoPlayerContainer');
-            const video = document.getElementById('liveVideoPlayer');
+            container.style.display = 'flex';
+            document.getElementById('liveVideoPlayer').style.display = 'none';
             const iframe = document.getElementById('mainPlayer');
-            
-            container.style.display = 'block';
-            video.style.display = 'none';
             iframe.style.display = 'block';
             iframe.src = `https://vidsrc.me/embed/${type}?tmdb=${id}`;
         }
@@ -166,20 +152,12 @@
             document.getElementById('mainPlayer').src = "";
         }
 
-        function updateTabs(id) {
+        function setActiveTab(id) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
 
-        async function loadContent(type) {
-            updateTabs(type === 'movie' ? 'btnMovies' : 'btnSeries');
-            const res = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${window.API_KEY}`);
-            const data = await res.json();
-            const grid = document.getElementById('moviesGrid'); grid.innerHTML = "";
-            data.results.forEach(m => {
-                grid.innerHTML += `<div class="movie-card" onclick="openPlayer('${m.id}', '${type}')"><img src="https://image.tmdb.org/t/p/w500${m.poster_path}"><div class="movie-title">${m.title || m.name}</div></div>`;
-            });
-        }
+        window.onload = loadFeatured;
     </script>
 </body>
 </html>
