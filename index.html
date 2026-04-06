@@ -11,7 +11,7 @@
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; }
         
         .header { text-align: center; padding: 20px 0; }
-        .logo { color: var(--main-red); font-size: 28px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; }
+        .logo { color: var(--main-red); font-size: 28px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; cursor: pointer; }
         .lang-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
         .lang-btn { color: #888; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; padding: 5px; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
@@ -45,7 +45,7 @@
 <body>
 
     <header class="header">
-        <div class="logo">MYTVPRO</div>
+        <div class="logo" onclick="location.reload()">MYTVPRO</div>
         <div class="lang-container" id="langContainer"></div>
     </header>
 
@@ -83,26 +83,15 @@
     </div>
 
     <footer class="footer-legal">
-        <div class="legal-item">
-            <b>LEGAL DISCLAIMER (EN)</b>
-            MYTVPRO is a specialized web indexing engine. We do not host, store, or upload any media files.
-        </div>
-        <div class="legal-item">
-            <b>LEGAL DISCLAIMER (RO)</b>
-            MYTVPRO este un motor de indexare web specializat. Nu găzduim, stocăm sau încărcăm fișiere media.
-        </div>
-        <div style="grid-column: 1 / span 2; text-align: center; direction: rtl;">
-            <b>إشعار قانوني</b>
-            يعمل موقع MYTVPRO كمحرك فهرسة وبحث. نحن لا نستضيف أي ملفات فيديو على خوادمنا.
-        </div>
+        <div class="legal-item"><b>LEGAL DISCLAIMER (EN)</b> MYTVPRO is a specialized web indexing engine.</div>
+        <div class="legal-item"><b>LEGAL DISCLAIMER (RO)</b> MYTVPRO este un motor de indexare web specializat.</div>
+        <div style="grid-column: 1 / span 2; text-align: center; direction: rtl;"><b>إشعار قانوني</b> نحن محرك فهرسة وبحث فقط.</div>
     </footer>
 
     <div id="playerOverlay">
         <button class="close-p" onclick="closePlayer()">BACK / رجوع</button>
-        <div id="playerBody" style="width:100%; height:100%;">
-            <iframe id="ifr" width="100%" height="100%" frameborder="0" allowfullscreen style="display:none;"></iframe>
-            <div id="vjs-box" style="display:none; width:100%; height:100%;"></div>
-        </div>
+        <iframe id="ifr" width="100%" height="100%" frameborder="0" allowfullscreen style="display:none;"></iframe>
+        <div id="vjs-box" style="display:none; width:100%; height:100%;"></div>
     </div>
 
     <script src="channels_data.js"></script>
@@ -111,20 +100,19 @@
         let curLang = 'en', curPage = 1, curType = 'movie', curGenre = null, isFeat = true;
         let player = null;
 
-        const langs = ['EN','RO','AR','FR','DE','NL','ES','IT','PT','TR','RU','中文'];
         const langCodes = ['en','ro','ar','fr','de','nl','es','it','pt','tr','ru','zh'];
+        const langNames = ['EN','RO','AR','FR','DE','NL','ES','IT','PT','TR','RU','中文'];
 
-        // توليد اللغات (نفس تصميمك)
         const lBox = document.getElementById('langContainer');
         langCodes.forEach((c, i) => {
-            lBox.innerHTML += `<span class="lang-btn ${c==='en'?'active':''}" onclick="setLang('${c}', this)">${langs[i]}</span>`;
+            lBox.innerHTML += `<span class="lang-btn ${c==='en'?'active':''}" onclick="setLang('${c}', this)">${langNames[i]}</span>`;
         });
 
         function setLang(c, el) {
             curLang = c;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
-            if(isFeat) loadFeatured(); else { curPage = 1; fetchData(false); }
+            isFeat ? loadFeatured() : (curPage = 1, fetchData(false));
         }
 
         async function loadFeatured() {
@@ -141,21 +129,18 @@
 
         async function loadGenre(id, type, el) {
             isFeat = false; curGenre = id; curType = type; curPage = 1;
-            resetTabs(null, el);
-            fetchData(false);
+            resetTabs(null, el); fetchData(false);
         }
 
         async function loadContent(type, el) {
             isFeat = false; curGenre = null; curType = type; curPage = 1;
-            resetTabs(null, el);
-            fetchData(false);
+            resetTabs(null, el); fetchData(false);
         }
 
         async function fetchData(append) {
             let url = curGenre 
                 ? `https://api.themoviedb.org/3/discover/${curType}?api_key=${API_KEY}&with_genres=${curGenre}&page=${curPage}&language=${curLang}`
                 : `https://api.themoviedb.org/3/${curType}/popular?api_key=${API_KEY}&page=${curPage}&language=${curLang}`;
-            
             const r = await fetch(url);
             const d = await r.json();
             const g = document.getElementById('grid');
@@ -164,10 +149,7 @@
             document.getElementById('moreDiv').style.display = (d.total_pages > curPage) ? 'block' : 'none';
         }
 
-        function loadMore() {
-            curPage++;
-            fetchData(true);
-        }
+        function loadMore() { curPage++; fetchData(true); }
 
         function render(m, t) {
             return `<div class="movie-card" onclick="openP('${m.id}','${t}')">
@@ -178,8 +160,9 @@
 
         function openP(id, t) {
             document.getElementById('vjs-box').style.display = 'none';
-            document.getElementById('ifr').style.display = 'block';
-            document.getElementById('ifr').src = `https://vidsrc.me/embed/${t}?tmdb=${id}`;
+            const ifr = document.getElementById('ifr');
+            ifr.style.display = 'block';
+            ifr.src = `https://vidsrc.me/embed/${t}?tmdb=${id}`;
             document.getElementById('playerOverlay').style.display = 'block';
         }
 
@@ -197,12 +180,12 @@
         }
 
         function openLive(enc) {
-            const url = atob(enc); // فك التشفير الخاص بسيمو
+            const url = atob(enc);
             document.getElementById('ifr').style.display = 'none';
-            document.getElementById('vjs-box').style.display = 'block';
+            const vBox = document.getElementById('vjs-box');
+            vBox.style.display = 'block';
             document.getElementById('playerOverlay').style.display = 'block';
-            
-            document.getElementById('vjs-box').innerHTML = '<video id="vid" class="video-js vjs-default-skin" controls width="100%" height="100%"></video>';
+            vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin" controls width="100%" height="100%"></video>';
             player = videojs('vid');
             player.src({ src: url, type: url.includes('.ts')?'video/mp2t':'application/x-mpegURL' });
             player.play();
