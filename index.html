@@ -16,10 +16,7 @@
         .lang-btn { color: #888; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; padding: 5px; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
 
-        .apk-box { border: 2px solid var(--main-red); border-radius: 15px; padding: 15px; max-width: 600px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .apk-info { display: flex; align-items: center; gap: 10px; font-size: 11px; color: #ccc; text-align: left; }
-        .apk-btn { background: var(--main-red); color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 12px; flex-shrink: 0; }
-
+        /* تم إبقاء كود الـ Tabs والبحث كما هو */
         .nav-tabs { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
         .tab { background: var(--card-bg); color: #fff; padding: 10px 20px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
         .tab.active { background: var(--main-red); }
@@ -49,20 +46,8 @@
         <div class="lang-container" id="langContainer"></div>
     </header>
 
-    <div class="apk-box">
-        <div class="apk-info">
-            <img src="https://mytvpro1.github.io/favicon.ico" width="40">
-            <div>
-                <b id="apk-t">Simo TV App (OFFICIAL)</b><br>
-                <span id="apk-d">Download the app to watch sports channels for free.</span>
-            </div>
-        </div>
-        <a href="https://www.appcreator24.com/app3987277-rntplh" class="apk-btn">DOWNLOAD APK</a>
-    </div>
-
     <div class="nav-tabs">
-        <button id="tab-feat" class="tab active" onclick="loadFeatured()">⭐ Featured</button>
-        <button id="tab-live" class="tab" onclick="loadLiveFoot()">⚽ Live Foot</button>
+        <button id="tab-live" class="tab active" onclick="loadLiveFoot()">⚽ Live Foot</button>
         <button class="tab" onclick="loadGenre(16, 'movie', this)">🌀 Anime</button>
         <button class="tab" onclick="loadGenre(28, 'movie', this)">🔥 Action</button>
         <button class="tab" onclick="loadGenre(27, 'movie', this)">💀 Horror</button>
@@ -97,7 +82,7 @@
     <script src="channels_data.js"></script>
     <script>
         const API_KEY = "acd9d88a83b5272588d21d5b4401eab6";
-        let curLang = 'en', curPage = 1, curType = 'movie', curGenre = null, isFeat = true;
+        let curLang = 'en', curPage = 1, curType = 'movie', curGenre = null, isFeat = false;
         let player = null;
 
         const langCodes = ['en','ro','ar','fr','de','nl','es','it','pt','tr','ru','zh'];
@@ -112,21 +97,17 @@
             curLang = c;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
-            isFeat ? loadFeatured() : (curPage = 1, fetchData(false));
-        }
-
-        async function loadFeatured() {
-            isFeat = true; curPage = 1; resetTabs('tab-feat');
-            const ids = [{id:93405,t:'tv'},{id:1396,t:'tv'},{id:157336,t:'movie'},{id:634649,t:'movie'}];
-            const g = document.getElementById('grid'); g.innerHTML = "";
-            for(let x of ids){
-                const r = await fetch(`https://api.themoviedb.org/3/${x.t}/${x.id}?api_key=${API_KEY}&language=${curLang}`);
-                const m = await r.json();
-                if(m.id) g.innerHTML += render(m, x.t);
+            // عند تغيير اللغة، نقوم بتحديث البيانات الحالية (أفلام أو قنوات)
+            if (document.getElementById('tab-live').classList.contains('active')) {
+                loadLiveFoot();
+            } else {
+                curPage = 1;
+                fetchData(false);
             }
-            document.getElementById('moreDiv').style.display = 'none';
         }
 
+        // تم تعطيل دالة loadFeatured لأننا مسحنا القسم
+        
         async function loadGenre(id, type, el) {
             isFeat = false; curGenre = id; curType = type; curPage = 1;
             resetTabs(null, el); fetchData(false);
@@ -211,10 +192,11 @@
                 const g = document.getElementById('grid'); g.innerHTML = "";
                 d.results.forEach(m => { if(m.poster_path) g.innerHTML += render(m, m.media_type); });
                 document.getElementById('moreDiv').style.display = 'none';
-            } else if(q.length === 0) loadFeatured();
+            } else if(q.length === 0) loadLiveFoot(); // العودة للقنوات عند مسح البحث
         }
 
-        window.onload = loadFeatured;
+        // جعل القنوات هي الصفحة الرئيسية عند التحميل بدلاً من Featured
+        window.onload = loadLiveFoot;
     </script>
 </body>
 </html>
