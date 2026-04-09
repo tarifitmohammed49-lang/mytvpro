@@ -167,25 +167,40 @@
         }
 
         function openLive(enc) {
-            let decodedUrl = enc;
+            let finalUrl = enc;
             try {
-                // محاولة فك التشفير إذا لم يكن رابطاً مباشراً
+                // محاولة فك التشفير فقط إذا لم يبدأ بـ http (لضمان عدم حدوث خطأ Base64)
                 if (!enc.startsWith('http')) {
-                    decodedUrl = atob(enc);
-                    if (!decodedUrl.startsWith('http')) {
-                        decodedUrl = atob(decodedUrl);
+                    finalUrl = atob(enc);
+                    if (!finalUrl.startsWith('http')) {
+                        finalUrl = atob(finalUrl);
                     }
                 }
             } catch (e) {
-                decodedUrl = enc; 
+                finalUrl = enc; 
             }
 
-            // تطبيق فكرتك: التوجه لمشغل ويب خارجي يفتح الرابط
-            // هذا يساعد في تجاوز قيود التشفير والأمان داخل الصفحة الرئيسية
-            const webPlayerUrl = `https://mp4player.top/?url=${encodeURIComponent(decodedUrl)}`;
+            // العودة للمشغل الداخلي Video.js لضمان الاستقرار
+            document.getElementById('ifr').style.display = 'none';
+            const vBox = document.getElementById('vjs-box');
+            vBox.style.display = 'block';
+            document.getElementById('playerOverlay').style.display = 'block';
             
-            // فتح المشغل في نافذة جديدة
-            window.open(webPlayerUrl, '_blank');
+            // إعادة بناء عنصر الفيديو لضمان تحديث المسار
+            vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%"></video>';
+            
+            player = videojs('vid', {
+                fluid: true,
+                autoplay: true,
+                controls: true,
+                html5: { hls: { overrideNative: true } }
+            });
+
+            // تحديد النوع تلقائياً (m3u8 أو ts)
+            let type = finalUrl.toLowerCase().includes('.ts') ? 'video/mp2t' : 'application/x-mpegURL';
+
+            player.src({ src: finalUrl, type: type });
+            player.play().catch(e => console.log("Playback start failed"));
         }
 
         function closePlayer() {
