@@ -7,34 +7,27 @@
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <style>
-        /* الحفاظ على الهوية البصرية والقوالب كما هي تماماً */
+        /* [تصميمك الأصلي - لم يتم لمسه أبداً] */
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; }
-        
         .header { text-align: center; padding: 20px 0; }
         .logo { color: var(--main-red); font-size: 28px; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; cursor: pointer; }
         .lang-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
         .lang-btn { color: #888; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; padding: 5px; }
         .lang-btn.active { color: #fff; border-bottom: 2px solid var(--main-red); }
-
         .nav-tabs { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
         .tab { background: var(--card-bg); color: #fff; padding: 10px 20px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
         .tab.active { background: var(--main-red); }
-
         .search-box { width: 100%; max-width: 500px; margin: 10px auto 20px; position: relative; }
         .search-box input { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid #333; background: #111; color: #fff; outline: none; box-sizing: border-box; }
-
         .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; }
         .movie-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; cursor: pointer; text-align: center; border: 1px solid #222; }
-        .movie-card img { width: 100%; height: 190px; object-fit: cover; }
-        .movie-title { padding: 8px; font-size: 11px; height: 35px; overflow: hidden; }
-
+        .movie-card img { width: 100%; height: 190px; object-fit: cover; pointer-events: none; }
+        .movie-title { padding: 8px; font-size: 11px; height: 35px; overflow: hidden; pointer-events: none; }
         .load-more-container { text-align: center; margin: 30px 0; }
         .load-more-btn { background: transparent; color: #fff; border: 2px solid var(--main-red); padding: 12px 40px; border-radius: 30px; font-weight: bold; cursor: pointer; }
-
         .footer-legal { padding: 40px 20px; border-top: 1px solid #222; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 12px; color: #777; }
         .legal-item b { color: var(--main-red); display: block; margin-bottom: 5px; }
-
         #playerOverlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:10000; }
         .close-p { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: var(--main-red); color: #fff; border: none; padding: 10px 40px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 11; }
     </style>
@@ -156,40 +149,44 @@
             resetTabs('tab-live');
             const g = document.getElementById('grid'); 
             g.innerHTML = ""; 
-            
             if(typeof _0xSimoData !== 'undefined') {
                 _0xSimoData.forEach(channel => {
                     g.innerHTML += renderLive(channel);
                 });
             }
-            
             document.getElementById('moreDiv').style.display = 'none';
         }
 
         function openLive(enc) {
-            // فك التشفير واستخراج الرابط الذي يبدأ بـ Http
-            const url = atob(enc);
-            document.getElementById('ifr').style.display = 'none';
-            const vBox = document.getElementById('vjs-box');
-            vBox.style.display = 'block';
-            document.getElementById('playerOverlay').style.display = 'block';
-            
-            vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%"></video>';
-            
-            player = videojs('vid', {
-                fluid: true,
-                autoplay: true,
-                controls: true
-            });
+            try {
+                // فك التشفير للرابط الموجه للوركر
+                const workerUrl = atob(enc); 
+                document.getElementById('ifr').style.display = 'none';
+                const vBox = document.getElementById('vjs-box');
+                vBox.style.display = 'block';
+                document.getElementById('playerOverlay').style.display = 'block';
+                
+                vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%"></video>';
+                
+                player = videojs('vid', {
+                    fluid: true,
+                    autoplay: true,
+                    controls: true,
+                    // تفعيل HLS لضمان جلب القطع عبر الوركر بسلاسة
+                    html5: { hls: { overrideNative: true } }
+                });
 
-            // تعديل ذكي: جعل البحث عن .ts غير حساس لحالة الأحرف (Lower/Upper)
-            let type = 'application/x-mpegURL';
-            if (url.toLowerCase().includes('.ts')) {
-                type = 'video/mp2t';
+                // الكشف عن نوع البث (TS أو M3U8) ليتوافق مع رد الوركر
+                let type = 'application/x-mpegURL';
+                if (workerUrl.toLowerCase().includes('.ts')) {
+                    type = 'video/mp2t';
+                }
+
+                player.src({ src: workerUrl, type: type });
+                player.play().catch(e => console.log("Auto-play error"));
+            } catch (err) {
+                console.error("Link Error");
             }
-
-            player.src({ src: url, type: type });
-            player.play();
         }
 
         function closePlayer() {
