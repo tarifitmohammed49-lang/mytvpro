@@ -169,38 +169,43 @@
         function openLive(enc) {
             let finalUrl = enc;
             try {
-                // محاولة فك التشفير فقط إذا لم يبدأ بـ http (لضمان عدم حدوث خطأ Base64)
+                // فك التشفير إذا لزم الأمر مع حماية من الأخطاء
                 if (!enc.startsWith('http')) {
                     finalUrl = atob(enc);
-                    if (!finalUrl.startsWith('http')) {
-                        finalUrl = atob(finalUrl);
-                    }
+                    if (!finalUrl.startsWith('http')) finalUrl = atob(finalUrl);
                 }
-            } catch (e) {
-                finalUrl = enc; 
-            }
+            } catch (e) { finalUrl = enc; }
 
-            // العودة للمشغل الداخلي Video.js لضمان الاستقرار
+            // إعداد المشغل الداخلي
             document.getElementById('ifr').style.display = 'none';
             const vBox = document.getElementById('vjs-box');
             vBox.style.display = 'block';
             document.getElementById('playerOverlay').style.display = 'block';
             
-            // إعادة بناء عنصر الفيديو لضمان تحديث المسار
             vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%"></video>';
             
             player = videojs('vid', {
                 fluid: true,
                 autoplay: true,
                 controls: true,
-                html5: { hls: { overrideNative: true } }
+                html5: { 
+                    hls: { 
+                        overrideNative: true,
+                        withCredentials: false 
+                    } 
+                }
             });
 
-            // تحديد النوع تلقائياً (m3u8 أو ts)
+            // تحديد النوع المناسب (M3U8 أو TS) لضمان التشغيل
             let type = finalUrl.toLowerCase().includes('.ts') ? 'video/mp2t' : 'application/x-mpegURL';
 
             player.src({ src: finalUrl, type: type });
-            player.play().catch(e => console.log("Playback start failed"));
+            
+            player.ready(function() {
+                this.play().catch(function(error) {
+                    console.log("Stream start handled");
+                });
+            });
         }
 
         function closePlayer() {
