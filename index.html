@@ -143,24 +143,38 @@
             document.getElementById('playerOverlay').style.display = 'block';
         }
 
-        // تم تعديل هذه الدالة لمسح القنوات تماماً وترك المكان فارغاً
         function loadLiveFoot() {
             isFeat = false; 
             resetTabs('tab-live');
             const g = document.getElementById('grid'); 
-            g.innerHTML = ""; // هنا قمنا بتفريغ الشبكة تماماً
+            g.innerHTML = ""; 
             document.getElementById('moreDiv').style.display = 'none';
         }
 
+        // تم تحديث المشغل ليدعم روابط Http.ts و HLS
         function openLive(enc) {
             const url = atob(enc);
             document.getElementById('ifr').style.display = 'none';
             const vBox = document.getElementById('vjs-box');
             vBox.style.display = 'block';
             document.getElementById('playerOverlay').style.display = 'block';
-            vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin" controls width="100%" height="100%"></video>';
-            player = videojs('vid');
-            player.src({ src: url, type: url.includes('.ts')?'video/mp2t':'application/x-mpegURL' });
+            
+            // إعادة بناء حاوية الفيديو لضمان نظافة المشغل عند كل فتح
+            vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%"></video>';
+            
+            player = videojs('vid', {
+                fluid: true,
+                autoplay: true,
+                controls: true
+            });
+
+            // تحديد النوع برمجياً لدعم .ts و .m3u8
+            let type = 'application/x-mpegURL'; // الافتراضي لـ HLS
+            if (url.toLowerCase().includes('.ts')) {
+                type = 'video/mp2t'; // النوع الخاص بـ Http.ts
+            }
+
+            player.src({ src: url, type: type });
             player.play();
         }
 
