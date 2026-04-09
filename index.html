@@ -7,6 +7,7 @@
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <style>
+        /* الحفاظ على الهوية البصرية والقوالب كما هي تماماً */
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
         body { background-color: var(--bg-dark); color: #fff; font-family: sans-serif; margin: 0; padding: 10px; user-select: none; }
         
@@ -135,6 +136,14 @@
             </div>`;
         }
 
+        // دالة جديدة لعرض القنوات المباشرة بنفس تصميم البطاقات الأصلي
+        function renderLive(c) {
+            return `<div class="movie-card" onclick="openLive('${c.url}')">
+                <img src="${c.logo}">
+                <div class="movie-title">${c.name}</div>
+            </div>`;
+        }
+
         function openP(id, t) {
             document.getElementById('vjs-box').style.display = 'none';
             const ifr = document.getElementById('ifr');
@@ -143,15 +152,23 @@
             document.getElementById('playerOverlay').style.display = 'block';
         }
 
+        // إصلاح دالة loadLiveFoot لسحب البيانات من الملف الخارجي
         function loadLiveFoot() {
             isFeat = false; 
             resetTabs('tab-live');
             const g = document.getElementById('grid'); 
             g.innerHTML = ""; 
+            
+            // قراءة مصفوفة القنوات من ملف channels_data.js
+            if(typeof _0xSimoData !== 'undefined') {
+                _0xSimoData.forEach(channel => {
+                    g.innerHTML += renderLive(channel);
+                });
+            }
+            
             document.getElementById('moreDiv').style.display = 'none';
         }
 
-        // تم تحديث المشغل ليدعم روابط Http.ts و HLS
         function openLive(enc) {
             const url = atob(enc);
             document.getElementById('ifr').style.display = 'none';
@@ -159,7 +176,6 @@
             vBox.style.display = 'block';
             document.getElementById('playerOverlay').style.display = 'block';
             
-            // إعادة بناء حاوية الفيديو لضمان نظافة المشغل عند كل فتح
             vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%"></video>';
             
             player = videojs('vid', {
@@ -168,10 +184,9 @@
                 controls: true
             });
 
-            // تحديد النوع برمجياً لدعم .ts و .m3u8
-            let type = 'application/x-mpegURL'; // الافتراضي لـ HLS
+            let type = 'application/x-mpegURL';
             if (url.toLowerCase().includes('.ts')) {
-                type = 'video/mp2t'; // النوع الخاص بـ Http.ts
+                type = 'video/mp2t';
             }
 
             player.src({ src: url, type: type });
