@@ -167,41 +167,25 @@
         }
 
         function openLive(enc) {
+            let decodedUrl = enc;
             try {
-                // فك التشفير
-                let decodedUrl = atob(enc); 
-                
-                // إذا كان الرابط لا يبدأ بـ http، نقوم بفك التشفير مرة أخرى (حماية مزدوجة ضد التشفير المتداخل)
-                if (!decodedUrl.startsWith('http')) {
-                    decodedUrl = atob(decodedUrl);
+                // محاولة فك التشفير إذا لم يكن رابطاً مباشراً
+                if (!enc.startsWith('http')) {
+                    decodedUrl = atob(enc);
+                    if (!decodedUrl.startsWith('http')) {
+                        decodedUrl = atob(decodedUrl);
+                    }
                 }
-
-                document.getElementById('ifr').style.display = 'none';
-                const vBox = document.getElementById('vjs-box');
-                vBox.style.display = 'block';
-                document.getElementById('playerOverlay').style.display = 'block';
-                
-                vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%"></video>';
-                
-                player = videojs('vid', {
-                    fluid: true,
-                    autoplay: true,
-                    controls: true,
-                    html5: { hls: { overrideNative: true } }
-                });
-
-                // تحديد نوع البث بناءً على الامتداد
-                let type = 'application/x-mpegURL';
-                if (decodedUrl.toLowerCase().includes('.ts')) {
-                    type = 'video/mp2t';
-                }
-
-                player.src({ src: decodedUrl, type: type });
-                player.play().catch(e => console.log("Playback failed"));
-            } catch (err) {
-                console.error("Link Decryption Error:", err);
-                alert("خطأ في تشغيل الرابط، تأكد من تشفيره بصيغة Base64");
+            } catch (e) {
+                decodedUrl = enc; 
             }
+
+            // تطبيق فكرتك: التوجه لمشغل ويب خارجي يفتح الرابط
+            // هذا يساعد في تجاوز قيود التشفير والأمان داخل الصفحة الرئيسية
+            const webPlayerUrl = `https://mp4player.top/?url=${encodeURIComponent(decodedUrl)}`;
+            
+            // فتح المشغل في نافذة جديدة
+            window.open(webPlayerUrl, '_blank');
         }
 
         function closePlayer() {
