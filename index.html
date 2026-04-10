@@ -166,7 +166,6 @@
                         const logoMatch = line.match(/tvg-logo="([^"]+)"/);
                         currentLogo = logoMatch ? logoMatch[1] : "";
                     } else if (line.startsWith('http')) {
-                        // هنا التعديل الجوهري: نأخذ الرابط كما هو من ملفك (https) دون تدخل إضافي قد يكسره
                         let url = line.trim();
                         g.innerHTML += renderLive(currentName, currentLogo, url);
                     }
@@ -191,21 +190,34 @@
             vBox.style.display = 'block';
             document.getElementById('playerOverlay').style.display = 'block';
             
-            if (hls) { hls.destroy(); hls = null; }
+            // تفريغ الصندوق قبل وضع الفيديو الجديد
+            vBox.innerHTML = '';
             
-            vBox.innerHTML = '<video id="vid" controls autoplay crossorigin="anonymous" style="width:100%; height:100%; background:#000;"></video>';
-            const video = document.getElementById('vid');
+            const video = document.createElement('video');
+            video.id = 'vid';
+            video.controls = true;
+            video.autoplay = true;
+            video.style.width = '100%';
+            video.style.height = '100%';
+            video.style.backgroundColor = '#000';
+            
+            // إضافة خاصية التخطي لضمان عمل الروابط كما في VLC
+            video.setAttribute('crossorigin', 'anonymous');
+            video.setAttribute('playsinline', 'true');
+            
+            vBox.appendChild(video);
 
             if (Hls.isSupported()) {
+                if (hls) { hls.destroy(); } // تنظيف المشغل القديم
                 hls = new Hls({
-                    enableWorker: true,
-                    lowLatencyMode: true,
-                    backBufferLength: 60
+                    // إعدادات تجعل المتصفح يتغاضى عن بعض أخطاء التشفير
+                    debug: false,
+                    enableWorker: true
                 });
                 hls.loadSource(finalUrl);
                 hls.attachMedia(video);
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    video.play().catch(e => console.log("Auto-play blocked"));
+                    video.play().catch(e => console.log("Auto-play prevented"));
                 });
                 
                 hls.on(Hls.Events.ERROR, function (event, data) {
