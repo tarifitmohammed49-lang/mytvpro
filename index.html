@@ -83,6 +83,9 @@
     <script>
         const API_KEY = "acd9d88a83b5272588d21d5b4401eab6";
         const LIVE_PLAYLIST_URL = "https://opop.pro/dE3G9NgfeGVQQ";
+        // البروكسي المستخدم لتجاوز قيود المتصفح
+        const PROXY = "https://corsproxy.io/?"; 
+        
         let curLang = 'en', curPage = 1, curType = 'movie', curGenre = null, isFeat = false;
         let hls = null;
 
@@ -152,7 +155,8 @@
             g.innerHTML = "<p style='text-align:center; width:100%;'>Loading Channels... جاري التحميل</p>"; 
             
             try {
-                const response = await fetch(LIVE_PLAYLIST_URL);
+                // استخدام البروكسي لجلب ملف القنوات لتفادي حظر CORS
+                const response = await fetch(PROXY + encodeURIComponent(LIVE_PLAYLIST_URL));
                 const data = await response.text();
                 const lines = data.split('\n');
                 g.innerHTML = "";
@@ -190,7 +194,6 @@
             vBox.style.display = 'block';
             document.getElementById('playerOverlay').style.display = 'block';
             
-            // تفريغ الصندوق قبل وضع الفيديو الجديد
             vBox.innerHTML = '';
             
             const video = document.createElement('video');
@@ -201,20 +204,24 @@
             video.style.height = '100%';
             video.style.backgroundColor = '#000';
             
-            // إضافة خاصية التخطي لضمان عمل الروابط كما في VLC
             video.setAttribute('crossorigin', 'anonymous');
             video.setAttribute('playsinline', 'true');
             
             vBox.appendChild(video);
 
+            // تمرير رابط البث عبر البروكسي لضمان التشغيل داخل المتصفح
+            const proxiedUrl = PROXY + encodeURIComponent(finalUrl);
+
             if (Hls.isSupported()) {
-                if (hls) { hls.destroy(); } // تنظيف المشغل القديم
+                if (hls) { hls.destroy(); }
                 hls = new Hls({
-                    // إعدادات تجعل المتصفح يتغاضى عن بعض أخطاء التشفير
                     debug: false,
-                    enableWorker: true
+                    enableWorker: true,
+                    xhrSetup: function (xhr, url) {
+                        xhr.withCredentials = false;
+                    }
                 });
-                hls.loadSource(finalUrl);
+                hls.loadSource(proxiedUrl);
                 hls.attachMedia(video);
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
                     video.play().catch(e => console.log("Auto-play prevented"));
@@ -231,7 +238,7 @@
                 });
             } 
             else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = finalUrl;
+                video.src = proxiedUrl;
                 video.addEventListener('loadedmetadata', function() {
                     video.play();
                 });
