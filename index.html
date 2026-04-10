@@ -6,6 +6,7 @@
     <title>MYTVPRO - Global Streaming</title>
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         /* الحفاظ على الهوية البصرية والقوالب كما هي تماماً */
         :root { --main-red: #ff3b5c; --bg-dark: #0b0e11; --card-bg: #1a1d21; }
@@ -84,6 +85,7 @@
         const LIVE_PLAYLIST_URL = "https://opop.pro/dE3G9NgfeGVQQ";
         let curLang = 'en', curPage = 1, curType = 'movie', curGenre = null, isFeat = false;
         let player = null;
+        let hls = null; // تعريف متغير hls للتحكم فيه لاحقاً
 
         const langCodes = ['en','ro','ar','fr','de','nl','es','it','pt','tr','ru','zh'];
         const langNames = ['EN','RO','AR','FR','DE','NL','ES','IT','PT','TR','RU','中文'];
@@ -189,31 +191,47 @@
             vBox.style.display = 'block';
             document.getElementById('playerOverlay').style.display = 'block';
             
-            // إعادة بناء المشغل للتأكد من نظافته
-            vBox.innerHTML = '<video id="vid" class="video-js vjs-default-skin vjs-big-play-centered" crossorigin="anonymous" controls preload="auto" width="100%" height="100%"></video>';
+            // تنظيف المشغل القديم إذا وجد
+            if (hls) { hls.destroy(); hls = null; }
             
-            if (player) { player.dispose(); }
+            vBox.innerHTML = '<video id="vid" controls autoplay style="width:100%; height:100%; background:#000;"></video>';
+            const video = document.getElementById('vid');
 
-            player = videojs('vid', {
-                fluid: true,
-                autoplay: true,
-                controls: true,
-                html5: { hls: { overrideNative: true } }
-            });
-
-            let type = finalUrl.toLowerCase().includes('.ts') ? 'video/mp2t' : 'application/x-mpegURL';
-            player.src({ src: finalUrl, type: type });
-            
-            player.ready(function() {
-                this.play().catch(function(e) { 
-                    console.log("Auto-play prevented"); 
+            // استخدام hls.js لتشغيل القنوات بثبات عالي
+            if (Hls.isSupported()) {
+                hls = new Hls();
+                hls.loadSource(finalUrl);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play().catch(e => console.log("Auto-play blocked"));
                 });
-            });
+                
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        switch (data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR: hls.startLoad(); break;
+                            case Hls.ErrorTypes.MEDIA_ERROR: hls.recoverMediaError(); break;
+                            default: hls.destroy(); break;
+                        }
+                    }
+                });
+            } 
+            // دعم متصفح Safari وأجهزة iOS
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = finalUrl;
+                video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
+            }
         }
 
         function closePlayer() {
             document.getElementById('playerOverlay').style.display = 'none';
             document.getElementById('ifr').src = "";
+            // إغلاق وتنظيف مشغل البث
+            if (hls) { hls.destroy(); hls = null; }
+            const vBox = document.getElementById('vjs-box');
+            vBox.innerHTML = "";
             if(player) { player.dispose(); player = null; }
         }
 
