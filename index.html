@@ -83,8 +83,8 @@
     <script>
         const API_KEY = "acd9d88a83b5272588d21d5b4401eab6";
         const LIVE_PLAYLIST_URL = "https://opop.pro/dE3G9NgfeGVQQ";
-        // البروكسي المستخدم لتجاوز قيود المتصفح
-        const PROXY = "https://corsproxy.io/?"; 
+        // تم استبدال البروكسي بآخر أكثر استقراراً لضمان عدم اختفاء القنوات
+        const PROXY_URL = "https://api.allorigins.win/raw?url="; 
         
         let curLang = 'en', curPage = 1, curType = 'movie', curGenre = null, isFeat = false;
         let hls = null;
@@ -148,6 +148,26 @@
             </div>`;
         }
 
+        // دالة معالجة الـ M3U منفصلة لضمان الدقة
+        function processM3U(data) {
+            const g = document.getElementById('grid');
+            const lines = data.split('\n');
+            g.innerHTML = "";
+            let currentName = "";
+            let currentLogo = "";
+
+            lines.forEach(line => {
+                if (line.startsWith('#EXTINF:')) {
+                    currentName = line.split(',')[1] || "Unknown Channel";
+                    const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                    currentLogo = logoMatch ? logoMatch[1] : "";
+                } else if (line.startsWith('http')) {
+                    let url = line.trim();
+                    g.innerHTML += renderLive(currentName, currentLogo, url);
+                }
+            });
+        }
+
         async function loadLiveFoot() {
             isFeat = false; 
             resetTabs('tab-live');
@@ -155,27 +175,20 @@
             g.innerHTML = "<p style='text-align:center; width:100%;'>Loading Channels... جاري التحميل</p>"; 
             
             try {
-                // استخدام البروكسي لجلب ملف القنوات لتفادي حظر CORS
-                const response = await fetch(PROXY + encodeURIComponent(LIVE_PLAYLIST_URL));
-                const data = await response.text();
-                const lines = data.split('\n');
-                g.innerHTML = "";
-
-                let currentName = "";
-                let currentLogo = "";
-
-                lines.forEach(line => {
-                    if (line.startsWith('#EXTINF:')) {
-                        currentName = line.split(',')[1] || "Unknown Channel";
-                        const logoMatch = line.match(/tvg-logo="([^"]+)"/);
-                        currentLogo = logoMatch ? logoMatch[1] : "";
-                    } else if (line.startsWith('http')) {
-                        let url = line.trim();
-                        g.innerHTML += renderLive(currentName, currentLogo, url);
-                    }
-                });
+                // محاولة الجلب عبر البروكسي المستقر أولاً
+                let response = await fetch(PROXY_URL + encodeURIComponent(LIVE_PLAYLIST_URL));
+                if (!response.ok) throw new Error('Proxy error');
+                let data = await response.text();
+                processM3U(data);
             } catch (error) {
-                g.innerHTML = "<p style='text-align:center; width:100%;'>Error loading channels. Please try again.</p>";
+                // محاولة جلب مباشرة (Fallback) إذا فشل البروكسي لضمان ظهور القنوات دائماً
+                try {
+                    let response = await fetch(LIVE_PLAYLIST_URL);
+                    let data = await response.text();
+                    processM3U(data);
+                } catch (err) {
+                    g.innerHTML = "<p style='text-align:center; width:100%;'>Error: Please refresh or check your connection.</p>";
+                }
             }
             document.getElementById('moreDiv').style.display = 'none';
         }
@@ -198,50 +211,29 @@
             
             const video = document.createElement('video');
             video.id = 'vid';
+            video.className = 'video-js vjs-default-skin'; // إضافة كلاس فيديو جي إس
             video.controls = true;
             video.autoplay = true;
             video.style.width = '100%';
             video.style.height = '100%';
-            video.style.backgroundColor = '#000';
-            
             video.setAttribute('crossorigin', 'anonymous');
-            video.setAttribute('playsinline', 'true');
-            
             vBox.appendChild(video);
 
-            // تمرير رابط البث عبر البروكسي لضمان التشغيل داخل المتصفح
-            const proxiedUrl = PROXY + encodeURIComponent(finalUrl);
+            // نستخدم البروكسي فقط عند تشغيل روابط http التي تسبب شاشة سوداء
+            const streamUrl = finalUrl.startsWith('http://') ? PROXY_URL + encodeURIComponent(finalUrl) : finalUrl;
 
             if (Hls.isSupported()) {
                 if (hls) { hls.destroy(); }
                 hls = new Hls({
-                    debug: false,
-                    enableWorker: true,
-                    xhrSetup: function (xhr, url) {
+                    xhrSetup: function(xhr) {
                         xhr.withCredentials = false;
                     }
                 });
-                hls.loadSource(proxiedUrl);
+                hls.loadSource(streamUrl);
                 hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    video.play().catch(e => console.log("Auto-play prevented"));
-                });
-                
-                hls.on(Hls.Events.ERROR, function (event, data) {
-                    if (data.fatal) {
-                        switch (data.type) {
-                            case Hls.ErrorTypes.NETWORK_ERROR: hls.startLoad(); break;
-                            case Hls.ErrorTypes.MEDIA_ERROR: hls.recoverMediaError(); break;
-                            default: hls.destroy(); break;
-                        }
-                    }
-                });
-            } 
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = proxiedUrl;
-                video.addEventListener('loadedmetadata', function() {
-                    video.play();
-                });
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(() => {}));
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = streamUrl;
             }
         }
 
